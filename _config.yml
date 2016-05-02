@@ -68,6 +68,6 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: github
-  repository: git@github.com:keer2345/keer2345.github.io.git
+  type: git
+  repository: https://github.com/keer2345/keer2345.github.io.git
   branch: master
