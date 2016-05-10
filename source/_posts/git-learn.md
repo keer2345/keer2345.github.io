@@ -1,12 +1,10 @@
 ---
-title: git learn
+title: Git Learn
 date: 2016-05-02 00:46:08
 categories: git
 tags: git
 ---
 `Git`是一个神奇的分布式版本控制系统。
-
-<!-- more -->
 
 ## 安装
 ```
