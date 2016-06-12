@@ -11,6 +11,8 @@ tags: git
 apt-get install git tig
 ```
 
+<!--more-->
+
 ## 配置
 ```shell ~/.gitconfig
 [user]
@@ -41,6 +43,29 @@ git commit -a -v
 git diff #要查看尚未暂存的文件更新了哪些部分
 git diff --staged #要看已经暂存起来的文件和上次提交时的快照之间的差异
 ```
+
+## 日志查看
+```
+git log
+git log --pretty=oneline
+git reflog
+```
+
+## 版本回退
+在Git中，用`HEAD`表示当前版本，上一个版本是`HEAD^`，上上个版本就是`HEAD^^`，往上10个版本写成`HEAD~10`。
+```
+git reset --hard HEAD
+git reset --hard HEAD^
+
+git reflog
+git reset --hard 0050777
+
+git reset HEAD file
+git checkout -- file
+```
+### 场景
+1. 当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令`git checkout -- file`。
+1. 当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令`git reset HEAD file`，就回到了场景1，第二步按场景1操作。
 
 ## 分支与标签
 ### 新建、合并、删除分支
