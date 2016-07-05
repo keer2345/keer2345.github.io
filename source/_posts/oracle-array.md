@@ -1,7 +1,7 @@
 ---
 title: oracle数组应用
 date: 2016-07-05 23:19:23
-tags: oracle, database
+tags: oracle
 categories: database
 ---
 
@@ -14,7 +14,7 @@ Oracle数组一般可以分为固定数组和可变数组
 
 <!--more-->
 
-## 固定数组
+# 固定数组
 * VARRAY(3)变数数组大小为3
 * OF NUMBER表示数值类型是number
 
@@ -48,8 +48,8 @@ BEGIN
 END; 
 ```
 
-## 可变数组
-### 一维数组
+# 可变数组
+## 一维数组
 ```
 DECLARE
   TYPE T_TABLE IS TABLE OF VARCHAR2(30) INDEX BY BINARY_INTEGER;
@@ -66,7 +66,7 @@ BEGIN
 END; 
 ```
 
-### 二维数组
+## 二维数组
 
 1. Create Table
 ```
