@@ -9,7 +9,10 @@ tags: python
 ## virtualenv
 ```
 pip install virtualenv
+
 virtualenv venv
+virtualenv -p python2.7 venv27
+
 source venv/bin/activate
 deactivate
 ```
