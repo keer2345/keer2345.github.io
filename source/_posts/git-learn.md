@@ -13,8 +13,8 @@ apt-get install git tig
 
 <!--more-->
 
-## 配置
-```shell ~/.gitconfig
+## 配置`~/.gitconfig`
+```
 [user]
   name = keer2345
   email = keer2345@gmail.com
@@ -40,8 +40,19 @@ git status
 git log
 git add .
 git commit -a -v
+```
+### 查看差异
+```
 git diff #要查看尚未暂存的文件更新了哪些部分
 git diff --staged #要看已经暂存起来的文件和上次提交时的快照之间的差异
+```
+### 查看与远端库的差异ma
+```
+# 获取远端库最新信息
+$ git fetch origin [branch]
+# 做diff
+$ git diff local_branch origin/branch
+$ git diff -- local_branch origin/branch
 ```
 
 ## 日志查看
