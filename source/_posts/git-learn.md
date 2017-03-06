@@ -46,7 +46,7 @@ git commit -a -v
 git diff #要查看尚未暂存的文件更新了哪些部分
 git diff --staged #要看已经暂存起来的文件和上次提交时的快照之间的差异
 ```
-### 查看与远端库的差异ma
+### 查看与远端库的差异
 ```
 # 获取远端库最新信息
 $ git fetch origin [branch]
