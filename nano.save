@@ -1,0 +1,4 @@
+mvn archetype:generate -DarchetypeCatalog=internal \
+-DgroupId=com.keer -DartifactId=jspdemo03 \
+-DarchetypeArtifactId=maven-archetype-webapp
+
