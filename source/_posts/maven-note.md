@@ -4,6 +4,10 @@ date: 2017-03-06 22:59:39
 categories: java
 tags: [java,maven]
 ---
+[Maven](https://maven.apache.org)是优秀的Java构建工具,能够帮我们自动化构建过程，从清理、编译、测试到生成报告，再到打包和部署。
+
+<!--more-->
+
 ## 安装Maven
 ### 安装
 * 下载[Maven](https://maven.apache.org/download.cgi)并解压`tar xzvf apache-maven-3.3.9-bin.tar.gz`
