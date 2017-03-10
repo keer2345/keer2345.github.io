@@ -58,7 +58,7 @@ pom.xml
 </build>
 ```
 
-##添加Java文件
+## 添加Java文件
 Product.java
 ```java
 package com.keer.domain;
@@ -216,7 +216,7 @@ resources/springmvc-servlet.xml
 
 </beans>
 ```
-## 添加JSP文件
+## 添加JSP和CSS文件
 /WEB-INF/jsp/ProductForm.jsp
 ```
 <!DOCTYPE html>
@@ -307,3 +307,22 @@ form label {
 }
 ```
 
+## Spring 的 View Resolver
+springmvc-servlet.xml
+```xml
+ <bean id="viewResolver"
+      class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/WEB-INF/jsp/"/>
+    <property name="suffix" value=".jsp"/>
+</bean>
+```
+相应的，Controller的`ModelAndView`改成如下：
+InputProductController.java
+```
+return new ModelAndView("ProductForm");
+```
+SaveProductController.java
+```
+return new ModelAndView("ProductDetails",
+                "product", product);
+```
