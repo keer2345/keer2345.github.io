@@ -10,6 +10,7 @@ tags: [java, spring, SpringMvcGuide]
 [Spring](http://spring.io/)框架是一个开源的企业应用开发框架。[martinfowler](https://martinfowler.com/)的这篇文章介绍了依赖注入和控制反转二者的不同：[Inversion of Control Containers and the Dependency Injection pattern](http://martinfowler.com/articles/injection.html)。
 
 <!--more-->
+
 ## XML配置文件
 ### spring-config.xml
 ```xml
