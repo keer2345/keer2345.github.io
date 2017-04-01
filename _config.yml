@@ -64,8 +64,8 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: next
-duoshuo_shortname: keer2345
-duoshuo_share: true
+#duoshuo_shortname: keer2345
+#duoshuo_share: true
 tencent_analytics: 56140849
 
 # Deployment
