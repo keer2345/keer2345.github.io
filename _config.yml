@@ -72,5 +72,6 @@ tencent_analytics: 56140849
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/keer2345/keer2345.github.io.git
+  #repository: https://github.com/keer2345/keer2345.github.io.git
+  repository: git@github.com:keer2345/keer2345.github.io.git
   branch: master

@@ -100,6 +100,10 @@ git branch -v
 git branch --merged  #查看哪些分支已被并入当前分支
 git branch --no-merged #查看尚未合并的分支
 ```
+下载其他分支
+```
+git checkout -b other_branch origin/other_branch
+```
 
 ### 标签
 ```

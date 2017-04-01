@@ -12,6 +12,10 @@ cd blog
 npm install
 hexo server
 ```
+重装hexo的话，也需要运行
+```
+npm install
+```
 
 <!--more-->
 
