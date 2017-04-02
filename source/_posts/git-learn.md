@@ -119,3 +119,15 @@ git push origin 1.0.0 #将本地 1.0.0 的tag推送到远端服务器
 
 git push --tags  #push所有tag，命令格式为：git push [origin] --tags
 ```
+## 设置代理
+Git代理设置，加速clone
+
+1. 确保你的ss客户端正常连接，打开命令行输入以下代码
+1. 1080是shadowsocks的默认端口，如果你修改过，
+只需要把上面代码里的1080替换掉。
+
+
+```
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+git config --global https.proxy 'socks5://127.0.0.1:1080'
+```
