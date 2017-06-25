@@ -1,7 +1,7 @@
 ---
 title: MySQL in Python
 date: 2017-04-17 22:19:28
-dcategories: python
+categories: python
 tags: [python, mysql]
 ---
 
