@@ -5,7 +5,9 @@ categories: elixir
 tags: [elixir]
 ---
 
-![elixir](https://github.com/keer2345/storehouse/blob/master/hexo/images/elixir/logo.png)
+<div align=center>
+![elixir](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/elixir/logo.png)
+</div>
 
 # Elixir学习资料
 ## 书籍
