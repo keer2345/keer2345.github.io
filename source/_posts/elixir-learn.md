@@ -5,10 +5,14 @@ categories: elixir
 tags: [elixir]
 ---
 
+![elixir](https://github.com/keer2345/storehouse/blob/master/hexo/images/elixir/logo.png)
+
 # Elixir学习资料
 ## 书籍
 * Elixir In Action
 * Programming Elixir
+
+<!-- more -->
 
 ## 网站
 ### Github
