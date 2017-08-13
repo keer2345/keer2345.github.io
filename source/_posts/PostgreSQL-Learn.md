@@ -47,6 +47,7 @@ dpkg -l |grep postgresql
 ## 修改postgres数据库用户的密码为123456
 ```
 sudo -u postgres psql
+postgres=# ALTER USER postgres WITH PASSWORD '123456';
 ```
 * 其中，sudo -u postgres 是使用postgres 用户登录的意思
 * PostgreSQL数据默认会创建一个postgres的数据库用户作为数据库的管理员，密码是随机的
