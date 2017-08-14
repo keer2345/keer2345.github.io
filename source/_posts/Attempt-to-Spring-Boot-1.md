@@ -1,5 +1,5 @@
 ---
-title: Spring Boot 初尝试——基础应用开发（1）
+title: Spring Boot 初尝试之一：基础应用开发
 date: 2017-08-13 21:09:03
 categories: java
 tags: [java, spring, spring boot]

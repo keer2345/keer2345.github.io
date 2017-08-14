@@ -1,5 +1,5 @@
 ---
-title: Spring Boot 初尝试——基础应用开发（2）
+title: Spring Boot 初尝试之二：数据库连接
 date: 2017-08-13 21:14:22
 categories: java
 tags: [java,spring,spring boot]
