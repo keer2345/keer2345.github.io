@@ -1,5 +1,5 @@
 ---
-title: Spring Boot 初尝试之二：数据库连接
+title: Spring Boot 初尝试02：数据库连接(JPA)
 date: 2017-08-13 21:14:22
 categories: java
 tags: [java,spring,spring boot]
