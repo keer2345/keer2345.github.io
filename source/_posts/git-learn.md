@@ -105,6 +105,21 @@ git branch --no-merged #查看尚未合并的分支
 git checkout -b other_branch origin/other_branch
 ```
 
+### fork后的远程分支合并
+> http://blog.csdn.net/qq1332479771/article/details/56087333
+
+```
+git remote -v
+git remote add new_branch_name git@github.com:***/***.git  # fork前的仓库
+git remote -v # 再次查看仓库
+git remote remove new_branch_name # 删除远程仓库
+
+git fetch new_branch_name
+git merge new_branch_name/master
+git pull origin master # 更新并合并自己远程仓库的代码
+git push # 向自己的远程仓库推送代码
+```
+
 ### 标签
 ```
 #1b2e1d63ff 是你想要标记的提交 ID 的前 10 位字符。
