@@ -131,3 +131,8 @@ Git代理设置，加速clone
 git config --global http.proxy 'socks5://127.0.0.1:1080'
 git config --global https.proxy 'socks5://127.0.0.1:1080'
 ```
+
+
+## 参考资料
+[十五分钟了解Git](https://blog.angularindepth.com/become-a-git-pro-by-learning-git-architecture-in-15-minutes-9c995db6faeb)
+[Git最详细篇](http://www.jianshu.com/p/e8a6c4e40b58)
