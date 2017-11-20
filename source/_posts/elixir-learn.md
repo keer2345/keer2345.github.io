@@ -1,7 +1,7 @@
 ---
 title: Elixir学习资料
 date: 2017-07-25 21:29:05
-categories: elixir
+categories: erlang
 tags: [elixir]
 ---
 
