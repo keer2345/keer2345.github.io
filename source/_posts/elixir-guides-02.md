@@ -1,12 +1,12 @@
 ---
-title: elixir guides 02
+title: Elixir Guides 02
 date: 2017-11-20 22:31:43
 categories: erlang
 tags: elixir
 ---
 
-# Basic Types
 
+# Basic Types
 
 <!-- vim-markdown-toc GFM -->
 
@@ -17,6 +17,7 @@ tags: elixir
 * [Anonymous functions](#anonymous-functions)
 * [(Linked)Lists](#linkedlists)
 * [Tuples](#tuples)
+* [Basic Operators](#basic-operators)
 
 <!-- vim-markdown-toc -->
 <!-- more -->
@@ -185,3 +186,76 @@ iex> put_elem(tuple, 1, "world")
 iex> tuple
 {:ok, "hello"}
 ```
+
+## Basic Operators
+
+`++`, `--`, `<>`:
+```elixir
+iex> [1, 2, 3] ++ [4, 5, 6]
+[1, 2, 3, 4, 5, 6]
+iex> [1, 2, 3] -- [2]
+[1, 3]
+
+iex> "foo" <> "bar"
+"foobar"
+```
+
+`or`,`and`,`not`
+`||`,`&&`,`!`
+`==`,`!=`,`===`,`!==`,`<=`,`>=`,`<`,`>`
+
+>Note: If you are an Erlang developer, and and or in Elixir actually map to the andalso and orelse operators in Erlang.
+
+```elixir
+iex> true and true
+true
+iex> false or is_atom(:example)
+true
+
+iex> 1 and true
+** (BadBooleanError) expected a boolean on left-side of "and", got: 1
+
+iex> false and raise("This error will never be raised")
+false
+iex> true or raise("This error will never be raised")
+true
+
+# or
+iex> 1 || true
+1
+iex> false || 11
+11
+
+# and
+iex> nil && 13
+nil
+iex> true && 17
+17
+
+# !
+iex> !true
+false
+iex> !1
+false
+iex> !nil
+true
+
+
+iex> 1 == 1
+true
+iex> 1 != 2
+true
+iex> 1 < 2
+true
+
+
+iex> 1 == 1.0
+true
+iex> 1 === 1.0
+false
+
+iex> 1 < :atom
+true
+```
+
+>_number < atom < reference < function < port < pid < tuple < map < list < bitstring_
