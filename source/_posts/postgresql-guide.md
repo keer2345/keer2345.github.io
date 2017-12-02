@@ -5,45 +5,27 @@ categories: database
 tags: postgresql
 ---
 
-# 在Ubuntu安装PostgreSQL
+参考资料
+>http://blog.sina.com.cn/s/blog_6af33caa0100ypck.html
 >https://www.cnblogs.com/z-sm/archive/2016/07/05/5644165.html
 >http://www.cnblogs.com/sparkdev/p/5678874.html
 >http://www.cnblogs.com/zhangpengshou/p/5464610.html
 
-<!-- more -->
+# 在Ubuntu安装PostgreSQL
 
-## 安装前检查是否有旧版本
-```
-dpkg -l |grep postgresql
-```
+
 ## 安装PostgreSQL
-* 添加postgresql源：
-	```
-	sudo touch /etc/apt/sources.list.d/pgdb.list
-	sudo vim /etc/apt/sources.list.d/pgdb.list
-	```
-* 把下面这行数据添加到pgdb.list文件中：
-		```
-		deb https://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main
-		```
-* 执行下面的命令添加postgresql安装包的秘钥：
-		```
-		sudo wget --quiet -O - https://postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-		```
-* 接下来就可以安装了：
-		```
-		sudo apt-get update
-	    sudo apt-get install postgresql-9.4
-		```
-* 检查安装：
-		```
-		> $ dpkg -l | grep postgresql
-		ii  pgdg-keyring                          2017.1                                       all          keyring for apt.postgresql.org
-		ii  postgresql-9.6                        9.6.4-1.pgdg14.04+1                          amd64        object-relational SQL database, version 9.6 server
-		ii  postgresql-client-9.6                 9.6.4-1.pgdg14.04+1                          amd64        front-end programs for PostgreSQL 9.6
-		ii  postgresql-client-common              184.pgdg14.04+1                              all          manager for multiple PostgreSQL client versions
-		ii  postgresql-common                     184.pgdg14.04+1                              all          PostgreSQL database-cluster manager
-		```
+```
+sudo apt-get install postgresql-9.6 postgresql-contrib-9.6
+```
+检查安装：
+```
+> $ dpkg -l | grep postgresql
+```
+
+相应的，可以使用`dpkg --purge`来卸载软件。
+
+<!-- more -->
 
 ## 修改postgres数据库用户的密码为123456
 ```
@@ -53,8 +35,15 @@ postgres=# ALTER USER postgres WITH PASSWORD '123456';
 * 其中，sudo -u postgres 是使用postgres 用户登录的意思
 * PostgreSQL数据默认会创建一个postgres的数据库用户作为数据库的管理员，密码是随机的
 
-## 安装pgAdmin4
+## 启动与停止服务
+```
+sudo service postgresql start | stop | restart | status
+```
+
+## 安装GUI Admin
+### pgAdmin4
 >https://askubuntu.com/questions/831262/how-to-install-pgadmin-4-in-desktop-mode-on-ubuntu
+
 ```
 pip install -p python3 pyadmin4
 cd pyadmin4
@@ -83,17 +72,6 @@ SERVER_MODE     = False
 Access at http://localhost:5050
 
 # 使用
-## 一般的使用
-```shell
-> $ su - postgres
-Password: 
-postgres@qinjh ~ $ psql
-psql (9.6.6)
-输入 "help" 来获取帮助信息.
-
-postgres=# \q
-postgres@qinjh ~ $
-```
 
 ## 基本的命令
 ```
@@ -109,3 +87,25 @@ postgres@qinjh ~ $
 \e：打开文本编辑器。
 \conninfo：列出当前数据库和连接的信息。
 ```
+
+## 一般的使用
+
+登录与退出
+```shell
+> $ su - postgres
+Password: 
+postgres@qinjh ~ $ psql
+psql (9.6.6)
+输入 "help" 来获取帮助信息.
+
+postgres=# \q
+postgres@qinjh ~ $
+```
+
+
+
+连接指定数据库
+```
+psql -U 用户名 -d 数据库名称 [-h 127.0.0.1 -p 5432]
+```
+
