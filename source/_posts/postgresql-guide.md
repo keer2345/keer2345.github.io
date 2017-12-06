@@ -69,6 +69,23 @@ SERVER_MODE     = False
 ```
 (pgadmin4) > $ python lib/python3.5/site-packages/pgadmin4/pgAdmin4.py
 ```
+快捷方式：
+```
+touch pgadmin4
+chmod +x pgadmin4
+vim pgadmin4
+```
+将以下内容写入文件*pgadmin4*
+```
+#!/bin/bash
+source bin/activate
+python lib/python3.5/site-packages/pgadmin4/pgAdmin4.py
+```
+以后就可以以从方式启动
+```
+./pgadmin4
+```
+
 Access at http://localhost:5050
 
 # 使用
