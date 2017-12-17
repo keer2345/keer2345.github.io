@@ -2,7 +2,7 @@
 title: 因为刚好遇见你：Spacemacs
 date: 2017-11-11 11:05:34
 categories: editor
-tags: Emacs
+tags: [emacs, spacemacs]
 ---
 
 
