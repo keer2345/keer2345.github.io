@@ -19,9 +19,9 @@ pip install anaconda-mode
 1. When we edit python with virtual environment by Spacemacs, we muste activate the virtual environment in Spacemacs, run following shortcut key could choose the virtual environment directory:
     - `M-x` - `pyvenv activate`
     - `, V a`
-    - `SPC-m-V-a`
+    - `SPC m V a`
 1. Yapf for Emacs
 [Yapfify](https://github.com/JorisE/yapfify) uses yapf to format a Python buffer. It can be called explicitly on a certain buffer, but more conveniently, a minor-mode ‘yapf-mode’ is provided that turns on automatically running YAPF on a buffer before saving. Run following shortcut key:
     - `M-x` - `yapfift-buffer`
-    - `, a`
+    - `, =`
     - `SPC m =`

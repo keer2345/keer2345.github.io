@@ -5,6 +5,9 @@ categories: python
 tags: [python, django, awesome]
 ---
 
+<center>
+![django](https://samueleresca.net/wp-content/uploads/2015/12/python-django-logo.jpg)
+</center>
 
 # Material
 ## Book
@@ -12,12 +15,16 @@ tags: [python, django, awesome]
 - [Django by example](https://www.packtpub.com/web-development/django-example)
 - [Tango with django](http://www.tangowithdjango.com/)
 - [High Performance Django](https://highperformancedjango.com/)
+- [Test-Driven Development with Python](http://www.obeythetestinggoat.com/pages/book.html)
 
 ## Tutorials
 - [DjangoGirls](https://tutorial.djangogirls.org)
 - [DjangoGirls Extensions](https://djangogirls.gitbooks.io/django-girls-tutorial-extensions/content/)
 - [Simple is better than complex](https://simpleisbetterthancomplex.com/series/)
-- Hellowebapp tutorial
+- [TaskBuster Django Tutorial](http://www.marinamele.com/taskbuster-django-tutorial)
+
+## Articles
+- [Django Tutorial Step by Step](https://consideratecode.com/2017/12/15/django-tutorial-step-by-step/)
 
 # Extend
 ## Other Python Web Framework
