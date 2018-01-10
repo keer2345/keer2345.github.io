@@ -20,6 +20,7 @@ tags: [python, django, awesome]
 ## Tutorials
 - [DjangoGirls](https://tutorial.djangogirls.org)
 - [DjangoGirls Extensions](https://djangogirls.gitbooks.io/django-girls-tutorial-extensions/content/)
+- [simpleisbetterthancomplex](https://simpleisbetterthancomplex.com/series/beginners-guide/1.11/)
 - [Simple is better than complex](https://simpleisbetterthancomplex.com/series/)
 - [TaskBuster Django Tutorial](http://www.marinamele.com/taskbuster-django-tutorial)
 
