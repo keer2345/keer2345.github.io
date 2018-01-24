@@ -1,5 +1,5 @@
 ---
-title: 使用Flask构建一个在线投票应用 01
+title: Flask投票应用 01 （介绍与安装）
 date: 2018-01-23 22:51:02
 categories: python
 tags: [python, flask]
@@ -15,6 +15,20 @@ Welcome everyone! 我们来开始一个Flask系列，学习如何构建一个在
 - 交互的进度条展示投票的百分比
 
 我们使用[Flask](http://flask.pocoo.org/)做为后端，[Bootstrap3](http://getbootstrap.com/)做为前段样式，[ReactJS](https://facebook.github.io/react/)增强UI并有更多的交互。
+
+<!-- more -->
+
+
+<!-- vim-markdown-toc GFM -->
+
+* [为什么使用Flask?](#为什么使用flask)
+* [教程目标](#教程目标)
+* [准备工作](#准备工作)
+    * [安装 Virtualenv](#安装-virtualenv)
+    * [安装Flask](#安装flask)
+* [从Hello world开始](#从hello-world开始)
+
+<!-- vim-markdown-toc -->
 
 我们的应用命名为**Flask_Vote**
 
@@ -101,3 +115,5 @@ if __name__ == '__main__':
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
 访问http://127.0.0.1:5000/就可以看到效果。
+
+> 本文的源代码可以在[Github](https://github.com/keer2345/Flask_Vote/tree/v.01)中找到。
