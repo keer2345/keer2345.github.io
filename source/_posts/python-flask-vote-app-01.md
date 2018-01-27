@@ -1,5 +1,5 @@
 ---
-title: Flask投票应用 01 （介绍与安装）
+title: Flask Web投票应用01：介绍与安装
 date: 2018-01-23 22:51:02
 categories: python
 tags: [python, flask]
@@ -19,16 +19,6 @@ Welcome everyone! 我们来开始一个Flask系列，学习如何构建一个在
 <!-- more -->
 
 
-<!-- vim-markdown-toc GFM -->
-
-* [为什么使用Flask?](#为什么使用flask)
-* [教程目标](#教程目标)
-* [准备工作](#准备工作)
-    * [安装 Virtualenv](#安装-virtualenv)
-    * [安装Flask](#安装flask)
-* [从Hello world开始](#从hello-world开始)
-
-<!-- vim-markdown-toc -->
 
 我们的应用命名为**Flask_Vote**
 

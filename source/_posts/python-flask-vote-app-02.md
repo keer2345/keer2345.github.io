@@ -1,5 +1,5 @@
 ---
-title: Flask投票应用 02 （使用SQLAlchemy设计和操作数据库）
+title: Flask Web投票应用02：使用SQLAlchemy设计和操作数据库
 date: 2018-01-24 20:21:44
 categories: python
 tags: [python, flask]
@@ -13,16 +13,6 @@ tags: [python, flask]
 <!-- more -->
 
 
-<!-- vim-markdown-toc GFM -->
-
-* [Flask SQLAlchemy](#flask-sqlalchemy)
-    * [安装Flask SQLAlchemy](#安装flask-sqlalchemy)
-    * [创建模型*models.py*](#创建模型modelspy)
-    * [创建配置文件*config.py*](#创建配置文件configpy)
-    * [编辑文件*manage.py*](#编辑文件managepy)
-* [在Shell中演示SQLAlchemy](#在shell中演示sqlalchemy)
-
-<!-- vim-markdown-toc -->
 
 # Flask SQLAlchemy
 [SQLAlchemy](http://www.sqlalchemy.org/)在Python社区是成熟且流行的ORM，Python有许多ORM，但是我们在这里仍选择SQLAlchemy，因为它的流行度以及出色的文档。
