@@ -2,7 +2,7 @@
 title: Functional Web Development with Elixir, OTP, and Phoenix 00
 date: 2018-01-21 20:49:39
 categories: erlang
-tags:[elixir, phoenix]
+tags: [elixir, phoenix]
 ---
 # Catalog
 
