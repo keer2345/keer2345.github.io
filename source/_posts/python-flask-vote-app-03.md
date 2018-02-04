@@ -16,7 +16,7 @@ mkdir -p templates static/css static/images static/js
 ```
 ## 下载bootstrap
 ```shell
-wget -pk hhttps://getbootstrap.com/docs/3.3/examples/jumbotron-narrow
+wget -pk https://getbootstrap.com/docs/3.3/examples/jumbotron-narrow
 ```
 ## 复制相关文件到指定的目录
 ```shell
@@ -212,8 +212,7 @@ def signup():
 </html>
 ```
 
-
-
+## 编辑index.html和login.html
 
 
 > 本文的源代码可以在[Github](https://github.com/keer2345/Flask_Vote/tree/v.03)中找到。
