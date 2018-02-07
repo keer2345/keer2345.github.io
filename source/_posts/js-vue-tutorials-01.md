@@ -1,132 +1,54 @@
 ---
-title: Vue Tutorials 01
-date: 2018-02-02 21:04:03
+title: Vue Tutorials 01 -- 介绍
+date: 2018-02-07 21:04:03
 categories: javascript
-tags: [javascript,vue]
+tags: [vue]
 ---
-
-# 初步
-## 插入文本
-- `{{ message }}`
-- `<span v-text='message'></span>`
-- `<span v-html='message'` HTML转义
-
+# 引用Vue
 ```html
 <script src="https://unpkg.com/vue"></script>
-
-<div id = 'app'>
-  <h2><span v-text='product'></span>, Vue.js</h2>
-</div>
-
-<script>
-var app = new Vue({
-  el: '#app',
-  data: {
-    product: 'Cherry'
-  }
-})
-</script>
 ```
-
-我们可以在Google Chrome浏览器的终端改变`product`的值：
-```
-Console:   app.product = 'Oxheart'
-```
+或者通过其他CDN引用，比如`http://www.bootcdn.cn/`。
 
 <!-- more -->
 
-## 条件控制`v-if`
-```html
-<div id='app'>
-  <span v-if='seen'>Now we can seen it</span>
-</div>
-```
-对应的vue:
-```javascript
-var app = new Vue({
-  el: '#app',
-  data: {
-    seen:true
-  }
-})
-```
-## 循环列表`v-for`
-- `<li v-for='list in lists'> ... `
+# 介绍
+## 插入文本
+- `{{ message }}`
+- `<span v-text='message'/>`
+- `<div v-html='message'/>`
 
-```html
-<script src="https://unpkg.com/vue"></script>
-
-<div id = 'app'>
-  <ul>
-    <li v-for='product in products'>
-      <span v-text='product'/>
-    </li>
-  </ul>
-</div>
-
-<script>
-var app = new Vue({
-  el: '#app',
-  data: {
-    products: [
-      'Blueberry','Spanish Cherry','Mangosteen'
-    ]
-  }
-})
-</script>
-```
-
-## 处理输入
-### `v-on`
-使用`v-on`触发Vue方法, 可以将其简化成`@`，比如`@click`。
-```html
-<div id = 'app'>
-  <p>{{ message }}</p>
-  <button v-on:click='reverseMessage'>Reverse Message</button>
-</div>
-```
-```javascript
-var app = new Vue({
-  el: "#app",
-  data: {
-    message: "Hello Vue!"
-  },
-  methods: {
-    reverseMessage: function() {
-      this.message = this.message.split('').reverse().join('');
-    }
-  }
-});
-```
-### `v-model`
+## 双向绑定`v-model`
 使用`v-model`可以实现表单输入和应用状态之间的双向绑定。
 ```html
-<div id = 'app'>
-  <p>{{ message }}</p>
-  <input v-model='message'></input>
-</div>
+<input type='text' v-model='message'>
+<span>Your message is : {{ message }}</span>
 ```
-```javascript
-var app = new Vue({
-  el: "#app",
-  data: {
-    message: "Hello Vue!"
-  }
-});
-```
-### `v-bind`
-`v-bind`通常可以简化，比如`v-bind:href`可以简化成`:href`。
+<script async src="//jsfiddle.net/keer2345/tpkon0es/1/embed/result,js,html,css/light/"></script>
+
+## 循环`v-for`
 ```html
-<div id='app2'>
-  <a v-bind:href='href'>hello</a>
-  <a :href='href'>hello</a>
+<ul>
+  <li v-for='list in lists'>{{ list }}</li>
+</ul>
+```
+
+<script async src="//jsfiddle.net/keer2345/tpkon0es/6/embed/result,js,html,css/light/"></script>
+
+## 属性绑定`v-bind`
+
+```html
+<div id='app'>
+  <a v-bind:class='{active: isActive}' v-bind:href='url'>
+    Home
+  </a>
+  <img v-bind:src='img'/>
 </div>
 ```
-```javascript
-var app2 = new Vue({
-  el:'#app2',
-  data:{
-    href:'https://www.baidu.com'
-  }
-});
-```
+> `v-bind`可以忽略，用冒号`:`代替，比如`<a :href='url'>Home</a>`。
+
+## `v-on`
+
+<script async src="//jsfiddle.net/keer2345/tpkon0es/10/embed/result,js,html,css/light/"></script>
+
+> `v-on`可以简写成`@`，比如`<button @click='onClick'>Click Me</button>`。

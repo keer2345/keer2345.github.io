@@ -2,7 +2,7 @@
 title: Archlinux Install
 date: 2018-02-02 22:45:36
 categories: system
-tags: archlinux
+tags: [system, archlinux]
 ---
 # Install
 - https://www.cnblogs.com/vachester/p/5635819.html
