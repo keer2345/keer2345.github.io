@@ -23,8 +23,12 @@ tags: [awesome, javascript]
 - [vuejs/vue-hackernews-2.0](https://github.com/vuejs/vue-hackernews-2.0)
 
 ### Tutorials
+- [表严肃的Vue2视频](http://biaoyansu.com/18.0)
 - [Vue2-step-by-step](https://laracasts.com/series/learn-vue-2-step-by-step)
 - [Vuejs 2 Authentication Tutorial](https://auth0.com/blog/vuejs2-authentication-tutorial/)
+
+### Book
+- [Mastering Vuejs](https://masteringvuejs.com/)
 
 ## [Lodash](https://lodash.com/)
 - [中文文档](http://www.css88.com/doc/lodash/)

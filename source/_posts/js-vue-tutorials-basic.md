@@ -1,10 +1,10 @@
 ---
-title: Vue Tutorials 01 -- 介绍
+title: Vue Tutorials -- Vue介绍
 date: 2018-02-07 21:04:03
 categories: javascript
 tags: [vue]
 ---
-# 引用Vue
+## 引用Vue
 ```html
 <script src="https://unpkg.com/vue"></script>
 ```
@@ -12,7 +12,6 @@ tags: [vue]
 
 <!-- more -->
 
-# 介绍
 ## 插入文本
 - `{{ message }}`
 - `<span v-text='message'/>`
@@ -114,3 +113,10 @@ var app = new Vue({
 
 ### 组件的传参(子父通信)：
 <script async src="//jsfiddle.net/keer2345/tpkon0es/18/embed/result,html,js,css/light/"></script>
+
+### 任意及平行组件间通信：
+<script async src="//jsfiddle.net/keer2345/tpkon0es/19/embed/result,html,js,css/light/"></script>
+
+## 过滤器`filter`
+
+<script async src="//jsfiddle.net/keer2345/tpkon0es/20/embed/result,html,js,css/light/"></script>
