@@ -24,8 +24,12 @@ tags: [awesome, javascript]
 
 ### Tutorials
 - [表严肃的Vue2视频](http://biaoyansu.com/18.0)
+- [Learn Vue.js from Top Articles for the Past Year (v.2018)](https://medium.mybridge.co/learn-vue-js-from-top-articles-for-the-past-year-v-2018-2b945cfc4f2d)
 - [Vue2-step-by-step](https://laracasts.com/series/learn-vue-2-step-by-step)
 - [Vuejs 2 Authentication Tutorial](https://auth0.com/blog/vuejs2-authentication-tutorial/)
+- [Getting Started with Vue.js](https://sabe.io/tutorials/getting-started-with-vue-js)
+- [Getting Started with Vuex: Managing State in Vue.js](https://sabe.io/tutorials/getting-started-with-vuex)
+- [Getting Started With Vue Router](https://scotch.io/tutorials/getting-started-with-vue-router)
 
 ### Book
 - [Mastering Vuejs](https://masteringvuejs.com/)

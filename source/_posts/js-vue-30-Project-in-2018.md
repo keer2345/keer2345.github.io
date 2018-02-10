@@ -29,4 +29,25 @@ tags: vue
 1. [Vue-admin](https://github.com/vue-bulma/vue-admin): Vue Admin Panel Framework, Powered by Vue 2.0 and Bulma 0.3 
 1. [HackerNews](https://github.com/vuejs/vue-hackernews-2.0) clone built with Vue 2.0, vue-router & vuex, with server-side rendering
 1. [Vue-devtools]() Chrome devtools extension for debugging Vue.js applications. 
-
+1. [Vue-material](https://github.com/vuematerial/vue-material): Material design for Vue.js
+1. [Quasar](https://github.com/quasarframework/quasar): Build responsive websites, PWAs, hybrid mobile Apps (that look native!) and Electron apps, all simultaneously using same codebase, powered with Vue.
+1. [Electron-vue](https://github.com/SimulatedGREG/electron-vue): An Electron & Vue.js quick start boilerplate with vue-cli scaffolding, common Vue plugins, electron-packager/electron-builder, unit/e2e testing, vue-devtools, and webpack.
+1. [Vue-loader](https://github.com/vuejs/vue-loader) (v 13): Webpack loader for Vue.js components
+1. [Vuepack](https://github.com/egoist/vuepack) (v 3.0): A modern starter which uses Vue 2, Vuex, Vue-router and Webpack 2 (and even Electron)
+1. [Buefy](https://github.com/rafaelpimpa/buefy): Lightweight UI components for Vue.js based on Bulma
+1. [Vant](https://github.com/youzan/vant): A Vue.js 2.0 Mobile UI
+1. [Codesandbox](https://github.com/CompuIves/codesandbox-client): An online code editor tailored for web application development
+1. [Vuefire](https://github.com/vuejs/vuefire) (v 2.0): Vue.js 1 & 2 binding for Firebase 2 & >=3
+1. [Vue-tetris](https://github.com/Binaryify/vue-tetris): Use Vue, Vuex, Immutable to code Tetris.
+1. [At-ui](https://github.com/AT-UI/at-ui): A fresh and flat UI-Kit specially for desktop application
+1. [Vue-recyclerview](https://github.com/hilongjw/vue-recyclerview): Mastering Large Lists with the vue-recyclerview
+1. [Vuex-persistedstate](https://github.com/robinvdvleuten/vuex-persistedstate) (v 2.0): Persist Vuex state with localStorage.
+1. [vue-test-utils](https://github.com/vuejs/vue-test-utils)Utilities for testing Vue components
+1. [Vue-meta](https://github.com/declandewet/vue-meta) (v 1.0): Manage page meta info in Vue 2.0 components. SSR + Streaming supported.
+1. [ESLint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue): Official ESLint plugin for Vue.js
+1. [Vue-js-modal](https://github.com/euvl/vue-js-modal): Simple to use, highly customizable, mobile friendly Vue.js 2.0+ modal.
+1. [Vue-tables-2](https://github.com/matfish2/vue-tables-2): Vue.js 2 grid components
+1. [vue-baidu-map](https://github.com/Dafrok/vue-baidu-map)Baidu Map components for Vue 2.x
+1. [Vuex-loading](https://github.com/f/vuex-loading): Complex Loader Management for Vue/Vuex Applications
+1. [Vue-js-grid](https://github.com/euvl/vue-js-grid): Vue.js 2.x responsive grid system with smooth sorting, drag-n-drop and reordering 
+1. [Dockeron](https://github.com/dockeron/dockeron): Electron + Vue.js for Docker
