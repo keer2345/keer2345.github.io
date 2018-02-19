@@ -2,7 +2,7 @@
 title: VIM Snippet
 date: 2017-06-25 12:15:09
 categories: editor
-tags: [editor,vim]
+tags: [vim]
 ---
 
 ## 列模式操作
