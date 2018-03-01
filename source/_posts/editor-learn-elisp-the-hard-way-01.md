@@ -17,6 +17,7 @@ tags: [emacs, lisp]
 ## 本书是如何讲授Elisp的
 本书通过中介的Emacs来讲授Elisp。Emacs有一个*scratch*窗口可以练习Elisp。开始的课程我们在*scratch*窗口下进行，后面的课程将创建独立的lisp文件并加载到Emacs中来使用它们。
 
+<!-- more -->
 
 # 为什么写这本书
 
