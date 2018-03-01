@@ -1,5 +1,5 @@
 ---
-title: Learn Elisp The Hard Way -- 00.FirstSteps
+title: Learn Elisp The Hard Way -- 03.FirstSteps
 date: 2018-02-25 09:33:32
 categories: editor
 tags: [emacs, lisp]
@@ -20,6 +20,8 @@ tags: [emacs, lisp]
 3
 ```
 如果按下组合键`C-x C-e`，结果则会出现在*minibuffer*栏。
+
+<!-- more -->
 
 ## 已经学到了什么
 已经了解如何执行基本的Elisp表达式。
@@ -247,4 +249,27 @@ hotdog
 ## Property Lists
 ```lisp
 (:quality "great" :achievement "impressive")
+```
+
+# Arrays (And Sequences)
+## Introduction
+- strings
+- vectors
+- bool-vector
+- char-table
+
+## Why Arrays And Not Lists?
+数组和列表的不同在于，数组有固定的长度，而列表长度可变。
+## 字符串和矢量的区别
+## 为什么只有一维数组
+## 创建数组
+```lisp
+[1 2 3]
+[1 2 3]
+
+(vector 1 2 3)
+[1 2 3]
+
+(string 97 98 99)
+"abc"
 ```
