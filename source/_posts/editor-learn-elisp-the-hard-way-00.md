@@ -15,3 +15,14 @@ tags: [emacs, lisp]
 # Getting Started
 1. 开始
 1. 使用Emacs
+
+# First Steps
+1. First Elisp Programme
+1. 原始的数据类型
+1. Lists
+1. 符号和变量
+1. Arrays (And Sequences)
+
+# Elisp Scripts
+1. 编写函数
+1. 更多的函数
