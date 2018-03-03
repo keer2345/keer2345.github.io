@@ -26,3 +26,8 @@ tags: [emacs, lisp]
 # Elisp Scripts
 1. 编写函数
 1. 更多的函数
+
+# Elisp in Emacs
+1. 在Emacs中编写Elisp
+1. 添加函数到Emacs
+1. Emacs菜单
