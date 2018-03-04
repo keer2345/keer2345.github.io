@@ -15,9 +15,6 @@ tags: [awesome, emacs]
 - [EverET.org](http://everet.org/tag/emacs/)
 
 # Tutorial
-- [Emacs Lisp Guide](https://github.com/chrisdone/elisp-guide)
-- [Emacs - Elisp Programming and Customization](https://github.com/caiorss/Emacs-Elisp-Programming)     ([*Emacs In a Box*](http://caiorss.github.io/Emacs-Elisp-Programming/))
-- [Learn Elisp the hard way](https://github.com/hypernumbers/learn_elisp_the_hard_way/)
 - [Emacs Starter Kit](https://github.com/technomancy/emacs-starter-kit)
 - [Emacs 中文化指南](http://man.chinaunix.net/newsoft/Emac/book.html)
 
