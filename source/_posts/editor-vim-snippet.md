@@ -21,6 +21,10 @@ tags: [vim]
 
 <!-- more -->
 
+## 调整分割窗口的大小
+1. `:resize +5` 横向调整
+1. `:vertical resize +5` 纵向调整
+
 ## 复制、剪贴
 > https://www.zhihu.com/question/19863631
 
