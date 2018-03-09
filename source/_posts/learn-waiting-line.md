@@ -23,3 +23,7 @@ tags: [learn]
 ## HTML
 - [atomiks/30-seconds-of-css](https://github.com/atomiks/30-seconds-of-css)
 - [Chalarangelo/30-seconds-of-code](https://github.com/Chalarangelo/30-seconds-of-code)
+
+## Editor
+### Emacs
+- [tuhdo/os01](https://github.com/tuhdo/os01)
