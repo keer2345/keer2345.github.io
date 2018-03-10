@@ -1,10 +1,12 @@
 ```
 git clone git@github.com:keer2345/keer2345.github.io.git hexo
 git checkout source
+npm install
 cd hexo
-git clone git@github.com:keer2345/hexo-theme-next.git theme/next
+git clone git@github.com:keer2345/hexo-theme-next.git themes/next
 ```
 
+Option:
 ```
 hexo install --registry=https://registry.npm.taobao.org
 ```
