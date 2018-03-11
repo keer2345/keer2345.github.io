@@ -16,4 +16,5 @@ tags: [awesome, lisp]
 <!-- more -->
 
 # Book
+- GNU Emacs Lisp 入门指南
 - [GNU Emacs Lisp Reference Manual](https://www.gnu.org/software/emacs/manual/elisp.html)

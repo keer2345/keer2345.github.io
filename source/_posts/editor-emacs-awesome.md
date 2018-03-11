@@ -9,16 +9,23 @@ tags: [awesome, emacs]
 - [purcell](https://github.com/purcell/emacs.d)
 - [bbatsov/prelude](https://github.com/bbatsov/prelude)
 - [emacs-starter-kit](https://github.com/technomancy/emacs-starter-kit)
+- [seagle0128/.emacs.d](https://github.com/seagle0128/.emacs.d)
+- [redguardtoo/emacs.d](https://github.com/redguardtoo/emacs.d)
 
 # Blog
 - [**Sachachua**](http://sachachua.com/blog/) ([Github](https://github.com/sachac) [emacs-life](http://emacslife.com/) [.emacs.d](https://github.com/sachac/.emacs.d) [.emacs.d-doc](http://pages.sachachua.com/.emacs.d/Sacha.html) [emacs-note](https://github.com/sachac/emacs-notes))
 - [EverET.org](http://everet.org/tag/emacs/)
 
+    <!-- more -->
+
 # Tutorial
+- [tuhdo](http://tuhdo.github.io/index.html)
+- [cestlaz.github.io](http://cestlaz.github.io/stories/emacs/)
 - [Emacs Starter Kit](https://github.com/technomancy/emacs-starter-kit)
 - [Emacs 中文化指南](http://man.chinaunix.net/newsoft/Emac/book.html)
 
 # Article
+- [mastering-emacs-in-one-year-guide](https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-zh.org)
 - [Emacs随想](http://www.360doc.com/content/16/0824/15/12572656_585599438.shtml)
 
 # Website
