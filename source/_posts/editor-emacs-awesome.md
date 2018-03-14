@@ -13,10 +13,12 @@ tags: [awesome, emacs]
 - [redguardtoo/emacs.d](https://github.com/redguardtoo/emacs.d)
 
 # Blog
-- [**Sachachua**](http://sachachua.com/blog/) ([Github](https://github.com/sachac) [emacs-life](http://emacslife.com/) [.emacs.d](https://github.com/sachac/.emacs.d) [.emacs.d-doc](http://pages.sachachua.com/.emacs.d/Sacha.html) [emacs-note](https://github.com/sachac/emacs-notes))
+- [Planet Emacsen](http://planet.emacsen.org/)
+- [*Sachachua*](http://sachachua.com/blog/) ([Github](https://github.com/sachac) [emacs-life](http://emacslife.com/) [.emacs.d](https://github.com/sachac/.emacs.d) [.emacs.d-doc](http://pages.sachachua.com/.emacs.d/Sacha.html) [emacs-note](https://github.com/sachac/emacs-notes))
+- [陈斌的博客](http://blog.binchen.org/)
 - [EverET.org](http://everet.org/tag/emacs/)
 
-    <!-- more -->
+<!-- more -->
 
 # Tutorial
 - [tuhdo](http://tuhdo.github.io/index.html)
@@ -27,6 +29,7 @@ tags: [awesome, emacs]
 # Article
 - [mastering-emacs-in-one-year-guide](https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-zh.org)
 - [Emacs随想](http://www.360doc.com/content/16/0824/15/12572656_585599438.shtml)
+- [Emacs配置](http://blog.csdn.net/xh_acmagic/article/details/78939246)
 
 # Website
 - [Planet Emacsen](http://planet.emacsen.org/)
