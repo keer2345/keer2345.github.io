@@ -5,6 +5,42 @@ categories: python
 tags: python
 ---
 
+# Python版本设置
+## 添加版本
+```shell
+$sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+update-alternatives: using /usr/bin/python2.7 to provide /usr/bin/python (python) in auto mod
+$sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
+update-alternatives: using /usr/bin/python3.4 to provide /usr/bin/python (python) in auto mod
+```
+## 查看版本
+```shell
+update-alternatives --list python
+```
+## 配置版本
+```shell
+$sudo update-alternatives --config python
+有 2 个候选项可用于替换 python (提供 /usr/bin/python)。
+
+  选择       路径              优先级  状态
+------------------------------------------------------------
+* 0            /usr/bin/python3.5   2         自动模式
+  1            /usr/bin/python2.7   1         手动模式
+  2            /usr/bin/python3.5   2         手动模式
+
+要维持当前值[*]请按<回车键>，或者键入选择的编号：
+```
+
+## 移除替代版本
+我们的系统中不再存在某个 Python 的替代版本时，我们可以将其从`update-alternatives`列表中删除掉。例如，我们可以将列表中的 python2.7 版本移除掉。
+```shell
+$sudo update-alternatives --remove python /usr/bin/python2.7
+update-alternatives: removing manually selected alternative - switching python to auto mode
+update-alternatives: using /usr/bin/python3.5 to provide /usr/bin/python (python) in auto mode
+```
+
+<!--more-->
+
 # 虚拟环境
 ## virtualenv
 ```
@@ -17,7 +53,6 @@ source venv/bin/activate
 deactivate
 ```
 
-<!--more-->
 
 # 项目依赖
 ## pip

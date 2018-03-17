@@ -17,6 +17,7 @@ tags: [awesome, emacs]
 - [*Sachachua*](http://sachachua.com/blog/) ([Github](https://github.com/sachac) [emacs-life](http://emacslife.com/) [.emacs.d](https://github.com/sachac/.emacs.d) [.emacs.d-doc](http://pages.sachachua.com/.emacs.d/Sacha.html) [emacs-note](https://github.com/sachac/emacs-notes))
 - [陈斌的博客](http://blog.binchen.org/)
 - [EverET.org](http://everet.org/tag/emacs/)
+- [Jesshamrick](http://www.jesshamrick.com/tag/emacs/)
 
 <!-- more -->
 
