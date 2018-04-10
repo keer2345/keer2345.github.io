@@ -91,3 +91,8 @@ index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
+
+# Pyenv & Pipenv
+- [Pyenv](https://github.com/pyenv/pyenv)
+- [Pipenv](https://github.com/pypa/pipenv)
+

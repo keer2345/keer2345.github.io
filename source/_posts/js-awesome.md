@@ -5,14 +5,24 @@ categories: javascript
 tags: [awesome, javascript]
 ---
 
-# Javascript Framework
-## [ReactJS](https://reactjs.org/)
+# [ReactJS](https://reactjs.org/)
 - [中文文档](http://www.css88.com/react/)
 
 <!-- more -->
 
-## Vue.js
+# Vue.js
+## Vue
 - [awesome](https://github.com/vuejs/awesome-vue#external-resources)
+
+## Vue-cli
+- 简书入坑系列： *搭建Vue脚手架（vue-cli）* 
+  1. [环境搭建](https://www.jianshu.com/p/1626b8643676) 
+  1. [框架介绍](https://www.jianshu.com/p/2b661d01eaf8) 
+  1. [项目实战](https://www.jianshu.com/p/ec436222c608)
+  1. [项目实战（续）](https://www.jianshu.com/p/7c5ccfac3fa8)
+
+
+
 
 ### Github
 - [bailicangdu](https://github.com/bailicangdu)
@@ -33,6 +43,7 @@ tags: [awesome, javascript]
 - [Getting Started With Vue Router](https://scotch.io/tutorials/getting-started-with-vue-router)
 - [5 Practical Examples For Learning Vue.js](https://tutorialzine.com/2016/03/5-practical-examples-for-learning-vue-js)
 - [VueJs: The Basics](https://coligo.io/vuejs-the-basics/)
+- [SARAH DRASNER](https://css-tricks.com/author/sdrasner/)*****
 
 ### Book
 - [Mastering Vuejs](https://masteringvuejs.com/)
