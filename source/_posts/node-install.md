@@ -1,8 +1,8 @@
 ---
-title: Install Latest Nodejs
+title: Nodejs Install
 date: 2018-02-07 10:58:22
 catetories: system
-tags: [system,nodejs]
+tags: [nodejs]
 ---
 # Install
 https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/
@@ -40,7 +40,7 @@ npm install node@latest -g
 mkdir project_dir
 cd project_dir
 
-# 初始化
+# 初始化 (参数y是只默认yes)
 npm init -y
 
 # i = install
@@ -61,3 +61,10 @@ npm uninstall vue
 ```
 npm update jquery
 ```
+
+## 参数说明
+### Install参数
+- `npm install moduleName` # 安装模块到项目目录下
+- `npm install -g moduleName` # -g 的意思是将模块安装到全局，具体安装到磁盘哪个位置，要看 npm config prefix 的位置。
+- `npm install -save moduleName` # -save 的意思是将模块安装到项目目录下，并在package文件的dependencies节点写入依赖。
+- `npm install -save-dev moduleName` # -save-dev 的意思是将模块安装到项目目录下，并在package文件的devDependencies节点写入依赖。
