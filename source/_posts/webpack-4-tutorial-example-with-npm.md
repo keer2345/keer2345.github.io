@@ -162,7 +162,122 @@ npm run prod
 # 使用Babel转换JavaScript ES6
 现在很多JavaScript都是用ES6编写，但是一些浏览器并不支持ES6，所以我们需要转换成ES5。
 
-相关阅读：[Beginner’s Guide To Setup  ES6 Development Environment](https://appdividend.com/2017/03/28/beginners-guide-to-setup-es6-development-environment/)
+> 相关阅读：[Beginner’s Guide To Setup  ES6 Development Environment](https://appdividend.com/2017/03/28/beginners-guide-to-setup-es6-development-environment/)
 
+webpack并不知道如何转换，我们需要加载器（Loaders）来做这项工作。**babel-loader**是webpack用来转到ES6到ES5的加载器，让我们来安装它吧：
+```shell
+npm install babel-core babel-loader -D
+```
+好了，现在我们需要配置**babel-loader**。首先，在根目录创建文件*webpack.config.js*。其它的配置都是默认的，我们只需要定义**label-loader**配置：
+```javascript
+// webpack.config.js
 
+module.exports = {
+   module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader"
+          }
+        }
+      ]
+   }
+}
+```
 
+现在，我们需要为开发模式安装更多的依赖，那就是**webpack-dev-server**:
+```shell
+npm install webpack-dev-server -D
+```
+它为我们提供了开发环境下本地应用的开发服务器，我们需要编辑*package.json*里面的*scripts*内容：
+```javascript
+"scripts": {
+    "dev": "webpack-dev-server --mode development",
+    "prod": "webpack --mode production"
+},
+```
+现在，我们在*src/index.js*编写ES6的代码：
+```javascript
+// index.js
+
+const app = (a, b) => {
+   return a + b;
+}
+
+alert(app(4,5));
+```
+我们使用了**ES6**特性中的箭头函数。
+
+现在，我们在根目录创建文件*index.html*:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Webpack 4 Tutorial</title>
+</head>
+<body>
+   <div id="app"></div>
+   <script src="main.js"></script>
+</body>
+</html>
+```
+用下面的命令启动服务：
+```shell
+npm run dev
+```
+打开 http://localhost:8080 ， 我们可以看到效果。
+
+# 在webpack4中配置React.js
+现在，我们来配置**React.js**，需要添加以下依赖：
+```shell
+npm install babel-preset-react babel-preset-stage-0 -D
+```
+在根目录建立文件`.babelrc`：
+```
+{
+   "presets": ["react", "stage-0"]
+}
+```
+
+## 安装React.js
+```shell
+npm install react react-dom --save
+```
+
+在*src*文件夹中创建文件*AppComponent.js*:
+```javascript
+// AppComponent.js
+
+import React, { Component } from 'react';
+
+export default class AppComponent extends Component {
+   render() {
+      return (
+         <div>
+            App Component is Rendered!!
+         </div>
+      )
+   }
+}
+```
+
+好了，**React**组件已经创建了。接下来，在*index.js*中引入*AppComponent.js*：
+```javascript
+// index.js
+
+import React from 'react';
+import { render } from 'react-dom';
+import AppComponent from './AppComponent';
+
+render(<AppComponent />, document.getElementById('app'));
+```
+
+现在，运行如下命令可以在浏览器中看到效果了：
+```shell
+npm run dev
+```
