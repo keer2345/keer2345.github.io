@@ -23,6 +23,8 @@ tags: [webpack]
 - Loaders
 - Plugins
 
+<!-- more -->
+
 ## Entry
 **Entry**表明哪一个模块是webpack构建的最开始的依赖图，即入口。
 

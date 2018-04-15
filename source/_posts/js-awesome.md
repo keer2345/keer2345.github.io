@@ -33,6 +33,7 @@ tags: [awesome, javascript]
 - [vuejs/vue-hackernews-2.0](https://github.com/vuejs/vue-hackernews-2.0)
 
 ### Tutorials
+- [alligator.io](https://alligator.io/vuejs/)
 - [表严肃的Vue2视频](http://biaoyansu.com/18.0)
 - [Learn Vue.js from Top Articles for the Past Year (v.2018)](https://medium.mybridge.co/learn-vue-js-from-top-articles-for-the-past-year-v-2018-2b945cfc4f2d)
 - [Vue.js Tutorial](http://vegibit.com/vue-js-tutorial)
