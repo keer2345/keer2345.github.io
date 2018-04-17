@@ -5,11 +5,18 @@ categories: vue
 tags: vue
 ---
 
+1. Start
+1. v-if
+1. v-for
+
+<!-- more -->
+
 # 开始
 
 > https://alligator.io/vuejs/hello-world-vuejs/
 
 > Vue.js作为一个响应组件快速地流行起来，它是轻量级的，易于掌握的，并且是类似于React和Angular的又一个很好的选择。
+
 
 让我们从一个最简单的例子开始：
 ```html

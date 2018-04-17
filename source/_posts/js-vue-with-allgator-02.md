@@ -5,6 +5,11 @@ categories: vue
 tags: vue
 ---
 
+1. Template
+1. Computed properties
+
+<!-- more -->
+
 # Template
 
 > https://alligator.io/vuejs/templating/
