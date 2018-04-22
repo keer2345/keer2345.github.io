@@ -20,6 +20,11 @@ tags: [awesome, javascript]
   1. [框架介绍](https://www.jianshu.com/p/2b661d01eaf8) 
   1. [项目实战](https://www.jianshu.com/p/ec436222c608)
   1. [项目实战（续）](https://www.jianshu.com/p/7c5ccfac3fa8)
+- [coursetro.com](https://coursetro.com/posts/code/144/A-Vuex-Tutorial-by-Example---Learn-Vue-State-Management)
+- [logrocket.com](https://blog.logrocket.com/vue-cli-3-the-deep-dive-41dff070ac4a)
+
+## Vue-cli demo
+- [progressive-weather-app](https://jimmerioles.github.io/progressive-weather-app/)
 
 
 
@@ -45,6 +50,7 @@ tags: [awesome, javascript]
 - [5 Practical Examples For Learning Vue.js](https://tutorialzine.com/2016/03/5-practical-examples-for-learning-vue-js)
 - [VueJs: The Basics](https://coligo.io/vuejs-the-basics/)
 - [SARAH DRASNER](https://css-tricks.com/author/sdrasner/)*****
+- [vuejsdevelopers.com](https://vuejsdevelopers.com/topics/#vue+router)
 
 ### Book
 - [Mastering Vuejs](https://masteringvuejs.com/)
