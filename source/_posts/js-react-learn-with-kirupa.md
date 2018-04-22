@@ -442,3 +442,66 @@ ReactDOM.render(
   document.querySelector("#container")
 );  
 ```
+
+# [Dealing With State in React](https://www.kirupa.com/react/dealing_with_state.htm)
+```javascript
+<script type="text/babel">
+    class LightningCounter extends React.Component {
+      constructor(props,context){
+        super(props,context);
+        this.state={
+          stricks:0
+        };
+        
+        this.timerTick = this.timerTick.bind(this)
+      
+      }
+        componentDidMount(){
+          setInterval(this.timerTick,1000);
+        }
+        
+        timerTick(){
+          this.setState({
+            stricks: this.state.stricks + 1         
+          });
+        }
+      
+      render() {
+        var strickStyle = {
+          color:"#66ffff",
+          fontSize:50
+        }
+        return (
+          <h1 style={strickStyle}>{this.state.stricks}</h1>
+        );
+      }
+    }
+ 
+    class LightningCounterDisplay extends React.Component {
+      render() {
+        var divStyle = {
+          width: 250,
+          textAlign: "center",
+          backgroundColor: "black",
+          padding: 40,
+          fontFamily: "sans-serif",
+          color: "#999",
+          borderRadius: 10
+        };
+        
+        
+ 
+        return (
+          <div style={divStyle}>
+            <LightningCounter/>
+          </div>
+        );
+      }
+    }
+ 
+    ReactDOM.render(
+      <LightningCounterDisplay/>,
+      document.querySelector("#container")
+    );
+  </script>
+```
