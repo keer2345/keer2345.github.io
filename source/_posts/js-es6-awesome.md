@@ -11,6 +11,8 @@ tags: [javascript]
 # Tutorial
 - [ES6快速入门](https://www.cnblogs.com/zhouyangla/p/7225335.html)
 
+    <!-- more -->
+
 # Github
 - [getify/You-Dont-Know-JS](https://github.com/getify/You-Dont-Know-JS)
 - [paulmillr/es6-shim](https://github.com/paulmillr/es6-shim) 如果想现在就在浏览器使用ES6的特性，还可以通过引用兼容包的方式提前尝尝鲜。
