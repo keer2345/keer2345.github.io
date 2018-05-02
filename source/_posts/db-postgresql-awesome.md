@@ -2,7 +2,7 @@
 title: PostgreSQL Awesome
 date: 2017-08-10 21:28:01
 categories: database
-tags: postgresql
+tags: [awesome, postgresql]
 ---
 
 ## Github

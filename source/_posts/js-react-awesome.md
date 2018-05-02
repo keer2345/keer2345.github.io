@@ -2,7 +2,7 @@
 title: js react awesome
 date: 2018-04-20 11:34:47
 categories: react
-tags: react
+tags: [awesome, react]
 ---
 
 # Tutorials

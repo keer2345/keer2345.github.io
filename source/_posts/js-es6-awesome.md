@@ -2,7 +2,7 @@
 title: Es6 Awesome
 date: 2018-04-29 20:26:31
 categories: javascript
-tags: [javascript]
+tags: [awesome, es6]
 ---
 
 # Book
