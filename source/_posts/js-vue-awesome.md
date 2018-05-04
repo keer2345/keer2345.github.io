@@ -16,7 +16,7 @@ tags: [awesome, vue]
 
 # Vue-cli
 ## Articles
-- [A-Vuex-Tutorial-by-Example---Learn-Vue-State-Management](https://coursetro.com/posts/code/144/A-Vuex-Tutorial-by-Example---Learn-Vue-State-Management)
+- [A-Vuex-Tutorial-by-Example---Learn-Vue-State-Management](https://coursetro.com/posts/code/144/A-Vuex-Tutorial-by-Example---Learn-Vue-State-Management) 讲述了*vue-cli 3*、*vue-router*和*vue*
 - [Develop awesome webapps using VueJS + Webpack](https://itnext.io/develop-awesome-webapps-using-vuejs-webpack-bda08ebb691c)
 - [logrocket.com](https://blog.logrocket.com/vue-cli-3-the-deep-dive-41dff070ac4a)
 
