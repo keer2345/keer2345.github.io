@@ -1,10 +1,8 @@
 ---
-title: Webpack Practice 01 - 起步
+title: Webpack Guide
 date: 2018-05-04 13:33:18
 tags: webpack
 ---
-
-> 参考： http://webpack.wuhaolin.cn/
 
 # 安装和使用
 ## 安装Webpack
@@ -22,6 +20,8 @@ npm i webpack webpack-cli -D
 
 ## 使用
 在Webpack 4中，可以使用默认的配置，即**零配置**，不需要创建`webpack.config.js`文件。
+
+<!-- more -->
 
 创建`/index.html`:
 ```html

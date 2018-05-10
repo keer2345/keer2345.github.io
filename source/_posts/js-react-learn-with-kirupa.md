@@ -20,6 +20,8 @@ tags: react
 - APIs to Create Truly Composable UIs
 - Visuals Defined Entirely in JavaScript
 
+    <!-- more -->
+
 # [Building your first React App](https://www.kirupa.com/react/building_your_first_react_app.htm)
 ![](https://www.kirupa.com/react/images/code_editor_web_app_144.png)
 ## Step 1
