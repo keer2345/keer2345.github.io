@@ -26,8 +26,3 @@ tags: [awesome, es6]
 - [i0natan/nodebestpractices](https://github.com/i0natan/nodebestpractices) The largest Node.JS best practices list. Curated from the top ranked articles and always updated
 - [ES6 Overview in 350 Bullet Points](https://github.com/bevacqua/es6)
 
-# React in Github
-- [markerikson/react-redux-links](https://github.com/markerikson/react-redux-links) Curated tutorial and resource links I've collected on React, Redux, ES6, and more
-- [kdchang/reactjs101](https://github.com/kdchang/reactjs101) 從零開始學 ReactJS（ReactJS 101）是一本希望讓初學者一看就懂的 ReactJS 中文入門教學書，由淺入深學習 ReactJS 生態系 (Flux, Redux, React Router, ImmutableJS, …
-- [duxianwei520/react](https://github.com/duxianwei520/react) 一个react+redux+webpack+ES6+antd的SPA的后台管理底层框架
-- [hyy1115/react-latest-framework](https://github.com/hyy1115/react-latest-framework) React客户端极致渲染框架
