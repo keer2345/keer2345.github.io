@@ -5,6 +5,8 @@ categories: javascript
 tags: [javascript, promise, es6]
 ---
 
+> https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261
+
 # 什么是Promise
 
 ```javascript
@@ -21,6 +23,8 @@ typeof new Promise((resolve, reject) => {}) === 'object' // true
 确保用户可以捕捉毁掉处理已完成的值（`fulfilled`）或者被拒绝的原因（`rejection`）。
 
 一旦*promise*构造函数被调用，Promise忠诚的处理任何任务。如果您需要懒惰式的话，可以了解以下[observables](https://github.com/Reactive-Extensions/RxJS)或[tasks](https://github.com/rpominov/fun-task)。
+
+<!-- more -->
 
 # 一份不完整的Promise历史
 早起的Promise实现以及特性（或者类似想法）起始于诸如早在1980现代的*MultiLisp*和*Concurrent Prolog*语言。*promise*一词于1988年被Barbara Liskov 和 Liuba Shrira引用。
@@ -68,4 +72,31 @@ const wait = function(time) {
 wait(3000).then(function() {
     console.log('Hello Promise!');
 })
+```
+
+这段代码将等待3秒钟，然后打印`Hello Promise!`。所有的Promise规范定义了`.then()`方法，我们可以用以处理resolved或者rejected的值。
+
+ES6 Promise的构造函数接受一个函数，其带有两个参数：`resolve()`和`reject()`。在上面的例子中，我们只是用了`resolve()`，因此我们在参数列表中避开了`reject()`。接着我们调用`setTimeout()`来创建延迟，并在延迟结束时调用`resolve()`。
+
+我们可以选择`resolve()`或`reject()`使用值，这些值将传递给附带的回调函数`.then()`。
+
+当`reject()`有值时，我们总是传递`Error`对象，一般来说，我们需要两种可能的解析状态：正常愉快的途径，或者异常——阻止正常愉快途径发生的任何事情。传递`Error`对象来明确的表明。
+
+# 重要的Promise规则
+标准的Promise遵循[Promises/A+ specification](https://promisesaplus.com/implementations)规范。基于此标准有许多promise实现，包括JavaScript标准的ECMAScript promises。
+
+Promise必须遵循一组特定的规则：
+- promise或者是thenable是一个提供了标准的`then()`方法的对象。
+- Pending Promise能转换成已履行或者被拒绝的状态。
+- fulfilled或者rejected promise一旦固化，将不能转换成任何其他状态。
+- 一旦promise被固化，它必须有值（也可能是`undefined`），该值不能再做改变。
+
+在上下文中的改变是指一致性比较（`===`），一个对象可能被用于已履行的值，并且对象属性可能变异。
+
+每一个promise必须提供一个具有以下样式的`.then()`方法：
+```javascript
+promise.then(
+  onFulfilled?: Function,
+  onRejected?: Function
+) => Promise
 ```
