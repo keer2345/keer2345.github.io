@@ -20,7 +20,7 @@ typeof new Promise((resolve, reject) => {}) === 'object' // true
 - *rejected*
 - *pending*
 
-确保用户可以捕捉毁掉处理已完成的值（`fulfilled`）或者被拒绝的原因（`rejection`）。
+确保用户可以捕捉回调处理已完成的值（`fulfilled`）或者被拒绝的原因（`rejection`）。
 
 一旦*promise*构造函数被调用，Promise忠诚的处理任何任务。如果您需要懒惰式的话，可以了解以下[observables](https://github.com/Reactive-Extensions/RxJS)或[tasks](https://github.com/rpominov/fun-task)。
 
@@ -59,7 +59,7 @@ Promise一旦固化，将不能再重新固化，再次调用`resolve()`或`reje
 ```javascript
 const wait = time => new Promise((resolve) => setTimeout(resolve, time));
 
-wait(3000).then() => console.log('Hello Promise!'); // 'Hello Promise!'
+wait(3000).then(() => console.log('Hello Promise!')); // 'Hello Promise!'
 ```
 上面的代码等价于：
 ```javascript
@@ -100,3 +100,72 @@ promise.then(
   onRejected?: Function
 ) => Promise
 ```
+
+`.then()`必须遵循这些规则：
+- `onFulfilled()`和`onRejected()`是可选的
+- 如果提供的参数不是函数，则必须忽略它们
+- `onFulfilled()`将在promise履行后调用，promise的值作为第一个参数
+- `onRejected()`将在promise被拒绝后调用，并以拒绝的原因作为第一个实参（argument）。该原因可能是任何有效的JavaScript值，但拒绝本质上与异常是同义的，所以我推荐使用*Error*对象
+- 可能不止一次的调用既没有`onFulfilled()`也没用`onRejected()`的情景
+- `.then()`可能在同一个promise里调用多次。换句话说，promise可以用于回调集合
+- `.then()`必须返回一个新的promise，`promise2`
+- 如果`onFulfilled()`或`onRejected()`返回一个值`x`，并且`x`是一个promise，那么`promise2`将锁定`x`（假设状态和值相同），否则`promise2`将履行值`x`
+- 如果`onFulfilled()`或`onRejected()`抛出异常`e`，`promise2`必须被拒绝并以`e`作为原因
+- 如果`onFulfilled()`不是函数并且`promise1`已履行，`promise2`必须以与`promise1`同样的值被履行
+- 如果`onRejected()`不是函数并且`promise1`被拒绝，`promise2`必须以与`promise1`同样的原因被拒绝行
+
+# Promise链接
+因为`.then()`总是返回一个新的promise，所以可以将promises的精确控制和错误位置链接起来处理。Promises允许我们模仿同步代码的`try / catch`行为。
+
+类似同步代码，链接将导致一个串行允许的序列。换句话说，我们可以这样做：
+```javascript
+fetch(url)
+    .then(process)
+    .then(save)
+    .catch(handleErrors)
+;
+```
+
+假设每个函数`fetch()`, `process()`, `save()`返回promises，`process()`将等待`fetch()`到开始前完成，`save()`将等待`fetch()`到开始前完成。`handleErrors()`将仅在之前的任何promises被拒绝时运行。
+
+这是一个带有多重*拒绝*的复制的promise链接的例子：
+```javascript
+const wait = time => new Promise(
+  res => setTimeout(() => res(), time)
+);
+
+wait(200)
+  // onFulfilled() can return a new promise, `x`
+  .then(() => new Promise(res => res('foo')))
+  // the next promise will assume the state of `x`
+  .then(a => a)
+  // Above we returned the unwrapped value of `x`
+  // so `.then()` above returns a fulfilled promise
+  // with that value:
+  .then(b => console.log(b)) // 'foo'
+  // Note that `null` is a valid promise value:
+  .then(() => null)
+  .then(c => console.log(c)) // null
+  // The following error is not reported yet:
+  .then(() => {throw new Error('foo');})
+  // Instead, the returned promise is rejected
+  // with the error as the reason:
+  .then(
+    // Nothing is logged here due to the error above:
+    d => console.log(`d: ${ d }`),
+    // Now we handle the error (rejection reason)
+    e => console.log(e)) // [Error: foo]
+  // With the previous exception handled, we can continue:
+  .then(f => console.log(`f: ${ f }`)) // f: undefined
+  // The following doesn't log. e was already handled,
+  // so this handler doesn't get called:
+  .catch(e => console.log(e))
+  .then(() => { throw new Error('bar'); })
+  // When a promise is rejected, success handlers get skipped.
+  // Nothing logs here because of the 'bar' exception:
+  .then(g => console.log(`g: ${ g }`))
+  .catch(h => console.log(h)) // [Error: bar]
+;
+```
+
+# Error处理
