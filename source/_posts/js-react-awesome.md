@@ -1,5 +1,5 @@
 ---
-title: js react awesome
+title: React Awesome
 date: 2018-04-20 11:34:47
 categories: react
 tags: [awesome, react]

@@ -1,5 +1,5 @@
 ---
-title: Callback Function Tutorial
+title: JavaSript Callback Function Tutorial
 date: 2018-05-14 21:36:30
 tags: [javascript]
 ---

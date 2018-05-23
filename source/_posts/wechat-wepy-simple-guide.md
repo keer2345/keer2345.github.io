@@ -12,10 +12,13 @@ tags: [wechat, wepy]
 
 # Wepy
 - [Github](https://github.com/Tencent/wepy)
+
 ## Wepy的安装
+
 ```
 npm install wepy-cli -g
 ```
+
 ## Wepy的项目搭建
 ```
 wepy init standard wepy-project
