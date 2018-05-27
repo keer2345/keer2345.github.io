@@ -1,5 +1,5 @@
 ---
-title: Python Django Tutorial
+title: Python Django Tutorial 01 -- Basic
 date: 2018-05-26 09:12:52
 categories: python
 tags: [django]

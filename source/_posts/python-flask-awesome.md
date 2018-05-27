@@ -12,9 +12,13 @@ tags: [python, flask, awesome]
 - [The Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
 
 ## Tutorials
+- [prettyprinted.com](https://prettyprinted.com)
 - [mjhea0/flaskr-tdd](https://github.com/mjhea0/flaskr-tdd)
 - [danidee10/Votr](https://github.com/danidee10/Votr)    [danidee10.github.io](https://danidee10.github.io/2016/09/18/flask-by-example-1.html)
 - [Microservices with Docker, Flask, and React](https://testdriven.io/)
+
+## Videos
+- [Creating a RESTFul API in Flask With JSON Web Token Authentication and Flask-SQLAlchemy](https://www.youtube.com/watch?v=WxGBoY5iNXY)
 
 ## Project Demo
 ### Github
