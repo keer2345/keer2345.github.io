@@ -14,6 +14,8 @@ Github: [prakhar1989/docker-curriculum](https://github.com/prakhar1989/docker-cu
 
 **Hub国内镜像** [网易云](https://c.163.com/hub#/m/home/)
 
+<!-- more -->
+
 # 环境
 在官网很容易找到在 *MacOS*, *Linux* 以及 *Windows* 的安装方法。
 
