@@ -168,7 +168,7 @@ Nginx is running...
 
 我们相信这些都非常简单。在真实的服务器部署它，我们只需要安装 Docker，以及运行上面这些 Docker 命令。现在，我们已经知道如何在 Docker 镜像中运行网站服务器，您可能想知道——我们是如何创建自己的 Docker 镜像？这是我们将在下一节探讨的问题。
 
-## Docker Images
+# Docker Images
 前面我们看到了镜像，这一节我们将深入了解镜像，并构建我们自己的镜像。最后，我们将使用该镜像在本地运行我们的应用程序并部署到 [AWS](http://aws.amazon.com/) 上，以便与我们的朋友分享！是不是有点儿激动？让我们开始吧。
 
 Docker images 是 Contianer 的基础.之前的例子，我们 **pulled** 到 Busybox 镜像，并要求 Docker 客户端运行**基于（based）**该镜像的程序。
@@ -220,5 +220,212 @@ $ cd docker-curriculum/flask-app
 
 ## Dockerfile
 [Dockerfile](https://docs.docker.com/engine/reference/builder/) 是一个简单的文本文件，是包含创建镜像时一系列 Docker 客户端调用的命令。以简单的方式自动化镜像创建，最佳的是在 Dockerfile 中编写的 [commands](https://docs.docker.com/engine/reference/builder/#from) *几乎*等价于 Linux 命令。意味着我们并不需要学习新的语法来创建自己的 Dockerfile 文件。
+
+应用程序的目录中包含一个 Dockerfile，但是由于我们是第一次做，我们将从头开始创建一个。首先，用最喜欢的编辑器创建一个空的文件，并命名为 Dockerfile 保存在当前文件夹中。
+
+我们开始指定基本镜像，使用`FROM`关键字：
+```
+FROM python:3-onbuild
+```
+
+下一步是在文件中编写命令 *command* 并安装依赖。幸运的是，`onbuild`版本的镜像已经考虑到了，剩下的就是我们要指定需要暴露的端口号。我们需要指明的是 Flask 程序是运行在`5000`端口号上。
+```
+EXPOSE 5000
+```
+
+最后一步是写入命令来运行应用程序，就是简单的`python ./app.py`。我们使用 [CMD](https://docs.docker.com/engine/reference/builder/#cmd) 来实现：
+```
+CMD ["python", "./app.py"]
+```
+
+现在，我们的 *Dockerfile* 看起来像这样：
+```
+# Instructions copied from - https://hub.docker.com/_/python/
+FROM python:3-onbuild
+
+# tell the port number the container should expose
+EXPOSE 5000
+
+# run the command
+CMD ["python", "./app.py"]
+```
+
+我们现在有了 Dockerfile 就可以构建自己的镜像了，`docker build`命令承担着从 *Dockerfile* 创建 Docker 镜像的繁重工作。
+
+下面的部分展示了输出，在运行命令时，请确保将用户名该成您自己的。用户名是在 [Docker Hub](https://hub.docker.com/) 上注册的名称。
+
+`docker build`命令十分简单——带有一个可选标签`-t`和本地包含 *Dockerfile* 文件的路径位置。
+```
+$ docker build -t keer2345/catnip .
+Sending build context to Docker daemon  8.704kB
+Step 1/3 : FROM python:3-onbuild
+3-onbuild: Pulling from library/python
+3d77ce4481b1: Pull complete 
+534514c83d69: Pull complete 
+d562b1c3ac3f: Pull complete 
+4b85e68dc01d: Pull complete 
+a60ceaabb01c: Pull complete 
+ba209b7a7239: Pull complete 
+235ce1ab7310: Pull complete 
+bd6e9cb6b441: Pull complete 
+3805686ca0fc: Pull complete 
+Digest: sha256:89f8328936e9947b8c46682803dc621da958dec6ae05da8f9ca704a49bfb309d
+Status: Downloaded newer image for python:3-onbuild
+# Executing 3 build triggers
+ ---> Running in db1fa23694d7
+Collecting Flask==0.10.1 (from -r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/db/9c/149ba60c47d107f85fe52564133348458f093dd5e6b57a5b60ab9ac517bb/Flask-0.10.1.tar.gz (544kB)
+Collecting Werkzeug>=0.7 (from Flask==0.10.1->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/20/c4/12e3e56473e52375aa29c4764e70d1b8f3efa6682bef8d0aae04fe335243/Werkzeug-0.14.1-py2.py3-none-any.whl (322kB)
+Collecting Jinja2>=2.4 (from Flask==0.10.1->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/7f/ff/ae64bacdfc95f27a016a7bed8e8686763ba4d277a78ca76f32659220a731/Jinja2-2.10-py2.py3-none-any.whl (126kB)
+Collecting itsdangerous>=0.21 (from Flask==0.10.1->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/dc/b4/a60bcdba945c00f6d608d8975131ab3f25b22f2bcfe1dab221165194b2d4/itsdangerous-0.24.tar.gz (46kB)
+Collecting MarkupSafe>=0.23 (from Jinja2>=2.4->Flask==0.10.1->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/4d/de/32d741db316d8fdb7680822dd37001ef7a448255de9699ab4bfcbdf4172b/MarkupSafe-1.0.tar.gz
+Installing collected packages: Werkzeug, MarkupSafe, Jinja2, itsdangerous, Flask
+  Running setup.py install for MarkupSafe: started
+    Running setup.py install for MarkupSafe: finished with status 'done'
+  Running setup.py install for itsdangerous: started
+    Running setup.py install for itsdangerous: finished with status 'done'
+  Running setup.py install for Flask: started
+    Running setup.py install for Flask: finished with status 'done'
+Successfully installed Flask-0.10.1 Jinja2-2.10 MarkupSafe-1.0 Werkzeug-0.14.1 itsdangerous-0.24
+Removing intermediate container db1fa23694d7
+ ---> 0954d6ee6abd
+Step 2/3 : EXPOSE 5000
+ ---> Running in cd07a432349b
+Removing intermediate container cd07a432349b
+ ---> 921c3fb0282e
+Step 3/3 : CMD ["python", "./app.py"]
+ ---> Running in 34c15724a8f0
+Removing intermediate container 34c15724a8f0
+ ---> caeca07a3e3e
+Successfully built caeca07a3e3e
+Successfully tagged keer2345/catnip:latest
+```
+
+如果我们还没有`python:3-onbuild`镜像，客户端会先获取该镜像，然后再创建我们的镜像。如果已经有了镜像，上面命令的输出可能是想这样的：
+```
+$ docker build -t keer2345/catnip .
+Sending build context to Docker daemon  8.704kB
+Step 1/3 : FROM python:3-onbuild
+# Executing 3 build triggers
+ ---> Using cache
+ ---> Using cache
+ ---> Using cache
+ ---> 0954d6ee6abd
+Step 2/3 : EXPOSE 5000
+ ---> Using cache
+ ---> 921c3fb0282e
+Step 3/3 : CMD ["python", "./app.py"]
+ ---> Using cache
+ ---> caeca07a3e3e
+Successfully built caeca07a3e3e
+Successfully tagged keer2345/catnip:latest
+```
+
+万事俱备之后，我们就可以运行`docker images`来查看自己的镜像了。
+```
+$ docker images
+REPOSITORY                TAG                 IMAGE ID            CREATED             SIZE
+keer2345/catnip           latest              caeca07a3e3e        7 minutes ago       700MB
+busybox                   latest              8c811b4aec35        7 days ago          1.15MB
+python                    3-onbuild           21b9a8d26531        3 weeks ago         691MB
+prakhar1989/static-site   latest              f01030e1dcf3        2 years ago         134MB
+```
+
+本节的最后一步，运行镜像并查看它是否工作。
+```
+$ docker run -p 8888:5000 keer2345/catnip
+* Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+```
+
+我们运行的命令中，容器内容的服务端口是`5000`，暴露到外部的`8888`端口上。我们访问 http://localhost:8888/ 应该就可以生效了。
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/docker/2018053101.png)
+</center>
+
+祝贺您！已经成功创建了您的第一个 Docker Image。
+
+# Docker on AWS
+一个不能与朋友分享的应用能有什么用呢，对吧？因此，这一节中我们将看到如何部署我们了不起的应用到云端一遍能够分享给我们的朋友！我们通过使用 AWS [Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) 获得我们的应用并运行之。我们发现通过 Beanstalk 使得应用程序可伸缩而又易于管理。
+
+## Docker push
+首先，我们在 AWS 上部署之前，需要推送镜像到云端并能被 AWS 访问到。
+```
+$ docker push keer2345/catnip
+```
+
+如果是第一次推送的话，客户端会提示要求输入用户名密码。
+```
+$ docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: keer2345
+Password: 
+Login Succeeded
+```
+
+完成之后，就可以在 Docker Hub 上看到我们自己的镜像了。比如我们这个镜像地址是 https://hub.docker.com/keer2345/catnip 。
+
+现在，我们的镜像已经在云端，任何人想要尝试以下你的应用程序，只需要运行以下简单的命令：
+```
+$ docker run -p 8888:5000 keer2345/catnip
+```
+
+## 推送至网易云
+鉴于国内的网络环境，我们选择网易云。详细请看[推送说明](https://www.163yun.com/help/documents/15587826830438400)
+
+1. 我们先退出之前的 AWS 登录：
+```
+docker logout
+```
+1. 列出本地镜像
+```
+docker images
+```
+1. 后台启动容器，验证配置是否正确
+```
+docker run -d {镜像名或ID} docker ps
+```
+1. 登录网易云：
+```
+$ docker login hub.c.163.com
+Username: keer2345@163.com
+Password: 
+Login Succeeded
+```
+1. 标记本地镜像
+```
+docker tag {镜像名或ID} hub.c.163.com/{你的用户名}/{标签名}
+```
+1. 推送至网易云镜像仓库
+```
+docker push hub.c.163.com/{你的用户名}/{标签名}
+```
+默认为私有镜像仓库，推送成功后即可在控制台的「镜像仓库」查看。
+1. 运行
+```
+$ docker run -p 8888:5000 hub.c.163.com/keer2345/catnip
+```
+
+# 多容器环境
+我们看到了通过 Docker 运行应用是多么有趣而简单。我们从一个静态站点的 Flask 应用开始，只需要几个命令就可以在本地和云端运行应用。这两种方式都有个共同点，就是在**单容器（Single Contianer）**中运行。
+
+有生产经验的人都知道运行服务并没有那么简单。通常还有数据库（或者其他种类的存储）。所以这一节我们花点时间来学习如何依赖不同的服务来运行 Dockerize 应用。
+
+尤其是我们要学习如何管理多容器（**multi-container**）的 Docker 环境。您可能会问什么是多容器呢？每一个 Docker 的关键是提供了隔离的方式，将一个进程与其依赖管理捆绑在沙盒（成为容器）是如此的强大。
+
+就像分离应用程序层是一个很好的策略一样，将每个服务的容器分开保存是明智的。每一层有不同的资源需求并且按照不同的速度增长。通过分离这些层到不同的容器中，我们可以根据不同的资源需求，使用最适合的实例类型来组合每个层。这对整个微服务运动也起到了很好的作用，这是 Docker（或任何其他容器技术）处于现代微服务架构前沿的主要原因之一。
+
+## SF Food Trucks
+我们接下来介绍 Dockerize 的 SF Food Trucks 应用，我们的目标是构建一个实际点的应用，依赖至少一个服务，但是对本教程而言并不太复杂。
+
+
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/docker/2018060101.png)
+</center>
+
+这个应用后台用 Flask 编写，代码可以参考 [prakhar1989/FoodTrucks](http://github.com/prakhar1989/FoodTrucks)，我们使用它来学习如何构建、运行和部署多容器环境。
 
 
