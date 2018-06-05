@@ -6,6 +6,8 @@ tags: [Testdriven.io, flask, react, docker]
 
 > https://testdriven.io
 
+<!-- more -->
+
 # Get Started
 ## 准备工作
 ```
