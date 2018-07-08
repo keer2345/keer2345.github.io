@@ -11,6 +11,9 @@ tags: [python, flask, awesome]
 ## Book
 - [The Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
 
+## Flask API
+- [实例讲解基于 Flask+React 的全栈开发和部署](http://python.jobbole.com/87112/)
+
 ## Tutorials
 - [prettyprinted.com](https://prettyprinted.com)
 - [mjhea0/flaskr-tdd](https://github.com/mjhea0/flaskr-tdd)

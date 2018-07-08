@@ -7,8 +7,16 @@ tags: [awesome, react]
 
 # Tutorials
 - [Learn React](https://www.kirupa.com/react/)
+- [React Express](http://www.react.express/)
 - [React Training](https://reacttraining.com/) (*[Github](https://github.com/ReactTraining)*)
 - [Learn React.js in 5 minutes](https://medium.freecodecamp.org/learn-react-js-in-5-minutes-526472d292f4)
+- [egghead.io](https://egghead.io/)
+
+# Articles
+- [Progressive Web Apps with React.js](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-i-introduction-50679aef2b12)
+- [Presentational and Container Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+- [Our Best Practices for Writing React Components](https://engineering.musefind.com/our-best-practices-for-writing-react-components-dec3eb5c3fc8)
+- [使用create-react-app脚手架快速构建React开发环境](https://www.cnblogs.com/kelly2017/p/7930681.html)
 
 # Youtube
 - [Learn ReactJS and build a simple CRUD app](https://www.youtube.com/watch?v=S66rHpyU-Eg&t=1503s)

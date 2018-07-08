@@ -9,6 +9,7 @@ tags: [learn]
 
 ## Machine Learning
 - [llSourcell/Learn_Machine_Learning_in_3_Months](https://github.com/llSourcell/Learn_Machine_Learning_in_3_Months)
+- [GRAIL 笔迹识别算法](https://jackschaedler.github.io/handwriting-recognition/)
 
 ## Software Engineering
 ### Kubernetes
@@ -27,3 +28,6 @@ tags: [learn]
 ## Editor
 ### Emacs
 - [tuhdo/os01](https://github.com/tuhdo/os01)
+
+## Graphic
+- [How Graphics Cards Work](https://www.extremetech.com/gaming/269335-how-graphics-cards-work)
