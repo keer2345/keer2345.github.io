@@ -16,6 +16,8 @@ yarn start
 yarn add react-router-dom
 ```
 
+<!-- more -->
+
 ## Edit Files
 ### src/App.js
 ```js
