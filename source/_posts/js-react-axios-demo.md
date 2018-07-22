@@ -8,6 +8,7 @@ tags: [react]
 ```
 yarn add axios
 ```
+<!-- more -->
 
 # src/App.js
 ```javascript
