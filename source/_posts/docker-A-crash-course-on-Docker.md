@@ -1,5 +1,5 @@
 ---
-title: docker A crash course on Docker
+title: A crash course on Docker
 date: 2018-07-21 21:00:21
 tags: [docker]
 ---

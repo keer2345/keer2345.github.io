@@ -1,5 +1,5 @@
 ---
-title: docker How Docker Can Help You Become A More Effective Data Scientist
+title: How Docker Can Help You Become A More Effective Data Scientist
 date: 2018-07-22 23:12:45
 tags: [docker,analysis]
 ---
