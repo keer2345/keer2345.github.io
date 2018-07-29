@@ -1,7 +1,7 @@
 ---
 title: Create SFTP with Docker
 date: 2018-07-26 23:19:06
-tags: [docker, ftp]
+tags: [docker, system]
 ---
 
 详细文档参见 [atmoz/sftp](https://store.docker.com/community/images/atmoz/sftp)
