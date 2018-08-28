@@ -5,6 +5,13 @@ categories: lisp
 tags: [awesome, lisp]
 ---
 
+# Youtube
+- [Lisp Tutorial](https://www.youtube.com/watch?v=ymSq4wHrqyU)
+  - Get the Code Here : http://goo.gl/vx4kei
+  - Best Free Lisp Book : http://goo.gl/bpQSEH
+  - Fun Lisp Game Book : http://goo.gl/TLwOmr
+  - Support me on Patreon : https://www.patreon.com/derekbanas?ty=h
+
 # Tutorial
 - [Emacs Lisp Guide](https://github.com/chrisdone/elisp-guide)
 - [Emacs - Elisp Programming and Customization](https://github.com/caiorss/Emacs-Elisp-Programming)     ([*Emacs In a Box*](http://caiorss.github.io/Emacs-Elisp-Programming/))
