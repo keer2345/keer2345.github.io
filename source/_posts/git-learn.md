@@ -14,6 +14,12 @@ apt-get install git tig
 <!--more-->
 
 ## 配置`~/.gitconfig`
+添加配置：
+```
+git config --global user.name "keer2345"
+```
+`~/.gitconfig` 文件:
+
 ```
 [user]
   name = keer2345
@@ -31,6 +37,10 @@ apt-get install git tig
   br = branch
 [push]
   default = simple
+[http]
+  postBuffer = 524288000
+[credential]
+  helper = store
 ```
 
 ## 基本命令

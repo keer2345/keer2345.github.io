@@ -19,17 +19,19 @@ https-proxy=http://127.0.0.1:1080
 strict-ssl=false
 ```
 
+
 # Theme
 - Dracula UI
 - Monokai Syntax
 
 # Package
-- Color Picker
 - Emmet
+- File Icons
+- Color Picker
 - Minimap
+- pigments
 - Beautify
 - Atom Linter
-- File Icons
 - JavaScript Snippets
 - CSS Comb
 - Git plus
