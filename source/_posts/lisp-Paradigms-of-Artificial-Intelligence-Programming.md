@@ -1,6 +1,6 @@
 ---
 title: Paradigms of Artificial Intelligence Programming
-date: 2018-08-28 22:20:32
+date: 2018-08-28 21:20:32
 tags: lisp
 ---
 
