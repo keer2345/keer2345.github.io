@@ -47,3 +47,8 @@ This book is organized into five parts.
 - *Programming for Artificial Intelligence* by Wolfgang Kreutzer and Bruce McKenzie. Covers some of the basics of rule-based and pattern-matching systems well, but covers Lisp, Prolog, and Smalltalk, and thus has no time left for details in any of the languages.
 - *Artificial Intelligence Programming (2d edition)* by Eugene Charniak, Christopher Riesbeck, Drew McDermott, and James Meehan. Contains 150 pages of Lisp overview, followed by an advanced discussion of AI tools, but no actual AI programs.
 - *AI in Practice: Examples in Pop-11* by Allan Ramsey and Rosalind Barrett. Advanced, high-quality implementations of five AI programs, unfortunately using a language that has not gained popularity.
+
+
+[☝ Back to Catalog](../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming)
+
+[☞ Introduction to Lisp](../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-01/)

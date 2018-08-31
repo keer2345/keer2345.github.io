@@ -10,9 +10,9 @@ tags: lisp
 
 - Paradigms of Artificial Intelligence Programming
   - Front matter
-  - Preface
+  - [Preface](../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-00/)
 - Part I: Introduction to Common Lisp
-  - 1 Introduction to Lisp
+  - 1 [Introduction to Lisp](../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-01/)
   - 2 A Simple Lisp Program
   - 3 Overview of Lisp
 
