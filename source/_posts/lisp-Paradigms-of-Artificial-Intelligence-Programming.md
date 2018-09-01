@@ -13,6 +13,7 @@ tags: lisp
   - [Preface](../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-00/)
 - Part I: Introduction to Common Lisp
   - 1 [Introduction to Lisp](../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-01/)
-  - 2 A Simple Lisp Program
-  - 3 Overview of Lisp
+  - 2 [A Simple Lisp Program](../../../2018/08/31/lisp-Paradigms-of-Artificial-Intelligence-Programming-02/)
+  - 3 [Overview of Lisp](../../../2018/09/01/lisp-Paradigms-of-Artificial-Intelligence-Programming-03/)
+
 

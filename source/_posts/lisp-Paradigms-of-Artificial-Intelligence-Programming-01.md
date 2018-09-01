@@ -401,3 +401,5 @@ What is it that sets Lisp apart from other languages? Why is it a good language 
 [☝ Back to Catalog](../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming)
 
 [☜ Preface](../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-00/)
+
+[☞ A Simple Lisp Program](../../../2018/08/31/lisp-Paradigms-of-Artificial-Intelligence-Programming-02/)
