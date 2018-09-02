@@ -16,3 +16,61 @@ sudo add-apt-repository ppa:certbot/certbot
 sudo apt update
 sudo apt install python nginx certbot
 ```
+
+# 配置
+## 生成证书
+```
+sudo service nginx stop
+sudo certbot certonly --standalone --email your@email.com -d yourdomain.com
+```
+
+## 配置文件
+`vim /etc/nginx/sites-available/ssl.conf` :
+
+```
+server {
+
+   # SSL configuration
+   #
+   listen 443 ssl;
+   listen [::]:443 ssl;
+
+   ssl on;
+
+   ssl_certificate /etc/letsencrypt/live/harrypotterfans.top/fullchain.pem;
+   ssl_certificate_key /etc/letsencrypt/live/harrypotterfans.top/privkey.pem;
+   ssl_session_timeout 5m;
+   ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+   ssl_prefer_server_ciphers on;
+
+   root /var/www/html;
+
+   # Add index.php to the list if you are using PHP
+   index index.html index.htm index.nginx-debian.html;
+
+   location / {
+      # First attempt to serve request as file, then
+      # as directory, then fall back to displaying a 404.
+      proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header Host $http_host;
+      try_files $uri $uri/ =404;
+   }
+}
+
+
+server {
+
+  listen 80 default_server;
+  listen [::]:80 default_server;
+
+  server_name harrypotterfans.top; # www.harrypottefans.top;
+  rewrite ^(.*) https://$server_name$1 permanent;
+}
+
+```
+
+```
+sudo ln -s /etc/nginx/sites-available/ssl.conf /etc/nginx/sites-enabled/ssl.conf
+```
