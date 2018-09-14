@@ -10,22 +10,31 @@ tags: [python, django, awesome]
 </center>
 
 # Material
-## Book
+## Django
+### Book
 - [Two Scoops of Django 1.11](https://www.twoscoopspress.com/products/two-scoops-of-django-1-11)(Best Practices for the Django Web Framework)
 - [Django by example](https://www.packtpub.com/web-development/django-example)
 - [Tango with django](http://www.tangowithdjango.com/)
 - [High Performance Django](https://highperformancedjango.com/)
 - [Test-Driven Development with Python](http://www.obeythetestinggoat.com/pages/book.html)
 
-## Tutorials
+### Tutorials
 - [DjangoGirls](https://tutorial.djangogirls.org)
 - [DjangoGirls Extensions](https://djangogirls.gitbooks.io/django-girls-tutorial-extensions/content/)
 - [simpleisbetterthancomplex](https://simpleisbetterthancomplex.com/series/beginners-guide/1.11/)
 - [Simple is better than complex](https://simpleisbetterthancomplex.com/series/)
 - [TaskBuster Django Tutorial](http://www.marinamele.com/taskbuster-django-tutorial)
 
-## Articles
+### Articles
 - [Django Tutorial Step by Step](https://consideratecode.com/2017/12/15/django-tutorial-step-by-step/)
+
+## Django REST framework
+### [youtube - CodingEntrepreneurs](https://www.youtube.com/user/CodingEntrepreneurs/playlists)
+- [Build a Rest API with the Django REST Framework](https://www.youtube.com/watch?v=tG6O8YF91HE&t=3500s)
+    - [codingforentrepreneurs/REST-API-Basics](https://github.com/codingforentrepreneurs/REST-API-Basics)
+    - [Coding for Entrepreneurs](https://www.codingforentrepreneurs.com/courses/rest-api/)
+- [Blog API with Django Rest Framework](https://www.youtube.com/watch?v=XMu0T6L2KRQ&list=PLEsfXFp6DpzTOcOVdZF-th7BS_GYGguAS&index=1)
+    - [codingforentrepreneurs/Advancing-the-Blog](https://github.com/codingforentrepreneurs/Advancing-the-Blog)
 
 # Extend
 ## Other Python Web Framework
