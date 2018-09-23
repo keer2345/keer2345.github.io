@@ -15,6 +15,7 @@ tags: [python, flask, awesome]
 - [实例讲解基于 Flask+React 的全栈开发和部署](http://python.jobbole.com/87112/)
 
 ## Tutorials
+- [Hack4impact](http://hack4impact.github.io/flask-base/)
 - [prettyprinted.com](https://prettyprinted.com)
 - [mjhea0/flaskr-tdd](https://github.com/mjhea0/flaskr-tdd)
 - [danidee10/Votr](https://github.com/danidee10/Votr)    [danidee10.github.io](https://danidee10.github.io/2016/09/18/flask-by-example-1.html)

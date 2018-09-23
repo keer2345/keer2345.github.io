@@ -40,7 +40,7 @@ sudo mv composer.phar /usr/local/bin/composer
 
 ## Create Laravel Project
 ```
-composer create-project --prefer-dist laravel/laravel blog  
+composer create-project --prefer-dist laravel/laravel blog
 ```
 ## Run Project
 ```
