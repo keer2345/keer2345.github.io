@@ -4,7 +4,7 @@ date: 2018-09-23 20:47:15
 tags: [testdriven, flask, react, docker]
 ---
 
-# App概述
+# App Overview
 我们在建什么？
 
 在本课程结束时，您将构建一个代码评估工具，用于对代码练习进行评级，类似于Codecademy，使用Python，Flask，JavaScript和ReactJS。该应用程序本身将允许用户登录并提交解决方案以解决编码问题。他们还可以获得有关特定解决方案是否正确的反馈。

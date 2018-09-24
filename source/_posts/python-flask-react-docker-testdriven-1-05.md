@@ -4,6 +4,8 @@ date: 2018-09-23 20:49:15
 tags: [testdriven, flask, react, docker]
 ---
 
+# Docker Config
+
 让我们将 Flask 应用容器化（containerize）。
 
 确保已经安装了 Docker ：
