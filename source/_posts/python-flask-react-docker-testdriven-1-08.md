@@ -19,10 +19,10 @@ touch services/users/project/api/__init__.py
 ```python
 from flask import Blueprint, jsonify
 
-users_bluepoint = Blueprint('users', __name__)
+users_blueprint = Blueprint('users', __name__)
 
 
-@users_bluepoint.route('/users/ping', methods=['GET'])
+@users_blueprint.route('/users/ping', methods=['GET'])
 def ping_pong():
     return jsonify({'status': 'success', 'message': 'pong!'})
 ```
@@ -73,9 +73,9 @@ def create_app(script_info=None):
     # set up extensions
     db.init_app(app)
 
-    # register bluepoint
-    from project.api.users import users_bluepoint
-    app.register_blueprint(users_bluepoint)
+    # register blueprint
+    from project.api.users import users_blueprint
+    app.register_blueprint(users_blueprint)
 
     # shell context for flask cli
     @app.shell_context_processor
