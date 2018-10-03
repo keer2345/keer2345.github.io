@@ -17,6 +17,7 @@ $ docker-compose -v
 docker-compose version 1.22.0, build f46880fe
 
 $ docker-machine -v  # 目前 docker-machine 不是必需的
+docker-machine version 0.14.0, build 89b8332
 ```
 
 <!-- more -->
