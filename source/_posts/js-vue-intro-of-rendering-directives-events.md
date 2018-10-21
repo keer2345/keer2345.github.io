@@ -1,12 +1,11 @@
 ---
 title: Intro of Vue - Rendering, Directives, Events
 date: 2018-10-17 20:47:15
-categories: javascript
 tags: vue
 ---
 
 Article Series:
-1. Rendering, Directives, Events
+1. **Rendering, Directives, Events**
 1. Components, Props, and Slots
 1. Vue-cli
 1. Vuex
@@ -118,15 +117,13 @@ Article Series:
 ```
 ### 其它指令
 
-Name|Shortcut|Purpose|Example
-----|----|----
-`v-if, v-else-if, v-else`||Conditional Rendering|`<g v-if="flourish === 'A'"></g><g v-else-if="flourish === 'B'"></g><g v-else></g>`
-`v-bind`|:|Bind attributes dynamically, or pass props|`<div :style="{ background: color }"></div>`
-`v-on`|@|Attaches an event listener to the element|`<button @click="fnName"></button>`
-`v-model`||Creates two-way binding|`<textarea rows="5" v-model="message" maxlength="72"></textarea>`
-`v-pre`||Skip compiling for raw content, can boost performance|`<div v-pre>{{ raw content with no methods}}</div>`
-`v-once`||won’t rerender|`<div class=”v-once”>Keep me from rerendering</div>`
-`v-show`||Will show or hide a component/element based on state, but will leave it in the DOM without unmounting (unlike v-if)|`<child v-show=”showComponent”></child> (toggles visibility when showComponent is true)`
+- `v-if, v-else-if, v-else`
+- `v-bind`
+- `v-on`
+- `v-model`
+- `v-pre`
+- `v-once`
+- `v-show`
 
 
 也有一些很棒的时间修饰符（event modifiers）和加速开发的 API：
