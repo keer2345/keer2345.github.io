@@ -1,5 +1,5 @@
 ---
-title: Javascript Awesome
+title: VueJS Awesome
 date: 2018-02-04 21:58:56
 categories: javascript
 tags: [awesome, vue]
@@ -11,6 +11,7 @@ tags: [awesome, vue]
 - [madewithvuejs.com](https://madewithvuejs.com/)
 - [vuejsdevelopers.com](https://vuejsdevelopers.com/)
 - [builtforvue.com](https://builtforvue.com/)
+- [Curosetro](https://coursetro.com/)
 
 <!-- more -->
 
