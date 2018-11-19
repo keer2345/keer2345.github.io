@@ -14,3 +14,4 @@ tags: [vue]
 - [Building a Single-Page Application with Symfony 4, Vue.js, Vue Router, Vuex and Axios](https://thecodingmachine.io/building-a-single-page-application-with-symfony-4-and-vuejs)
 > With Symfony, I used to build my web applications in a traditional way: the framework handles everything, from the routing to the page rendering. However nowadays web applications have complex user interactions and the previous approach does not fit well for such cases. That's where single-page application architecture comes to the rescue.
 
+<!-- more -->
