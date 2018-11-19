@@ -27,12 +27,14 @@ tags: [awesome, emacs]
 - [pierre-lecocq/emacs4developers](https://github.com/pierre-lecocq/emacs4developers)
 - [Emacs Starter Kit](https://github.com/technomancy/emacs-starter-kit)
 - [Emacs 中文化指南](http://man.chinaunix.net/newsoft/Emac/book.html)
+- [cestlaz.github.io](https://cestlaz.github.io/stories/emacs/)
 
 # Article
 - [mastering-emacs-in-one-year-guide](https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-zh.org)
 - [Emacs随想](http://www.360doc.com/content/16/0824/15/12572656_585599438.shtml)
 - [Emacs配置](http://blog.csdn.net/xh_acmagic/article/details/78939246)
 - [用emacs做软件工程](https://medium.com/@rtotheohan/emac-s-org-mode-will-improve-your-software-engineering-d7bc2f30a0)
+- [How Emacs changed my life](https://www.slideshare.net/yukihiro_matz/how-emacs-changed-my-life)
 
 # Website
 - [Planet Emacsen](http://planet.emacsen.org/)

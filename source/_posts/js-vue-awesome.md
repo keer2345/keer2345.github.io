@@ -12,6 +12,7 @@ tags: [awesome, vue]
 - [vuejsdevelopers.com](https://vuejsdevelopers.com/)
 - [builtforvue.com](https://builtforvue.com/)
 - [Curosetro](https://coursetro.com/)
+- [Top 4 tutorials to start with Vue.js for scratch](https://www.storyblok.com/tp/4-tutorials-start-vuejs-beginner)
 
 <!-- more -->
 
@@ -23,6 +24,9 @@ tags: [awesome, vue]
 
 ## Vue-cli demo
 - [progressive-weather-app](https://jimmerioles.github.io/progressive-weather-app/)
+
+## Vuex
+- [Vuex Store](https://codeburst.io/vuex-store-d888de10d499)
 
 
 

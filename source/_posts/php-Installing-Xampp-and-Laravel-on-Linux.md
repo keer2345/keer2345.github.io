@@ -36,9 +36,15 @@ sudo /opt/lampp/lampp restart
 ```
 curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
+
+composer global require "laravel/installer"
 ```
 
 ## Create Laravel Project
+```
+laravel new blog
+```
+or
 ```
 composer create-project --prefer-dist laravel/laravel blog
 ```
