@@ -8,6 +8,7 @@ tags: [learn]
 # Information Technology
 
 ## Machine Learning
+- [Julia](https://julialang.org/)
 - [llSourcell/Learn_Machine_Learning_in_3_Months](https://github.com/llSourcell/Learn_Machine_Learning_in_3_Months)
 - [GRAIL 笔迹识别算法](https://jackschaedler.github.io/handwriting-recognition/)
 

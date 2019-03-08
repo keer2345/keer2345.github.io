@@ -22,6 +22,10 @@ tags: [awesome, lisp]
 
 <!-- more -->
 
-# Book
-- GNU Emacs Lisp 入门指南
-- [GNU Emacs Lisp Reference Manual](https://www.gnu.org/software/emacs/manual/elisp.html)
+# Common  Lisp
+## Book
+- Ansi Common Lisp
+- Practical Common Lisp
+
+## Article
+- [走进Lisp的世界——兼谈Emacs下Lisp的开发环境（上）](http://cnlox.is-programmer.com/posts/34114.html) *[作者的博客](http://xiaohanyu.me/tags/#Emacs)*
