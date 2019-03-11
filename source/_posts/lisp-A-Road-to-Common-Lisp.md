@@ -74,3 +74,121 @@ Common Lisp 之所以如此实用得益于它的可扩展性。它有着强大�
 但是，宏并不是让 Common Lisp 变得可扩展的唯一原因，有的人并没有意识到虽然 Common Lisp 是一门高阶语言，但它也有丰富的低阶工具。它从不会像 C, Rust, 或 Forth 那样低级，而我们会惊讶于 ANSI 包含的内容。
 
 并非所有Common Lisp实现都实际执行所有这些优化，但Common Lisp的设计者有远见地包含支持它们所需的语言功能。这种支持极高级编程与宏的组合以及合理数量的低级优化意味着即使规范已有二十多年的历史，它仍然是今天构建的良好基础。设计师所汲取的三十年经验和历史使他们能够创造出一种能够存活数十年的非常实用的语言。
+
+**奇怪**
+
+理解 Common Lisp 的实用性当然是很重要的，但也要适应其现有方言存在的很奇怪（甚至是丑陋）的部分。可以看看第二版的 *Common Lisp: the Language and Look up* 的索引中看到 `kludges` 一词的奇怪。
+
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2019/0311-1.jpeg)
+</center>
+
+Common Lisp 是一门设计得不够优雅的语言，这一历史包袱也算是它的一个特性吧。如果设计者尝试让其更完美或者代码更漂亮，可能导致其语言本身被忽略，而不是被采用和接受。
+
+## 学习Common Lisp的方式
+
+如果没有被上面的特性吓倒，那就开始我们的学习吧。
+
+在查找 Common Lisp 的学习指南时，并不会找到让自己满意的结果，这是因为很多的 Common Lisp 材料都处于初级阶段。这里列出一些相关的书籍，我会推荐出一些比较好的书籍，但也要吸取其他资料的精华。
+
+**获取Lisp**
+
+在开始学习之前，我们得先安装 Common Lisp，它符合 ANSI 规范。
+- 如果使用的是 MacOS，可以下载 GUI 界面的应用，在 App Store 找到 [ClozureCL](https://ccl.clozure.com/) （通常简称为CCL）。
+- 其他系统请选择 [SBCL](http://www.sbcl.org/)。
+
+> - Clozure 和 Clojure 是完全不同的，请别混搅了。
+> - 您可能听说过 CLISP，它可能是你所需要的。但并非如此，CLISP 虽然是另一种 Lisp 实现，但它出现的时间并不长，没有 CCL 或 SBCL 普及，如果我们遇到问题的时候可能很难找到解决方案。
+
+**选择一款编辑器**
+
+可能我们第一个想到的便是 Emacs，但并不一定非 Emacs 不可，我们可以使用适合自己的任何一款编辑器。MacOS 中的 CCL 绑定了一款文本编辑器。
+
+Emacs, Vim, Sublime Text, Atom, 不管怎样，哪一款都可以，它们都可以支持括号匹配、高亮代码以及自动缩排代码。
+
+**第一个Lisp**
+
+我们来编写文件 `hello.lisp`:
+```lisp
+(defun hello()
+  (write-line "What is your name?")
+  (let ((name (read-line)))
+	(format t "Hello, ~A.~%" name)))
+```
+
+别担心看不懂代码，我们在这里只需要确人环境是能正常工作的。
+
+打开 SBCL 或 CCL，加载上面的文件并运行其中的函数：
+
+```
+$ sbcl
+* (load "hello.lisp")
+
+T
+* (hello)
+What is your name?
+Steve
+Hello, Steve.
+NIL
+*
+```
+
+**资料介绍**
+
+我所知道的 Common Lisp 入门书籍是 *[Common Lisp: A Gentle Introduction to Symbolic Computation](https://www.cs.cmu.edu/~dst/LispBook/)*。全书贯穿习题，让我们很容易理解：
+- 如何记住众多的函数名？
+- 为什么很少使用字符串？
+- 什么时候应该使用这烦人的引号？
+
+**实践**
+
+接下来要介绍的一本书是 *[Practical Common Lisp](http://www.gigamonkeys.com/book/)*。我们也应该适应于在 *[the Common Lisp language specification](http://www.lispworks.com/documentation/lw70/CLHS/Front/Contents.htm) 查找规范，它是 Common Lisp 的终极指南。
+
+**该有所行动了**
+
+阅读了上面两本书，是时候该做些什么了，我们不需要进行一些大型的项目，可以尝试写一些 Lisp 程序。如果愿意：
+- 解决 [Project Euler](https://projecteuler.net/) 问题。
+- 做一些 [Advent of Code](https://adventofcode.com/) 练习。
+- 弄一个[简单的推特机器人](https://twitter.com/git_commands)。
+- 写一款私人日历来记录日程，查看天气预报等。
+- 使用 [Sketch](https://github.com/vydd/sketch) 在 [Coding Math videos](https://www.youtube.com/user/codingmath/videos) 实现一些东西。
+
+不管您实现了什么，关键在于是您自己实现的。
+
+**把Lisp当做一个系统**
+
+现在是时候把您的 Common Lisp 技能提升一个等级了，前面说了可以使用任意编辑器来写代码是因为那样能积累很多经验，但现在是时候跳入“深渊”了。
+
+大多数语言的开发过程看起来像这样：
+1. 用编辑器编写项目代码。
+1. 编辑项目（一些语言跳过这一步）。
+1. 运行项目（或者测试）。
+1. 观察输出（在终端，或浏览器，等等）。
+1. 继续第一步。
+
+但这不是大多数 Common Lisp 用户的交互方式，在 Common Lisp 中是这样循环的：
+1. 开始一个 Lisp 过程。
+1. 加载项目。
+1. 在编辑器中编写代码。
+1. 告诉运行的进程只编译您编辑的代码。
+1. 在进程中与变化的代码交互，通过 REPL, HTTP请求等等。
+1. 观察输出（在终端，或浏览器，等等）。
+1. 继续第三步。
+
+当你拥抱 Lisp 的工作方式时，很少会重新编译和重新加载整个项目。通常你会写一个函数(或一个宏,或者参数,等等),编译的仅仅是函数,也许有点 REPL，然后继续下一个函数。相比传统的 compile-everything-then-run 是有优势的。
+
+首先，提高了编译速度，你不必等待编译器,所以你的注意力/思维过程从来没有时间游荡。
+
+其次，当你回到你的编译(或运行)的结果时,任何错误或警告几乎可以让你确定是哪几行代码编译。
+
+编写 Common Lisp 感觉是与生活交互，共同呼吸，又像一个[很好的教学助理](https://www.reddit.com/r/lisp/comments/4oo1cp/common_lisp_for_clojure_programmer/d4eec68/)。
+
+这种哲学的 Lisp 不仅仅是编程语言，而是生活，呼吸编程[系统](https://www.dreamsongs.com/Files/Incommensurability.pdf)也不仅仅是简单的反馈和交互式 REPL。
+
+举个例子：设想在玩一款视频游戏，偶尔会导致除零的错误伤害计算。假设你在这个特定的任务上，即将开始游戏并加载保存的文件，并按步骤开始，在追求杀死最后一个怪物,你打损伤缺陷!在传统的语言,会发生两件事情：
+1. 游戏崩溃，你发现一个堆栈跟踪，也许是核心的。
+1. 你包装在一个 `try` 块主要游戏循环日志和忽略错误堆栈跟踪,让比赛继续。
+
+第一种情况相当糟，你必须试着追踪bug的快照时什么东西看起来像(堆栈跟踪和核心转储)。即使你能修复它,现在你必须重做所有打回到测试最初致力于追求代码。
+
+第二种情况也很糟，如果你只是忽略错误,游戏现在可能处于一种奇怪的状态。你也可能会失去一些重要的上下文需要调试的问题，除非你还保存核心转储（但我不知道许多人节省的核心转储每个例外）。
