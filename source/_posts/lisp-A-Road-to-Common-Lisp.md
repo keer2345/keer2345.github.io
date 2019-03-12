@@ -8,6 +8,8 @@ tags: [lisp]
 
 本篇文章讲述如何学习 Common Lisp 语言，希望能够给同样对 Common Lisp 语言有兴趣的朋友提供一些有用的建议。
 
+<!--more-->
+
 # 背景
 我们先了解一下 Common Lisp 的来历以及它是一门怎么样的计算机语言是很有必要的。如果以现代编程语言的角度来看 Common Lisp，它确实有一些奇怪。
 ##　历史
@@ -85,13 +87,13 @@ Common Lisp 之所以如此实用得益于它的可扩展性。它有着强大�
 
 Common Lisp 是一门设计得不够优雅的语言，这一历史包袱也算是它的一个特性吧。如果设计者尝试让其更完美或者代码更漂亮，可能导致其语言本身被忽略，而不是被采用和接受。
 
-## 学习Common Lisp的方式
+# 学习Common Lisp的方式
 
 如果没有被上面的特性吓倒，那就开始我们的学习吧。
 
 在查找 Common Lisp 的学习指南时，并不会找到让自己满意的结果，这是因为很多的 Common Lisp 材料都处于初级阶段。这里列出一些相关的书籍，我会推荐出一些比较好的书籍，但也要吸取其他资料的精华。
 
-**获取Lisp**
+## 获取Lisp
 
 在开始学习之前，我们得先安装 Common Lisp，它符合 ANSI 规范。
 - 如果使用的是 MacOS，可以下载 GUI 界面的应用，在 App Store 找到 [ClozureCL](https://ccl.clozure.com/) （通常简称为CCL）。
@@ -100,13 +102,13 @@ Common Lisp 是一门设计得不够优雅的语言，这一历史包袱也算�
 > - Clozure 和 Clojure 是完全不同的，请别混搅了。
 > - 您可能听说过 CLISP，它可能是你所需要的。但并非如此，CLISP 虽然是另一种 Lisp 实现，但它出现的时间并不长，没有 CCL 或 SBCL 普及，如果我们遇到问题的时候可能很难找到解决方案。
 
-**选择一款编辑器**
+## 选择一款编辑器
 
 可能我们第一个想到的便是 Emacs，但并不一定非 Emacs 不可，我们可以使用适合自己的任何一款编辑器。MacOS 中的 CCL 绑定了一款文本编辑器。
 
 Emacs, Vim, Sublime Text, Atom, 不管怎样，哪一款都可以，它们都可以支持括号匹配、高亮代码以及自动缩排代码。
 
-**第一个Lisp**
+## 第一个Lisp
 
 我们来编写文件 `hello.lisp`:
 ```lisp
@@ -133,18 +135,18 @@ NIL
 *
 ```
 
-**资料介绍**
+## 资料介绍
 
 我所知道的 Common Lisp 入门书籍是 *[Common Lisp: A Gentle Introduction to Symbolic Computation](https://www.cs.cmu.edu/~dst/LispBook/)*。全书贯穿习题，让我们很容易理解：
 - 如何记住众多的函数名？
 - 为什么很少使用字符串？
 - 什么时候应该使用这烦人的引号？
 
-**实践**
+## 实践
 
 接下来要介绍的一本书是 *[Practical Common Lisp](http://www.gigamonkeys.com/book/)*。我们也应该适应于在 *[the Common Lisp language specification](http://www.lispworks.com/documentation/lw70/CLHS/Front/Contents.htm) 查找规范，它是 Common Lisp 的终极指南。
 
-**该有所行动了**
+## 该有所行动了
 
 阅读了上面两本书，是时候该做些什么了，我们不需要进行一些大型的项目，可以尝试写一些 Lisp 程序。如果愿意：
 - 解决 [Project Euler](https://projecteuler.net/) 问题。
@@ -155,7 +157,7 @@ NIL
 
 不管您实现了什么，关键在于是您自己实现的。
 
-**把Lisp当做一个系统**
+## 把Lisp当做一个系统
 
 现在是时候把您的 Common Lisp 技能提升一个等级了，前面说了可以使用任意编辑器来写代码是因为那样能积累很多经验，但现在是时候跳入“深渊”了。
 
@@ -192,3 +194,76 @@ NIL
 第一种情况相当糟，你必须试着追踪bug的快照时什么东西看起来像(堆栈跟踪和核心转储)。即使你能修复它,现在你必须重做所有打回到测试最初致力于追求代码。
 
 第二种情况也很糟，如果你只是忽略错误,游戏现在可能处于一种奇怪的状态。你也可能会失去一些重要的上下文需要调试的问题，除非你还保存核心转储（但我不知道许多人节省的核心转储每个例外）。
+
+在 Common Lisp 我们当然可以选择忽略错误，但有更好的处理方式，当出现错误信号时，不撤销堆栈。Lisp 进程将暂停执行并打开编辑器展示堆栈跟踪。此时，您可以与正在运行的进程通信的 REPL 看到发生了什么。您可以检查变量在堆栈，甚至你想要运行任意代码。
+
+一旦找出问题，就可以优化代码，重新编译有问题的函数，并在堆栈中重启该函数。您的担忧将抛到九霄云外。
+
+并不是所有编辑器都支持这种方式的交互开发，例如标准的指定命名方法 `update-instance-for-redefined-class`，可以让你在类重新定义时知道自定义的对象发生了什么。动态更新运行的代码是安全的，在 Common Lisp 中并不需要很么黑魔法，因为它很平常的工作。
+
+现在我们已经有了很美妙的交互体验，糟糕的是我们只有两种编辑器可选：
+- 带 [SLIME](https://common-lisp.net/project/slime/) 或 [Sly](https://github.com/joaotavora/sly) 插件的 **Emacs**
+- 带 [Vlime](https://github.com/l04m33/vlime) 或 [Slimv](https://github.com/kovisoft/slimv) 插件的 **Vim**
+
+除了 Emacs，还可以选择它的套装版本 [Portacle](https://portacle.github.io/)，它捆绑了 Emacs 和 SLIME 等。不管选择了哪款编辑器，都得花些时间来设置工作环境。
+
+> 如果有兴趣弄一个 Common Lisp [LSP](https://langserver.org/) 语言服务器，我想这将是大有益处的。拥有一个 LSP 服务器意味着你在许多编辑器上拥有了丰富的编程经验，将帮助到更多的人。
+
+## 学习范式
+
+此时，你已经拥有了扎实的 Common Lisp 基础知识，也有了很多开发经验。下一个目标应该是学习如何编写优雅的 Common Lisp，并从中学习和使用新的环境。我推荐一本好书 *[Paradigms of Artifical Intelligence Programming](https://github.com/norvig/paip-lisp)* （通常简称为PAIP）。这本书写于 1982 年，并不是关于现在熟悉的 AI 领域，而是老式的人工智能（[Good Old-Fashioned AI](https://en.wikipedia.org/wiki/Symbolic_artificial_intelligence)）。即使你对人工智能不是很感兴趣，这本书也能教你如何编写 Common Lisp 代码。
+
+我真的很喜欢这本书，它涵盖了几乎所有函数。如果你看了其他编程书记省略的文档，大概是因为编排不足，因为他们觉得其他资料已经提供了足够多的文档了。但是编写有用的字符串文档本身就是一门艺术，我认为“省略文档的代码”并不是一个好的习惯。
+
+## 成功的方法
+
+最后一本技术书籍我推荐 [Common Lisp Recipes](http://weitz.de/cl-recipes/)。这本书的作者写了几个 Common Lisp 常用库，这本书会教你一些其他书籍学不到的内容。
+
+## 最后的模式
+
+如果到这里依然对 Common Lisp 兴趣浓厚，我想推荐一个网站上的书籍：[dreamsongs.com](https://www.dreamsongs.com/Books.html)。
+
+# 接下来该做什么
+如果你通过所有的书和活动在前一节中：祝贺你，你是一个伟大的开始！现在您已经有了一个像样的处理核心语言可以在许多不同的方向探索，这取决于你的兴趣。
+
+## 宏
+如果想深入了解宏的秘密，推荐阅读 [On Lisp](http://www.paulgraham.com/onlisp.html) 和 [Let Over Lambda](https://letoverlambda.com/)。
+
+## 面向对象的CLOS
+Common Lisp 在面向对象的支持是通过 CLOS 来支持，如果你有 Java 的面向对象经验，我希望你能够重新认识 CLOS。[Object-Oriented Programming in COMMON LISP: A Programmer’s Guide to CLOS](https://www.amazon.com/Object-Oriented-Programming-COMMON-LISP-Programmers/dp/0201175894) 这本书很好的介绍了 CLOS。如果想改变以前的逻辑，尝试阅读 [The Art of the Metaobject Protocol](https://www.amazon.com/Art-Metaobject-Protocol-Gregor-Kiczales/dp/0262610744)，这本书可能是你需要的。
+
+## 低级编程
+
+低级编程可以意味着很多不同的事情,所以我在这里提到的一种可能性。
+
+## 网页开发
+
+## 游戏开发
+[Land of Lisp](http://landoflisp.com/)　可以参考。
+
+## 单元测试
+如果你来自一个现代语言，特别是有很多测试驱动开发的拥护者，你可能会惊讶于 Common Lisp 不够重视单元测试。我认为其中一个原因是，在某些语言单元测试最简单的方法是实际运行一个函数，但是 Lisp 的互动风格的开发提供了一个更简单的选择：在 REPL 运行功能！
+
+# 现代的Common Lisp
+- 结构
+  - 包
+  - 系统
+  - 项目
+  - 重造轮子
+- 普通库
+  - Alexandria
+  - Bordeaux Threads
+  - CFFI
+  - CL-PPCRE
+  - Drakma
+  - Iterate
+  - local-time
+  - lparallel
+  - Named Readtables
+  - Roswell
+  - SERIES
+  - st-json
+  - usocket
+
+# 总结
+希望这篇文章对你有所帮助，Common Lisp 是一门历史久远而有深度的语言。并不一个月就能掌握的，如果有兴趣的话得慢慢钻研。祝你好运！
