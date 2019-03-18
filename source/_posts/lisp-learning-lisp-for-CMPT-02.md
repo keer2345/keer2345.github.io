@@ -314,3 +314,28 @@ G
 ```
 
 # 过滤迭代 filter
+`remove-if` 是 Common Lisp 内置的过滤器：
+
+``` common-lisp
+(remove-if #'(lambda (X) (< (list-length X) 3)) '((1 2 3) (1 2) nil (1 2 3 4)))
+((1 2 3) (1 2 3 4))
+
+(remove-if #'(lambda (X) (zerop (rem X 2))) '(1 2 3 4 5 6 7 ))
+(1 3 5 7)
+```
+
+# 返回多个值的函数
+
+``` common-lisp
+CL-USER> (floor 17 5)
+3
+2
+CL-USER> (floor -17 5)
+-4
+3
+CL-USER> (let ((x (floor 17 5))) x)
+3
+CL-USER> (multiple-value-bind (x y) (floor 17 5)
+			(+ x y))
+5
+```
