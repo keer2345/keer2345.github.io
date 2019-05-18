@@ -34,3 +34,8 @@ tags: [learn]
 
 ## Graphic
 - [How Graphics Cards Work](https://www.extremetech.com/gaming/269335-how-graphics-cards-work)
+
+# manning.com
+- [React Quickly](https://livebook.manning.com/#!/book/react-quickly/about-this-book/)
+- [Math for Programmers](https://livebook.manning.com/#!/book/math-for-programmers/)
+- [Natural Language Processing in Action](https://livebook.manning.com/#!/book/natural-language-processing-in-action/about-this-book/)
