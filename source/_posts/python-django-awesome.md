@@ -35,6 +35,8 @@ tags: [python, django, awesome]
     - [Coding for Entrepreneurs](https://www.codingforentrepreneurs.com/courses/rest-api/)
 - [Blog API with Django Rest Framework](https://www.youtube.com/watch?v=XMu0T6L2KRQ&list=PLEsfXFp6DpzTOcOVdZF-th7BS_GYGguAS&index=1)
     - [codingforentrepreneurs/Advancing-the-Blog](https://github.com/codingforentrepreneurs/Advancing-the-Blog)
+- [A Guide To Creating An API Endpoint With Django Rest Framework](https://www.caktusgroup.com/blog/2019/02/01/creating-api-endpoint-django-rest-framework/)
+- [Tutorial: Django REST with React (Django 2.0 and a sprinkle of testing)](https://www.valentinog.com/blog/drf/)
 
 # Extend
 ## Other Python Web Framework
