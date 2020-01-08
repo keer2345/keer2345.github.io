@@ -37,6 +37,7 @@ tags: [python, django, awesome]
     - [codingforentrepreneurs/Advancing-the-Blog](https://github.com/codingforentrepreneurs/Advancing-the-Blog)
 - [A Guide To Creating An API Endpoint With Django Rest Framework](https://www.caktusgroup.com/blog/2019/02/01/creating-api-endpoint-django-rest-framework/)
 - [Tutorial: Django REST with React (Django 2.0 and a sprinkle of testing)](https://www.valentinog.com/blog/drf/)
+- [How To Build a Modern Web Application to Manage Customer Information with Django and React on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-build-a-modern-web-application-to-manage-customer-information-with-django-and-react-on-ubuntu-18-04)
 
 # Extend
 ## Other Python Web Framework

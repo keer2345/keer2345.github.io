@@ -11,6 +11,8 @@ tags: [system]
 如果觉得配置麻烦，在这里生成配置：
 https://intmainreturn0.com/v2ray-config-gen/
 
+<!-- more -->
+
 # 服务端配置
 
 ```
