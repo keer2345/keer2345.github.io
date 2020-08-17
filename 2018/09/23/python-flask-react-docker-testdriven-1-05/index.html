@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.6.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Docker Config让我们将 Flask 应用容器化（containerize）。 确保已经安装了 Docker ：$ docker -vDocker version 18.06.1-ce, build e68fc7a$ docker-compose -vdocker-compose version 1.22.0, build f46880fe$ docker-machine -v  # 目">
+<meta name="keywords" content="react,flask,docker,testdriven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask React Docker in Testdriven - Part I - 05">
+<meta property="og:url" content="http://yoursite.com/2018/09/23/python-flask-react-docker-testdriven-1-05/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="Docker Config让我们将 Flask 应用容器化（containerize）。 确保已经安装了 Docker ：$ docker -vDocker version 18.06.1-ce, build e68fc7a$ docker-compose -vdocker-compose version 1.22.0, build f46880fe$ docker-machine -v  # 目">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-24T15:30:43.667Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flask React Docker in Testdriven - Part I - 05">
+<meta name="twitter:description" content="Docker Config让我们将 Flask 应用容器化（containerize）。 确保已经安装了 Docker ：$ docker -vDocker version 18.06.1-ce, build e68fc7a$ docker-compose -vdocker-compose version 1.22.0, build f46880fe$ docker-machine -v  # 目">
+
+<link rel="canonical" href="http://yoursite.com/2018/09/23/python-flask-react-docker-testdriven-1-05/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Flask React Docker in Testdriven - Part I - 05 | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/23/python-flask-react-docker-testdriven-1-05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask React Docker in Testdriven - Part I - 05
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2018-09-23 20:49:15" itemprop="dateCreated datePublished" datetime="2018-09-23T20:49:15+08:00">2018-09-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Docker-Config"><a href="#Docker-Config" class="headerlink" title="Docker Config"></a>Docker Config</h1><p>让我们将 Flask 应用容器化（containerize）。</p>
+<p>确保已经安装了 Docker ：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker -v</span><br><span class="line">Docker version 18.06.1-ce, build e68fc7a</span><br><span class="line"></span><br><span class="line">$ docker-compose -v</span><br><span class="line">docker-compose version 1.22.0, build f46880fe</span><br><span class="line"></span><br><span class="line">$ docker-machine -v  # 目前 docker-machine 不是必需的</span><br><span class="line">docker-machine version 0.14.0, build 89b8332</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>添加文件 <code>services/users/Dockerfile-dev</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># base image</span><br><span class="line">FROM python:3.6.5-alpine</span><br><span class="line"></span><br><span class="line"># new</span><br><span class="line"># install dependencies</span><br><span class="line">RUN apk update &amp;&amp; \</span><br><span class="line">    apk add --virtual build-deps gcc python-dev musl-dev</span><br><span class="line"></span><br><span class="line"># set working directory</span><br><span class="line">RUN mkdir -p /usr/src/app</span><br><span class="line">WORKDIR /usr/src/app</span><br><span class="line"></span><br><span class="line"># add and install requirements</span><br><span class="line">COPY ./requirements.txt /usr/src/app/requirements.txt</span><br><span class="line">RUN pip install --upgrade pip</span><br><span class="line">RUN pip install -r requirements.txt</span><br><span class="line"></span><br><span class="line"># add app</span><br><span class="line">COPY . /usr/src/app</span><br><span class="line"></span><br><span class="line"># run server</span><br><span class="line">CMD python manage.py run -h 0.0.0.0</span><br></pre></td></tr></table></figure></p>
+<p>这里，我们使用 <code>Alpine</code> 版本，优点在于：</p>
+<ol>
+<li>使用更少的磁盘空间得以减少主机成本</li>
+<li>更快地构建、加载和运行</li>
+<li>更安全（因为包含很少的库文件和包）</li>
+<li>快速部署</li>
+</ol>
+<p>添加文件 <code>services/users/.dockerignore</code> ，类似 <code>.gitignore</code> :<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.dockerignore</span><br><span class="line">Dockerfile-dev</span><br><span class="line">Dockerfile-prod</span><br></pre></td></tr></table></figure></p>
+<p>在项目的根目录添加 <code>docker-compose-dev.yml</code> :<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">version: &quot;3.6&quot;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  users:</span><br><span class="line">    build:</span><br><span class="line">      context: ./services/users</span><br><span class="line">      dockerfile: Dockerfile-dev</span><br><span class="line">    volumes:</span><br><span class="line">      - &quot;./services/users:/usr/src/app&quot;</span><br><span class="line">    ports:</span><br><span class="line">      - 5001:5000</span><br><span class="line">    environment:</span><br><span class="line">      - FLASK_APP=project/__init__.py</span><br><span class="line">      - FLASK_ENV=development</span><br><span class="line">      - APP_SETTINGS=project.config.DevelopmentConfig</span><br></pre></td></tr></table></figure></p>
+<p>这个配置将创建 <code>users</code> 的服务。</p>
+<p><code>volumes</code> 将当前工作目录挂载到容器中，对于开发环境而言，这是必须的，以便在对源代码进行更改时更新容器。如果没有这个，每次更改代码时都必须重新构建映像。</p>
+<p>在根目录构建该项目的镜像：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker-compose -f docker-compose-dev.yml build</span><br></pre></td></tr></table></figure></p>
+<p>这将是第一次需要几分钟。由于Docker缓存了第一次构建的结果，后续构建将会快得多。构建完成后，启动容器：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker-compose -f docker-compose-dev.yml up -d</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>该 <code>-d</code> 标志用于在后台运行容器。</p>
+</blockquote>
+<p>在浏览器访问 <a href="http://127.0.0.1:5001/users/ping" target="_blank" rel="noopener">http://127.0.0.1:5001/users/ping</a> ，就可以看到和之前相同的 JSON 响应。<br><figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"message"</span>: <span class="string">"pong!"</span>,</span><br><span class="line">  <span class="attr">"status"</span>: <span class="string">"success"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来，添加环境变量到配置文件 <code>docker-compose-dev.yml</code> 中：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># ...</span><br><span class="line"></span><br><span class="line">environment:</span><br><span class="line">      - FLASK_APP=project/__init__.py</span><br><span class="line">      - FLASK_ENV=development</span><br><span class="line">      - APP_SETTINGS=project.config.DevelopmentConfig  # new</span><br></pre></td></tr></table></figure></p>
+<p>更新<code>services/users/project/__init__.py</code> 文件：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, jsonify</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="comment"># set config</span></span><br><span class="line">app_settings = os.getenv(<span class="string">'APP_SETTINGS'</span>)</span><br><span class="line">app.config.from_object(app_settings)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/users/ping', methods=['GET'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ping_pong</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;<span class="string">'status'</span>: <span class="string">'success'</span>, <span class="string">'message'</span>: <span class="string">'pong'</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>更新容器：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker-compose -f docker-compose-dev.yml up -d --build</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>或者，我们可以使用以下命令来启停容器：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker-compose -f docker-compose-dev.yml up -d</span><br><span class="line">$ docker-compose -f docker-compose-dev.yml down -v</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>想要测试，以确保加载正确的配置？在路由处理程序之前的 <code>__init__.py</code> 中添加一条 <code>print</code> 语句，以查看应用程序配置以确保它正常工作：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">print(app.config, file=sys.stderr)</span><br></pre></td></tr></table></figure></p>
+<p>然后只需查看日志：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker-compose -f docker-compose-dev.yml logs</span><br></pre></td></tr></table></figure></p>
+<p>你应该看到类似的东西：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;Config &#123;</span><br><span class="line">  &apos;ENV&apos;: &apos;development&apos;, &apos;DEBUG&apos;: True, &apos;TESTING&apos;: False,</span><br><span class="line">  &apos;PROPAGATE_EXCEPTIONS&apos;: None, &apos;PRESERVE_CONTEXT_ON_EXCEPTION&apos;: None,</span><br><span class="line">  &apos;SECRET_KEY&apos;: None, &apos;PERMANENT_SESSION_LIFETIME&apos;: datetime.timedelta(31),</span><br><span class="line">  &apos;USE_X_SENDFILE&apos;: False, &apos;SERVER_NAME&apos;: None, &apos;APPLICATION_ROOT&apos;: &apos;/&apos;,</span><br><span class="line">  &apos;SESSION_COOKIE_NAME&apos;: &apos;session&apos;, &apos;SESSION_COOKIE_DOMAIN&apos;: None,</span><br><span class="line">  &apos;SESSION_COOKIE_PATH&apos;: None, &apos;SESSION_COOKIE_HTTPONLY&apos;: True,</span><br><span class="line">  &apos;SESSION_COOKIE_SECURE&apos;: False, &apos;SESSION_COOKIE_SAMESITE&apos;: None,</span><br><span class="line">  &apos;SESSION_REFRESH_EACH_REQUEST&apos;: True, &apos;MAX_CONTENT_LENGTH&apos;: None,</span><br><span class="line">  &apos;SEND_FILE_MAX_AGE_DEFAULT&apos;: datetime.timedelta(0, 43200),</span><br><span class="line">  &apos;TRAP_BAD_REQUEST_ERRORS&apos;: None, &apos;TRAP_HTTP_EXCEPTIONS&apos;: False,</span><br><span class="line">  &apos;EXPLAIN_TEMPLATE_LOADING&apos;: False, &apos;PREFERRED_URL_SCHEME&apos;: &apos;http&apos;,</span><br><span class="line">  &apos;JSON_AS_ASCII&apos;: True, &apos;JSON_SORT_KEYS&apos;: True, &apos;JSONIFY_PRETTYPRINT_REGULAR&apos;:</span><br><span class="line">  False, &apos;JSONIFY_MIMETYPE&apos;: &apos;application/json&apos;, &apos;TEMPLATES_AUTO_RELOAD&apos;: None,</span><br><span class="line">  &apos;MAX_COOKIE_SIZE&apos;: 4093&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>确保测试完成后删除该条 <code>print</code> 语句。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/testdriven/" rel="tag"># testdriven</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/23/python-flask-react-docker-testdriven-1-04/" rel="prev" title="Flask React Docker in Testdriven - Part I - 04">
+      <i class="fa fa-chevron-left"></i> Flask React Docker in Testdriven - Part I - 04
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/09/23/python-flask-react-docker-testdriven-1-06/" rel="next" title="Flask React Docker in Testdriven - Part I - 06">
+      Flask React Docker in Testdriven - Part I - 06 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-Config"><span class="nav-number">1.</span> <span class="nav-text">Docker Config</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.6.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="如果您在过去一年中关注软件趋势，Docker 一定是你每隔一段时间就听到厌倦术语。大量开发者谈论容器，隔离虚拟机，你可能会感到不知所措。今天为您打破这一切，最终理解为什么需要容器 (Container) 来作为我们的服务 (Service) 。  为什么需要Docker 关键术语概述 为什么需要 Caas 和 Docker   快速上手 安装Docker 创建容器   真实场景 创建 Nginx">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A crash course on Docker">
+<meta property="og:url" content="http://yoursite.com/2018/07/21/docker-A-crash-course-on-Docker/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="如果您在过去一年中关注软件趋势，Docker 一定是你每隔一段时间就听到厌倦术语。大量开发者谈论容器，隔离虚拟机，你可能会感到不知所措。今天为您打破这一切，最终理解为什么需要容器 (Container) 来作为我们的服务 (Service) 。  为什么需要Docker 关键术语概述 为什么需要 Caas 和 Docker   快速上手 安装Docker 创建容器   真实场景 创建 Nginx">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-24T15:30:43.635Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A crash course on Docker">
+<meta name="twitter:description" content="如果您在过去一年中关注软件趋势，Docker 一定是你每隔一段时间就听到厌倦术语。大量开发者谈论容器，隔离虚拟机，你可能会感到不知所措。今天为您打破这一切，最终理解为什么需要容器 (Container) 来作为我们的服务 (Service) 。  为什么需要Docker 关键术语概述 为什么需要 Caas 和 Docker   快速上手 安装Docker 创建容器   真实场景 创建 Nginx">
+
+<link rel="canonical" href="http://yoursite.com/2018/07/21/docker-A-crash-course-on-Docker/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>A crash course on Docker | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/21/docker-A-crash-course-on-Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          A crash course on Docker
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2018-07-21 21:00:21" itemprop="dateCreated datePublished" datetime="2018-07-21T21:00:21+08:00">2018-07-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>如果您在过去一年中关注软件趋势，Docker 一定是你每隔一段时间就听到厌倦术语。大量开发者谈论容器，隔离虚拟机，你可能会感到不知所措。今天为您打破这一切，最终理解为什么需要容器 (<em>Container</em>) 来作为我们的服务 (<em>Service</em>) 。</p>
+<ol>
+<li>为什么需要Docker<ul>
+<li>关键术语概述</li>
+<li>为什么需要 Caas 和 Docker</li>
+</ul>
+</li>
+<li>快速上手<ul>
+<li>安装Docker</li>
+<li>创建容器</li>
+</ul>
+</li>
+<li>真实场景<ul>
+<li>创建 Nginx 容器来托管静态站点</li>
+<li>学习使用构建工具来自动化Docker命令</li>
+</ul>
+</li>
+</ol>
+<a id="more"></a>
+<h1 id="为什么需要Docker"><a href="#为什么需要Docker" class="headerlink" title="为什么需要Docker"></a>为什么需要Docker</h1><p>我也不断地问自己这个问题，在成为一名坚定的开发者之后，我终于坐下来接受了使用容器的可怕性。以下是我为什么要尝试一下的看法。</p>
+<h2 id="Docker？"><a href="#Docker？" class="headerlink" title="Docker？"></a>Docker？</h2><p>Docker是一个用于创建容器化应用程序的软件。容器的概念是用于运行一个软件的小型无状态环境。</p>
+<blockquote>
+<p>A container image is a lightweight, stand-alone, executable package of a piece of software that includes everything needed to run it: code, runtime, system tools, system libraries, settings.</p>
+</blockquote>
+<blockquote>
+<p>— <a href="https://www.docker.com/what-container" target="_blank" rel="noopener">Official Docker website</a></p>
+</blockquote>
+<h2 id="Virtual-machine"><a href="#Virtual-machine" class="headerlink" title="Virtual machine?"></a>Virtual machine?</h2><p>虚拟机（VM）就像名字所说的那样。真实机器的虚拟版本。它模拟大型机器内部机器的硬件。这意味着，您可以在一台较大的服务器上运行多个虚拟机。你见过电影 <em>Inception</em> 吗？是的，有点像那样。使VM运行的是一个很酷的软件，称为 <em>Hypervisor</em> 。</p>
+<h2 id="Hypervisor"><a href="#Hypervisor" class="headerlink" title="Hypervisor?"></a>Hypervisor?</h2><p>虚拟机仅在Hypervisor下工作。它是一种特殊的软件，可以使物理机器托管多个不同的虚拟机。所有这些VM都可以运行自己的程序，并且似乎正在使用主机的硬件。但是，实际上是Hypervisor正在为VM分配资源。</p>
+<p>注意：如果您曾经尝试过安装VirtualBox等软件，只是为了让它失败，很可能是因为没有在计算机的BIOS中启用Hyper-V。这可能发生在我身上的时间比我记忆中的多。<em>紧张的笑</em></p>
+<p>这里有一篇介绍 Hypervisor 的文章：<a href="https://www.pluralsight.com/blog/it-ops/what-is-hypervisor" title="https://www.pluralsight.com/blog/it-ops/what-is-hypervisor" target="_blank" rel="noopener"><strong>Virtualization 101: What is a Hypervisor?</strong></a></p>
+<h2 id="回答我的问题……"><a href="#回答我的问题……" class="headerlink" title="回答我的问题……"></a>回答我的问题……</h2><p>为什么我们需要 CaaS? 我们一直在使用虚拟机这么长时间，容器怎么会突然变得如此好？好吧，没有人说虚拟机很糟糕，他们很难管理。</p>
+<p>DevOps通常很难，你需要一个专门的人来做这项工作。虚拟机占用大量存储空间和RAM，并且可以及时设置。更不用说你需要公平的经验来以正确的方式管理它们。</p>
+<h2 id="防止做第二次，将它自动化"><a href="#防止做第二次，将它自动化" class="headerlink" title="防止做第二次，将它自动化"></a>防止做第二次，将它自动化</h2><p>使用Docker，您可以抽象出所有及时的配置和环境设置，而是专注于编码。使用<a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a>，您可以获取预先构建的映像，并在常规VM所需的时间内启动和运行。</p>
+<p>然而，最大的优势是创造一个同质化的环境。现在你只需要安装一个软件——Docker，而不必安装不同的依赖项列表来运行你的应用程序。由于它是跨平台的，因此团队中的每个开发人员都将在完全相同的环境中工作。这同样适用于您的开发，登台和生产服务器。现在，这很酷。不再“它在我的机器上运行。”</p>
+<h1 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h1><p>让我们通过安装来解决问题。很棒的是你可以只在开发机器上安装一个软件，并且仍然确保一切都能正常工作。从字面上看，Docker就是你所需要的。</p>
+<h2 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h2><p>幸运的是，安装过程非常简单。让我告诉你如何在<a href="https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">Ubuntu</a>上做到这一点。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get update </span><br><span class="line">$ sudo apt-get install -y docker.io</span><br></pre></td></tr></table></figure></p>
+<p>这就是你所需要的一切。为了确保它正在运行，您可以运行另一个命令。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo systemctl status docker</span><br></pre></td></tr></table></figure></p>
+<p>如果系统服务已停止，您可以运行两个命令的组合来将其执行，并确保它在开机时启动。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo systemctl start docker &amp;&amp; sudo systemctl enable docker</span><br></pre></td></tr></table></figure></p>
+<p>就是这样，你准备好了。</p>
+<p>在Docker的基本安装中，您需要运行<code>docker</code>命令<code>sudo</code>。但是，您可以将您的用户添加到<code>docker group</code>，并且您将能够在没有的情况下运行该命令<code>sudo</code>。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo usermod -aG docker $ &#123;USER&#125; </span><br><span class="line">$ su  -  $ &#123;USER&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="玩转容器Container"><a href="#玩转容器Container" class="headerlink" title="玩转容器Container"></a>玩转容器Container</h2><p>Docker安装和运行后，接着了解以下四个命令：</p>
+<ul>
+<li><code>create</code> 从镜像创建容器</li>
+<li><code>ps</code>   列出正在运行的容器，<code>-a</code> 列出所有容器</li>
+<li><code>start</code> 启动已创建的容器</li>
+<li><code>attch</code> 将终端的标准输入和输出连接到正在运行的容器，就像您对任何虚拟机一样将您连接到容器。</li>
+</ul>
+<p>让我们从小做起。我们将从Docker Hub获取一个Ubuntu映像并从中创建一个容器。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker create -it ubuntu:16.04 bash</span><br></pre></td></tr></table></figure></p>
+<p>我们正在添加 <code>-it</code> 一个选项，为容器提供一个集成终端，因此我们可以连接到它，同时告诉它运行bash命令，这样我们就可以得到一个合适的终端接口。通过指定 <code>ubuntu:16.04</code> 我们从 <code>Docker Hub</code> 中提取版本标签为 16.04 的 Ubuntu 映像。</p>
+<p>运行create命令后，继续验证容器是否已创建。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker ps -a</span><br></pre></td></tr></table></figure></p>
+<p>看起来像这样：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CONTAINER ID  IMAGE        COMMAND  CREATED    STATUS   PORTS  NAMES</span><br><span class="line">7643dba89904  ubuntu:16.04 &quot;bash&quot;   X min ago  Created         name</span><br></pre></td></tr></table></figure></p>
+<p>很棒，容器已创建并准备启动。运行容器就像给 <code>start</code> 命令输入容器的ID一样简单。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker start 7643dba89904</span><br></pre></td></tr></table></figure></p>
+<p>再次检查容器是否正在运行，但现在没有<code>-a</code>标志。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker ps</span><br></pre></td></tr></table></figure></p>
+<p>如果是，请继续并附加到它。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker attach 7643dba89904</span><br></pre></td></tr></table></figure></p>
+<p>你看到了吗？光标变化。为什么？因为你刚进入容器。多么酷啊。您现在可以在Ubuntu中运行您习惯使用的任何<code>bash</code>命令，就好像它是在云中运行的实例一样。来吧，试试吧。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ ls</span><br></pre></td></tr></table></figure></p>
+<p>它会工作得很好，并列出所有目录。哎呀，甚至$ ll会工作。这个简单的小Docker容器就是您所需要的。这是你自己的小虚拟游乐场，你可以在那里进行开发，测试或任何你想要的！无需使用虚拟机或重型软件。为了证明我的观点，请继续在这个小容器中安装你喜欢的任何东西。前进。安装Node将正常工作，成为我的客人并尝试一下。或者，如果要退出容器，您只需要输入即可<code>exit</code>。容器将停止，您可以通过键入再次列出它<code>$ docker ps -a</code> 。</p>
+<h1 id="真实场景"><a href="#真实场景" class="headerlink" title="真实场景"></a>真实场景</h1><p>是时候来一些实战了，将用于今后的项目和生产应用中。</p>
+<h2 id="无状态容器？"><a href="#无状态容器？" class="headerlink" title="无状态容器？"></a>无状态容器？</h2><p>是指每个容器都是孤立的，无状态的。意味着一旦删除容器，内容将被永久删除。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker rm 7643dba89904</span><br></pre></td></tr></table></figure></p>
+<p>好吧，问题来了，这种情况下该如何持久化数据呢？</p>
+<p>您听说过卷（Volumes）吗？Volumes 让我们映射宿主机的目录到容器的内部目录，就是这样：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker create -it -v $(pwd):/var/www ubuntu:latest bash</span><br></pre></td></tr></table></figure></p>
+<p>容器创建时，添加 <code>-v</code> 来制定卷以创建持久化，上面的命令将绑定当前目录到容器的内部目录 <code>/var/www</code> 。</p>
+<blockquote>
+<p>其实，我们可以通过 <code>run</code> 命令来同时运行 <code>create</code> 和 <code>start</code> 。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker run -it -d ubuntu:16.04 bash</span><br></pre></td></tr></table></figure>
+<h2 id="为什么如此重视卷？"><a href="#为什么如此重视卷？" class="headerlink" title="为什么如此重视卷？"></a>为什么如此重视卷？</h2><p>让我花点时间来告诉你为什么？我们通过以下几个步骤创建一个简单的 Nginx 服务器来托管静态站点。</p>
+<p>创建一个目录，命名为你喜欢的名称，为了方便起见，我命名为 <code>myapp</code> 。在目录下创建 <code>index.html</code> ：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">href</span>=<span class="string">"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">integrity</span>=<span class="string">"sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">crossorigin</span>=<span class="string">"anonymous"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Docker Quick Start<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello Docker<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>This means the nginx server is working.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker run --name webserver -v $(pwd):/usr/share/nginx/html -d -p 8080:80 nginx</span><br></pre></td></tr></table></figure>
+<p>在这里你可以看到我们从Docker Hub抓取一个nginx图像，这样我们就可以获得nginx的即时配置。卷配置类似于我们上面所做的，我们只指向nginx托管HTML文件的默认目录。<code>--name</code> 我们设置 <code>webserver</code> 的 <code>-p 8080:80</code> 选项和选项有什么新功能。我们将容器的端口 <code>80</code> 映射到主机上的端口 <code>8080</code> 。当然，不要忘记在 <em>myapp</em> 目录中运行该命令。</p>
+<p>就这么简单。我们只需要几个命令即可启动并运行nginx Web服务器。在index.html中随意编辑一些内容。重新加载页面，您将看到内容已更改。该死的，我多么喜欢Docker。</p>
+<h2 id="如何让生活变得更轻松"><a href="#如何让生活变得更轻松" class="headerlink" title="如何让生活变得更轻松"></a>如何让生活变得更轻松</h2><p>有一个说法，如果我需要做两次，我宁愿自动化它。幸运的是，Docker让我受到了保护。在 <code>index.html</code> 文件旁边添加一个 <code>Dockerfile</code> 。它的名字实际上只是Dockerfile，没有任何扩展名。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#Dockerfile</span><br><span class="line">FROM nginx </span><br><span class="line">VOLUME /usr/share/nginx/html </span><br><span class="line">EXPOSE 80</span><br></pre></td></tr></table></figure></p>
+<p>使用 <code>build</code> 构建镜像：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker build . -t webserver:v1</span><br></pre></td></tr></table></figure></p>
+<p>该 <code>.</code> 被指定其中Dockerfile位于将被用于构建镜像，而 <code>-t</code> 标记该图像的标记。这个镜像将被称为 <code>webserver:v1</code> 。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -v $(pwd):/usr/share/nginx/html -d -p 80:80 webserver</span><br></pre></td></tr></table></figure></p>
+<p>Dockerfile的强大之处在于您可以为容器提供自定义。您可以根据自己的喜好预先构建图像。但是，如果你真的不喜欢重复的任务，你可以更进一步，安装<a href="https://docs.docker.com/compose/" target="_blank" rel="noopener"><strong>docker-compose</strong></a>。</p>
+<h2 id="Docker-compose"><a href="#Docker-compose" class="headerlink" title="Docker-compose?"></a>Docker-compose?</h2><p>它将让你在一个命令中构建和运行容器。但是，更重要的是，您可以构建整个容器集群并使用docker-compose配置它们。</p>
+<p>在Dockerfile旁边添加另一个名为 <code>docker-compose.yml</code> 的文件并粘贴此代码段：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">version: &apos;3&apos;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">    webserver:</span><br><span class="line">       container_name: webserver</span><br><span class="line">       build:</span><br><span class="line">           context: .</span><br><span class="line">           dockerfile: Dockerfile</span><br><span class="line">       ports:</span><br><span class="line">           - &quot;80:80&quot;</span><br><span class="line">       volumes:</span><br><span class="line">           - .:/usr/share/nginx/html</span><br></pre></td></tr></table></figure></p>
+<p>第一次运行需要构建：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose up --build -d</span><br></pre></td></tr></table></figure></p>
+<p>以后的启动和停止只需要：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose up -d</span><br><span class="line">docker-compose stop</span><br></pre></td></tr></table></figure></p>
+<p>停止和移除容器：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure></p>
+<p>如果您想要删除容器，可以运行 <code>rm</code> 我上面提到的命令，否则使用该 <code>rmi</code> 命令删除镜像。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker rmi &lt;image_id&gt;</span><br></pre></td></tr></table></figure></p>
+<p>尽量不要留下残留的容器，如果不需要，请务必将其删除。</p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>为了确保Docker并非唯一的容器技术，我们留意到一个小工具，Docker仅仅是当今容器化的其中一个选择。但是， <a href="https://github.com/rkt/rkt" target="_blank" rel="noopener">rkt</a> 似乎也做得很好。</p>
+<p>深入挖掘，我不得不提到容器编排。我们只讨论过冰山一角。<em>Docker-compose</em> 是一种用于创建容器网络的工具。但是，管理所有这些并确保最大化时间是编排发挥作用的地方。</p>
+<p>这根本不是一项微不足道的任务。随着容器数量的增长，我们需要一种自动化我们通常所做的各种 DevOps 任务的方法。Orchestration 可以帮助我们完成配置主机，在需要扩展或缩小时创建或删除容器，重新创建失败的容器，网络容器等等。所有大枪都使用谷歌的 <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a> 或 Docker 自己的 <a href="https://docs.docker.com/engine/swarm/swarm-tutorial/" target="_blank" rel="noopener">Swarm模式</a> 解决方案。</p>
+<h1 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h1><p>哇，这是很多东西……<br>如果我没有让你相信使用 CaaS 的巨大好处和 Docker 的简单性，我建议你重新考虑并将你现有的一个应用程序包装在 Docker 容器中！</p>
+<blockquote>
+<p>Docker容器实际上只是一个小型VM，您可以在其中执行任何操作，从开发，登台，测试到托管生产应用程序。</p>
+</blockquote>
+<p>Docker的同质性对于生产环境来说就像魔术一样。它将减轻部署应用程序和管理服务器的压力。因为现在你肯定知道本地的任何工作都可以在云端工作。这就是我所说的安心。不再听到臭名昭着的句子我们都听过太多次了。</p>
+<hr>
+<blockquote>
+<p><a href="https://blog.sourcerer.io/a-crash-course-on-docker-learn-to-swim-with-the-big-fish-6ff25e8958b0" target="_blank" rel="noopener">https://blog.sourcerer.io/a-crash-course-on-docker-learn-to-swim-with-the-big-fish-6ff25e8958b0</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/07/09/js-react-axios-demo/" rel="prev" title="React Axios Demo">
+      <i class="fa fa-chevron-left"></i> React Axios Demo
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/07/22/python-flask-Debugging-a-Python-Flask-Application-in-a-Container-with-Docker-Compose/" rel="next" title="Debugging a Python Flask Application in a Container with Docker Compose">
+      Debugging a Python Flask Application in a Container with Docker Compose <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要Docker"><span class="nav-number">1.</span> <span class="nav-text">为什么需要Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker？"><span class="nav-number">1.1.</span> <span class="nav-text">Docker？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Virtual-machine"><span class="nav-number">1.2.</span> <span class="nav-text">Virtual machine?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hypervisor"><span class="nav-number">1.3.</span> <span class="nav-text">Hypervisor?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回答我的问题……"><span class="nav-number">1.4.</span> <span class="nav-text">回答我的问题……</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防止做第二次，将它自动化"><span class="nav-number">1.5.</span> <span class="nav-text">防止做第二次，将它自动化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速上手"><span class="nav-number">2.</span> <span class="nav-text">快速上手</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Docker"><span class="nav-number">2.1.</span> <span class="nav-text">安装Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#玩转容器Container"><span class="nav-number">2.2.</span> <span class="nav-text">玩转容器Container</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#真实场景"><span class="nav-number">3.</span> <span class="nav-text">真实场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无状态容器？"><span class="nav-number">3.1.</span> <span class="nav-text">无状态容器？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么如此重视卷？"><span class="nav-number">3.2.</span> <span class="nav-text">为什么如此重视卷？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何让生活变得更轻松"><span class="nav-number">3.3.</span> <span class="nav-text">如何让生活变得更轻松</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-compose"><span class="nav-number">3.4.</span> <span class="nav-text">Docker-compose?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展"><span class="nav-number">3.5.</span> <span class="nav-text">扩展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打包"><span class="nav-number">4.</span> <span class="nav-text">打包</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

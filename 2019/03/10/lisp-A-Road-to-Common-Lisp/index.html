@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.6.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="http://stevelosh.com/blog/2018/08/a-road-to-common-lisp/  本篇文章讲述如何学习 Common Lisp 语言，希望能够给同样对 Common Lisp 语言有兴趣的朋友提供一些有用的建议。">
+<meta name="keywords" content="lisp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Road to Common Lisp">
+<meta property="og:url" content="http://yoursite.com/2019/03/10/lisp-A-Road-to-Common-Lisp/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="http://stevelosh.com/blog/2018/08/a-road-to-common-lisp/  本篇文章讲述如何学习 Common Lisp 语言，希望能够给同样对 Common Lisp 语言有兴趣的朋友提供一些有用的建议。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2019/0311-1.jpeg">
+<meta property="og:updated_time" content="2020-06-24T15:30:43.657Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Road to Common Lisp">
+<meta name="twitter:description" content="http://stevelosh.com/blog/2018/08/a-road-to-common-lisp/  本篇文章讲述如何学习 Common Lisp 语言，希望能够给同样对 Common Lisp 语言有兴趣的朋友提供一些有用的建议。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2019/0311-1.jpeg">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/10/lisp-A-Road-to-Common-Lisp/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>A Road to Common Lisp | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/lisp-A-Road-to-Common-Lisp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          A Road to Common Lisp
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2019-03-10 21:12:37" itemprop="dateCreated datePublished" datetime="2019-03-10T21:12:37+08:00">2019-03-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p> <a href="http://stevelosh.com/blog/2018/08/a-road-to-common-lisp/" target="_blank" rel="noopener">http://stevelosh.com/blog/2018/08/a-road-to-common-lisp/</a></p>
+</blockquote>
+<p>本篇文章讲述如何学习 Common Lisp 语言，希望能够给同样对 Common Lisp 语言有兴趣的朋友提供一些有用的建议。</p>
+<a id="more"></a>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>我们先了解一下 Common Lisp 的来历以及它是一门怎么样的计算机语言是很有必要的。如果以现代编程语言的角度来看 Common Lisp，它确实有一些奇怪。</p>
+<p>##　历史<br>Common Lisp 历史悠久，我们大概的说一下，不在这里阐述它的前世今生——如果有兴趣可以参考以下资料：</p>
+<ul>
+<li>Wikipedia 的 <a href="https://en.wikipedia.org/wiki/Lisp_(programming_language" target="_blank" rel="noopener">History of Lisp</a>#History) 和 <a href="https://en.wikipedia.org/wiki/Common_Lisp#History" target="_blank" rel="noopener">History of Common Lisp</a>。</li>
+<li><a href="http://www.gigamonkeys.com/book/introduction-why-lisp.html#where-it-began" target="_blank" rel="noopener">Where it Began section in Practical Common Lisp</a>。</li>
+<li><a href="https://www.cs.cmu.edu/Groups//AI/lang/lisp/faq/lisp_2.faq" target="_blank" rel="noopener">History: Where did Lisp come from?</a></li>
+<li><a href="http://www.nhplace.com/kent/Papers/cl-untold-story.html" target="_blank" rel="noopener">Common Lisp: the Untold Story</a></li>
+<li><a href="https://www.dreamsongs.com/Files/HOPL2-Uncut.pdf" target="_blank" rel="noopener">The Evolution of Lisp</a></li>
+</ul>
+<p>如果我们不想详细的阅读上面的资料的话，就来快速了解一下 Lisp 六十多年来的历史吧。</p>
+<p>Lisp 起始于上个世纪 50 年代，创始人是麻省理工大学（MIT）的 John McCarthy。之后的二十多年里，有许多版本的 Lisp 方言产生并繁荣发展，其中一些比较有名的有 Maclisp, BBN Lisp/Interlisp, Franz Lisp, Spice Lisp, Lisp Machine Lisp。它们有各自不同的实现，并在不同的领域不断成长、变化。</p>
+<p>到了八十年代，人们认为有太多互不相容的 Lisp 方言并非好事，希望有一个共通的语言能适应每一个人，在 1984 年，Guy Steele 发布了一个版本的 <a href="https://www.cs.cmu.edu/Groups/AI/html/cltl/cltl2.html" target="_blank" rel="noopener">Common Lisp: the Language</a>。</p>
+<p>我们可以看到这本书围绕着 Lisp 25 年来的实际应用、实验、经验以及历史借鉴来讲述。即便如此，这本书也没有满足每一个人的需要，所以在 1986 年，国际信息技术标准委员会为 Common Lisp 指定了 ANSI 规范。</p>
+<p>委员会致力于将其标准化，并与 1990 年发布了 Common Lisp 第二版，更为全面。此时，Lisp 语言家族已经有超过30年的经验和历史借鉴。而一门现代语言（Python）的第一版才刚刚发布不久。</p>
+<h2 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h2><p>我想告诉大家，Common Lisp 是怎样一门稳定、强大、使用、可扩展而又奇怪的 语言。</p>
+<p><strong>兼容性</strong></p>
+<p>在其他语言，如果升级之后可能一些库会被破坏，比如用最新版本的 Ruby 运行一年前的代码可能需要完善一下。我当前的工作语言是 Scala，如果在　Github 上找到一个两三年前的库，我很怀疑它是否能适应当前的需要。兼容性是现代语言不得不每天都要面对的事情。</p>
+<p>对于 Common Lisp 来说这都不是事，后面我会推荐一本 1990 年代写的书，我们可以不做修改的用最新版本的 Common Lisp 运行这本书里的代码。</p>
+<p><strong>实用性</strong></p>
+<p>Common Lisp 是一门强大而使用的语言。在我们学习 Common Lisp 并查找一些库的时候，内心常常会想 “这个项目最后一次更新是在几年前吗？是不是本放弃了？” 而 Common Lisp 的稳定性告诉我们这些库会一直持续，可不要小看了它们。</p>
+<p><strong>扩展性</strong></p>
+<p>Common Lisp 之所以如此实用得益于它的可扩展性。它有着强大的宏（Macros），宏允许我们编写库来实现在其他语言中的核心特性：</p>
+<ul>
+<li>Common Lisp 并没包含字符串插入，想要实现这个功能？没问题，你不需要等候 Scala 或者 Python，只需要<a href="https://edicl.github.io/cl-interpol/" target="_blank" rel="noopener">一个库</a>。</li>
+<li>想要尝试一些没有引用的不确定的变成吗？看<a href="https://nikodemus.github.io/screamer/" target="_blank" rel="noopener">这里</a>。</li>
+<li>语法匹配可以使代码变漂亮，提高可读性。而 Common Lisp 自身并没有这个功能，我们可以看<a href="https://github.com/guicho271828/trivia/wiki/What-is-pattern-matching%3F-Benefits%3F" target="_blank" rel="noopener">这里</a>。</li>
+<li>享受 Haskell 或 Scala 里的代数数据类型？看<a href="https://github.com/tarballs-are-good/cl-algebraic-data-type" target="_blank" rel="noopener">这里</a>。</li>
+</ul>
+<p>所有这些库通过宏可以无缝实现。当然，没有宏也可以实现这些功能，但是不得不添加层来管理，像这样：<br><figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">match</span> foo</span><br><span class="line">  '(list x y z) (<span class="name">lambda</span> (<span class="name">x</span> y z) (<span class="name">+</span> x y z))</span><br><span class="line">  '(vector x y) (<span class="name">lambda</span> (<span class="name">x</span> y) (<span class="name">-</span> x y)))</span><br></pre></td></tr></table></figure></p>
+<p>只是不会像这样：<br><figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">match</span> foo</span><br><span class="line">  ((<span class="name">list</span> x y z) (<span class="name">+</span> x y z))</span><br><span class="line">  ((<span class="name">vector</span> x y) (<span class="name">-</span> x y)))</span><br></pre></td></tr></table></figure></p>
+<p>没有人在 Common Lisp 标准版添加模式匹配，因为您可以将其写成库来获取 90% 以上的内容，语言本身给予您足够的能力来扩展。</p>
+<p><strong>功率</strong></p>
+<p>宏使得 Lisp 得以扩展，因为它能让您代码转换成其他代码。类似 C 语言里的宏，但 Common Lisp 的宏又有不同，因为它是语言的一部分。</p>
+<p>在 Common Lisp 中，宏在语言自身当中，我们可以使用宏来写函数，并使用这些函数编写更多的宏。它不是分层的，而是抽象的反馈循环。</p>
+<p>但是，宏并不是让 Common Lisp 变得可扩展的唯一原因，有的人并没有意识到虽然 Common Lisp 是一门高阶语言，但它也有丰富的低阶工具。它从不会像 C, Rust, 或 Forth 那样低级，而我们会惊讶于 ANSI 包含的内容。</p>
+<p>并非所有Common Lisp实现都实际执行所有这些优化，但Common Lisp的设计者有远见地包含支持它们所需的语言功能。这种支持极高级编程与宏的组合以及合理数量的低级优化意味着即使规范已有二十多年的历史，它仍然是今天构建的良好基础。设计师所汲取的三十年经验和历史使他们能够创造出一种能够存活数十年的非常实用的语言。</p>
+<p><strong>奇怪</strong></p>
+<p>理解 Common Lisp 的实用性当然是很重要的，但也要适应其现有方言存在的很奇怪（甚至是丑陋）的部分。可以看看第二版的 <em>Common Lisp: the Language and Look up</em> 的索引中看到 <code>kludges</code> 一词的奇怪。</p>
+<center><br><img src="https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2019/0311-1.jpeg" alt=""><br></center>
+
+<p>Common Lisp 是一门设计得不够优雅的语言，这一历史包袱也算是它的一个特性吧。如果设计者尝试让其更完美或者代码更漂亮，可能导致其语言本身被忽略，而不是被采用和接受。</p>
+<h1 id="学习Common-Lisp的方式"><a href="#学习Common-Lisp的方式" class="headerlink" title="学习Common Lisp的方式"></a>学习Common Lisp的方式</h1><p>如果没有被上面的特性吓倒，那就开始我们的学习吧。</p>
+<p>在查找 Common Lisp 的学习指南时，并不会找到让自己满意的结果，这是因为很多的 Common Lisp 材料都处于初级阶段。这里列出一些相关的书籍，我会推荐出一些比较好的书籍，但也要吸取其他资料的精华。</p>
+<h2 id="获取Lisp"><a href="#获取Lisp" class="headerlink" title="获取Lisp"></a>获取Lisp</h2><p>在开始学习之前，我们得先安装 Common Lisp，它符合 ANSI 规范。</p>
+<ul>
+<li>如果使用的是 MacOS，可以下载 GUI 界面的应用，在 App Store 找到 <a href="https://ccl.clozure.com/" target="_blank" rel="noopener">ClozureCL</a> （通常简称为CCL）。</li>
+<li>其他系统请选择 <a href="http://www.sbcl.org/" target="_blank" rel="noopener">SBCL</a>。</li>
+</ul>
+<blockquote>
+<ul>
+<li>Clozure 和 Clojure 是完全不同的，请别混搅了。</li>
+<li>您可能听说过 CLISP，它可能是你所需要的。但并非如此，CLISP 虽然是另一种 Lisp 实现，但它出现的时间并不长，没有 CCL 或 SBCL 普及，如果我们遇到问题的时候可能很难找到解决方案。</li>
+</ul>
+</blockquote>
+<h2 id="选择一款编辑器"><a href="#选择一款编辑器" class="headerlink" title="选择一款编辑器"></a>选择一款编辑器</h2><p>可能我们第一个想到的便是 Emacs，但并不一定非 Emacs 不可，我们可以使用适合自己的任何一款编辑器。MacOS 中的 CCL 绑定了一款文本编辑器。</p>
+<p>Emacs, Vim, Sublime Text, Atom, 不管怎样，哪一款都可以，它们都可以支持括号匹配、高亮代码以及自动缩排代码。</p>
+<h2 id="第一个Lisp"><a href="#第一个Lisp" class="headerlink" title="第一个Lisp"></a>第一个Lisp</h2><p>我们来编写文件 <code>hello.lisp</code>:<br><figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> hello()</span><br><span class="line">  (<span class="name">write-line</span> <span class="string">"What is your name?"</span>)</span><br><span class="line">  (<span class="name">let</span> ((<span class="name">name</span> (<span class="name">read-line</span>)))</span><br><span class="line">	(<span class="name">format</span> <span class="literal">t</span> <span class="string">"Hello, ~A.~%"</span> name)))</span><br></pre></td></tr></table></figure></p>
+<p>别担心看不懂代码，我们在这里只需要确人环境是能正常工作的。</p>
+<p>打开 SBCL 或 CCL，加载上面的文件并运行其中的函数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sbcl</span><br><span class="line">* (load &quot;hello.lisp&quot;)</span><br><span class="line"></span><br><span class="line">T</span><br><span class="line">* (hello)</span><br><span class="line">What is your name?</span><br><span class="line">Steve</span><br><span class="line">Hello, Steve.</span><br><span class="line">NIL</span><br><span class="line">*</span><br></pre></td></tr></table></figure>
+<h2 id="资料介绍"><a href="#资料介绍" class="headerlink" title="资料介绍"></a>资料介绍</h2><p>我所知道的 Common Lisp 入门书籍是 <em><a href="https://www.cs.cmu.edu/~dst/LispBook/" target="_blank" rel="noopener">Common Lisp: A Gentle Introduction to Symbolic Computation</a></em>。全书贯穿习题，让我们很容易理解：</p>
+<ul>
+<li>如何记住众多的函数名？</li>
+<li>为什么很少使用字符串？</li>
+<li>什么时候应该使用这烦人的引号？</li>
+</ul>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><p>接下来要介绍的一本书是 <em><a href="http://www.gigamonkeys.com/book/" target="_blank" rel="noopener">Practical Common Lisp</a></em>。我们也应该适应于在 *<a href="http://www.lispworks.com/documentation/lw70/CLHS/Front/Contents.htm" target="_blank" rel="noopener">the Common Lisp language specification</a> 查找规范，它是 Common Lisp 的终极指南。</p>
+<h2 id="该有所行动了"><a href="#该有所行动了" class="headerlink" title="该有所行动了"></a>该有所行动了</h2><p>阅读了上面两本书，是时候该做些什么了，我们不需要进行一些大型的项目，可以尝试写一些 Lisp 程序。如果愿意：</p>
+<ul>
+<li>解决 <a href="https://projecteuler.net/" target="_blank" rel="noopener">Project Euler</a> 问题。</li>
+<li>做一些 <a href="https://adventofcode.com/" target="_blank" rel="noopener">Advent of Code</a> 练习。</li>
+<li>弄一个<a href="https://twitter.com/git_commands" target="_blank" rel="noopener">简单的推特机器人</a>。</li>
+<li>写一款私人日历来记录日程，查看天气预报等。</li>
+<li>使用 <a href="https://github.com/vydd/sketch" target="_blank" rel="noopener">Sketch</a> 在 <a href="https://www.youtube.com/user/codingmath/videos" target="_blank" rel="noopener">Coding Math videos</a> 实现一些东西。</li>
+</ul>
+<p>不管您实现了什么，关键在于是您自己实现的。</p>
+<h2 id="把Lisp当做一个系统"><a href="#把Lisp当做一个系统" class="headerlink" title="把Lisp当做一个系统"></a>把Lisp当做一个系统</h2><p>现在是时候把您的 Common Lisp 技能提升一个等级了，前面说了可以使用任意编辑器来写代码是因为那样能积累很多经验，但现在是时候跳入“深渊”了。</p>
+<p>大多数语言的开发过程看起来像这样：</p>
+<ol>
+<li>用编辑器编写项目代码。</li>
+<li>编辑项目（一些语言跳过这一步）。</li>
+<li>运行项目（或者测试）。</li>
+<li>观察输出（在终端，或浏览器，等等）。</li>
+<li>继续第一步。</li>
+</ol>
+<p>但这不是大多数 Common Lisp 用户的交互方式，在 Common Lisp 中是这样循环的：</p>
+<ol>
+<li>开始一个 Lisp 过程。</li>
+<li>加载项目。</li>
+<li>在编辑器中编写代码。</li>
+<li>告诉运行的进程只编译您编辑的代码。</li>
+<li>在进程中与变化的代码交互，通过 REPL, HTTP请求等等。</li>
+<li>观察输出（在终端，或浏览器，等等）。</li>
+<li>继续第三步。</li>
+</ol>
+<p>当你拥抱 Lisp 的工作方式时，很少会重新编译和重新加载整个项目。通常你会写一个函数(或一个宏,或者参数,等等),编译的仅仅是函数,也许有点 REPL，然后继续下一个函数。相比传统的 compile-everything-then-run 是有优势的。</p>
+<p>首先，提高了编译速度，你不必等待编译器,所以你的注意力/思维过程从来没有时间游荡。</p>
+<p>其次，当你回到你的编译(或运行)的结果时,任何错误或警告几乎可以让你确定是哪几行代码编译。</p>
+<p>编写 Common Lisp 感觉是与生活交互，共同呼吸，又像一个<a href="https://www.reddit.com/r/lisp/comments/4oo1cp/common_lisp_for_clojure_programmer/d4eec68/" target="_blank" rel="noopener">很好的教学助理</a>。</p>
+<p>这种哲学的 Lisp 不仅仅是编程语言，而是生活，呼吸编程<a href="https://www.dreamsongs.com/Files/Incommensurability.pdf" target="_blank" rel="noopener">系统</a>也不仅仅是简单的反馈和交互式 REPL。</p>
+<p>举个例子：设想在玩一款视频游戏，偶尔会导致除零的错误伤害计算。假设你在这个特定的任务上，即将开始游戏并加载保存的文件，并按步骤开始，在追求杀死最后一个怪物,你打损伤缺陷!在传统的语言,会发生两件事情：</p>
+<ol>
+<li>游戏崩溃，你发现一个堆栈跟踪，也许是核心的。</li>
+<li>你包装在一个 <code>try</code> 块主要游戏循环日志和忽略错误堆栈跟踪,让比赛继续。</li>
+</ol>
+<p>第一种情况相当糟，你必须试着追踪bug的快照时什么东西看起来像(堆栈跟踪和核心转储)。即使你能修复它,现在你必须重做所有打回到测试最初致力于追求代码。</p>
+<p>第二种情况也很糟，如果你只是忽略错误,游戏现在可能处于一种奇怪的状态。你也可能会失去一些重要的上下文需要调试的问题，除非你还保存核心转储（但我不知道许多人节省的核心转储每个例外）。</p>
+<p>在 Common Lisp 我们当然可以选择忽略错误，但有更好的处理方式，当出现错误信号时，不撤销堆栈。Lisp 进程将暂停执行并打开编辑器展示堆栈跟踪。此时，您可以与正在运行的进程通信的 REPL 看到发生了什么。您可以检查变量在堆栈，甚至你想要运行任意代码。</p>
+<p>一旦找出问题，就可以优化代码，重新编译有问题的函数，并在堆栈中重启该函数。您的担忧将抛到九霄云外。</p>
+<p>并不是所有编辑器都支持这种方式的交互开发，例如标准的指定命名方法 <code>update-instance-for-redefined-class</code>，可以让你在类重新定义时知道自定义的对象发生了什么。动态更新运行的代码是安全的，在 Common Lisp 中并不需要很么黑魔法，因为它很平常的工作。</p>
+<p>现在我们已经有了很美妙的交互体验，糟糕的是我们只有两种编辑器可选：</p>
+<ul>
+<li>带 <a href="https://common-lisp.net/project/slime/" target="_blank" rel="noopener">SLIME</a> 或 <a href="https://github.com/joaotavora/sly" target="_blank" rel="noopener">Sly</a> 插件的 <strong>Emacs</strong></li>
+<li>带 <a href="https://github.com/l04m33/vlime" target="_blank" rel="noopener">Vlime</a> 或 <a href="https://github.com/kovisoft/slimv" target="_blank" rel="noopener">Slimv</a> 插件的 <strong>Vim</strong></li>
+</ul>
+<p>除了 Emacs，还可以选择它的套装版本 <a href="https://portacle.github.io/" target="_blank" rel="noopener">Portacle</a>，它捆绑了 Emacs 和 SLIME 等。不管选择了哪款编辑器，都得花些时间来设置工作环境。</p>
+<blockquote>
+<p>如果有兴趣弄一个 Common Lisp <a href="https://langserver.org/" target="_blank" rel="noopener">LSP</a> 语言服务器，我想这将是大有益处的。拥有一个 LSP 服务器意味着你在许多编辑器上拥有了丰富的编程经验，将帮助到更多的人。</p>
+</blockquote>
+<h2 id="学习范式"><a href="#学习范式" class="headerlink" title="学习范式"></a>学习范式</h2><p>此时，你已经拥有了扎实的 Common Lisp 基础知识，也有了很多开发经验。下一个目标应该是学习如何编写优雅的 Common Lisp，并从中学习和使用新的环境。我推荐一本好书 <em><a href="https://github.com/norvig/paip-lisp" target="_blank" rel="noopener">Paradigms of Artifical Intelligence Programming</a></em> （通常简称为PAIP）。这本书写于 1982 年，并不是关于现在熟悉的 AI 领域，而是老式的人工智能（<a href="https://en.wikipedia.org/wiki/Symbolic_artificial_intelligence" target="_blank" rel="noopener">Good Old-Fashioned AI</a>）。即使你对人工智能不是很感兴趣，这本书也能教你如何编写 Common Lisp 代码。</p>
+<p>我真的很喜欢这本书，它涵盖了几乎所有函数。如果你看了其他编程书记省略的文档，大概是因为编排不足，因为他们觉得其他资料已经提供了足够多的文档了。但是编写有用的字符串文档本身就是一门艺术，我认为“省略文档的代码”并不是一个好的习惯。</p>
+<h2 id="成功的方法"><a href="#成功的方法" class="headerlink" title="成功的方法"></a>成功的方法</h2><p>最后一本技术书籍我推荐 <a href="http://weitz.de/cl-recipes/" target="_blank" rel="noopener">Common Lisp Recipes</a>。这本书的作者写了几个 Common Lisp 常用库，这本书会教你一些其他书籍学不到的内容。</p>
+<h2 id="最后的模式"><a href="#最后的模式" class="headerlink" title="最后的模式"></a>最后的模式</h2><p>如果到这里依然对 Common Lisp 兴趣浓厚，我想推荐一个网站上的书籍：<a href="https://www.dreamsongs.com/Books.html" target="_blank" rel="noopener">dreamsongs.com</a>。</p>
+<h1 id="接下来该做什么"><a href="#接下来该做什么" class="headerlink" title="接下来该做什么"></a>接下来该做什么</h1><p>如果你通过所有的书和活动在前一节中：祝贺你，你是一个伟大的开始！现在您已经有了一个像样的处理核心语言可以在许多不同的方向探索，这取决于你的兴趣。</p>
+<h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><p>如果想深入了解宏的秘密，推荐阅读 <a href="http://www.paulgraham.com/onlisp.html" target="_blank" rel="noopener">On Lisp</a> 和 <a href="https://letoverlambda.com/" target="_blank" rel="noopener">Let Over Lambda</a>。</p>
+<h2 id="面向对象的CLOS"><a href="#面向对象的CLOS" class="headerlink" title="面向对象的CLOS"></a>面向对象的CLOS</h2><p>Common Lisp 在面向对象的支持是通过 CLOS 来支持，如果你有 Java 的面向对象经验，我希望你能够重新认识 CLOS。<a href="https://www.amazon.com/Object-Oriented-Programming-COMMON-LISP-Programmers/dp/0201175894" target="_blank" rel="noopener">Object-Oriented Programming in COMMON LISP: A Programmer’s Guide to CLOS</a> 这本书很好的介绍了 CLOS。如果想改变以前的逻辑，尝试阅读 <a href="https://www.amazon.com/Art-Metaobject-Protocol-Gregor-Kiczales/dp/0262610744" target="_blank" rel="noopener">The Art of the Metaobject Protocol</a>，这本书可能是你需要的。</p>
+<h2 id="低级编程"><a href="#低级编程" class="headerlink" title="低级编程"></a>低级编程</h2><p>低级编程可以意味着很多不同的事情,所以我在这里提到的一种可能性。</p>
+<h2 id="网页开发"><a href="#网页开发" class="headerlink" title="网页开发"></a>网页开发</h2><h2 id="游戏开发"><a href="#游戏开发" class="headerlink" title="游戏开发"></a>游戏开发</h2><p><a href="http://landoflisp.com/" target="_blank" rel="noopener">Land of Lisp</a>　可以参考。</p>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>如果你来自一个现代语言，特别是有很多测试驱动开发的拥护者，你可能会惊讶于 Common Lisp 不够重视单元测试。我认为其中一个原因是，在某些语言单元测试最简单的方法是实际运行一个函数，但是 Lisp 的互动风格的开发提供了一个更简单的选择：在 REPL 运行功能！</p>
+<h1 id="现代的Common-Lisp"><a href="#现代的Common-Lisp" class="headerlink" title="现代的Common Lisp"></a>现代的Common Lisp</h1><ul>
+<li>结构<ul>
+<li>包</li>
+<li>系统</li>
+<li>项目</li>
+<li>重造轮子</li>
+</ul>
+</li>
+<li>普通库<ul>
+<li>Alexandria</li>
+<li>Bordeaux Threads</li>
+<li>CFFI</li>
+<li>CL-PPCRE</li>
+<li>Drakma</li>
+<li>Iterate</li>
+<li>local-time</li>
+<li>lparallel</li>
+<li>Named Readtables</li>
+<li>Roswell</li>
+<li>SERIES</li>
+<li>st-json</li>
+<li>usocket</li>
+</ul>
+</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>希望这篇文章对你有所帮助，Common Lisp 是一门历史久远而有深度的语言。并不一个月就能掌握的，如果有兴趣的话得慢慢钻研。祝你好运！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/lisp/" rel="tag"># lisp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/19/react-native-in-android-studio-development-environment-configuration/" rel="prev" title="React Native in Android Studio development environment configuration">
+      <i class="fa fa-chevron-left"></i> React Native in Android Studio development environment configuration
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/13/lisp-learning-lisp-for-CMPT-01/" rel="next" title="Learning Lisp for CMPT 01-Basic LISP Programming">
+      Learning Lisp for CMPT 01-Basic LISP Programming <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#影响"><span class="nav-number">1.1.</span> <span class="nav-text">影响</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习Common-Lisp的方式"><span class="nav-number">2.</span> <span class="nav-text">学习Common Lisp的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取Lisp"><span class="nav-number">2.1.</span> <span class="nav-text">获取Lisp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择一款编辑器"><span class="nav-number">2.2.</span> <span class="nav-text">选择一款编辑器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个Lisp"><span class="nav-number">2.3.</span> <span class="nav-text">第一个Lisp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资料介绍"><span class="nav-number">2.4.</span> <span class="nav-text">资料介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践"><span class="nav-number">2.5.</span> <span class="nav-text">实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#该有所行动了"><span class="nav-number">2.6.</span> <span class="nav-text">该有所行动了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把Lisp当做一个系统"><span class="nav-number">2.7.</span> <span class="nav-text">把Lisp当做一个系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习范式"><span class="nav-number">2.8.</span> <span class="nav-text">学习范式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成功的方法"><span class="nav-number">2.9.</span> <span class="nav-text">成功的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后的模式"><span class="nav-number">2.10.</span> <span class="nav-text">最后的模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接下来该做什么"><span class="nav-number">3.</span> <span class="nav-text">接下来该做什么</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#宏"><span class="nav-number">3.1.</span> <span class="nav-text">宏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象的CLOS"><span class="nav-number">3.2.</span> <span class="nav-text">面向对象的CLOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#低级编程"><span class="nav-number">3.3.</span> <span class="nav-text">低级编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网页开发"><span class="nav-number">3.4.</span> <span class="nav-text">网页开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#游戏开发"><span class="nav-number">3.5.</span> <span class="nav-text">游戏开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单元测试"><span class="nav-number">3.6.</span> <span class="nav-text">单元测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#现代的Common-Lisp"><span class="nav-number">4.</span> <span class="nav-text">现代的Common Lisp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.6.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="列模式操作删除列 光标定位到要操作的地方。 CTRL+v 进入“可视 块”模式，选取这一列操作多少行。 d 删除。  插入列插入操作的话知识稍有区别。例如我们在每一行前都插入”() “：  光标定位到要操作的地方。 CTRL+v 进入“可视 块”模式，选取这一列操作多少行。 SHIFT+i(I) 输入要插入的内容。 ESC 按两次，会在每行的选定的区域出现插入的内容。">
+<meta name="keywords" content="vim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VIM Snippet">
+<meta property="og:url" content="http://yoursite.com/2017/06/25/editor-vim-snippet/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="列模式操作删除列 光标定位到要操作的地方。 CTRL+v 进入“可视 块”模式，选取这一列操作多少行。 d 删除。  插入列插入操作的话知识稍有区别。例如我们在每一行前都插入”() “：  光标定位到要操作的地方。 CTRL+v 进入“可视 块”模式，选取这一列操作多少行。 SHIFT+i(I) 输入要插入的内容。 ESC 按两次，会在每行的选定的区域出现插入的内容。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-24T15:30:43.640Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VIM Snippet">
+<meta name="twitter:description" content="列模式操作删除列 光标定位到要操作的地方。 CTRL+v 进入“可视 块”模式，选取这一列操作多少行。 d 删除。  插入列插入操作的话知识稍有区别。例如我们在每一行前都插入”() “：  光标定位到要操作的地方。 CTRL+v 进入“可视 块”模式，选取这一列操作多少行。 SHIFT+i(I) 输入要插入的内容。 ESC 按两次，会在每行的选定的区域出现插入的内容。">
+
+<link rel="canonical" href="http://yoursite.com/2017/06/25/editor-vim-snippet/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>VIM Snippet | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/25/editor-vim-snippet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VIM Snippet
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2017-06-25 12:15:09" itemprop="dateCreated datePublished" datetime="2017-06-25T12:15:09+08:00">2017-06-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/editor/" itemprop="url" rel="index"><span itemprop="name">editor</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="列模式操作"><a href="#列模式操作" class="headerlink" title="列模式操作"></a>列模式操作</h2><h3 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h3><ol>
+<li>光标定位到要操作的地方。</li>
+<li><code>CTRL+v</code> 进入“可视 块”模式，选取这一列操作多少行。</li>
+<li><code>d</code> 删除。</li>
+</ol>
+<h3 id="插入列"><a href="#插入列" class="headerlink" title="插入列"></a>插入列</h3><p>插入操作的话知识稍有区别。例如我们在每一行前都插入”() “：</p>
+<ol>
+<li>光标定位到要操作的地方。</li>
+<li><code>CTRL+v</code> 进入“可视 块”模式，选取这一列操作多少行。</li>
+<li><code>SHIFT+i(I)</code> 输入要插入的内容。</li>
+<li><code>ESC</code> 按两次，会在每行的选定的区域出现插入的内容。</li>
+</ol>
+<a id="more"></a>
+<h2 id="调整分割窗口的大小"><a href="#调整分割窗口的大小" class="headerlink" title="调整分割窗口的大小"></a>调整分割窗口的大小</h2><ol>
+<li><code>:resize +5</code> 横向调整</li>
+<li><code>:vertical resize +5</code> 纵向调整</li>
+</ol>
+<h2 id="复制、剪贴"><a href="#复制、剪贴" class="headerlink" title="复制、剪贴"></a>复制、剪贴</h2><blockquote>
+<p><a href="https://www.zhihu.com/question/19863631" target="_blank" rel="noopener">https://www.zhihu.com/question/19863631</a></p>
+</blockquote>
+<h3 id="vim快速选中、删除、复制、修改引号或括号内的内容"><a href="#vim快速选中、删除、复制、修改引号或括号内的内容" class="headerlink" title="vim快速选中、删除、复制、修改引号或括号内的内容"></a>vim快速选中、删除、复制、修改引号或括号内的内容</h3><p>分别更改这些配对标点符号中的文本内容<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ci’、ci”、ci(、ci[、ci&#123;、ci&lt; -</span><br></pre></td></tr></table></figure></p>
+<p>分别删除这些配对标点符号中的文本内容<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">di’、di”、di(或dib、di[、di&#123;或diB、di&lt; -</span><br></pre></td></tr></table></figure></p>
+<p>分别复制这些配对标点符号中的文本内容<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yi’、yi”、yi(、yi[、yi&#123;、yi&lt; -</span><br></pre></td></tr></table></figure></p>
+<p>分别选中这些配对标点符号中的文本内容<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi’、vi”、vi(、vi[、vi&#123;、vi&lt; -</span><br></pre></td></tr></table></figure></p>
+<h3 id="Vim中的复制、粘贴、删除"><a href="#Vim中的复制、粘贴、删除" class="headerlink" title="Vim中的复制、粘贴、删除"></a>Vim中的复制、粘贴、删除</h3><p>Vim 中的复制、删除的内容都会被存放到默认（未命名）寄存器中，之后可以通过粘贴操作读取默认寄存器中的内容。<br>寄存器是完成这一过程的中转站，Vim 支持的寄存器非常多，其中常用的有 a-zA-Z0-9+“。其中：0-9：表示数字寄存器，是 Vim 用来保存最近复制、<br>删除等操作的内容，其中 0 号寄存器保存的是最近一次的操作内容。a-zA-Z：表示用户寄存器，Vim 不会读写这部分寄存器”（单个双引号）：<br>未命名的寄存器，是 Vim 的默认寄存器，例如删除、复制等操作的内容都会被保存到这里。+：剪切板寄存器，关联系统剪切板，保存在这个寄存器中的内容可以被系统其他程序访问，也可以通过这个寄存器访问其他程序保存到剪切板中的内容。<br>通过下面命令可以查看所有寄存器中的内容，也可以只查看指定寄存器的内容（将寄存器名称作为参数）<code>:reg [register_name]</code></p>
+<h3 id="与系统剪贴板的交互"><a href="#与系统剪贴板的交互" class="headerlink" title="与系统剪贴板的交互"></a>与系统剪贴板的交互</h3><p>有了上面的基础知识后，要实现题主”将 Vim 剪贴板里面的东西粘贴到 Vim 之外的地方？”就很明了，只需要将内容复制到剪切板寄存器(+)中即可，其他程序便可以访问到了。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;+yy  // 复制当前行到剪切板</span><br><span class="line">&quot;+p   // 将剪切板内容粘贴到光标后面</span><br><span class="line">&quot;ayy  // 复制当前行到寄存器 a</span><br><span class="line">&quot;ap   // 将寄存器 a 中的内容粘贴到光标后面</span><br></pre></td></tr></table></figure></p>
+<p>Vim 有12个粘贴板依次编号为：0、1、2、…、9、a、”、+，其中 + 号为系统粘贴板，” 为临时粘贴板。系统剪切板中的内容可在其他程序中使用。上面的复制指令都可以配合剪切板进行操作。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;nyw 复制当前单词到 n 号剪切板（双引号开始） </span><br><span class="line">&quot;np 粘贴 n 号剪切板内容到当前位置后 </span><br><span class="line">&quot;+Y 复制当前行到系统剪切板</span><br><span class="line">&quot;+ny 复制当前行加下面 n 行到系统剪切板</span><br><span class="line">&quot;+p 粘贴系统剪切板内容到当前位置后</span><br></pre></td></tr></table></figure></p>
+<p><strong>当然，与系统剪贴板的交互还有更加方便的方法，安装 <code>sudo apt install vim-gnome</code>。</strong></p>
+<h2 id="NERDTree"><a href="#NERDTree" class="headerlink" title="NERDTree"></a>NERDTree</h2><p>常用的NERDTree操作</p>
+<ul>
+<li><code>o</code> 在已有窗口中打开文件、目录或书签，并跳到该窗口</li>
+<li><code>go</code> 在已有窗口 中打开文件、目录或书签，但不跳到该窗口</li>
+<li><code>t</code> 在新 Tab 中打开选中文件/书签，并跳到新 Tab</li>
+<li><code>T</code> 在新 Tab 中打开选中文件/书签，但不跳到新 Tab</li>
+<li><code>i</code> split 一个新窗口打开选中文件，并跳到该窗口</li>
+<li><code>gi</code> split 一个新窗口打开选中文件，但不跳到该窗口</li>
+<li><code>s</code> vsplit 一个新窗口打开选中文件，并跳到该窗口</li>
+<li><code>gs</code> vsplit 一个新 窗口打开选中文件，但不跳到该窗口</li>
+</ul>
+<p>## </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vim/" rel="tag"># vim</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/04/20/java-jeesite/" rel="prev" title="Jeesite企业信息化开发基础平台">
+      <i class="fa fa-chevron-left"></i> Jeesite企业信息化开发基础平台
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/07/25/elixir-learn/" rel="next" title="Elixir学习资料">
+      Elixir学习资料 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#列模式操作"><span class="nav-number">1.</span> <span class="nav-text">列模式操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除列"><span class="nav-number">1.1.</span> <span class="nav-text">删除列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入列"><span class="nav-number">1.2.</span> <span class="nav-text">插入列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整分割窗口的大小"><span class="nav-number">2.</span> <span class="nav-text">调整分割窗口的大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制、剪贴"><span class="nav-number">3.</span> <span class="nav-text">复制、剪贴</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vim快速选中、删除、复制、修改引号或括号内的内容"><span class="nav-number">3.1.</span> <span class="nav-text">vim快速选中、删除、复制、修改引号或括号内的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vim中的复制、粘贴、删除"><span class="nav-number">3.2.</span> <span class="nav-text">Vim中的复制、粘贴、删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与系统剪贴板的交互"><span class="nav-number">3.3.</span> <span class="nav-text">与系统剪贴板的交互</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NERDTree"><span class="nav-number">4.</span> <span class="nav-text">NERDTree</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

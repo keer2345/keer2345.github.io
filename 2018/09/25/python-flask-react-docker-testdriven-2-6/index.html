@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.6.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Testing ReactCreate React App 默认使用 Jest 进行测试，所以我们可以开始编写测试规范,而无需安装跑步。与 Jest 一起，我们将使用 Enzyme ，这是一个专门用于测试 React 组件的出色实用程序库。 安装 enzyme-adapter-react-16 ：$ yarn add enzyme enzyme-adapter-react-16 -D">
+<meta name="keywords" content="react,flask,docker,testdriven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask React Docker in Testdriven - Part II - 6">
+<meta property="og:url" content="http://yoursite.com/2018/09/25/python-flask-react-docker-testdriven-2-6/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="Testing ReactCreate React App 默认使用 Jest 进行测试，所以我们可以开始编写测试规范,而无需安装跑步。与 Jest 一起，我们将使用 Enzyme ，这是一个专门用于测试 React 组件的出色实用程序库。 安装 enzyme-adapter-react-16 ：$ yarn add enzyme enzyme-adapter-react-16 -D">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-24T15:30:43.672Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flask React Docker in Testdriven - Part II - 6">
+<meta name="twitter:description" content="Testing ReactCreate React App 默认使用 Jest 进行测试，所以我们可以开始编写测试规范,而无需安装跑步。与 Jest 一起，我们将使用 Enzyme ，这是一个专门用于测试 React 组件的出色实用程序库。 安装 enzyme-adapter-react-16 ：$ yarn add enzyme enzyme-adapter-react-16 -D">
+
+<link rel="canonical" href="http://yoursite.com/2018/09/25/python-flask-react-docker-testdriven-2-6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Flask React Docker in Testdriven - Part II - 6 | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/25/python-flask-react-docker-testdriven-2-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask React Docker in Testdriven - Part II - 6
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2018-09-25 20:49:29" itemprop="dateCreated datePublished" datetime="2018-09-25T20:49:29+08:00">2018-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Testing-React"><a href="#Testing-React" class="headerlink" title="Testing React"></a>Testing React</h1><p><em>Create React App</em> <a href="https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#running-tests" target="_blank" rel="noopener">默认</a>使用 <a href="https://facebook.github.io/jest/" target="_blank" rel="noopener">Jest</a> 进行测试，所以我们可以开始编写测试规范,而无需安装跑步。与 Jest 一起，我们将使用 <a href="https://github.com/airbnb/enzyme" target="_blank" rel="noopener">Enzyme</a> ，这是一个专门用于测试 React 组件的出色实用程序库。</p>
+<p>安装 enzyme-adapter-react-16 ：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ yarn add enzyme enzyme-adapter-react-16 -D</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>要配置 Enzyme 以使用 React 16 适配器，请将新文件添加到 <code>src/setupTests.js</code>:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; configure &#125; <span class="keyword">from</span> <span class="string">'enzyme'</span>;</span><br><span class="line"><span class="keyword">import</span> Adapter <span class="keyword">from</span> <span class="string">'enzyme-adapter-react-16'</span>;</span><br><span class="line"></span><br><span class="line">configure(&#123; <span class="attr">adapter</span>: <span class="keyword">new</span> Adapter() &#125;);</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>有关设置Enzyme的更多信息，请查看<a href="http://airbnb.io/enzyme/#installation" target="_blank" rel="noopener">官方文档</a>。</p>
+</blockquote>
+<p>运行测试：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ yarn test</span><br></pre></td></tr></table></figure></p>
+<p>你应该看到：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">No tests found related to files changed since last commit.</span><br></pre></td></tr></table></figure></p>
+<p>默认情况下，测试以 <a href="http://facebook.github.io/jest/docs/en/cli.html#watch" target="_blank" rel="noopener">watch</a> 模式运行，因此每次保存文件时都会重新运行测试。</p>
+<h2 id="测试组件"><a href="#测试组件" class="headerlink" title="测试组件"></a>测试组件</h2><p><code>components/__tests__/UsersList.test.jsx</code>:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; shallow &#125; <span class="keyword">from</span> <span class="string">'enzyme'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UsersList <span class="keyword">from</span> <span class="string">'../UsersList'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> users = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">'active'</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">'email'</span>: <span class="string">'hermanmu@gmail.com'</span>,</span><br><span class="line">    <span class="string">'id'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'username'</span>: <span class="string">'michael'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">'active'</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">'email'</span>: <span class="string">'michael@mherman.org'</span>,</span><br><span class="line">    <span class="string">'id'</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">'username'</span>: <span class="string">'michaelherman'</span></span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">test(<span class="string">'UsersList renders properly'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> wrapper = shallow(<span class="xml"><span class="tag">&lt;<span class="name">UsersList</span> <span class="attr">users</span>=<span class="string">&#123;users&#125;/</span>&gt;</span>);</span></span><br><span class="line"><span class="xml">  const element = wrapper.find('h4');</span></span><br><span class="line"><span class="xml">  expect(element.length).toBe(2);</span></span><br><span class="line"><span class="xml">  expect(element.get(0).props.children).toBe('michael');</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<p>在这个测试中，我们使用 <a href="http://airbnb.io/enzyme/docs/api/shallow.html" target="_blank" rel="noopener">shallow</a> 辅助方法来创建UsersList组件，然后我们检索输出并对其进行断言。重要的是要注意，通过 <a href="https://reactjs.org/docs/shallow-renderer.html" target="_blank" rel="noopener">shallow rendering</a> ，我们可以完全隔离测试组件，这有助于确保子组件不会间接影响断言。</p>
+<blockquote>
+<p>欲了解更多关于 <em>shallow rendering</em> ，以再现部件测试等方法一起，<code>mount</code> 和 <code>render</code> ，请查看 <a href="https://stackoverflow.com/a/38747914/1799408" target="_blank" rel="noopener">Stack Overflow article</a> 。</p>
+</blockquote>
+<p>运行测试以确保它通过。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PASS  src/components/__tests__/UsersList.test.jsx</span><br><span class="line"> ✓ UsersList renders properly (4ms)</span><br><span class="line"></span><br><span class="line">Test Suites: 1 passed, 1 total</span><br><span class="line">Tests:       1 passed, 1 total</span><br><span class="line">Snapshots:   0 total</span><br><span class="line">Time:        0.118s, estimated 1s</span><br><span class="line">Ran all test suites related to changed files</span><br></pre></td></tr></table></figure></p>
+<h2 id="快照测试"><a href="#快照测试" class="headerlink" title="快照测试"></a>快照测试</h2><p>接下来，添加 Snapshot](<a href="http://facebook.github.io/jest/docs/en/snapshot-testing.html" target="_blank" rel="noopener">http://facebook.github.io/jest/docs/en/snapshot-testing.html</a>) 测试以确保 UI 不会更改：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">test(<span class="string">'UsersList renders a snapshot properly'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> tree = renderer.create(<span class="xml"><span class="tag">&lt;<span class="name">UsersList</span> <span class="attr">users</span>=<span class="string">&#123;users&#125;/</span>&gt;</span>).toJSON();</span></span><br><span class="line"><span class="xml">  expect(tree).toMatchSnapshot();</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<p>将导入添加到顶部：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> renderer <span class="keyword">from</span> <span class="string">'react-test-renderer'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>运行测试：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PASS  src/components/__tests__/UsersList.test.jsx</span><br><span class="line"> ✓ UsersList renders properly (3ms)</span><br><span class="line"> ✓ UsersList renders a snapshot properly (9ms)</span><br><span class="line"></span><br><span class="line">Snapshot Summary</span><br><span class="line">› 1 snapshot written in 1 test suite.</span><br><span class="line"></span><br><span class="line">Test Suites: 1 passed, 1 total</span><br><span class="line">Tests:       2 passed, 2 total</span><br><span class="line">Snapshots:   1 added, 1 total</span><br><span class="line">Time:        0.468s, estimated 2s</span><br><span class="line">Ran all test suites related to changed files.</span><br></pre></td></tr></table></figure></p>
+<p>在第一次测试运行时，组件输出的快照将保存到“<strong>snapshots</strong>”文件夹中：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// Jest Snapshot v1, https://goo.gl/fbAQLP</span><br><span class="line"></span><br><span class="line">exports[`UsersList renders a snapshot properly 1`] = `</span><br><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;h4</span><br><span class="line">    className=&quot;box title is-4&quot;</span><br><span class="line">  &gt;</span><br><span class="line">    michael</span><br><span class="line">  &lt;/h4&gt;</span><br><span class="line">  &lt;h4</span><br><span class="line">    className=&quot;box title is-4&quot;</span><br><span class="line">  &gt;</span><br><span class="line">    michaelherman</span><br><span class="line">  &lt;/h4&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">`;</span><br></pre></td></tr></table></figure></p>
+<p>在后续测试运行期间，新输出将与保存的输出进行比较。如果它们不同，测试将失败。</p>
+<p>让我们快速进行健全检查！</p>
+<p>随着观看方式的测试，更改 <code>{user.username}</code> 到 <code>{user.email}</code> 的 <em>UsersList</em> 组件。保存更改以触发新的测试运行。您应该看到两个测试都失败了，这正是我们想要的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FAIL  src/components/__tests__/UsersList.test.jsx</span><br><span class="line">  ● UsersList renders a snapshot properly</span><br><span class="line"></span><br><span class="line">    expect(value).toMatchSnapshot()</span><br><span class="line"></span><br><span class="line">    Received value does not match stored snapshot 1.</span><br><span class="line"></span><br><span class="line">    - Snapshot</span><br><span class="line">    + Received</span><br><span class="line"></span><br><span class="line">     &lt;div&gt;</span><br><span class="line">       &lt;h4</span><br><span class="line">         className=&quot;box title is-4&quot;</span><br><span class="line">       &gt;</span><br><span class="line">    -    michael</span><br><span class="line">    +    hermanmu@gmail.com</span><br><span class="line">       &lt;/h4&gt;</span><br><span class="line">       &lt;h4</span><br><span class="line">         className=&quot;box title is-4&quot;</span><br><span class="line">       &gt;</span><br><span class="line">    -    michaelherman</span><br><span class="line">    +    michael@mherman.org</span><br><span class="line">       &lt;/h4&gt;</span><br><span class="line">     &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt;.test (src/components/__tests__/UsersList.test.jsx:24:16)</span><br><span class="line">          at new Promise (&lt;anonymous&gt;)</span><br><span class="line">      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)</span><br><span class="line">      at process._tickCallback (internal/process/next_tick.js:68:7)</span><br><span class="line"></span><br><span class="line">  ● UsersList renders properly</span><br><span class="line"></span><br><span class="line">    expect(received).toBe(expected)</span><br><span class="line"></span><br><span class="line">    Expected value to be (using ===):</span><br><span class="line">      &quot;michael&quot;</span><br><span class="line">    Received:</span><br><span class="line">      &quot;hermanmu@gmail.com&quot;</span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt;.test (src/components/__tests__/UsersList.test.jsx:31:41)</span><br><span class="line">          at new Promise (&lt;anonymous&gt;)</span><br><span class="line">      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)</span><br><span class="line">      at process._tickCallback (internal/process/next_tick.js:68:7)</span><br><span class="line"></span><br><span class="line">  ✕ UsersList renders a snapshot properly (5ms)</span><br><span class="line">  ✕ UsersList renders properly (3ms)</span><br><span class="line"></span><br><span class="line">Snapshot Summary</span><br><span class="line"> › 1 snapshot test failed in 1 test suite. Inspect your code changes or press `u` to update them.</span><br><span class="line"></span><br><span class="line">Test Suites: 1 failed, 1 total</span><br><span class="line">Tests:       2 failed, 2 total</span><br><span class="line">Snapshots:   1 failed, 1 total</span><br><span class="line">Time:        0.909s, estimated 1s</span><br><span class="line">Ran all test suites related to changed files.</span><br></pre></td></tr></table></figure>
+<p>现在，如果这是有意的更改，则需要<a href="http://facebook.github.io/jest/docs/en/snapshot-testing.html#updating-snapshots" target="_blank" rel="noopener">更新快照</a>。要这样做，只需按下u键：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Watch Usage</span><br><span class="line"> › Press a to run all tests.</span><br><span class="line"> › Press u to update failing snapshots.</span><br><span class="line"> › Press p to filter by a filename regex pattern.</span><br><span class="line"> › Press t to filter by a test name regex pattern.</span><br><span class="line"> › Press q to quit watch mode.</span><br><span class="line"> › Press Enter to trigger a test run.</span><br></pre></td></tr></table></figure></p>
+<p>尝试一下 —— 按 <code>u</code> 。测试将再次运行，快照测试应该通过：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> FAIL  src/components/__tests__/UsersList.test.jsx</span><br><span class="line">  ● UsersList renders properly</span><br><span class="line"></span><br><span class="line">    expect(received).toBe(expected)</span><br><span class="line"></span><br><span class="line">    Expected value to be (using ===):</span><br><span class="line">      &quot;michael&quot;</span><br><span class="line">    Received:</span><br><span class="line">      &quot;hermanmu@gmail.com&quot;</span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt;.test (src/components/__tests__/UsersList.test.jsx:31:41)</span><br><span class="line">          at new Promise (&lt;anonymous&gt;)</span><br><span class="line">      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)</span><br><span class="line">      at process._tickCallback (internal/process/next_tick.js:68:7)</span><br><span class="line"></span><br><span class="line">  ✓ UsersList renders a snapshot properly (2ms)</span><br><span class="line">  ✕ UsersList renders properly (2ms)</span><br><span class="line"></span><br><span class="line">Snapshot Summary</span><br><span class="line"> › 1 snapshot updated in 1 test suite.</span><br><span class="line"></span><br><span class="line">Test Suites: 1 failed, 1 total</span><br><span class="line">Tests:       1 failed, 1 passed, 2 total</span><br><span class="line">Snapshots:   1 updated, 1 total</span><br><span class="line">Time:        0.093s, estimated 1s</span><br><span class="line">Ran all test suites related to changed files.</span><br></pre></td></tr></table></figure></p>
+<p>完成后，还原我们刚刚在组件中进行的更改并更新测试。确保它们在继续前通过。</p>
+<h2 id="测试覆盖率"><a href="#测试覆盖率" class="headerlink" title="测试覆盖率"></a>测试覆盖率</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ react-scripts test --coverage</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>您可能需要全局安装React Scripts：<code>$ npm install react-scripts -g</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PASS  src/components/__tests__/UsersList.test.jsx</span><br><span class="line">  ✓ UsersList renders a snapshot properly (11ms)</span><br><span class="line">  ✓ UsersList renders properly (5ms)</span><br><span class="line"></span><br><span class="line">Test Suites: 1 passed, 1 total</span><br><span class="line">Tests:       2 passed, 2 total</span><br><span class="line">Snapshots:   1 passed, 1 total</span><br><span class="line">Time:        1.122s</span><br><span class="line">Ran all test suites.</span><br><span class="line">---------------------------|----------|----------|----------|----------|-------------------|</span><br><span class="line">File                       |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |</span><br><span class="line">---------------------------|----------|----------|----------|----------|-------------------|</span><br><span class="line">All files                  |     7.14 |        0 |     8.33 |     12.9 |                   |</span><br><span class="line"> src                       |     1.89 |        0 |        0 |     3.57 |                   |</span><br><span class="line">  index.js                 |        0 |        0 |        0 |        0 |... 18,19,20,23,40 |</span><br><span class="line">  registerServiceWorker.js |        0 |        0 |        0 |        0 |... 36,137,138,139 |</span><br><span class="line">  setupTests.js            |      100 |      100 |      100 |      100 |                   |</span><br><span class="line"> src/components            |      100 |      100 |      100 |      100 |                   |</span><br><span class="line">  UsersList.jsx            |      100 |      100 |      100 |      100 |                   |</span><br><span class="line">---------------------------|----------|----------|----------|----------|-------------------|</span><br></pre></td></tr></table></figure>
+<h2 id="测试交互"><a href="#测试交互" class="headerlink" title="测试交互"></a>测试交互</h2><p>Enzyme 可用于测试用户交互。我们可以模拟操作和事件，然后测试实际结果是否与预期结果相同。我们将在未来的课程中看到这一点。</p>
+<blockquote>
+<p>值得注意的是，我们将把 React 测试的大部分内容集中在单个测试单个组件上。我们将让端到端测试处理测试用户交互以及客户端和服务器之间的交互。</p>
+</blockquote>
+<h2 id="requestAnimationFrame-polyfill错误"><a href="#requestAnimationFrame-polyfill错误" class="headerlink" title="requestAnimationFrame polyfill错误"></a><code>requestAnimationFrame</code> polyfill错误</h2><p>测试运行时是否收到此错误？<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">console.error node_modules/fbjs/lib/warning.js:33</span><br><span class="line">    Warning: React depends on requestAnimationFrame.</span><br><span class="line">    Make sure that you load a polyfill in older browsers.</span><br><span class="line">    http://fb.me/react-polyfills</span><br></pre></td></tr></table></figure></p>
+<p>如果是这样，将新文件 <code>__mocks__</code> 的 “services/client/src/components” ，然后将文件添加到名为 react.js 的文件夹中：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const react = require(&apos;react&apos;);</span><br><span class="line">// Resolution for requestAnimationFrame not supported in jest error :</span><br><span class="line">// https://github.com/facebook/react/issues/9102#issuecomment-283873039</span><br><span class="line">global.window = global;</span><br><span class="line">window.addEventListener = () =&gt; &#123;&#125;;</span><br><span class="line">window.requestAnimationFrame = () =&gt; &#123;</span><br><span class="line">  throw new Error(&apos;requestAnimationFrame is not supported in Node&apos;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">module.exports = react;</span><br></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/testdriven/" rel="tag"># testdriven</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/25/python-flask-react-docker-testdriven-2-5/" rel="prev" title="Flask React Docker in Testdriven - Part II - 5">
+      <i class="fa fa-chevron-left"></i> Flask React Docker in Testdriven - Part II - 5
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/09/25/python-flask-react-docker-testdriven-2-7/" rel="next" title="Flask React Docker in Testdriven - Part II - 7">
+      Flask React Docker in Testdriven - Part II - 7 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Testing-React"><span class="nav-number">1.</span> <span class="nav-text">Testing React</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试组件"><span class="nav-number">1.1.</span> <span class="nav-text">测试组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快照测试"><span class="nav-number">1.2.</span> <span class="nav-text">快照测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试覆盖率"><span class="nav-number">1.3.</span> <span class="nav-text">测试覆盖率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试交互"><span class="nav-number">1.4.</span> <span class="nav-text">测试交互</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#requestAnimationFrame-polyfill错误"><span class="nav-number">1.5.</span> <span class="nav-text">requestAnimationFrame polyfill错误</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

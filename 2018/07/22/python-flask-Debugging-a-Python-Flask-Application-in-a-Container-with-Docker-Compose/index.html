@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.6.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="自己编写和调试 Python 应用本身并非难事，只需要启动 pdb 并处于调试状态。 但是当你开始在它上面添加层，比如 Flask、Gunicorn、Docker容器某种形式的容器编排时，调试不再是一项微不足道的任务。 容器编排上面提到的“最外层”组件需要一点解释。是的，有时您的Web API和应用程序是独立的，不需要其他外部组件。但通常需要您的Web应用程序与其他服务进行通信（在RDBMS中保留">
+<meta name="keywords" content="flask,docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Debugging a Python Flask Application in a Container with Docker Compose">
+<meta property="og:url" content="http://yoursite.com/2018/07/22/python-flask-Debugging-a-Python-Flask-Application-in-a-Container-with-Docker-Compose/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="自己编写和调试 Python 应用本身并非难事，只需要启动 pdb 并处于调试状态。 但是当你开始在它上面添加层，比如 Flask、Gunicorn、Docker容器某种形式的容器编排时，调试不再是一项微不足道的任务。 容器编排上面提到的“最外层”组件需要一点解释。是的，有时您的Web API和应用程序是独立的，不需要其他外部组件。但通常需要您的Web应用程序与其他服务进行通信（在RDBMS中保留">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1702157-cffa91ae20104204.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/docker/2018072201.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/docker/2018072202.gif">
+<meta property="og:updated_time" content="2020-06-24T15:30:43.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Debugging a Python Flask Application in a Container with Docker Compose">
+<meta name="twitter:description" content="自己编写和调试 Python 应用本身并非难事，只需要启动 pdb 并处于调试状态。 但是当你开始在它上面添加层，比如 Flask、Gunicorn、Docker容器某种形式的容器编排时，调试不再是一项微不足道的任务。 容器编排上面提到的“最外层”组件需要一点解释。是的，有时您的Web API和应用程序是独立的，不需要其他外部组件。但通常需要您的Web应用程序与其他服务进行通信（在RDBMS中保留">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1702157-cffa91ae20104204.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+<link rel="canonical" href="http://yoursite.com/2018/07/22/python-flask-Debugging-a-Python-Flask-Application-in-a-Container-with-Docker-Compose/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Debugging a Python Flask Application in a Container with Docker Compose | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/22/python-flask-Debugging-a-Python-Flask-Application-in-a-Container-with-Docker-Compose/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Debugging a Python Flask Application in a Container with Docker Compose
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2018-07-22 20:45:58" itemprop="dateCreated datePublished" datetime="2018-07-22T20:45:58+08:00">2018-07-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>自己编写和调试 Python 应用本身并非难事，只需要启动 <a href="https://github.com/trstringer/cli-debugging-cheatsheets/blob/master/python.md#python-command-line-debugging-cheatsheet" target="_blank" rel="noopener">pdb</a><br> 并处于<a href="https://github.com/trstringer/cli-debugging-cheatsheets/blob/master/python.md#python-command-line-debugging-cheatsheet" target="_blank" rel="noopener">调试状态</a>。</p>
+<p>但是当你开始在它上面添加层，比如 Flask、Gunicorn、Docker容器某种形式的容器编排时，调试不再是一项微不足道的任务。</p>
+<h1 id="容器编排"><a href="#容器编排" class="headerlink" title="容器编排"></a>容器编排</h1><p>上面提到的“最外层”组件需要一点解释。是的，有时您的Web API和应用程序是独立的，不需要其他外部组件。但通常需要您的Web应用程序与其他服务进行通信（在RDBMS中保留数据，进行其他服务调用，使用缓存层等）。</p>
+<p>这个实例应用就是这样做的：这是一个依赖于 Redis 缓存并与之通信的 Flask 项目。</p>
+<center><br><img src="https://upload-images.jianshu.io/upload_images/1702157-cffa91ae20104204.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="example"><br></center>
+
+<p>任何在多个容器中工作了很长时间的人都知道这不是一件容易的事情，更不用说调试了。</p>
+<p>值得注意的是，即使我非常喜欢 <em>Kubernetes</em> ，我觉得Docker Compose仍然是本地主机上用于容器编排的最佳工具，用于我的内部循环开发（开发，运行，调试……全部在本地）。</p>
+<a id="more"></a>
+<h1 id="示例应用"><a href="#示例应用" class="headerlink" title="示例应用"></a>示例应用</h1><p>这个例子包括 Flask 应用，docker-compose 配置, 以及一个 Dockerfile 。整个库的源码可以在这里找到： <a href="https://github.com/trstringer/python-flask-docker-compose-debugging" target="_blank" rel="noopener">GitHub</a>。为了简单期间，目录下放置了 app.py，Dockerfile，docker-compose.yml。</p>
+<p><code>app.py</code><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify</span><br><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route("/")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">default_route</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""Default route to return a simple message"""</span></span><br><span class="line">    <span class="keyword">return</span> jsonify(<span class="string">"hello world .."</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/message', methods=['GET'])</span></span><br><span class="line"><span class="meta">@app.route('/message/&lt;new_message&gt;', methods=['POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">message_handle</span><span class="params">(new_message=None)</span>:</span></span><br><span class="line">    <span class="string">"""handle the getting and setting of the message"""</span></span><br><span class="line">    redis_client = redis.StrictRedis(host=<span class="string">"redis"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        output = redis_client.get(<span class="string">'message'</span>)</span><br><span class="line">        <span class="comment"># import pdb; pdb.set_trace()</span></span><br><span class="line">        <span class="keyword">if</span> output:</span><br><span class="line">            <span class="keyword">return</span> jsonify(dict(message=output.decode(<span class="string">'utf-8'</span>)))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> jsonify(dict(message=<span class="string">'no output found for new_message'</span>))</span><br><span class="line"></span><br><span class="line">    redis_client.set(<span class="string">'message'</span>, new_message)</span><br><span class="line">    <span class="keyword">return</span> jsonify(dict(message=<span class="string">'set new_message'</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(<span class="string">'0.0.0.0'</span>, <span class="number">8000</span>, debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p>
+<p>接下来，我们用简单的方法将这个 Flask 应用容器化（Containerize）：</p>
+<p><code>Dockerfile</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM python</span><br><span class="line">WORKDIR /urs/src/app</span><br><span class="line">EXPOSE 8000</span><br><span class="line"></span><br><span class="line">COPY requirements.txt ./</span><br><span class="line">RUN pip install --no-cache-dir -r requirements.txt</span><br><span class="line"></span><br><span class="line">COPY . .</span><br><span class="line"></span><br><span class="line">CMD [&quot;gunicorn&quot;, &quot;--workers=2&quot;, &quot;--bind=0.0.0.0:8000&quot;, &quot;app:app&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>这里要注意的重要部分是图像 <code>CMD</code> 设置为在我的Flask应用程序上调用 <code>Gunicorn</code>（一种生产质量的WSGI）。</p>
+<p>最后，我们配置 Docker Compose 来处理多个容器，让应用使用 Redis 缓存：</p>
+<p><code>docker-compose.yml</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">version: &apos;3&apos;</span><br><span class="line">services:</span><br><span class="line">  svc1:</span><br><span class="line">    build: .</span><br><span class="line">    links:</span><br><span class="line">      - redis</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;8000:8000&quot;</span><br><span class="line">  redis:</span><br><span class="line">    image: redis</span><br></pre></td></tr></table></figure></p>
+<p>我们的Docker Compose配置只定义了两个服务：<em>Flask</em> 应用程序和 <em>Redis</em> 缓存。重要的是要注意我们必须“链接”  <code>redis</code> 服务 <code>svc1</code>（更多关于下面的链接）。</p>
+<h1 id="运行（不调试）应用程序"><a href="#运行（不调试）应用程序" class="headerlink" title="运行（不调试）应用程序"></a>运行（不调试）应用程序</h1><p>在我们讨论进入调试器之前，让我们先看看这个应用程序运行。在存储库/项目的根目录中，运行以下命令…<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose up --build -d</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X POST localhost:8000/message/newmessage</span><br><span class="line">curl localhost:8000/message</span><br></pre></td></tr></table></figure>
+<center><br><img src="https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/docker/2018072201.gif" alt=""><br></center>
+
+<h1 id="调试应用"><a href="#调试应用" class="headerlink" title="调试应用"></a>调试应用</h1><p>没有调试器的编程就像在没有卷尺的情况下建造房屋。你将需要经常使用它。但是对于所有这些移动部件（Gunicorn，容器，Docker Compose），打入调试器并不是一个简单的操作。</p>
+<p>以下是如何在进入Flak应用程序的pdb时中断…<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose run -p 8000:8000 svc1 python3 -m pdb app.py</span><br></pre></td></tr></table></figure></p>
+<p>注意：如果您更改了代码（例如添加断点等），请确保运行 <code>docker-compose build</code> 。</p>
+<p>首先我 <code>docker-compose run</code> 用来运行单个服务 <em>svc1</em> 。请注意我的 docker-compose 配置，我将 <em>redis</em> 服务“链接”到 <em>svc1</em> 。由于该链接，该容器也将被提起。</p>
+<p>另外一个重要的组成部分对于一个Python开发人员来说无疑是很普通的： <code>python3 -m pdb app.py</code> 。这就是我们如何使用pdb进行交互式调试（在这种情况下，我想调试我的Flask应用程序）。我们并没有通过 Gunicorn 这个明确的命令（我们不想通过 WSGI ，只想直接调用 Flask 程序）。</p>
+<p>我们回到 <code>App.py</code> ，我们注释掉了一行 <code># import pdb; pdb.set_trace()</code> ，在运行Docker Compose之前取消注释它会给你一个断点。在对消息路由发出GET请求时，在初始中断输入后继续执行交互式调试的断点。这是体验的样子：</p>
+<p><a href="https://cdn-images-1.medium.com/max/800/1*0w-63bkYG-wXCTXtkNsm8Q.gif" target="_blank" rel="noopener">https://cdn-images-1.medium.com/max/800/1*0w-63bkYG-wXCTXtkNsm8Q.gif</a></p>
+<center><br><img src="https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/docker/2018072202.gif" alt=""><br></center>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在使用微服务和Python Flask编写生产级软件时，必须能够进入调试器。我们采用了Python，Flask，Gunicorn，Docker和Docker Compose这个相当普遍但强大的架构，并进入了交互式调试器pdb。我希望你喜欢这个插图！</p>
+<blockquote>
+<p><a href="https://medium.com/@trstringer/debugging-a-python-flask-application-in-a-container-with-docker-compose-fa5be981ec9a" target="_blank" rel="noopener">https://medium.com/@trstringer/debugging-a-python-flask-application-in-a-container-with-docker-compose-fa5be981ec9a</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/07/21/docker-A-crash-course-on-Docker/" rel="prev" title="A crash course on Docker">
+      <i class="fa fa-chevron-left"></i> A crash course on Docker
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/07/22/docker-How-Docker-Can-Help-You-Become-A-More-Effective-Data-Scientist/" rel="next" title="How Docker Can Help You Become A More Effective Data Scientist">
+      How Docker Can Help You Become A More Effective Data Scientist <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#容器编排"><span class="nav-number">1.</span> <span class="nav-text">容器编排</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例应用"><span class="nav-number">2.</span> <span class="nav-text">示例应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行（不调试）应用程序"><span class="nav-number">3.</span> <span class="nav-text">运行（不调试）应用程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调试应用"><span class="nav-number">4.</span> <span class="nav-text">调试应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

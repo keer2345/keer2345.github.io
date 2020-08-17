@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.6.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Jinja Templates与 JSON API 相反，我们在服务端添加模板。">
+<meta name="keywords" content="react,flask,docker,testdriven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask React Docker in Testdriven - Part I - 11">
+<meta property="og:url" content="http://yoursite.com/2018/09/23/python-flask-react-docker-testdriven-1-11/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="Jinja Templates与 JSON API 相反，我们在服务端添加模板。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/0923/003.png">
+<meta property="og:updated_time" content="2020-06-24T15:30:43.669Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flask React Docker in Testdriven - Part I - 11">
+<meta name="twitter:description" content="Jinja Templates与 JSON API 相反，我们在服务端添加模板。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/0923/003.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/09/23/python-flask-react-docker-testdriven-1-11/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Flask React Docker in Testdriven - Part I - 11 | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/23/python-flask-react-docker-testdriven-1-11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask React Docker in Testdriven - Part I - 11
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2018-09-23 20:49:21" itemprop="dateCreated datePublished" datetime="2018-09-23T20:49:21+08:00">2018-09-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Jinja-Templates"><a href="#Jinja-Templates" class="headerlink" title="Jinja Templates"></a>Jinja Templates</h1><p>与 JSON API 相反，我们在服务端添加模板。</p>
+<a id="more"></a>
+<p>添加路由处理到 <code>services/users/project/api/users.py</code> :<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@users_blueprint.route(&apos;/&apos;, methods=[&apos;GET&apos;])</span><br><span class="line">def index():</span><br><span class="line">    return render_template(&apos;index.html&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>更新 Blueprint :<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">users_blueprint = Blueprint(<span class="string">'users'</span>, __name__, template_folder=<span class="string">'./templates'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><code>services/users/project/api/templates/index.html</code>:<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Flask on Docker<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- meta --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">content</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"author"</span> <span class="attr">content</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- styles --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"//cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br><span class="line">    &#123;% block css %&#125;&#123;% endblock %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"column is-one-third"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span>All Users<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">hr</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/"</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"field"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">class</span>=<span class="string">"input"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">placeholder</span>=<span class="string">"Enter a username"</span> <span class="attr">required</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"field"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">class</span>=<span class="string">"input"</span> <span class="attr">type</span>=<span class="string">"email"</span> <span class="attr">placeholder</span>=<span class="string">"Enter an email address"</span> <span class="attr">required</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">class</span>=<span class="string">"button is-primary is-fullwidth"</span> <span class="attr">value</span>=<span class="string">"Submit"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">            &#123;% if users %&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">                &#123;% for user in users %&#125;</span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;user.username&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                &#123;% endfor %&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">            &#123;% else %&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>No users!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            &#123;% endif %&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    &#123;% block js %&#125;&#123;% endblock %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>我们使用 <a href="https://bulma.io/" target="_blank" rel="noopener">Bulma</a> CSS 框架来快速设置应用的样式。</p>
+</blockquote>
+<p>准备测试？我们先来访问 <a href="http://localhost" target="_blank" rel="noopener">http://localhost</a> 。</p>
+<center><br><img src="https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/0923/003.png" alt=""><br></center>
+
+
+<p>怎么测试呢？<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_main_no_users</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""Ensure the main route behaves correctly when no users have been</span></span><br><span class="line"><span class="string">    added to the database."""</span></span><br><span class="line">    response = self.client.get(<span class="string">'/'</span>)</span><br><span class="line">    self.assertEqual(response.status_code, <span class="number">200</span>)</span><br><span class="line">    self.assertIn(<span class="string">b'All Users'</span>, response.data)</span><br><span class="line">    self.assertIn(<span class="string">b'&lt;p&gt;No users!&lt;/p&gt;'</span>, response.data)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker-compose -f docker-compose-dev.yml run users python manage.py test</span><br></pre></td></tr></table></figure>
+<p>让我们更新路由并从数据库获取所有用户，而且发送到模板，开始测试：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_main_with_users</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""Ensure the main route behaves correctly when users have been</span></span><br><span class="line"><span class="string">    added to the database."""</span></span><br><span class="line">    add_user(<span class="string">'michael'</span>, <span class="string">'michael@mherman.org'</span>)</span><br><span class="line">    add_user(<span class="string">'fletcher'</span>, <span class="string">'fletcher@notreal.com'</span>)</span><br><span class="line">    <span class="keyword">with</span> self.client:</span><br><span class="line">        response = self.client.get(<span class="string">'/'</span>)</span><br><span class="line">        self.assertEqual(response.status_code, <span class="number">200</span>)</span><br><span class="line">        self.assertIn(<span class="string">b'All Users'</span>, response.data)</span><br><span class="line">        self.assertNotIn(<span class="string">b'&lt;p&gt;No users!&lt;/p&gt;'</span>, response.data)</span><br><span class="line">        self.assertIn(<span class="string">b'michael'</span>, response.data)</span><br><span class="line">        self.assertIn(<span class="string">b'fletcher'</span>, response.data)</span><br></pre></td></tr></table></figure></p>
+<p>可以看到测试失败。更新视图：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@users_blueprint.route('/', methods=['GET'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    users = User.query.all()</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'index.html'</span>, users=users)</span><br></pre></td></tr></table></figure></p>
+<p>现在应该可以测试通过了！</p>
+<p>表单怎样处理呢？我们应该能够添加用户并通过表单提交，然后将用户添加到数据库中。继续从测试开始：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_main_add_user</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""Ensure a new user can be added to the database."""</span></span><br><span class="line">    <span class="keyword">with</span> self.client:</span><br><span class="line">        response = self.client.post(</span><br><span class="line">            <span class="string">'/'</span>,</span><br><span class="line">            data=dict(username=<span class="string">'michael'</span>, email=<span class="string">'michael@sonotreal.com'</span>),</span><br><span class="line">            follow_redirects=<span class="keyword">True</span></span><br><span class="line">        )</span><br><span class="line">        self.assertEqual(response.status_code, <span class="number">200</span>)</span><br><span class="line">        self.assertIn(<span class="string">b'All Users'</span>, response.data)</span><br><span class="line">        self.assertNotIn(<span class="string">b'&lt;p&gt;No users!&lt;/p&gt;'</span>, response.data)</span><br><span class="line">        self.assertIn(<span class="string">b'michael'</span>, response.data)</span><br></pre></td></tr></table></figure></p>
+<p>接着更新视图：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@users_blueprint.route('/', methods=['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        username = request.form[<span class="string">'username'</span>]</span><br><span class="line">        email = request.form[<span class="string">'email'</span>]</span><br><span class="line">        db.session.add(User(username=username, email=email))</span><br><span class="line">        db.session.commit()</span><br><span class="line"></span><br><span class="line">    users = User.query.all()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'index.html'</span>, users=users)</span><br></pre></td></tr></table></figure></p>
+<p>最后，让我们更新代码到 AWS ：</p>
+<ol>
+<li>切换到 AWS 环境：<code>eval $(docker-machine env testdriven-prod)</code></li>
+<li><code>docker-compose -f docker-compose-prod.yml up -d --build</code></li>
+<li>访问 <a href="http://DOCKER_MACHINE_IP" target="_blank" rel="noopener">http://DOCKER_MACHINE_IP</a> 、 <a href="http://DOCKER_MACHINE_IP/users" target="_blank" rel="noopener">http://DOCKER_MACHINE_IP/users</a></li>
+<li>切换回本地环境：<code>eval $(docker-machine env -u)</code></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/testdriven/" rel="tag"># testdriven</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/23/python-flask-react-docker-testdriven-1-10/" rel="prev" title="Flask React Docker in Testdriven - Part I - 10">
+      <i class="fa fa-chevron-left"></i> Flask React Docker in Testdriven - Part I - 10
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/09/23/python-flask-react-docker-testdriven-1-12/" rel="next" title="Flask React Docker in Testdriven - Part I - 12">
+      Flask React Docker in Testdriven - Part I - 12 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Jinja-Templates"><span class="nav-number">1.</span> <span class="nav-text">Jinja Templates</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

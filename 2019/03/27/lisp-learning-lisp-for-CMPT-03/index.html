@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.6.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="http://www2.cs.sfu.ca/CourseCentral/310/pwfong/Lisp/3/tutorial3.html  二叉树假设我们想创建一种新的递归数据类型（recursive data type），即我们熟悉的二叉树。首先得定义数据类型的构造函数（contructors）、选择器（selectors）和识别器（recognizers）。">
+<meta name="keywords" content="lisp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Learning Lisp for CMPT 03-Data Abstraction">
+<meta property="og:url" content="http://yoursite.com/2019/03/27/lisp-learning-lisp-for-CMPT-03/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="http://www2.cs.sfu.ca/CourseCentral/310/pwfong/Lisp/3/tutorial3.html  二叉树假设我们想创建一种新的递归数据类型（recursive data type），即我们熟悉的二叉树。首先得定义数据类型的构造函数（contructors）、选择器（selectors）和识别器（recognizers）。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-24T15:30:43.660Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Learning Lisp for CMPT 03-Data Abstraction">
+<meta name="twitter:description" content="http://www2.cs.sfu.ca/CourseCentral/310/pwfong/Lisp/3/tutorial3.html  二叉树假设我们想创建一种新的递归数据类型（recursive data type），即我们熟悉的二叉树。首先得定义数据类型的构造函数（contructors）、选择器（selectors）和识别器（recognizers）。">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/27/lisp-learning-lisp-for-CMPT-03/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Learning Lisp for CMPT 03-Data Abstraction | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/lisp-learning-lisp-for-CMPT-03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Learning Lisp for CMPT 03-Data Abstraction
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2019-03-27 21:26:38" itemprop="dateCreated datePublished" datetime="2019-03-27T21:26:38+08:00">2019-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a href="http://www2.cs.sfu.ca/CourseCentral/310/pwfong/Lisp/3/tutorial3.html" target="_blank" rel="noopener">http://www2.cs.sfu.ca/CourseCentral/310/pwfong/Lisp/3/tutorial3.html</a></p>
+</blockquote>
+<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><p>假设我们想创建一种新的递归数据类型（<em>recursive data type</em>），即我们熟悉的二叉树。首先得定义数据类型的构造函数（<em>contructors</em>）、选择器（<em>selectors</em>）和识别器（<em>recognizers</em>）。</p>
+<a id="more"></a>
+<p>在二叉树下，我们需要做：</p>
+<ol>
+<li><p><em>Constructors</em>: 我们有两种二叉树：<em>leaves</em> 和 <em>nodes</em>。因此，我们需要为每个类构造函数：</p>
+<ul>
+<li><code>(make-bin-tree-leaf E)</code> 一片叶子是一个组件的符合对象，元素为 <code>E</code>。</li>
+<li><code>(make-bin-tree-node E B1 B2)</code> 一个包含三个组件的节点，元素 <code>E</code>，左子树 <code>B1</code>，右子树 <code>B2</code>。每一个 <code>B1</code>, <code>B2</code> 是一个二叉树。<blockquote>
+<p>注意到二叉树的定义本质上是递归的（例如节点）。大的二叉树可由小的二叉树组成。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><em>Selectors</em>：我们需要为各种二叉树的每个组件定义选择器。</p>
+<ul>
+<li><code>(bin-tree-leaf-element L)</code>：一片叶子 <code>L</code> 的检索元素。</li>
+<li><code>(bin-tree-node-element N)</code>：一个节点 <code>N</code> 的检索元素。</li>
+<li><code>(bin-tree-node-left N)</code>：一个左子树 <code>N</code> 的检索元素。</li>
+<li><code>(bin-tree-node-right N)</code>：一个右子树 <code>N</code> 的检索元素。</li>
+</ul>
+</li>
+<li><p><em>Recognizers</em>：我们为每一类二叉树定义识别器。</p>
+<ul>
+<li><code>(bin-tree-leaf-p B)</code>：测试给定二叉树是否B是一片叶子。</li>
+<li><code>(bin-tree-node-p B)</code>：测试给定二叉树是否B是一个节点。</li>
+</ul>
+</li>
+</ol>
+<p>注意到我们还没有写一行代码，但我们仍能够写下这些构造函数、选择器和识别器的函数名，这一过程或多或少是机械的：</p>
+<ol>
+<li>为每个递归数据类型的变体定义构造函数。构造函数的参数定义了复合对象的组件。</li>
+<li>每个构造函数的参数，定义一个选择器来检索类似的组件。</li>
+<li>每个构造函数，定义一个类似的识别器。</li>
+</ol>
+<p>下一个问题是我们如何表示一个二叉树作为 LISP 对象。当然，我们首先想到的是列表：</p>
+<ul>
+<li>用一个包含元素 <code>E</code> 的列表表示一片叶子，例如 <code>(list E)</code>。</li>
+<li>包含三个元素的列表表示节点，分别是元素 <code>E</code>、左子树 <code>B1</code>、右子树 <code>B2</code>。例如 <code>(list E B1 B2)</code>。</li>
+</ul>
+<p>基于上面的陈述，我们可以实现递归数据类型的函数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">;;</span><br><span class="line">;; Binary Trees</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line">;; Constructors for binary trees</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">(defun make-bin-tree-leaf (E)</span><br><span class="line">  &quot;Create a leaf.&quot;</span><br><span class="line">  (list E))</span><br><span class="line"></span><br><span class="line">(defun make-bin-tree-node (E B1 B2)</span><br><span class="line">  &quot;Create a node with element K, left subtree B1 and right subtree B2.&quot;</span><br><span class="line">  (list E B1 B2))</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line">;; Selectors for binary trees</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">(defun bin-tree-leaf-element (L)</span><br><span class="line">  &quot;Retrieve the element of a leaf L.&quot;</span><br><span class="line">  (first L))</span><br><span class="line"></span><br><span class="line">(defun bin-tree-node-element (N)</span><br><span class="line">  &quot;Retrieve the element of a node N.&quot;</span><br><span class="line">  (first N))</span><br><span class="line"></span><br><span class="line">(defun bin-tree-node-left (N)</span><br><span class="line">  &quot;Retrieve the left subtree of a node N.&quot;</span><br><span class="line">  (second N))</span><br><span class="line"></span><br><span class="line">(defun bin-tree-node-right (N)</span><br><span class="line">  &quot;Retrieve the right subtree of a node N.&quot;</span><br><span class="line">  (third N))</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line">;; Recognizers for binary trees</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">(defun bin-tree-leaf-p (B)</span><br><span class="line">  &quot;Test if binary tree B is a leaf.&quot;</span><br><span class="line">  (and (listp B) (= (list-length B) 1)))</span><br><span class="line"></span><br><span class="line">(defun bin-tree-node-p (B)</span><br><span class="line">  &quot;Test if binary tree B is a node.&quot;</span><br><span class="line">  (and (listp B) (= (list-length B) 3)))</span><br></pre></td></tr></table></figure>
+<p>表述如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CL-USER&gt; (make-bin-tree-node &apos;*</span><br><span class="line">							 (make-bin-tree-node &apos;+</span><br><span class="line">												 (make-bin-tree-leaf 2)</span><br><span class="line">												 (make-bin-tree-leaf 3))</span><br><span class="line">							 (make-bin-tree-node &apos;-</span><br><span class="line">												 (make-bin-tree-leaf 7)</span><br><span class="line">												 (make-bin-tree-leaf 8)))</span><br><span class="line"></span><br><span class="line">(* (+ (2) (3)) (- (7) (8)))</span><br></pre></td></tr></table></figure></p>
+<p>呈现出来的二叉树如下：</p>
+<pre><code>      *
+     / \
+    /   \
+   /     \
+  +       -
+ / \     / \
+2   3   7   8
+</code></pre><h1 id="查找二叉树"><a href="#查找二叉树" class="headerlink" title="查找二叉树"></a>查找二叉树</h1><p>假设我们把二叉树作为容器，一个表达式 <code>E</code> 是二叉树 <code>B</code> 的一员：</p>
+<ol>
+<li><code>B</code> 是一片叶子，元素是 <code>E</code>。</li>
+<li><code>B</code> 是一个节点，<code>E</code> 即是元素也是一个子树的成员。</li>
+</ol>
+<p>例如，<code>(* (+ (2) (3)) (- (7) (8)))</code>，*, +, 2, 3, -, 7, 8 都是成员，能直接实现我们的递归数据类型函数，判断某个元素是否为二叉树的成员：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun bin-tree-member-p (B E)</span><br><span class="line">  &quot;Test if E is an element in binary tree B.&quot;</span><br><span class="line">  (if (bin-tree-leaf-p B)</span><br><span class="line">	  (equal E (bin-tree-leaf-element B))</span><br><span class="line">	(or (equal E (bin-tree-node-element B))</span><br><span class="line">		(bin-tree-member-p (bin-tree-node-left B) E)</span><br><span class="line">	(bin-tree-member-p (bin-tree-node-right B) E))))</span><br></pre></td></tr></table></figure>
+<p>跟踪执行如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CL-USER&gt; (trace bin-tree-member-p)</span><br><span class="line">(BIN-TREE-MEMBER-P)</span><br><span class="line">USER(15): (bin-tree-member-p &apos;(+ (* (2) (3)) (- (7) (8))) 7)</span><br><span class="line"> 0: (BIN-TREE-MEMBER-P (+ (* (2) (3)) (- (7) (8))) 7)</span><br><span class="line">   1: (BIN-TREE-MEMBER-P (* (2) (3)) 7)</span><br><span class="line">	 2: (BIN-TREE-MEMBER-P (2) 7)</span><br><span class="line">	 2: returned NIL</span><br><span class="line">	 2: (BIN-TREE-MEMBER-P (3) 7)</span><br><span class="line">	 2: returned NIL</span><br><span class="line">   1: returned NIL</span><br><span class="line">   1: (BIN-TREE-MEMBER-P (- (7) (8)) 7)</span><br><span class="line">	 2: (BIN-TREE-MEMBER-P (7) 7)</span><br><span class="line">	 2: returned T</span><br><span class="line">   1: returned T</span><br><span class="line"> 0: returned T</span><br><span class="line">T</span><br></pre></td></tr></table></figure>
+<p>再来联系一个例子，计算二叉树成员的个数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun bin-tree-size (B)</span><br><span class="line">  &quot;Return the number of members in binary tree B.&quot;</span><br><span class="line">  (if (bin-tree-leaf-p B)</span><br><span class="line">	  1</span><br><span class="line">	(+ 1</span><br><span class="line">	   (bin-tree-size (bin-tree-node-left B))</span><br><span class="line">	   (bin-tree-size (bin-tree-node-right B)))))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CL-USER&gt; (trace bin-tree-size)</span><br><span class="line">(BIN-TREE-SIZE)</span><br><span class="line">CL-USER&gt; (bin-tree-size &apos;(* (+ (2) (3)) (- (7) (8))) )</span><br><span class="line">  0: (BIN-TREE-SIZE (* (+ (2) (3)) (- (7) (8))))</span><br><span class="line">	1: (BIN-TREE-SIZE (+ (2) (3)))</span><br><span class="line">	  2: (BIN-TREE-SIZE (2))</span><br><span class="line">	  2: BIN-TREE-SIZE returned 1</span><br><span class="line">	  2: (BIN-TREE-SIZE (3))</span><br><span class="line">	  2: BIN-TREE-SIZE returned 1</span><br><span class="line">	1: BIN-TREE-SIZE returned 3</span><br><span class="line">	1: (BIN-TREE-SIZE (- (7) (8)))</span><br><span class="line">	  2: (BIN-TREE-SIZE (7))</span><br><span class="line">	  2: BIN-TREE-SIZE returned 1</span><br><span class="line">	  2: (BIN-TREE-SIZE (8))</span><br><span class="line">	  2: BIN-TREE-SIZE returned 1</span><br><span class="line">	  1: BIN-TREE-SIZE returned 3</span><br><span class="line">	  0: BIN-TREE-SIZE returned 7</span><br><span class="line">	  7</span><br><span class="line">CL-USER&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="贯穿二叉树-Traversing-Binary-Trees"><a href="#贯穿二叉树-Traversing-Binary-Trees" class="headerlink" title="贯穿二叉树(Traversing Binary Trees)"></a>贯穿二叉树(Traversing Binary Trees)</h1><p>我们来写一个反转二叉树的函数，让左子树与右子树交换。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun binary-tree-reverse (B)</span><br><span class="line">  &quot;Reverse binary tree B.&quot;</span><br><span class="line">  (if (bin-tree-leaf-p B)</span><br><span class="line">	  B</span><br><span class="line">	  (let ((elmt (bin-tree-node-element B))</span><br><span class="line">		(left (bin-tree-node-left B))</span><br><span class="line">		(right (bin-tree-node-right B)))</span><br><span class="line">	(make-bin-tree-node</span><br><span class="line">	 elmt</span><br><span class="line">	 (binary-tree-reverse right)</span><br><span class="line">	 (binary-tree-reverse left)))))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>情况1：<code>B</code> 是一片叶子，返回 B 本身。</li>
+<li>情况2：<code>B</code> 是一个节点，将重新构建一个新的节点，将左子树和右子树交换。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CL-USER&gt; (binary-tree-reverse &apos;(* (+ (2) (3)) (- (7) (8))) )</span><br><span class="line"></span><br><span class="line">	 (* (- (8) (7)) (+ (3) (2)))</span><br></pre></td></tr></table></figure>
+<p>用图形表示如下：</p>
+<pre><code>      *
+     / \
+    /   \
+   /     \
+  -       +
+ / \     / \
+8   7   3   2
+</code></pre><p>我们再来实现一个函数，将二叉树的成员提取出来，放入一个列表中。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun bin-tree-preorder (B)</span><br><span class="line">  &quot;Create a list containing keys of B in preorder.&quot;</span><br><span class="line">  (if (bin-tree-leaf-p B)</span><br><span class="line">	  (list (bin-tree-leaf-element B))</span><br><span class="line">	(let</span><br><span class="line">	((elmt  (bin-tree-node-element B))</span><br><span class="line">	 (left  (bin-tree-node-left    B))</span><br><span class="line">	 (right (bin-tree-node-right   B)))</span><br><span class="line">	  (cons elmt</span><br><span class="line">		(append (bin-tree-preorder left)</span><br><span class="line">			(bin-tree-preorder right))))))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">USER(13): (trace bin-tree-preorder)</span><br><span class="line">(BIN-TREE-PREORDER)</span><br><span class="line">USER(14): (bin-tree-preorder &apos;(* (+ (2) (3)) (- (7) (8))))</span><br><span class="line"> 0: (BIN-TREE-PREORDER (* (+ (2) (3)) (- (7) (8))))</span><br><span class="line">   1: (BIN-TREE-PREORDER (+ (2) (3)))</span><br><span class="line">	 2: (BIN-TREE-PREORDER (2))</span><br><span class="line">	 2: returned (2)</span><br><span class="line">	 2: (BIN-TREE-PREORDER (3))</span><br><span class="line">	 2: returned (3)</span><br><span class="line">   1: returned (+ 2 3)</span><br><span class="line">   1: (BIN-TREE-PREORDER (- (7) (8)))</span><br><span class="line">	 2: (BIN-TREE-PREORDER (7))</span><br><span class="line">	 2: returned (7)</span><br><span class="line">	 2: (BIN-TREE-PREORDER (8))</span><br><span class="line">	 2: returned (8)</span><br><span class="line">   1: returned (- 7 8)</span><br><span class="line"> 0: returned (* + 2 3 - 7 8)</span><br><span class="line">(* + 2 3 - 7 8)</span><br></pre></td></tr></table></figure>
+<p>正如之前讨论过的，<code>append</code> 调用上面的代码效率并不高，可以优化一下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun fast-bin-tree-preorder (B)</span><br><span class="line">  &quot;A tail-recursive version of bin-tree-preorder.&quot;</span><br><span class="line">  (preorder-aux B nil))</span><br><span class="line"></span><br><span class="line">(defun preorder-aux (B A)</span><br><span class="line">  &quot;Append A to the end of the list containing elements of B in preorder.&quot;</span><br><span class="line">  (if (bin-tree-leaf-p B)</span><br><span class="line">	  (cons (bin-tree-leaf-element B) A)</span><br><span class="line">	(let</span><br><span class="line">	((elmt  (bin-tree-node-element B))</span><br><span class="line">	 (left  (bin-tree-node-left    B))</span><br><span class="line">	 (right (bin-tree-node-right   B)))</span><br><span class="line">	  (cons elmt</span><br><span class="line">		(preorder-aux left</span><br><span class="line">			  (preorder-aux right A))))))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">USER(15): (trace fast-bin-tree-preorder preorder-aux)</span><br><span class="line">(PREORDER-AUX FAST-BIN-TREE-PREORDER)</span><br><span class="line">USER(16): (fast-bin-tree-preorder &apos;(* (+ (2) (3)) (- (7) (8))))</span><br><span class="line"> 0: (FAST-BIN-TREE-PREORDER (* (+ (2) (3)) (- (7) (8))))</span><br><span class="line">   1: (PREORDER-AUX (* (+ (2) (3)) (- (7) (8))) NIL)</span><br><span class="line">	 2: (PREORDER-AUX (- (7) (8)) NIL)</span><br><span class="line">	   3: (PREORDER-AUX (8) NIL)</span><br><span class="line">	   3: returned (8)</span><br><span class="line">	   3: (PREORDER-AUX (7) (8))</span><br><span class="line">	   3: returned (7 8)</span><br><span class="line">	 2: returned (- 7 8)</span><br><span class="line">	 2: (PREORDER-AUX (+ (2) (3)) (- 7 8))</span><br><span class="line">	   3: (PREORDER-AUX (3) (- 7 8))</span><br><span class="line">	   3: returned (3 - 7 8)</span><br><span class="line">	   3: (PREORDER-AUX (2) (3 - 7 8))</span><br><span class="line">	   3: returned (2 3 - 7 8)</span><br><span class="line">	 2: returned (+ 2 3 - 7 8)</span><br><span class="line">   1: returned (* + 2 3 - 7 8)</span><br><span class="line"> 0: returned (* + 2 3 - 7 8)</span><br><span class="line">(* + 2 3 - 7 8)</span><br></pre></td></tr></table></figure>
+<p><strong>练习1：</strong><br>实现一个函数，将二叉树的成员提取出来组成列表，并将节点置后。常规写法和尾部递归写法分别为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun bin-tree-postorder (B)</span><br><span class="line">  &quot;Create a list containing elements of B in postorder.&quot;</span><br><span class="line">  (if (bin-tree-leaf-p B)</span><br><span class="line">	  (list (bin-tree-leaf-element B))</span><br><span class="line">	(let</span><br><span class="line">	((elmt  (bin-tree-node-element B))</span><br><span class="line">	 (left  (bin-tree-node-left    B))</span><br><span class="line">	 (right (bin-tree-node-right   B)))</span><br><span class="line">	  (append (bin-tree-postorder left)</span><br><span class="line">		  (append (bin-tree-postorder right)</span><br><span class="line">			  (cons elmt nil))))))</span><br><span class="line"></span><br><span class="line">(defun fast-bin-tree-postorder (B)</span><br><span class="line">  &quot;A tail-recursive version of bin-tree-postorder.&quot;</span><br><span class="line">  (postorder-aux B nil))</span><br><span class="line"></span><br><span class="line">(defun postorder-aux (B A)</span><br><span class="line">  &quot;Append A to the end of the list containing elements of B in postorder.&quot;</span><br><span class="line">  (if (bin-tree-leaf-p B)</span><br><span class="line">	  (cons (bin-tree-leaf-element B) A)</span><br><span class="line">	(let</span><br><span class="line">	((elmt  (bin-tree-node-element B))</span><br><span class="line">	 (left  (bin-tree-node-left    B))</span><br><span class="line">	 (right (bin-tree-node-right   B)))</span><br><span class="line">	  (postorder-aux left</span><br><span class="line">			 (postorder-aux right</span><br><span class="line">					(cons elmt A))))))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(CL-USER&gt;</span><br><span class="line">bin-tree-postorder &apos;(* (+ (2) (3)) (- (7) (8))))</span><br><span class="line">(2 3 + 7 8 - *)</span><br><span class="line">CL-USER&gt;</span><br><span class="line">(fast-bin-tree-postorder &apos;(* (+ (2) (3)) (- (7) (8))))</span><br><span class="line">(2 3 + 7 8 - *)</span><br><span class="line">CL-USER&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>练习2：</strong><br>将节点放在中间：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun bin-tree-inorder (B)</span><br><span class="line">  &quot;Create a list containing elements of B in inorder.&quot;</span><br><span class="line">  (if (bin-tree-leaf-p B)</span><br><span class="line">	  (list (bin-tree-leaf-element B))</span><br><span class="line">	(let</span><br><span class="line">	((elmt  (bin-tree-node-element B))</span><br><span class="line">	 (left  (bin-tree-node-left    B))</span><br><span class="line">	 (right (bin-tree-node-right   B)))</span><br><span class="line">	  (append (bin-tree-inorder left)</span><br><span class="line">		  (cons elmt</span><br><span class="line">			(bin-tree-inorder right))))))</span><br><span class="line"></span><br><span class="line">(defun fast-bin-tree-inorder (B)</span><br><span class="line">  &quot;A tail-recursive version of bin-tree-inorder.&quot;</span><br><span class="line">  (inorder-aux B nil))</span><br><span class="line"></span><br><span class="line">(defun inorder-aux (B A)</span><br><span class="line">  &quot;Append A to the end of the list containing elements of B in inorder.&quot;</span><br><span class="line">  (if (bin-tree-leaf-p B)</span><br><span class="line">	  (cons (bin-tree-leaf-element B) A)</span><br><span class="line">	(let</span><br><span class="line">	((elmt  (bin-tree-node-element B))</span><br><span class="line">	 (left  (bin-tree-node-left    B))</span><br><span class="line">	 (right (bin-tree-node-right   B)))</span><br><span class="line">	  (inorder-aux left</span><br><span class="line">		   (cons elmt</span><br><span class="line">			 (inorder-aux right A))))))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CL-USER&gt;</span><br><span class="line">(bin-tree-inorder &apos;(* (+ (2) (3)) (- (7) (8))))</span><br><span class="line">(2 + 3 * 7 - 8)</span><br><span class="line">CL-USER&gt;</span><br><span class="line">(fast-bin-tree-inorder &apos;(* (+ (2) (3)) (- (7) (8))))</span><br><span class="line">(2 + 3 * 7 - 8)</span><br><span class="line">CL-USER&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="抽象数据类型"><a href="#抽象数据类型" class="headerlink" title="抽象数据类型"></a>抽象数据类型</h1><p>抽象数据类型是个黑匣子，他们定义了外部接口，而不是实现。例如，一个抽象的集合（<code>set</code>）提供了以下操作：</p>
+<ul>
+<li><code>(make-empty-set)</code> 创建空的集合。</li>
+<li><code>(set-insert S E)</code> 返回一个集合，它在集合 <code>S</code> 的基础上添加了元素 <code>E</code>。</li>
+<li><code>(set-remove S E)</code> 返回一个集合，原有集合 <code>S</code> 中移除了元素 <code>E</code>。</li>
+<li><code>(set-member-p S E)</code> 判断元素 <code>E</code> 是否属为集合 <code>S</code> 的成员。</li>
+<li><code>(set-empty-p S)</code> 判断集合 <code>S</code> 是否为空。</li>
+</ul>
+<p>为了实现这抽象数据类型，我们用没有重复元素的列表（list)来表示集合。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun make-empty-set ()</span><br><span class="line">  &quot;Creates an empty set.&quot;</span><br><span class="line">  nil)</span><br><span class="line"></span><br><span class="line">(defun set-insert (S E)</span><br><span class="line">  &quot;Return a set containing all the members of set S plus the element E.&quot;</span><br><span class="line">  (adjoin E S :test #&apos;equal))</span><br><span class="line"></span><br><span class="line">(defun set-remove (S E)</span><br><span class="line">  &quot;Return a set containing all the members of set S except for element E.&quot;</span><br><span class="line">  (remove E S :test #&apos;equal))</span><br><span class="line"></span><br><span class="line">(defun set-member-p (S E)</span><br><span class="line">  &quot;Return non-NIL if set S contains element E.&quot;</span><br><span class="line">  (member E S :test #&apos;equal))</span><br><span class="line"></span><br><span class="line">(defun set-empty-p (S)</span><br><span class="line">  &quot;Return true if set S is empty.&quot;</span><br><span class="line">  (null S))</span><br></pre></td></tr></table></figure>
+<p><strong>练习：</strong><br>在 CLTL2 查找 <code>adjoin</code>, <code>remove</code> 和 <code>member</code> 的定义。特别是知道关键字 <code>:test</code> 是如何被用于指定等式测试函数的。如果我们省略 <code>:test</code> 和 <code>#&#39;equal</code> 会发生什么？</p>
+<blockquote>
+<p>注意，我们已经实现了一个抽象的数据类型（集合 sets），并通过接口函数实现更多的递归数据列表和额外的计算约束（不重复）。</p>
+</blockquote>
+<h1 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h1><p>实现同样的抽象集合的另一种方式是使用更有效的二叉查找树（<em>binary search tree</em> <strong>BST</strong>），二叉查找树是在二叉树的基础上添加了额外的计算约束：</p>
+<ul>
+<li>所有成员在左子树上没有大于节点的元素。</li>
+<li>所有成员在右子树上的元素大于节点。</li>
+<li>所有的叶子成员都是不同的。</li>
+</ul>
+<p>而且，我们通过更多基本的递归数据结构（二叉树）的附加计算约束实现了抽象数据类型（sets）。特别是，我们使用二叉树的叶子来存储一组成员（set），并且树节点提供了索引，得以提高搜索效率，有代表性的 <code>{1 2 3 4}</code> 集合，看起来像这样：</p>
+<pre><code>      2
+     / \
+    /   \
+   /     \
+  1       3
+ / \     / \
+1   2   3   4
+</code></pre><p>一个空的 BST 用 <code>NIL</code> 表示，非空的 BST 用二叉树表示。我们来构建和识别空的 BST。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun make-empty-BST ()</span><br><span class="line">  &quot;Create an empty BST.&quot;</span><br><span class="line">  nil)</span><br><span class="line"></span><br><span class="line">(defun BST-empty-p (B)</span><br><span class="line">  &quot;Check if BST B is empty.&quot;</span><br><span class="line">  (null B))</span><br></pre></td></tr></table></figure>
+<p>考虑到额外的计算约束，相关测试实现如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun BST-member-p (B E)</span><br><span class="line">  &quot;Check if E is a member of BST B.&quot;</span><br><span class="line">  (if (BST-empty-p B)</span><br><span class="line">	  nil</span><br><span class="line">	(BST-nonempty-member-p B E)))</span><br><span class="line"></span><br><span class="line">(defun BST-nonempty-member-p (B E)</span><br><span class="line">  &quot;Check if E is a member of nonempty BST B.&quot;</span><br><span class="line">  (if (bin-tree-leaf-p B)</span><br><span class="line">	  (= E (bin-tree-leaf-element B))</span><br><span class="line">	(if (&lt;= E (bin-tree-node-element B))</span><br><span class="line">	(BST-nonempty-member-p (bin-tree-node-left B) E)</span><br><span class="line">	  (BST-nonempty-member-p (bin-tree-node-right B) E))))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">USER(16): (trace BST-member-p BST-nonempty-member-p)</span><br><span class="line">(BST-NONEMPTY-MEMBER-P BST-MEMBER-P)</span><br><span class="line">USER(17): (BST-member-p &apos;(2 (1 (1) (2)) (3 (3) (4))) 3)</span><br><span class="line"> 0: (BST-MEMBER-P (2 (1 (1) (2)) (3 (3) (4))) 3)</span><br><span class="line">   1: (BST-NONEMPTY-MEMBER-P (2 (1 (1) (2)) (3 (3) (4))) 3)</span><br><span class="line">	 2: (BST-NONEMPTY-MEMBER-P (3 (3) (4)) 3)</span><br><span class="line">	   3: (BST-NONEMPTY-MEMBER-P (3) 3)</span><br><span class="line">	   3: returned T</span><br><span class="line">	 2: returned T</span><br><span class="line">   1: returned T</span><br><span class="line"> 0: returned T</span><br><span class="line">T</span><br></pre></td></tr></table></figure>
+<p>以下函数实现插入功能：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun BST-insert (B E)</span><br><span class="line">  &quot;Insert E into BST B.&quot;</span><br><span class="line">  (if (BST-empty-p B)</span><br><span class="line">	  (make-bin-tree-leaf E)</span><br><span class="line">	(BST-nonempty-insert B E)))</span><br><span class="line"></span><br><span class="line">(defun BST-nonempty-insert (B E)</span><br><span class="line">  &quot;Insert E into nonempty BST B.&quot;</span><br><span class="line">  (if (bin-tree-leaf-p B)</span><br><span class="line">	  (BST-leaf-insert B E)</span><br><span class="line">	(let ((elmt  (bin-tree-node-element B))</span><br><span class="line">	  (left  (bin-tree-node-left    B))</span><br><span class="line">	  (right (bin-tree-node-right   B)))</span><br><span class="line">	  (if (&lt;= E (bin-tree-node-element B))</span><br><span class="line">	  (make-bin-tree-node elmt</span><br><span class="line">				  (BST-nonempty-insert (bin-tree-node-left B) E)</span><br><span class="line">				  right)</span><br><span class="line">	(make-bin-tree-node elmt</span><br><span class="line">				left</span><br><span class="line">				(BST-nonempty-insert (bin-tree-node-right B) E))))))</span><br><span class="line"></span><br><span class="line">(defun BST-leaf-insert (L E)</span><br><span class="line">  &quot;Insert element E to a BST with only one leaf.&quot;</span><br><span class="line">  (let ((elmt (bin-tree-leaf-element L)))</span><br><span class="line">	(if (= E elmt)</span><br><span class="line">	L</span><br><span class="line">	  (if (&lt; E elmt)</span><br><span class="line">	  (make-bin-tree-node E</span><br><span class="line">				  (make-bin-tree-leaf E)</span><br><span class="line">				  (make-bin-tree-leaf elmt))</span><br><span class="line">	(make-bin-tree-node elmt</span><br><span class="line">				(make-bin-tree-leaf elmt)</span><br><span class="line">				(make-bin-tree-leaf E))))))</span><br></pre></td></tr></table></figure>
+<pre><code>      2                      2
+     / \                    / \
+    /   \                  /   \
+   /     \       ==&gt;      /     \
+  1       3              1       3
+ / \     / \            / \     / \
+1   2   3   4          1   2  2.5  4
+                              / \
+                            2.5  3
+</code></pre><p>代码的具体执行步骤如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">USER(22): (trace BST-insert BST-nonempty-insert BST-leaf-insert)</span><br><span class="line">(BST-LEAF-INSERT BST-NONEMPTY-INSERT BST-INSERT)</span><br><span class="line">USER(23): (BST-insert &apos;(2 (1 (1) (2)) (3 (3) (4))) 2.5)</span><br><span class="line"> 0: (BST-INSERT (2 (1 (1) (2)) (3 (3) (4))) 2.5)</span><br><span class="line">   1: (BST-NONEMPTY-INSERT (2 (1 (1) (2)) (3 (3) (4))) 2.5)</span><br><span class="line">	 2: (BST-NONEMPTY-INSERT (3 (3) (4)) 2.5)</span><br><span class="line">	   3: (BST-NONEMPTY-INSERT (3) 2.5)</span><br><span class="line">		 4: (BST-LEAF-INSERT (3) 2.5)</span><br><span class="line">		 4: returned (2.5 (2.5) (3))</span><br><span class="line">	   3: returned (2.5 (2.5) (3))</span><br><span class="line">	 2: returned (3 (2.5 (2.5) (3)) (4))</span><br><span class="line">   1: returned (2 (1 (1) (2)) (3 (2.5 (2.5) (3)) (4)))</span><br><span class="line"> 0: returned (2 (1 (1) (2)) (3 (2.5 (2.5) (3)) (4)))</span><br><span class="line">(2 (1 (1) (2)) (3 (2.5 (2.5) (3)) (4)))</span><br></pre></td></tr></table></figure></p>
+<p>移除元素的实现如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun BST-remove (B E)</span><br><span class="line">  &quot;Remove E from BST B.&quot;</span><br><span class="line">  (if (BST-empty-p B)</span><br><span class="line">	  B</span><br><span class="line">	(if (bin-tree-leaf-p B)</span><br><span class="line">	(BST-leaf-remove B E)</span><br><span class="line">	  (BST-node-remove B E))))</span><br><span class="line"></span><br><span class="line">(defun BST-leaf-remove (L E)</span><br><span class="line">  &quot;Remove E from BST leaf L.&quot;</span><br><span class="line">  (if (= E (bin-tree-leaf-element L))</span><br><span class="line">	  (make-empty-BST)</span><br><span class="line">	L))</span><br><span class="line"></span><br><span class="line">(defun BST-node-remove (N E)</span><br><span class="line">  &quot;Remove E from BST node N.&quot;</span><br><span class="line">  (let</span><br><span class="line">	  ((elmt  (bin-tree-node-element N))</span><br><span class="line">	   (left  (bin-tree-node-left    N))</span><br><span class="line">	   (right (bin-tree-node-right   N)))</span><br><span class="line">	(if (&lt;= E elmt)</span><br><span class="line">	(if (bin-tree-leaf-p left)</span><br><span class="line">		(if (= E (bin-tree-leaf-element left))</span><br><span class="line">		right</span><br><span class="line">		  N)</span><br><span class="line">	  (make-bin-tree-node elmt (BST-node-remove left E) right))</span><br><span class="line">	  (if (bin-tree-leaf-p right)</span><br><span class="line">	  (if (= E (bin-tree-leaf-element right))</span><br><span class="line">		  left</span><br><span class="line">		N)</span><br><span class="line">	(make-bin-tree-node elmt left (BST-node-remove right E))))))</span><br></pre></td></tr></table></figure>
+<pre><code>      2                      2
+     / \                    / \
+    /   \                  /   \
+   /     \       ==&gt;      /     \
+  1       3              1       4
+ / \     / \            / \
+1   2   3   4          1   2
+</code></pre><p>函数的具体执行步骤如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">USER(4): (trace BST-remove BST-node-remove)</span><br><span class="line">(BST-NODE-REMOVE BST-REMOVE)</span><br><span class="line">USER(5): (BST-remove &apos;(2 (1 (1) (2)) (3 (3) (4))) 3)</span><br><span class="line"> 0: (BST-REMOVE (2 (1 (1) (2)) (3 (3) (4))) 3)</span><br><span class="line">   1: (BST-NODE-REMOVE (2 (1 (1) (2)) (3 (3) (4))) 3)</span><br><span class="line">	 2: (BST-NODE-REMOVE (3 (3) (4)) 3)</span><br><span class="line">	 2: returned (4)</span><br><span class="line">   1: returned (2 (1 (1) (2)) (4))</span><br><span class="line"> 0: returned (2 (1 (1) (2)) (4))</span><br><span class="line">(2 (1 (1) (2)) (4))</span><br></pre></td></tr></table></figure>
+<p>实现排序：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(defun make-empty-sorted-list ()</span><br><span class="line">  &quot;Create empty sorted list.&quot;</span><br><span class="line">  nil)</span><br><span class="line"></span><br><span class="line">(defun sorted-list-empty-p (L)</span><br><span class="line">  &quot;Test if a sorted list L is empty.&quot;</span><br><span class="line">  (null L))</span><br><span class="line"></span><br><span class="line">(defun sorted-list-member-p (L E)</span><br><span class="line">  &quot;Test if element E is a member of a sorted list L.&quot;</span><br><span class="line">  (if (null L)</span><br><span class="line">	  nil</span><br><span class="line">	(if (&gt; E (first L))</span><br><span class="line">	(sorted-list-member-p (rest L) E)</span><br><span class="line">	  (= E (first L)))))</span><br><span class="line"></span><br><span class="line">(defun sorted-list-insert (L E)</span><br><span class="line">  &quot;Insert element E into a sorted list L to produce a new sorted list.&quot;</span><br><span class="line">  (if (null L)</span><br><span class="line">	  (list E)</span><br><span class="line">	(if (&gt; E (first L))</span><br><span class="line">	(cons (first L) (sorted-list-insert (rest L) E))</span><br><span class="line">	  (if (= E (first L))</span><br><span class="line">	  L</span><br><span class="line">	(cons E L)))))</span><br><span class="line"></span><br><span class="line">(defun sorted-list-remove (L E)</span><br><span class="line">  &quot;Remove element E from sorted list L to produce a new sorted list.&quot;</span><br><span class="line">  (if (null L)</span><br><span class="line">	  nil</span><br><span class="line">	(if (&gt; E (first L))</span><br><span class="line">	(cons (first L) (sorted-list-remove (rest L) E))</span><br><span class="line">	  (if (= E (first L))</span><br><span class="line">	  (rest L)</span><br><span class="line">	L))))</span><br></pre></td></tr></table></figure>
+<h1 id="多项式-Polynomials"><a href="#多项式-Polynomials" class="headerlink" title="多项式 Polynomials"></a>多项式 Polynomials</h1>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/lisp/" rel="tag"># lisp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/15/lisp-learning-lisp-for-CMPT-02/" rel="prev" title="Learning Lisp for CMPT 02-Advanced Functional Programming in LISP">
+      <i class="fa fa-chevron-left"></i> Learning Lisp for CMPT 02-Advanced Functional Programming in LISP
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/13/java-multithreading-concurrency-at-a-glance/" rel="next" title="Multithreading and Concurrency at a glance">
+      Multithreading and Concurrency at a glance <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树"><span class="nav-number">1.</span> <span class="nav-text">二叉树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查找二叉树"><span class="nav-number">2.</span> <span class="nav-text">查找二叉树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#贯穿二叉树-Traversing-Binary-Trees"><span class="nav-number">3.</span> <span class="nav-text">贯穿二叉树(Traversing Binary Trees)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象数据类型"><span class="nav-number">4.</span> <span class="nav-text">抽象数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉查找树"><span class="nav-number">5.</span> <span class="nav-text">二叉查找树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多项式-Polynomials"><span class="nav-number">6.</span> <span class="nav-text">多项式 Polynomials</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

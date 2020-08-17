@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.6.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Django REST framework  准备环境pip install djangorestframework (.venv) &amp;gt; $ pip freezeDjango==2.0.5djangorestframework==3.8.2pytz==2018.4">
+<meta name="keywords" content="django,restful">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django Tutorial 02 -- Restful">
+<meta property="og:url" content="http://yoursite.com/2018/05/26/python-django-tutorial-02/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="Django REST framework  准备环境pip install djangorestframework (.venv) &amp;gt; $ pip freezeDjango==2.0.5djangorestframework==3.8.2pytz==2018.4">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-24T15:30:43.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django Tutorial 02 -- Restful">
+<meta name="twitter:description" content="Django REST framework  准备环境pip install djangorestframework (.venv) &amp;gt; $ pip freezeDjango==2.0.5djangorestframework==3.8.2pytz==2018.4">
+
+<link rel="canonical" href="http://yoursite.com/2018/05/26/python-django-tutorial-02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Django Tutorial 02 -- Restful | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/26/python-django-tutorial-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Django Tutorial 02 -- Restful
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2018-05-26 19:16:13" itemprop="dateCreated datePublished" datetime="2018-05-26T19:16:13+08:00">2018-05-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a href="http://www.django-rest-framework.org/" target="_blank" rel="noopener">Django REST framework</a></p>
+</blockquote>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install djangorestframework</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">(.venv) &gt; $ pip freeze</span><br><span class="line">Django==2.0.5</span><br><span class="line">djangorestframework==3.8.2</span><br><span class="line">pytz==2018.4</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在<em>setting.py</em>中的<strong>INSTALLED_APPS</strong>中加入<code>rest_framework</code>设置：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">INSTALLED_APPS = (</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="string">'rest_framework'</span>,</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h1 id="Serializers-序列化"><a href="#Serializers-序列化" class="headerlink" title="Serializers 序列化"></a>Serializers 序列化</h1><p><em>Serializers</em>序列化是Django Restful framework很重要的一個地方，主要功能是将Python结构序列化为其他格式，例如我们常用的JSON。</p>
+<p>在<a href="http://keer2345.github.io/2018/05/26/python-django-tutorial-01/" target="_blank" rel="noopener">上一节</a>中，我们建立了<em>musics</em>模型，这里我们来将其进行序列化。</p>
+<p>在musics中新增<em>serializers.py</em>：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> serializers</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> musics.models <span class="keyword">import</span> Music</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ToUpperCaseCharField</span><span class="params">(serializers.CharField)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">to_representation</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> value.upper()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MusicSerializers</span><span class="params">(serializers.ModelSerializer)</span>:</span></span><br><span class="line">    days_since_created = serializers.SerializerMethodField()</span><br><span class="line">    singer = ToUpperCaseCharField()</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Mate</span>:</span></span><br><span class="line">        model = Music</span><br><span class="line">        <span class="comment"># fields = '__all__'</span></span><br><span class="line">        fields = (<span class="string">'id'</span>, <span class="string">'song'</span>, <span class="string">'singer'</span>, <span class="string">'last_modify_date'</span>,</span><br><span class="line">                  <span class="string">'created'</span>, <span class="string">'days_since_created'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_days_since_created</span><span class="params">(self, obj)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (now() - obj.created).days</span><br></pre></td></tr></table></figure></p>
+<h2 id="serializers-SerializerMethodField"><a href="#serializers-SerializerMethodField" class="headerlink" title="serializers.SerializerMethodField()"></a>serializers.SerializerMethodField()</h2><p><a href="http://www.django-rest-framework.org/api-guide/fields/#serializermethodfield" target="_blank" rel="noopener">http://www.django-rest-framework.org/api-guide/fields/#serializermethodfield</a></p>
+<h2 id="自定义序列化"><a href="#自定义序列化" class="headerlink" title="自定义序列化"></a>自定义序列化</h2><p><a href="http://www.django-rest-framework.org/api-guide/relations/#custom-relational-fields" target="_blank" rel="noopener">http://www.django-rest-framework.org/api-guide/relations/#custom-relational-fields</a></p>
+<h1 id="Views"><a href="#Views" class="headerlink" title="Views"></a>Views</h1><p>在<a href="http://keer2345.github.io/2018/05/26/python-django-tutorial-01/" target="_blank" rel="noopener">上一节</a>中，我们使用views，而在Django Restful framework中，我们使用viewsets，具体如下：</p>
+<p><em>musics/views.py</em>:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># from django.shortcuts import render</span></span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> viewsets</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> musics.models <span class="keyword">import</span> Music</span><br><span class="line"><span class="keyword">from</span> musics.serializers <span class="keyword">import</span> MusicSerializer</span><br><span class="line"></span><br><span class="line"><span class="comment"># def hello_view(request):</span></span><br><span class="line"><span class="comment">#     hello = "Nice to meet you!"</span></span><br><span class="line"><span class="comment">#     musics = Music.objects.all()</span></span><br><span class="line"><span class="comment">#     context = &#123;'data': hello, 'musics': musics&#125;</span></span><br><span class="line"><span class="comment">#     return render(request, 'index.html', context)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MusicViewSet</span><span class="params">(viewsets.ModelViewSet)</span>:</span></span><br><span class="line">    queryset = Music.objects.all()</span><br><span class="line">    serializer_class = MusicSerializer</span><br></pre></td></tr></table></figure></p>
+<p>只需要这样，就拥有了CRUD的全部功能，是不是很神奇呢～～</p>
+<p>之所以这样，是因为Django Restful framework的<code>viewsets.ModelViewSet</code>帮我们定义好了这些功能，具体可以参考<a href="http://www.django-rest-framework.org/api-guide/viewsets/#modelviewset" target="_blank" rel="noopener">http://www.django-rest-framework.org/api-guide/viewsets/#modelviewset</a></p>
+<h2 id="配置路由"><a href="#配置路由" class="headerlink" title="配置路由"></a>配置路由</h2><p><em>urls.py</em>:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> include, path</span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> routers</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> musics.views <span class="keyword">import</span> MusicViewSet</span><br><span class="line"></span><br><span class="line">router = routers.DefaultRouter()</span><br><span class="line">router.register(<span class="string">r'music'</span>, MusicViewSet)</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment"># path('musics/', include('musics.urls')),</span></span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">    path(<span class="string">'api/'</span>, include(router.urls)),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>然后访问<a href="http://127.0.0.1:8000/api/，就可以看到结果了。类似这样：" target="_blank" rel="noopener">http://127.0.0.1:8000/api/，就可以看到结果了。类似这样：</a><br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">HTTP 200 OK</span><br><span class="line">Allow: GET, HEAD, OPTIONS</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Vary: Accept</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    "music": "http://127.0.0.1:8000/api/music/"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="测试API"><a href="#测试API" class="headerlink" title="测试API"></a>测试API</h1><h2 id="什么是Restful-API"><a href="#什么是Restful-API" class="headerlink" title="什么是Restful API"></a>什么是Restful API</h2><ul>
+<li><code>GET</code>获取资源</li>
+<li><code>PUT</code>更新资源</li>
+<li><code>DELETE</code>删除资源</li>
+<li><code>POST</code>新增资源</li>
+<li><code>PATCH</code>更新资源的部分内容</li>
+</ul>
+<h2 id="测试工具"><a href="#测试工具" class="headerlink" title="测试工具"></a>测试工具</h2><p>测试API的工具很多，这里我们选择<a href="https://www.getpostman.com/" target="_blank" rel="noopener">Postman</a>，使用方法很简单，在Chrome中安装Postman应用。</p>
+<p>输入<a href="http://127.0.0.1:8000/api/music/，点击*send*就可以看到返回结果：" target="_blank" rel="noopener">http://127.0.0.1:8000/api/music/，点击*send*就可以看到返回结果：</a><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;id&quot;: 1,</span><br><span class="line">        &quot;song&quot;: &quot;song_update&quot;,</span><br><span class="line">        &quot;singer&quot;: &quot;SHE148&quot;,</span><br><span class="line">        &quot;last_modify_date&quot;: &quot;2018-02-26T07:05:56.910436Z&quot;,</span><br><span class="line">        &quot;created&quot;: &quot;2018-01-26T07:05:56.910501Z&quot;,</span><br><span class="line">        &quot;days_since_created&quot;: 120</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><p>添加数据也很方便，输入地址<a href="http://127.0.0.1:8000/api/music/，选择`POST`类型，然后在*body*的地方填入`song`和`singer`的值，点击*send*，就是提交了。" target="_blank" rel="noopener">http://127.0.0.1:8000/api/music/，选择`POST`类型，然后在*body*的地方填入`song`和`singer`的值，点击*send*，就是提交了。</a></p>
+<p>接着会返回响应刚才我们添加的数据。</p>
+<h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><p>在Postman中选择<code>GET</code>，然后输入<a href="http://127.0.0.1:8000/api/music/就能看到返回的列表结果。" target="_blank" rel="noopener">http://127.0.0.1:8000/api/music/就能看到返回的列表结果。</a></p>
+<h2 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h2><h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><h1 id="Performing-raw-SQL-queries"><a href="#Performing-raw-SQL-queries" class="headerlink" title="Performing raw SQL queries"></a>Performing raw SQL queries</h1><p>参考<a href="https://docs.djangoproject.com/en/2.0/topics/db/sql/#performing-raw-queries" target="_blank" rel="noopener">https://docs.djangoproject.com/en/2.0/topics/db/sql/#performing-raw-queries</a></p>
+<h2 id="Performing-raw-queries"><a href="#Performing-raw-queries" class="headerlink" title="Performing raw queries"></a>Performing raw queries</h2><p><em>models.py</em>:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_raw_sql_query</span><span class="params">(**kwargs)</span>:</span></span><br><span class="line">    song = kwargs.get(<span class="string">'song'</span>)</span><br><span class="line">    <span class="keyword">if</span> song:</span><br><span class="line">        result = Music.objects.raw(</span><br><span class="line">            <span class="string">'SELECT * FROM musics_music WHERE song = %s'</span>, [song])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        result = Music.objects.raw(<span class="string">'SELECT * FROM musics_music'</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure></p>
+<p><em>views.py</em>:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> status, viewsets</span><br><span class="line"><span class="keyword">from</span> rest_framework.decorators <span class="keyword">import</span> list_route</span><br><span class="line"><span class="keyword">from</span> rest_framework.response <span class="keyword">import</span> Response</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> musics.models <span class="keyword">import</span> Music, fun_raw_sql_query</span><br><span class="line"><span class="keyword">from</span> musics.serializers <span class="keyword">import</span> MusicSerializer</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MusicViewSet</span><span class="params">(viewsets.ModelViewSet)</span>:</span></span><br><span class="line">    queryset = Music.objects.all()</span><br><span class="line">    serializer_class = MusicSerializer</span><br><span class="line"></span><br><span class="line">    <span class="comment"># /api/music/raw_sql_query/</span></span><br><span class="line"><span class="meta">    @list_route(methods=['get'])</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">raw_sql_query</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        song = request.query_params.get(<span class="string">'song'</span>, <span class="keyword">None</span>)</span><br><span class="line">        music = fun_raw_sql_query(song=song)</span><br><span class="line">        serializer = MusicSerializer(music, many=<span class="keyword">True</span>)</span><br><span class="line">        <span class="keyword">return</span> Response(serializer.data, status=status.HTTP_200_OK)</span><br></pre></td></tr></table></figure></p>
+<p>更详细的可以参考<a href="https://docs.djangoproject.com/en/2.0/topics/db/sql/#performing-raw-queries" target="_blank" rel="noopener">https://docs.djangoproject.com/en/2.0/topics/db/sql/#performing-raw-queries</a></p>
+<h2 id="Executing-custom-SQL-directly"><a href="#Executing-custom-SQL-directly" class="headerlink" title="Executing custom SQL directly"></a>Executing custom SQL directly</h2><p>使用这个方法，可以绕过models，直接访问数据库。<br><em>models.py</em>:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_raw_sql_query</span><span class="params">(**kwargs)</span>:</span></span><br><span class="line">    song = kwargs.get(<span class="string">'song'</span>)</span><br><span class="line">    <span class="keyword">if</span> song:</span><br><span class="line">        result = Music.objects.raw(</span><br><span class="line">            <span class="string">'SELECT * FROM musics_music WHERE song = %s'</span>, [song])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        result = Music.objects.raw(<span class="string">'SELECT * FROM musics_music'</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">namedtuplefetchall</span><span class="params">(cursor)</span>:</span></span><br><span class="line">    <span class="comment"># Return all rows from a cursor as a namedtuple</span></span><br><span class="line">    desc = cursor.description</span><br><span class="line">    nt_result = namedtuple(<span class="string">'Result'</span>, [col[<span class="number">0</span>] <span class="keyword">for</span> col <span class="keyword">in</span> desc])</span><br><span class="line">    <span class="keyword">return</span> [nt_result(*row) <span class="keyword">for</span> row <span class="keyword">in</span> cursor.fetchall()]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_sql_cursor_update</span><span class="params">(**kwargs)</span>:</span></span><br><span class="line">    song = kwargs.get(<span class="string">'song'</span>)</span><br><span class="line">    pk = kwargs.get(<span class="string">'pk'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Note that if you want to include literal percent signs in the query,</span></span><br><span class="line"><span class="string">    you have to double them in the case you are passing parameters:</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">with</span> connection.cursor() <span class="keyword">as</span> cursor:</span><br><span class="line">        cursor.execute(</span><br><span class="line">            <span class="string">"UPDATE musics_music SET song = %s WHERE id = %s"</span>, [song, pk])</span><br><span class="line">        cursor.execute(<span class="string">"SELECT * FROM musics_music WHERE id = %s"</span>, [pk])</span><br><span class="line">        <span class="comment"># result = cursor.fetchone()</span></span><br><span class="line">        result = namedtuplefetchall(cursor)</span><br><span class="line">    result = [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">'id'</span>: r.id,</span><br><span class="line">            <span class="string">'song'</span>: r.song,</span><br><span class="line">            <span class="string">'singer'</span>: r.singer,</span><br><span class="line">            <span class="string">'last_modify_date'</span>: r.last_modify_date,</span><br><span class="line">            <span class="string">'created'</span>: r.created,</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> r <span class="keyword">in</span> result</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure></p>
+<p><em>views.py</em>:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># /api/music/&#123;pk&#125;/sql_cursor_update/</span></span><br><span class="line"><span class="meta">@detail_route(methods=['put'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sql_cursor_update</span><span class="params">(self, request, pk=None)</span>:</span></span><br><span class="line">    song = request.data.get(<span class="string">'song'</span>, <span class="keyword">None</span>)</span><br><span class="line">    <span class="keyword">if</span> song:</span><br><span class="line">        music = fun_sql_cursor_update(song=song, pk=pk)</span><br><span class="line">        <span class="keyword">return</span> Response(music, status=status.HTTP_200_OK)</span><br></pre></td></tr></table></figure></p>
+<p>更多的可以参考<a href="https://docs.djangoproject.com/en/2.0/topics/db/sql/#executing-custom-sql-directly" target="_blank" rel="noopener">https://docs.djangoproject.com/en/2.0/topics/db/sql/#executing-custom-sql-directly</a></p>
+<h1 id="授權-Authentications"><a href="#授權-Authentications" class="headerlink" title="授權 (Authentications )"></a>授權 (Authentications )</h1><h1 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h1><h1 id="Versioning"><a href="#Versioning" class="headerlink" title="Versioning"></a>Versioning</h1><p>具体的代码可以参考<a href="https://github.com/keer2345/django_tutorial/tree/v_2.0_restful" target="_blank" rel="noopener">https://github.com/keer2345/django_tutorial/tree/v_2.0_restful</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/django/" rel="tag"># django</a>
+              <a href="/tags/restful/" rel="tag"># restful</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/05/26/python-django-tutorial-01/" rel="prev" title="Python Django Tutorial 01 -- Basic">
+      <i class="fa fa-chevron-left"></i> Python Django Tutorial 01 -- Basic
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/05/27/python-flask-restful-API-with-JSON/" rel="next" title="Flask Restful API with JSON">
+      Flask Restful API with JSON <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">1.1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Serializers-序列化"><span class="nav-number">2.</span> <span class="nav-text">Serializers 序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#serializers-SerializerMethodField"><span class="nav-number">2.1.</span> <span class="nav-text">serializers.SerializerMethodField()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义序列化"><span class="nav-number">2.2.</span> <span class="nav-text">自定义序列化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Views"><span class="nav-number">3.</span> <span class="nav-text">Views</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置路由"><span class="nav-number">3.1.</span> <span class="nav-text">配置路由</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试API"><span class="nav-number">4.</span> <span class="nav-text">测试API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Restful-API"><span class="nav-number">4.1.</span> <span class="nav-text">什么是Restful API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试工具"><span class="nav-number">4.2.</span> <span class="nav-text">测试工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST"><span class="nav-number">4.3.</span> <span class="nav-text">POST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GET"><span class="nav-number">4.4.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PUT"><span class="nav-number">4.5.</span> <span class="nav-text">PUT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE"><span class="nav-number">4.6.</span> <span class="nav-text">DELETE</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Performing-raw-SQL-queries"><span class="nav-number">5.</span> <span class="nav-text">Performing raw SQL queries</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Performing-raw-queries"><span class="nav-number">5.1.</span> <span class="nav-text">Performing raw queries</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Executing-custom-SQL-directly"><span class="nav-number">5.2.</span> <span class="nav-text">Executing custom SQL directly</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#授權-Authentications"><span class="nav-number">6.</span> <span class="nav-text">授權 (Authentications )</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Test"><span class="nav-number">7.</span> <span class="nav-text">Test</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Versioning"><span class="nav-number">8.</span> <span class="nav-text">Versioning</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
