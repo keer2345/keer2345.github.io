@@ -1,4 +1,5 @@
-# Install
+# Usage
+## Install
 ```
 git clone git@github.com:keer2345/keer2345.github.io.git hexo
 git checkout source
