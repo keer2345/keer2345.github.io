@@ -1,5 +1,5 @@
 ---
-title: elixir get start 01
+title: Elixir Get Start 01
 date: 2020-08-16 23:26:49
 tags: elixir
 ---
@@ -30,7 +30,7 @@ defmodule Sample do
 end
 ```
 ```elixir
-$ mix compile 
+$ mix compile
 
 $ iex -S mix
 iex(1)> Sample.hello
@@ -115,3 +115,5 @@ $ ./sample "Elixir"
 hello
 Elixir
 ```
+
+> https://www.cnblogs.com/wang_yb/p/5196884.html
