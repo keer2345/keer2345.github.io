@@ -240,10 +240,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-02-20 21:23:02 / 修改时间：21:29:00" itemprop="dateCreated datePublished" datetime="2021-02-20T21:23:02+08:00">2021-02-20</time>
+              <time title="创建时间：2021-02-20 21:23:02" itemprop="dateCreated datePublished" datetime="2021-02-20T21:23:02+08:00">2021-02-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-23 23:02:11" itemprop="dateModified" datetime="2021-02-23T23:02:11+08:00">2021-02-23</time>
+              </span>
 
           
 
@@ -260,16 +266,22 @@
 <li>打开用户主目录:</li>
 </ol>
 <ul>
-<li>linux平台 <code>~/.gradle</code></li>
+<li>linux平台 <code>/Home/用户名/.gradle</code></li>
 <li>windows平台 <code>c:\Users\用户名\.gradle</code></li>
-<li>macos平台 <code>~/.gradle</code></li>
+<li>macos平台 <code>/Users/用户名/.gradle</code></li>
 </ul>
 <p>找到 <code>./gradle/wrapper/dist/gradle-版本号-bin目录</code></p>
 <ol>
-<li>去官方网站下载这个版本号对应的安装包 <a href="http://services.gradle.org/distributions/" target="_blank" rel="noopener">http://services.gradle.org/distributions/</a> 把下载下来的文件存放到这个目录下面的子目录 (目录名由字母和数字组成) 下面, 大功告成了。</li>
+<li>（可选）官方网站下载这个版本号对应的安装包 <a href="http://services.gradle.org/distributions/" target="_blank" rel="noopener">http://services.gradle.org/distributions/</a> 把下载下来的文件存放到这个目录下面的子目录 (目录名由字母和数字组成) 下面, 大功告成了。</li>
 </ol>
-<h2 id="问题：下载依赖jar包慢"><a href="#问题：下载依赖jar包慢" class="headerlink" title="问题：下载依赖jar包慢"></a>问题：下载依赖jar包慢</h2><p>解决：在 <code>build.gradle</code> 文件中添加国内镜像<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">repositories &#123; maven&#123; url&apos;http://maven.aliyun.com/nexus/content/groups/public/&apos;&#125; &#125;</span><br></pre></td></tr></table></figure></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/02/20/Gradle-Configuration/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
