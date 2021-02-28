@@ -20,9 +20,25 @@ sbcl --no-sysinit --no-userinit --load ~/quicklisp.lisp \
        --eval '(ql:add-to-init-file)' \
        --quit
 ```
-**[slime](https://common-lisp.net/project/slime/)**
+
+**Quicklisp Libraries**
+
+- https://common-lisp.net/libraries
+ 
+**[Slime](https://common-lisp.net/project/slime/)**
 
 Install *slime* package in Emacs：*M-x package-install RET slime RET*，then add configuration：
 ```
-(setq inferior-lisp-program "/opt/sbcl/bin/sbcl")
+(setq inferior-lisp-program "sbcl")
 ```
+
+Enjoy your Lisp trip!!!
+
+<!-- more -->
+
+# Book
+- Common lisp the language 2th
+- On lisp
+- Practical common lisp
+- Let over lambda
+- Draft proposed American National Standard forInformation Systems—Programming Language—Common Lisp X3J13/94-101R
