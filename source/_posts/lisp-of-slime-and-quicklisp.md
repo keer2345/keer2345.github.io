@@ -37,7 +37,7 @@ Enjoy your Lisp trip!!!
 <!-- more -->
 
 # Book
-- Common lisp the language 2th
+- Common lisp the language 2nd
 - On lisp
 - Practical common lisp
 - Let over lambda
