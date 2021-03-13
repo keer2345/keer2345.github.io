@@ -42,3 +42,6 @@ Enjoy your Lisp trip!!!
 - Practical common lisp
 - Let over lambda
 - Draft proposed American National Standard forInformation Systems—Programming Language—Common Lisp X3J13/94-101R
+
+# References
+- [Simplified Common Lisp reference INDEX](https://jtra.cz/stuff/lisp/sclr/index.html)
