@@ -129,6 +129,20 @@ git merge new_branch_name/master
 git pull origin master # 更新并合并自己远程仓库的代码
 git push # 向自己的远程仓库推送代码
 ```
+### git删除已经push到远程服务器上的某个提交
+
+1. 找到想要回退到的commit-id
+2. 本地代码回退到1中的commit-id
+
+```
+git reset --hard <commit-id>
+```
+3. 推送到远程服务器
+
+```
+git push origin HEAD:master --force
+```
+
 
 ### 标签
 ```
