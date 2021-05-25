@@ -367,9 +367,7 @@
 <li>标记本地镜像<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker tag &#123;镜像名或ID&#125; hub.c.163.com/&#123;你的用户名&#125;/&#123;标签名&#125;</span><br></pre></td></tr></table></figure></li>
 <li>推送至网易云镜像仓库<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker push hub.c.163.com/&#123;你的用户名&#125;/&#123;标签名&#125;</span><br></pre></td></tr></table></figure>
 默认为私有镜像仓库，推送成功后即可在控制台的「镜像仓库」查看。</li>
-<li>运行<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ docker run -p 8888:5000 hub.c.163.com/keer2345/catnip</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>运行<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ docker run -p 8888:5000 hub.c.163.com/keer2345/catnip</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h1 id="多容器环境"><a href="#多容器环境" class="headerlink" title="多容器环境"></a>多容器环境</h1><p>我们看到了通过 Docker 运行应用是多么有趣而简单。我们从一个静态站点的 Flask 应用开始，只需要几个命令就可以在本地和云端运行应用。这两种方式都有个共同点，就是在<strong>单容器（Single Contianer）</strong>中运行。</p>
 <p>有生产经验的人都知道运行服务并没有那么简单。通常还有数据库（或者其他种类的存储）。所以这一节我们花点时间来学习如何依赖不同的服务来运行 Dockerize 应用。</p>

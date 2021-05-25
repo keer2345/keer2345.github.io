@@ -230,12 +230,9 @@
 <h4 id="临时使用"><a href="#临时使用" class="headerlink" title="临时使用"></a>临时使用</h4><p>可以在使用pip的时候加参数<code>-i https://pypi.tuna.tsinghua.edu.cn/simple</code><br>例如：<code>pip install -i https://pypi.tuna.tsinghua.edu.cn/simple gevent</code>，这样就会从清华这边的镜像去安装gevent库。</p>
 <h4 id="永久修改"><a href="#永久修改" class="headerlink" title="永久修改"></a>永久修改</h4><ul>
 <li><p>Linux下<br>修改 <code>~/.pip/pip.conf</code> (没有就创建一个)，添加或修改，内容如下【参考<br><a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/help/pypi">阿里help</a>】：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url = http://mirrors.aliyun.com/pypi/simple/</span><br><span class="line"></span><br><span class="line">[install]</span><br><span class="line">trusted-host=mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url = http://mirrors.aliyun.com/pypi/simple/</span><br><span class="line"></span><br><span class="line">[install]</span><br><span class="line">trusted-host=mirrors.aliyun.com</span><br></pre></td></tr></table></figure></li>
 <li><p>windows下<br>直接在user目录中创建一个pip目录，如：C:\Users\xx\pip，新建文件pip.ini，内容如下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url = https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
-
-</li>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url = https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="导出与安装"><a href="#导出与安装" class="headerlink" title="导出与安装"></a>导出与安装</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip freeze &gt; requirements.txt</span><br><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
 

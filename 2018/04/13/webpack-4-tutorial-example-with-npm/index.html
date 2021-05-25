@@ -217,7 +217,7 @@
 <li>针对纯模块更好的<em>tree shaking</em>，没有副作用</li>
 <li><code>&lt;script async&gt;</code>支持</li>
 <li>默认的，我们可以导出导入网页集合（Rust, C++, C, etc）</li>
-<li>介绍可以在<strong>developement</strong>或<strong>production</strong>下选择的**<em>mode**</em>属性，默认为<strong>production</strong>。</li>
+<li>介绍可以在<strong>developement</strong>或<strong>production</strong>下选择的<em><strong>mode</strong></em>属性，默认为<strong>production</strong>。</li>
 </ul>
 <h1 id="Webpack4-的开始"><a href="#Webpack4-的开始" class="headerlink" title="Webpack4 的开始"></a>Webpack4 的开始</h1><p>刚开始，我们只需要理解以下四个<strong>核心概念</strong>：</p>
 <ul>
@@ -246,10 +246,7 @@
 <li>创建文件<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir src</span><br><span class="line">touch src/index.js</span><br></pre></td></tr></table></figure></li>
 <li>编辑<em>src/index.js</em>:<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;webpack 4 is running without configuration file&#x27;</span>);</span><br></pre></td></tr></table></figure></li>
 <li>运行命令<code>webpack</code>进行打包，顺利的话会出现一下结果:<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Hash: 024a0c82b3c29457486d</span><br><span class="line">Version: webpack 4.5.0</span><br><span class="line">Time: 281ms</span><br><span class="line">Built at: 2018-4-13 23:01:10</span><br><span class="line">  Asset       Size  Chunks             Chunk Names</span><br><span class="line">main.js  607 bytes       0  [emitted]  main</span><br><span class="line">Entrypoint main = main.js</span><br><span class="line">   [0] ./src/index.js 65 bytes &#123;0&#125; [built]</span><br><span class="line">WARNING in configuration</span><br><span class="line">The &#x27;mode&#x27; option has not been set, webpack will fallback to &#x27;production&#x27; for this value.</span><br><span class="line">Set &#x27;mode&#x27; option to &#x27;development&#x27; or &#x27;production&#x27; to enable defaults for each environment.</span><br><span class="line">You can also set it to &#x27;none&#x27; to disable any default behavior.</span><br><span class="line">Learn more: https://webpack.js.org/concepts/mode/</span><br></pre></td></tr></table></figure>
-并会生成<strong>dist</strong>文件夹和其下的<strong>main.js</strong>文件。注意，默认构建<em>production</em>。<br>如果出现异常，可能要全局安装<code>webpack</code>,<code>webpack-cli</code>:<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install webpack webpack-cli -g</span><br></pre></td></tr></table></figure>
-
-
-</li>
+并会生成<strong>dist</strong>文件夹和其下的<strong>main.js</strong>文件。注意，默认构建<em>production</em>。<br>如果出现异常，可能要全局安装<code>webpack</code>,<code>webpack-cli</code>:<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install webpack webpack-cli -g</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>默认是<strong>production mode</strong>。但是我们也可以生成开发模式，在<em>package.json</em>的<em>scripts</em>下配置如下两行：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;dev&quot;</span>: <span class="string">&quot;webpack --mode development&quot;</span>,</span><br><span class="line">    <span class="string">&quot;prod&quot;</span>: <span class="string">&quot;webpack --mode production&quot;</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
