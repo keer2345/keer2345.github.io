@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Async Javascript Tutorial For Beginners  Callbacks Promises Async Await">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Async Javascript Tutorial For Beginners">
+<meta property="og:url" content="http://yoursite.com/2021/05/25/Async-Javascript-Tutorial-For-Beginners/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="Async Javascript Tutorial For Beginners  Callbacks Promises Async Await">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-25T06:51:36.000Z">
+<meta property="article:modified_time" content="2021-05-25T15:44:57.226Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2021/05/25/Async-Javascript-Tutorial-For-Beginners/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Async Javascript Tutorial For Beginners | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/25/Async-Javascript-Tutorial-For-Beginners/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Async Javascript Tutorial For Beginners
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-25 14:51:36 / 修改时间：23:44:57" itemprop="dateCreated datePublished" datetime="2021-05-25T14:51:36+08:00">2021-05-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Async Javascript Tutorial For Beginners</p>
+<ul>
+<li>Callbacks</li>
+<li>Promises</li>
+<li>Async</li>
+<li>Await</li>
+</ul>
+<span id="more"></span>
+
+<h1 id="Sync-code-example"><a href="#Sync-code-example" class="headerlink" title="Sync code example"></a>Sync code example</h1><p><code>app.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Sync code example</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">otherFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;We are in another function&#x27;</span>)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;Do some stuff&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;Start&#x27;</span>)</span><br><span class="line"></span><br><span class="line">otherFunc()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;End&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> node app.js</span></span><br><span class="line">Start</span><br><span class="line">We are in another function</span><br><span class="line">Do some stuff</span><br><span class="line">End</span><br></pre></td></tr></table></figure>
+
+<h1 id="ASync-code-example"><a href="#ASync-code-example" class="headerlink" title="ASync code example"></a>ASync code example</h1><h2 id="Sample-1"><a href="#Sample-1" class="headerlink" title="Sample 1"></a>Sample 1</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ASync code example</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;Start&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;We are in the 2 senconds timeout &#x27;</span>)</span><br><span class="line">&#125;, <span class="number">2000</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;End&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> node app.js</span></span><br><span class="line">Start</span><br><span class="line">End</span><br><span class="line">We are in the 2 senconds timeout</span><br></pre></td></tr></table></figure>
+
+<h2 id="Sample-2"><a href="#Sample-2" class="headerlink" title="Sample 2"></a>Sample 2</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ASync code example</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;Start&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loginUser</span>(<span class="params">email, password, callback</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Now we have the data at 2 seconds:&#x27;</span>)</span><br><span class="line">    callback(&#123; <span class="attr">userEmail</span>: email, <span class="attr">userPassword</span>: password &#125;)</span><br><span class="line">  &#125;, <span class="number">2000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> user = loginUser(<span class="string">&#x27;sample@gmail.com&#x27;</span>, <span class="number">123456</span>, <span class="function">(<span class="params">x</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;End&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Start</span><br><span class="line">End</span><br><span class="line">Now we have the data at 2 seconds:</span><br><span class="line">&#123;</span><br><span class="line">  userEmail: &quot;sample@gmail.com&quot; ,</span><br><span class="line">  userPassword: 123456</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Sample-3"><a href="#Sample-3" class="headerlink" title="Sample 3"></a>Sample 3</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ASync code example</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;Start&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loginUser</span>(<span class="params">email, password, callback</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Now we have the data at 5 seconds:&#x27;</span>)</span><br><span class="line">    callback(&#123; <span class="attr">userEmail</span>: email, <span class="attr">userPassword</span>: password &#125;)</span><br><span class="line">  &#125;, <span class="number">5000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserVideos</span>(<span class="params">email, callback</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Now we have the data at 2 seconds:&#x27;</span>)</span><br><span class="line">    callback([<span class="string">&#x27;video1&#x27;</span>, <span class="string">&#x27;video2&#x27;</span>, <span class="string">&#x27;video3&#x27;</span>])</span><br><span class="line">  &#125;, <span class="number">2000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> user = loginUser(<span class="string">&#x27;sample@gmail.com&#x27;</span>, <span class="number">123456</span>, <span class="function">(<span class="params">x</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x)</span><br><span class="line">  getUserVideos(x.userEmail, <span class="function">(<span class="params">videos</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(videos)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;End&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Start</span><br><span class="line">End</span><br><span class="line">Now we have the data at 5 seconds:</span><br><span class="line">&#123;</span><br><span class="line">  userEmail: &quot;sample@gmail.com&quot; ,</span><br><span class="line">  userPassword: 123456</span><br><span class="line">&#125;</span><br><span class="line">Now we have the data at 2 seconds:</span><br><span class="line">[&quot;video1&quot; , &quot;video2&quot; , &quot;video3&quot;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="Sample-4"><a href="#Sample-4" class="headerlink" title="Sample 4"></a>Sample 4</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ASync code example</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;Start&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loginUser</span>(<span class="params">email, password, callback</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Now we have the data at 5 seconds:&#x27;</span>)</span><br><span class="line">    callback(&#123; <span class="attr">userEmail</span>: email, <span class="attr">userPassword</span>: password &#125;)</span><br><span class="line">  &#125;, <span class="number">5000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserVideos</span>(<span class="params">email, callback</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Now we have the data at 2 seconds:&#x27;</span>)</span><br><span class="line">    callback([<span class="string">&#x27;video1&#x27;</span>, <span class="string">&#x27;video2&#x27;</span>, <span class="string">&#x27;video3&#x27;</span>])</span><br><span class="line">  &#125;, <span class="number">2000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">videoDetails</span>(<span class="params">video, callback</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Now we have the data at 1 seconds:&#x27;</span>)</span><br><span class="line">    callback(<span class="string">&#x27;title of the video&#x27;</span>)</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> user = loginUser(<span class="string">&#x27;sample@gmail.com&#x27;</span>, <span class="number">123456</span>, <span class="function">(<span class="params">x</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x)</span><br><span class="line">  getUserVideos(x.userEmail, <span class="function">(<span class="params">videos</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(videos)</span><br><span class="line">    videoDetails(videos[<span class="number">0</span>], <span class="function">(<span class="params">title</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(title)</span><br><span class="line">      videoDetails(videos[<span class="number">0</span>], <span class="function">(<span class="params">title</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(title)</span><br><span class="line">        videoDetails(videos[<span class="number">0</span>], <span class="function">(<span class="params">title</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(title)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;End&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Start</span><br><span class="line">End</span><br><span class="line">Now we have the data at 5 seconds:</span><br><span class="line">&#123;</span><br><span class="line">userEmail: &quot;sample@gmail.com&quot; ,</span><br><span class="line">userPassword: 123456</span><br><span class="line">&#125;</span><br><span class="line">Now we have the data at 2 seconds:</span><br><span class="line">[</span><br><span class="line">&quot;video1&quot; ,</span><br><span class="line">&quot;video2&quot; ,</span><br><span class="line">&quot;video3&quot;</span><br><span class="line">]</span><br><span class="line">Now we have the data at 1 seconds:</span><br><span class="line">title of the video</span><br><span class="line">Now we have the data at 1 seconds:</span><br><span class="line">title of the video</span><br><span class="line">Now we have the data at 1 seconds:</span><br><span class="line">title of the video</span><br></pre></td></tr></table></figure>
+
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><h2 id="Sample-1-1"><a href="#Sample-1-1" class="headerlink" title="Sample 1"></a>Sample 1</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;got the user at 2 seconds:&#x27;</span>)</span><br><span class="line">    resolve(&#123; <span class="attr">user</span>: <span class="string">&#x27;ed&#x27;</span> &#125;)</span><br><span class="line">  &#125;, <span class="number">2000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">promise.then(<span class="function">(<span class="params">user</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(user)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&quot;got the user at 2 seconds:&quot;</span><br><span class="line"></span><br><span class="line">&#123;&quot;user&quot;: &quot;ed&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Sample-2-1"><a href="#Sample-2-1" class="headerlink" title="Sample 2"></a>Sample 2</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;got the user&#x27;</span>)</span><br><span class="line">    <span class="comment">// resolve(&#123; user: &quot;ed&quot; &#125;);</span></span><br><span class="line">    reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;User not logged in&#x27;</span>))</span><br><span class="line">  &#125;, <span class="number">2000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">promise</span><br><span class="line">  .then(<span class="function">(<span class="params">user</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(user)</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err.message)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&quot;got the user&quot;</span><br><span class="line"></span><br><span class="line">&quot;User not logged in&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="To-improve-sample-of-last-section"><a href="#To-improve-sample-of-last-section" class="headerlink" title="To improve sample of last section"></a>To improve sample of last section</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/31/Spring-Boot-with-Kotlin-and-JUnit5/" rel="prev" title="Spring Boot with Kotlin and JUnit5">
+      <i class="fa fa-chevron-left"></i> Spring Boot with Kotlin and JUnit5
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Sync-code-example"><span class="nav-number">1.</span> <span class="nav-text">Sync code example</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ASync-code-example"><span class="nav-number">2.</span> <span class="nav-text">ASync code example</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-1"><span class="nav-number">2.1.</span> <span class="nav-text">Sample 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-2"><span class="nav-number">2.2.</span> <span class="nav-text">Sample 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-3"><span class="nav-number">2.3.</span> <span class="nav-text">Sample 3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-4"><span class="nav-number">2.4.</span> <span class="nav-text">Sample 4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise"><span class="nav-number">3.</span> <span class="nav-text">Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-1-1"><span class="nav-number">3.1.</span> <span class="nav-text">Sample 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-2-1"><span class="nav-number">3.2.</span> <span class="nav-text">Sample 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#To-improve-sample-of-last-section"><span class="nav-number">3.3.</span> <span class="nav-text">To improve sample of last section</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

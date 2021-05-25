@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="React and Docker让我们将 React App 容器化。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask React Docker in Testdriven - Part II - 8">
+<meta property="og:url" content="http://yoursite.com/2018/09/25/python-flask-react-docker-testdriven-2-8/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="React and Docker让我们将 React App 容器化。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-09-25T12:49:31.000Z">
+<meta property="article:modified_time" content="2020-06-24T15:30:43.672Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="testdriven">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/09/25/python-flask-react-docker-testdriven-2-8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Flask React Docker in Testdriven - Part II - 8 | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/25/python-flask-react-docker-testdriven-2-8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask React Docker in Testdriven - Part II - 8
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-25 20:49:31" itemprop="dateCreated datePublished" datetime="2018-09-25T20:49:31+08:00">2018-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="React-and-Docker"><a href="#React-and-Docker" class="headerlink" title="React and Docker"></a>React and Docker</h1><p>让我们将 React App 容器化。</p>
+<span id="more"></span>
+
+<h2 id="本地部署"><a href="#本地部署" class="headerlink" title="本地部署"></a>本地部署</h2><p>在 <em>client</em> 目录下添加 <code>Dockerfile-dev</code>，添加如下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># base image</span><br><span class="line">FROM node:10.4.1-alpine</span><br><span class="line"></span><br><span class="line"># set working directory</span><br><span class="line">WORKDIR /usr/src/app</span><br><span class="line"></span><br><span class="line"># add `/usr/src/app/node_modules/.bin` to $PATH</span><br><span class="line">ENV PATH /usr/src/app/node_modules/.bin:$PATH</span><br><span class="line"></span><br><span class="line"># install and cache app dependencies</span><br><span class="line">COPY package.json /usr/src/app/package.json</span><br><span class="line">RUN npm install --silent</span><br><span class="line">RUN npm install react-scripts@1.1.4 -g --silent</span><br><span class="line"></span><br><span class="line"># start app</span><br><span class="line">CMD [&quot;npm&quot;, &quot;start&quot;]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过静默 NPM 输出 <code>--silent</code> 是个人选择。但是，它经常不赞成，因为它可以吞没错误。请记住这一点，以免浪费时间进行调试。</p>
+</blockquote>
+<p>添加 <code>.dockerignore</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node_modules</span><br><span class="line">coverage</span><br><span class="line">build</span><br><span class="line">env</span><br><span class="line">htmlcov</span><br><span class="line">.dockerignore</span><br><span class="line">Dockerfile-dev</span><br><span class="line">Dockerfile-prod</span><br></pre></td></tr></table></figure>
+
+<p>然后，将新服务添加到 <code>docker-compose-dev.yml</code> 文件中，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">client:</span><br><span class="line">  build:</span><br><span class="line">    context: ./services/client</span><br><span class="line">    dockerfile: Dockerfile-dev</span><br><span class="line">  volumes:</span><br><span class="line">    - &#x27;./services/client:/usr/src/app&#x27;</span><br><span class="line">    - &#x27;/usr/src/app/node_modules&#x27;</span><br><span class="line">  ports:</span><br><span class="line">    - 3007:3000</span><br><span class="line">  environment:</span><br><span class="line">    - NODE_ENV=development</span><br><span class="line">    - REACT_APP_USERS_SERVICE_URL=$&#123;REACT_APP_USERS_SERVICE_URL&#125;</span><br><span class="line">  depends_on:</span><br><span class="line">    - users</span><br></pre></td></tr></table></figure>
+
+<p>在终端中，导航到项目根目录，然后设置 <code>REACT_APP_USERS_SERVICE_URL</code> 环境变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ export REACT_APP_USERS_SERVICE_URL=http://localhost</span><br></pre></td></tr></table></figure>
+
+
+<p>构建映像并启动新容器：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ docker-compose -f docker-compose-dev.yml up --build -d client</span><br></pre></td></tr></table></figure>
+
+<p>运行客户端测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ docker-compose -f docker-compose-dev.yml run client npm test</span><br></pre></td></tr></table></figure>
+<p>在浏览器中导航到 <a target="_blank" rel="noopener" href="http://localhost:3007/">http://localhost:3007</a> 以测试应用程序。</p>
+<p>如果您导航到主要路由会发生什么？由于我们仍然将流量路由到 Flask 应用程序（通过 Nginx ），您将看到旧的应用程序，提供服务器端模板。我们需要更新 Nginx 配置以将流量路由到React应用程序的主路由。</p>
+<p><code>services / nginx / dev.conf</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line"></span><br><span class="line">  listen 80;</span><br><span class="line"></span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://client:3000;</span><br><span class="line">    proxy_redirect    default;</span><br><span class="line">    proxy_set_header  Host $host;</span><br><span class="line">    proxy_set_header  X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header  X-Forwarded-Host $server_name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location /users &#123;</span><br><span class="line">    proxy_pass        http://users:5000;</span><br><span class="line">    proxy_redirect    default;</span><br><span class="line">    proxy_set_header  Host $host;</span><br><span class="line">    proxy_set_header  X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header  X-Forwarded-Host $server_name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发生了什么？</p>
+<ol>
+<li>这些 <code>location</code> 块定义了特定位置的设置。</li>
+<li>当请求的URI与位置块中的 URI 匹配时，Nginx会相应地传递请求 — 例如，传递给 React 或 Flask 开发服务器。</li>
+</ol>
+<p>此外，该 <code>client</code> 服务需要在 nginx 之前启动，因此更新 docker-compose-dev.yml ：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nginx:</span><br><span class="line">  build:</span><br><span class="line">    context: ./services/nginx</span><br><span class="line">    dockerfile: Dockerfile-dev</span><br><span class="line">  restart: always</span><br><span class="line">  ports:</span><br><span class="line">    - 80:80</span><br><span class="line">  depends_on:</span><br><span class="line">    - users</span><br><span class="line">    - client</span><br></pre></td></tr></table></figure>
+<p>更新容器：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose -f docker-compose-dev.yml up -d --build</span><br></pre></td></tr></table></figure>
+<p>然后访问浏览器：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://localhost/">http://localhost</a></li>
+<li><a target="_blank" rel="noopener" href="http://localhost/users">http://localhost/users</a></li>
+</ol>
+<p>设置了卷之后，我们可以利用自动重新加载。要测试，请打开<a target="_blank" rel="noopener" href="https://docs.docker.com/compose/reference/logs/">日志</a>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ docker-compose -f docker-compose-dev.yml logs -f</span><br></pre></td></tr></table></figure>
+
+<p>清楚终端屏幕，然后更改 <code>App</code> 组件中的状态对象：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.state = &#123;</span><br><span class="line">  <span class="attr">users</span>: [],</span><br><span class="line">  <span class="attr">username</span>: <span class="string">&#x27;justatest&#x27;</span>,</span><br><span class="line">  <span class="attr">email</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>保存后，您应该看到应用程序重新编译，浏览器应该自行刷新：</p>
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/0923/012.png)
+</center>
+
+<p>确保在继续之前将状态更改回来。</p>
+<blockquote>
+<p>在本地使用 Docker Machine？使用 Docker Machine 和 VirtualBox 进行自动重装是否有问题？</p>
+</blockquote>
+<p>尝试通过 <a target="_blank" rel="noopener" href="https://github.com/paulmillr/chokidar">chokidar</a> <a target="_blank" rel="noopener" href="https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#troubleshooting">启用</a> 轮询机制，方法是将以下环境变量键/对添加到 <em>docker-compose-dev.yml</em> 文件中 <code>CHOKIDAR_USEPOLLING=true</code> 。有关详细信息，请查看 <a target="_blank" rel="noopener" href="http://mherman.org/blog/2017/12/07/dockerizing-a-react-app">Dockerizing a React App</a>。</p>
+<h2 id="React构建"><a href="#React构建" class="headerlink" title="React构建"></a>React构建</h2><p>在更新生产环境之前，让我们脱离 Docker 创建一个使用 Create React App 的构建（例如，在新的终端窗口中），这将生成静态文件。</p>
+<p>确保 <code>REACT_APP_USERS_SERVICE_URL</code> 设置了环境变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ export REACT_APP_USERS_SERVICE_URL=http://localhost</span><br></pre></td></tr></table></figure>
+
+<p>然后从“services/client”目录运行命令 <code>build</code> :</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ npm run build</span><br></pre></td></tr></table></figure>
+
+
+<p>您应该在 “services/client” 中看到一个带有静态文件的 “build” 目录。我们需要使用基本的 Web 服务器来提供服务。让我们使用 Python 标准库中的 HTTP 服务器。导航到 “build” 目录，然后运行服务器：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ python3 -m http.server</span><br></pre></td></tr></table></figure>
+
+<p>这将在 <a target="_blank" rel="noopener" href="http://localhost:8000/">http://localhost:8000</a> 上提供应用程序。在浏览器中测试它以确保它的工作原理。完成后，终止服务器并导航回项目根目录。</p>
+<h2 id="生产"><a href="#生产" class="headerlink" title="生产"></a>生产</h2><p>将 <em>Dockerfile-prod</em> 添加到 “client” 目录的根目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">###########</span><br><span class="line"># BUILDER #</span><br><span class="line">###########</span><br><span class="line"></span><br><span class="line"># base image</span><br><span class="line">FROM node:10.4.1-alpine as builder</span><br><span class="line"></span><br><span class="line"># set working directory</span><br><span class="line">WORKDIR /usr/src/app</span><br><span class="line"></span><br><span class="line"># install app dependencies</span><br><span class="line">ENV PATH /usr/src/app/node_modules/.bin:$PATH</span><br><span class="line">COPY package.json /usr/src/app/package.json</span><br><span class="line">RUN npm install --silent</span><br><span class="line">RUN npm install react-scripts@1.1.4 -g --silent</span><br><span class="line"></span><br><span class="line"># set environment variables</span><br><span class="line">ARG REACT_APP_USERS_SERVICE_URL</span><br><span class="line">ENV REACT_APP_USERS_SERVICE_URL $REACT_APP_USERS_SERVICE_URL</span><br><span class="line">ARG NODE_ENV</span><br><span class="line">ENV NODE_ENV $NODE_ENV</span><br><span class="line"></span><br><span class="line"># create build</span><br><span class="line">COPY . /usr/src/app</span><br><span class="line">RUN npm run build</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#########</span><br><span class="line"># FINAL #</span><br><span class="line">#########</span><br><span class="line"></span><br><span class="line"># base image</span><br><span class="line">FROM nginx:1.15.0-alpine</span><br><span class="line"></span><br><span class="line"># copy static files</span><br><span class="line">COPY --from=builder /usr/src/app/build /usr/share/nginx/html</span><br><span class="line"></span><br><span class="line"># expose port</span><br><span class="line">EXPOSE 80</span><br><span class="line"></span><br><span class="line"># run nginx</span><br><span class="line">CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们使用<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/userguide/eng-image/multistage-build/">多级构建</a>来创建用于生成静态文件（通过 <code>npm run build</code> ）的临时镜像，然后将其复制到生产镜像。临时构建镜像与原始文件和与镜像关联的文件夹一起被丢弃。这样可以生成精简的准生产镜像。</p>
+<p>让我们在没有 Docker Compose 的情况下测试它。</p>
+<p>首先，从 “services/client” 构建映像，确保使用该 <code>--build-arg</code> 标志传入适当的参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ docker build -f Dockerfile-prod -t &quot;test&quot; ./ \</span><br><span class="line">  --build-arg NODE_ENV=development \</span><br><span class="line">  --build-arg REACT_APP_USERS_SERVICE_URL=http://DOCKER_MACHINE_IP</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>确保 <code>DOCKER_MACHINE_IP</code> 为您的 Docker Machine 相关联的 IP</p>
+</blockquote>
+<p>使用 “services/clinet” 中的 <code>Dockerfile-prod</code> 构建名称为 <code>test</code> 的新镜像所需的参数，这些参数都可以通过在 Dockerfile 访问 <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/builder/#arg">ARG</a> 指令，然后将其用作值 <code>NODE_ENV</code> 和 <code>REACT_APP_USERS_SERVICE_URL</code> 环境变量。</p>
+<blockquote>
+<p>可以运行 <code>docker images</code> 查看所有镜像。</p>
+</blockquote>
+<p>从 <code>test</code> 镜像注册容器，将容器中的 <code>80</code> 端口映射到容器外部的 <code>9000</code> 端口：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d -p 9000:80 test</span><br></pre></td></tr></table></figure>
+
+<p>浏览器访问 <a target="_blank" rel="noopener" href="http://localhost:9000/">http://localhost:9000</a> 。</p>
+<p>完成后停止并移除容器：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker stop CONTAINER_ID</span><br><span class="line">docker rm CONTAINER_ID</span><br></pre></td></tr></table></figure>
+
+<p>最后，移除镜像：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker rmi test</span><br></pre></td></tr></table></figure>
+
+<p>随着 <code>Dockerfile-prod</code> 文件的创建和测试，添加该服务到 <code>docker-compose-prod.yml</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">client:</span><br><span class="line">  container_name: client</span><br><span class="line">  build:</span><br><span class="line">    context: ./services/client</span><br><span class="line">    dockerfile: Dockerfile-prod</span><br><span class="line">    args:</span><br><span class="line">      - NODE_ENV=production</span><br><span class="line">      - REACT_APP_USERS_SERVICE_URL=$&#123;REACT_APP_USERS_SERVICE_URL&#125;</span><br><span class="line">  ports:</span><br><span class="line">    - &#x27;3007:80&#x27;</span><br><span class="line">  depends_on:</span><br><span class="line">    - users</span><br></pre></td></tr></table></figure>
+
+<p>相对在运行时才传递 <code>NODE_ENV</code> 和 <code>REACT_APP_USERS_SERVICE_URL</code> 环境变量，我们将它们定义为构建时的参数。</p>
+<p>同样，<code>clent</code> 需要在 <code>nginx</code> 之前启动，因此需要修改 <code>docker-compose-prod.yml</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nginx:</span><br><span class="line">  container_name: nginx</span><br><span class="line">  build: ./services/nginx</span><br><span class="line">  restart: always</span><br><span class="line">  ports:</span><br><span class="line">    - 80:80</span><br><span class="line">  depends_on:</span><br><span class="line">    - users</span><br><span class="line">    - client  # new</span><br></pre></td></tr></table></figure>
+
+<p>还需要修改 <code>services/nginx/prod.conf</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line"></span><br><span class="line">  listen 80;</span><br><span class="line"></span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://client:80;</span><br><span class="line">    proxy_redirect    default;</span><br><span class="line">    proxy_set_header  Host $host;</span><br><span class="line">    proxy_set_header  X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header  X-Forwarded-Host $server_name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location /users &#123;</span><br><span class="line">    proxy_pass        http://users:5000;</span><br><span class="line">    proxy_redirect    default;</span><br><span class="line">    proxy_set_header  Host $host;</span><br><span class="line">    proxy_set_header  X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header  X-Forwarded-Host $server_name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要在生产上更新，将 <code>testdriven-prod</code> 置为活动（active）状态，将 <code>REACT_APP_USERS_SERVICE_URL</code> 环境变量置为 <code>testdriven-prod</code> 机器相对应的 IP 。然后更新容器：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-machine env testdriven-prod</span><br><span class="line">eval $(docker-machine env testdriven-prod)</span><br><span class="line">export REACT_APP_USERS_SERVICE_URL=http://DOCKER_MACHINE_IP</span><br><span class="line">docker-compose -f docker-compose-prod.yml up -d --build</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>请记住：由于环境变量是在构建时添加的，因此如果更改变量，则必须重新构建Docker镜像。</p>
+</blockquote>
+<p>确保浏览器中的一切正常。</p>
+<h2 id="Travis"><a href="#Travis" class="headerlink" title="Travis"></a>Travis</h2><p>还有一件事：将 <code>REACT_APP_USERS_SERVICE_URL</code> 环境变量添加到 <code>.travis.yml</code> 文件中，位于 <code>before_script</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">before_script:</span><br><span class="line">  - export REACT_APP_USERS_SERVICE_URL=http://127.0.0.1 # new</span><br><span class="line">  - docker-compose -f docker-compose-dev.yml up --build -d</span><br></pre></td></tr></table></figure>
+
+<p>提交并将代码推送到GitHub。在继续之前确保Travis构建通过。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/testdriven/" rel="tag"># testdriven</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/25/python-flask-react-docker-testdriven-2-7/" rel="prev" title="Flask React Docker in Testdriven - Part II - 7">
+      <i class="fa fa-chevron-left"></i> Flask React Docker in Testdriven - Part II - 7
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/09/25/python-flask-react-docker-testdriven-2-9/" rel="next" title="Flask React Docker in Testdriven - Part II - 9">
+      Flask React Docker in Testdriven - Part II - 9 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React-and-Docker"><span class="nav-number">1.</span> <span class="nav-text">React and Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2"><span class="nav-number">1.1.</span> <span class="nav-text">本地部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React%E6%9E%84%E5%BB%BA"><span class="nav-number">1.2.</span> <span class="nav-text">React构建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7"><span class="nav-number">1.3.</span> <span class="nav-text">生产</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Travis"><span class="nav-number">1.4.</span> <span class="nav-text">Travis</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

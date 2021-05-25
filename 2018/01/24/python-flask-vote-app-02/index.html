@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本节主要演示Flask中多对多的关系。  ![表关系](https:&#x2F;&#x2F;danidee10.github.io&#x2F;images&#x2F;votr.png)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask Web投票应用02：使用SQLAlchemy设计和操作数据库">
+<meta property="og:url" content="http://yoursite.com/2018/01/24/python-flask-vote-app-02/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="本节主要演示Flask中多对多的关系。  ![表关系](https:&#x2F;&#x2F;danidee10.github.io&#x2F;images&#x2F;votr.png)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-01-24T12:21:44.000Z">
+<meta property="article:modified_time" content="2020-06-24T15:30:43.674Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/01/24/python-flask-vote-app-02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Flask Web投票应用02：使用SQLAlchemy设计和操作数据库 | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/24/python-flask-vote-app-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask Web投票应用02：使用SQLAlchemy设计和操作数据库
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-24 20:21:44" itemprop="dateCreated datePublished" datetime="2018-01-24T20:21:44+08:00">2018-01-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本节主要演示Flask中多对多的关系。</p>
+<center>
+![表关系](https://danidee10.github.io/images/votr.png)
+</center>
+
+<span id="more"></span>
+
+
+
+<h1 id="Flask-SQLAlchemy"><a href="#Flask-SQLAlchemy" class="headerlink" title="Flask SQLAlchemy"></a>Flask SQLAlchemy</h1><p><a target="_blank" rel="noopener" href="http://www.sqlalchemy.org/">SQLAlchemy</a>在Python社区是成熟且流行的ORM，Python有许多ORM，但是我们在这里仍选择SQLAlchemy，因为它的流行度以及出色的文档。</p>
+<p><a target="_blank" rel="noopener" href="http://flask-sqlalchemy.pocoo.org/2.3/">Flask SQLAlchemy</a>是SQLAlchemy的Flask扩展（当然我们也可以使用纯粹的SQLAlchemy，如果您想这样做的话）。</p>
+<h2 id="安装Flask-SQLAlchemy"><a href="#安装Flask-SQLAlchemy" class="headerlink" title="安装Flask SQLAlchemy"></a>安装Flask SQLAlchemy</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install flask-sqlalchemy</span><br></pre></td></tr></table></figure>
+<h2 id="创建模型models-py"><a href="#创建模型models-py" class="headerlink" title="创建模型models.py"></a>创建模型<em>models.py</em></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> manage <span class="keyword">import</span> db</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#  Base model that for other models to inherit from</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    __abstract__ = <span class="literal">True</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())</span><br><span class="line">    date_modified = db.Column(db.DateTime,</span><br><span class="line">                              default=db.func.current_timestamp(),</span><br><span class="line">                              onupdate=db.func.current_timestamp())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Topics</span>(<span class="params">Base</span>):</span></span><br><span class="line">    title = db.Column(db.String(<span class="number">500</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#  user friendly way to display the object</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.title</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Options</span>(<span class="params">Base</span>):</span></span><br><span class="line">    name = db.Column(db.String(<span class="number">200</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Polls</span>(<span class="params">Base</span>):</span></span><br><span class="line">    topic_id = db.Column(db.Integer, db.ForeignKey(<span class="string">&#x27;topics.id&#x27;</span>))</span><br><span class="line">    option_id = db.Column(db.Integer, db.ForeignKey(<span class="string">&#x27;options.id&#x27;</span>))</span><br><span class="line">    vote_count = db.Column(db.Integer, default=<span class="number">0</span>)</span><br><span class="line">    status = db.Column(db.Boolean)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#  Many to Many</span></span><br><span class="line">    topic = db.relationship(<span class="string">&#x27;Topics&#x27;</span>,</span><br><span class="line">                            foreign_keys=[topic_id],</span><br><span class="line">                            backref=db.backref(<span class="string">&#x27;options&#x27;</span>, lazy=<span class="string">&#x27;dynamic&#x27;</span>))</span><br><span class="line">    option = db.relationship(<span class="string">&#x27;Options&#x27;</span>, foreign_keys=[option_id])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.option.name</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建配置文件config-py"><a href="#创建配置文件config-py" class="headerlink" title="创建配置文件config.py"></a>创建配置文件<em>config.py</em></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">basedir = os.path.abspath(os.path.dirname(__file__))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Config</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    SECRET_KEY = <span class="string">&#x27;development key&#x27;</span>  <span class="comment"># keep this key secret during production</span></span><br><span class="line">    SQLALCHEMY_DATABASE_URI = os.environ.get(</span><br><span class="line">        <span class="string">&#x27;DATABASE_URL&#x27;</span>) <span class="keyword">or</span> <span class="string">&#x27;sqlite:///&#x27;</span> + os.path.join(basedir, <span class="string">&#x27;vote.db&#x27;</span>)</span><br><span class="line">    SQLALCHEMY_TRACK_MODIFICATIONS = <span class="literal">False</span></span><br><span class="line">    DEBUG = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="编辑文件manage-py"><a href="#编辑文件manage-py" class="headerlink" title="编辑文件manage.py"></a>编辑文件<em>manage.py</em></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask_sqlalchemy <span class="keyword">import</span> SQLAlchemy</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> config <span class="keyword">import</span> Config</span><br><span class="line"></span><br><span class="line">vote = Flask(__name__)</span><br><span class="line"><span class="comment"># load config from the config file we created earlier</span></span><br><span class="line">vote.config.from_object(Config)</span><br><span class="line"></span><br><span class="line">db = SQLAlchemy(vote)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="comment"># initialize and create the database</span></span><br><span class="line"><span class="comment">#  db.init_app(vote)</span></span><br><span class="line"><span class="comment">#  db.create_all(app=vote)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@vote.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">home</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello world!&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    vote.run()</span><br></pre></td></tr></table></figure>
+
+<p>然后在Python shell中执行如下脚本生成数据库：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">(.venv) &gt; $ python</span><br><span class="line">Python 3.6.4 (default, Dec 19 2017, 17:29:45) </span><br><span class="line">[GCC 5.4.0 20160609] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from manage import vote, db</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; db.init_app(vote)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; db.create_all(app=vote)</span></span><br></pre></td></tr></table></figure>
+
+<p>在Sqlite3中可以查看到<em>models.py</em>中对应的三个表：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(.venv) &gt; $ sqlite3</span><br><span class="line">SQLite version 3.11.0 2016-02-15 17:29:24</span><br><span class="line">Enter &quot;.help&quot; for usage hints.</span><br><span class="line">Connected to a transient in-memory database.</span><br><span class="line">Use &quot;.open FILENAME&quot; to reopen on a persistent database.</span><br><span class="line">sqlite&gt; .open vote.db</span><br><span class="line">sqlite&gt; .tables</span><br><span class="line">options  polls    topics </span><br></pre></td></tr></table></figure>
+
+<h1 id="在Shell中演示SQLAlchemy"><a href="#在Shell中演示SQLAlchemy" class="headerlink" title="在Shell中演示SQLAlchemy"></a>在Shell中演示SQLAlchemy</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">(.venv) &gt; $ python</span><br><span class="line">Python 3.6.4 (default, Dec 19 2017, 17:29:45) </span><br><span class="line">[GCC 5.4.0 20160609] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from manage import vote, db</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from models import Topics, Options, Polls</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; topic = Topics(title=<span class="string">&#x27;Which side is going to win the EPL this season&#x27;</span>)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; arsenal = Options(name=<span class="string">&#x27;Arsenal&#x27;</span>)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; spurs = Options(name=<span class="string">&#x27;Spurs&#x27;</span>)</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; poll_1 = Polls(topic=topic, option=arsenal)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; poll_2 = Polls(topic=topic, option=spurs)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; topic.options.all()</span></span><br><span class="line">[Arsenal, Spurs]</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; poll_1.vote_count = 3</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; poll_2.vote_count = 2</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; poll_1.topic</span></span><br><span class="line">Which side is going to win the EPL this season</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; poll_1.topic.title</span></span><br><span class="line">&#x27;Which side is going to win the EPL this season&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; <span class="keyword">for</span> option <span class="keyword">in</span> topic.options.all():</span></span><br><span class="line">...     print(option, option.vote_count)</span><br><span class="line">... </span><br><span class="line">Arsenal 3</span><br><span class="line">Spurs 2</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; db.session.add(arsenal)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; db.session.add(spurs)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; db.session.add(topic)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; db.session.add(poll_1)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; db.session.add(poll_2)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; db.session.commit()</span></span><br></pre></td></tr></table></figure>
+
+<p>再来演示一个示例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; city = Options(name=<span class="string">&#x27;Manchester city&#x27;</span>)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; liverpool = Options(name=<span class="string">&#x27;Liverpool FC&#x27;</span>)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; liverpool = Polls(option=liverpool)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; city = Polls(option=city)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; new_topic = Topics(title=<span class="string">&#x27;Whos better liverpool or city&#x27;</span>, options=[liverpool, city])</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; new_topic.options.all()</span></span><br><span class="line">[Liverpool FC, Manchester city]</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; liverpool.topic</span></span><br><span class="line">Whos better liverpool or city</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; liverpool.topic.title</span></span><br><span class="line">&#x27;Whos better liverpool or city&#x27;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>本文的源代码可以在<a target="_blank" rel="noopener" href="https://github.com/keer2345/Flask_Vote/tree/v.02">Github</a>中找到。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/01/23/python-flask-vote-app-01/" rel="prev" title="Flask Web投票应用01：介绍与安装">
+      <i class="fa fa-chevron-left"></i> Flask Web投票应用01：介绍与安装
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/01/25/python-flask-vote-app-03/" rel="next" title="Flask Web投票应用03：模板，认证和静态页面">
+      Flask Web投票应用03：模板，认证和静态页面 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flask-SQLAlchemy"><span class="nav-number">1.</span> <span class="nav-text">Flask SQLAlchemy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Flask-SQLAlchemy"><span class="nav-number">1.1.</span> <span class="nav-text">安装Flask SQLAlchemy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8Bmodels-py"><span class="nav-number">1.2.</span> <span class="nav-text">创建模型models.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6config-py"><span class="nav-number">1.3.</span> <span class="nav-text">创建配置文件config.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6manage-py"><span class="nav-number">1.4.</span> <span class="nav-text">编辑文件manage.py</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8Shell%E4%B8%AD%E6%BC%94%E7%A4%BASQLAlchemy"><span class="nav-number">2.</span> <span class="nav-text">在Shell中演示SQLAlchemy</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

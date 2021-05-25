@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Spring 框架Spring框架是一个开源的企业应用开发框架。martinfowler的这篇文章介绍了依赖注入和控制反转二者的不同：Inversion of Control Containers and the Dependency Injection pattern。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring MVC 学习指南 01">
+<meta property="og:url" content="http://yoursite.com/2017/03/08/java-spring-mvc-guide-ch01/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="Spring 框架Spring框架是一个开源的企业应用开发框架。martinfowler的这篇文章介绍了依赖注入和控制反转二者的不同：Inversion of Control Containers and the Dependency Injection pattern。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-03-08T11:36:55.000Z">
+<meta property="article:modified_time" content="2020-06-24T15:30:43.646Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="SpringMvcGuide">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2017/03/08/java-spring-mvc-guide-ch01/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Spring MVC 学习指南 01 | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/08/java-spring-mvc-guide-ch01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring MVC 学习指南 01
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-08 19:36:55" itemprop="dateCreated datePublished" datetime="2017-03-08T19:36:55+08:00">2017-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Spring-框架"><a href="#Spring-框架" class="headerlink" title="Spring 框架"></a>Spring 框架</h1><p><a target="_blank" rel="noopener" href="http://spring.io/">Spring</a>框架是一个开源的企业应用开发框架。<a target="_blank" rel="noopener" href="https://martinfowler.com/">martinfowler</a>的这篇文章介绍了依赖注入和控制反转二者的不同：<a target="_blank" rel="noopener" href="http://martinfowler.com/articles/injection.html">Inversion of Control Containers and the Dependency Injection pattern</a>。</p>
+<span id="more"></span>
+
+<h2 id="XML配置文件"><a href="#XML配置文件" class="headerlink" title="XML配置文件"></a>XML配置文件</h2><h3 id="spring-config-xml"><a href="#spring-config-xml" class="headerlink" title="spring-config.xml"></a>spring-config.xml</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">       <span class="comment">&lt;!--导入其他配置文件：--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">import</span> <span class="attr">resource</span>=<span class="string">&quot;/resources/config1.xml&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="向构造器传递参数"><a href="#向构造器传递参数" class="headerlink" title="向构造器传递参数"></a>向构造器传递参数</h2><h3 id="Product-java"><a href="#Product-java" class="headerlink" title="Product.java"></a>Product.java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.keer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String description;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> price;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Product</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Product</span><span class="params">(String name, String description, <span class="keyword">float</span> price)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.description = description;</span><br><span class="line">        <span class="keyword">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// description, price&#x27;s getter &amp; setter</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Address-java"><a href="#Address-java" class="headerlink" title="Address.java"></a>Address.java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.keer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Address</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String line1;</span><br><span class="line">    <span class="keyword">private</span> String line2;</span><br><span class="line">    <span class="keyword">private</span> String city;</span><br><span class="line">    <span class="keyword">private</span> String state;</span><br><span class="line">    <span class="keyword">private</span> String zipCode;</span><br><span class="line">    <span class="keyword">private</span> String country;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Address</span><span class="params">(String line1, String line2, String city, String state, String zipCode, String country)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.line1 = line1;</span><br><span class="line">        <span class="keyword">this</span>.line2 = line2;</span><br><span class="line">        <span class="keyword">this</span>.city = city;</span><br><span class="line">        <span class="keyword">this</span>.state = state;</span><br><span class="line">        <span class="keyword">this</span>.zipCode = zipCode;</span><br><span class="line">        <span class="keyword">this</span>.country = country;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// getter &amp; setter</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Address&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;line1=&#x27;&quot;</span> + line1 + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, line2=&#x27;&quot;</span> + line2 + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, city=&#x27;&quot;</span> + city + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, state=&#x27;&quot;</span> + state + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, zipCode=&#x27;&quot;</span> + zipCode + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, country=&#x27;&quot;</span> + country + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Employee-java"><a href="#Employee-java" class="headerlink" title="Employee.java"></a>Employee.java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.keer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String firstName;</span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line">    <span class="keyword">private</span> Address homeAddress;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String firstName, String lastName, Address homeAddress)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.firstName = firstName;</span><br><span class="line">        <span class="keyword">this</span>.lastName = lastName;</span><br><span class="line">        <span class="keyword">this</span>.homeAddress = homeAddress;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// getter &amp; setter</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Employee&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;firstName=&#x27;&quot;</span> + firstName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, lastName=&#x27;&quot;</span> + lastName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, homeAddress=&quot;</span> + homeAddress +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="spring-config-xml-1"><a href="#spring-config-xml-1" class="headerlink" title="spring-config.xml"></a>spring-config.xml</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;localDate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;java.time.LocalDate&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">factory-method</span>=<span class="string">&quot;now&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;product&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.keer.Product&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;featuredProduct&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.keer.Product&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Olive Oil&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">value</span>=<span class="string">&quot;this is a product&#x27;s description&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;price&quot;</span> <span class="attr">value</span>=<span class="string">&quot;9.95&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;featuredProduct2&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.keer.Product&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">&quot;0&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Ultimate Olive Oil&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">&quot;1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;The purest olive oil on the market&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">&quot;2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;9.95&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;employee1&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.keer.Employee&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;homeAddress&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;simpleAddress&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;firstName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Junior&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;lastName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Moore&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;employee2&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.keer.Employee&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;firstName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Senior&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;lastName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Moore&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;homeAddress&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;simpleAddress&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;simpleAddress&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.keer.Address&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;line1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;151 Corner Street&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;line2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;city&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Albany&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;state&quot;</span> <span class="attr">value</span>=<span class="string">&quot;NY&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;zipCode&quot;</span> <span class="attr">value</span>=<span class="string">&quot;99999&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;country&quot;</span> <span class="attr">value</span>=<span class="string">&quot;US&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="App-java"><a href="#App-java" class="headerlink" title="App.java"></a>App.java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.keer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.time.LocalDate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="keyword">new</span> String[]&#123;<span class="string">&quot;spring-config.xml&quot;</span>&#125;);</span><br><span class="line"></span><br><span class="line">        Product product1 = context.getBean(<span class="string">&quot;product&quot;</span>, Product.class);</span><br><span class="line">        product1.setName(<span class="string">&quot;New Product&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;product1: &quot;</span> + product1.getName());</span><br><span class="line"></span><br><span class="line">        Product product2 = context.getBean(<span class="string">&quot;product&quot;</span>, Product.class);</span><br><span class="line">        System.out.println(<span class="string">&quot;product2: &quot;</span> + product2.getName());</span><br><span class="line"></span><br><span class="line">        Product featuredProduct = context.getBean(<span class="string">&quot;featuredProduct&quot;</span>, Product.class);</span><br><span class="line">        System.out.println(featuredProduct.getName() + <span class="string">&quot;, &quot;</span> + featuredProduct.getDescription()</span><br><span class="line">                + <span class="string">&quot;, &quot;</span> + featuredProduct.getPrice());</span><br><span class="line"></span><br><span class="line">        LocalDate localDate = context.getBean(<span class="string">&quot;localDate&quot;</span>, java.time.LocalDate.class);</span><br><span class="line">        System.out.println(<span class="string">&quot;today:&quot;</span> + localDate);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Employee employee1 = context.getBean(<span class="string">&quot;employee1&quot;</span>, Employee.class);</span><br><span class="line">        System.out.println(employee1.getFirstName() + <span class="string">&quot; &quot;</span> + employee1.getLastName());</span><br><span class="line">        System.out.println(employee1.getHomeAddress());</span><br><span class="line"></span><br><span class="line">        Employee employee2 = context.getBean(<span class="string">&quot;employee2&quot;</span>, Employee.class);</span><br><span class="line">        System.out.println(employee2.getFirstName() + <span class="string">&quot; &quot;</span> + employee2.getLastName());</span><br><span class="line">        System.out.println(employee2.getHomeAddress());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/spring/" rel="tag"># spring</a>
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/SpringMvcGuide/" rel="tag"># SpringMvcGuide</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/03/06/java-maven-note/" rel="prev" title="Maven应用">
+      <i class="fa fa-chevron-left"></i> Maven应用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/03/08/java-spring-mvc-guide-ch02/" rel="next" title="Spring MVC 学习指南 02">
+      Spring MVC 学习指南 02 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">Spring 框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#XML%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">XML配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#spring-config-xml"><span class="nav-number">1.1.1.</span> <span class="nav-text">spring-config.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E6%9E%84%E9%80%A0%E5%99%A8%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">向构造器传递参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Product-java"><span class="nav-number">1.2.1.</span> <span class="nav-text">Product.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Address-java"><span class="nav-number">1.2.2.</span> <span class="nav-text">Address.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Employee-java"><span class="nav-number">1.2.3.</span> <span class="nav-text">Employee.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spring-config-xml-1"><span class="nav-number">1.2.4.</span> <span class="nav-text">spring-config.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#App-java"><span class="nav-number">1.2.5.</span> <span class="nav-text">App.java</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

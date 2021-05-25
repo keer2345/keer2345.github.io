@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="React Forms本节，我们创建一个功能组件来添加用户。 添加两个文件： touch services&#x2F;client&#x2F;src&#x2F;components&#x2F;AddUser.jsxtouch services&#x2F;client&#x2F;src&#x2F;components&#x2F;__tests__&#x2F;AddUser.test.jsx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask React Docker in Testdriven - Part II - 7">
+<meta property="og:url" content="http://yoursite.com/2018/09/25/python-flask-react-docker-testdriven-2-7/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="React Forms本节，我们创建一个功能组件来添加用户。 添加两个文件： touch services&#x2F;client&#x2F;src&#x2F;components&#x2F;AddUser.jsxtouch services&#x2F;client&#x2F;src&#x2F;components&#x2F;__tests__&#x2F;AddUser.test.jsx">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-09-25T12:49:30.000Z">
+<meta property="article:modified_time" content="2020-06-24T15:30:43.672Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="testdriven">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/09/25/python-flask-react-docker-testdriven-2-7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Flask React Docker in Testdriven - Part II - 7 | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/25/python-flask-react-docker-testdriven-2-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask React Docker in Testdriven - Part II - 7
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-25 20:49:30" itemprop="dateCreated datePublished" datetime="2018-09-25T20:49:30+08:00">2018-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="React-Forms"><a href="#React-Forms" class="headerlink" title="React Forms"></a>React Forms</h1><p>本节，我们创建一个功能组件来添加用户。</p>
+<p>添加两个文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">touch services/client/src/components/AddUser.jsx</span><br><span class="line">touch services/client/src/components/__tests__/AddUser.test.jsx</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>开始测试：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; shallow &#125; <span class="keyword">from</span> <span class="string">&#x27;enzyme&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> renderer <span class="keyword">from</span> <span class="string">&#x27;react-test-renderer&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> AddUser <span class="keyword">from</span> <span class="string">&#x27;../AddUser&#x27;</span>;</span><br><span class="line"></span><br><span class="line">test(<span class="string">&#x27;AddUser renders properly&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> wrapper = shallow(<span class="xml"><span class="tag">&lt;<span class="name">AddUser</span>/&gt;</span></span>);</span><br><span class="line">  <span class="keyword">const</span> element = wrapper.find(<span class="string">&#x27;form&#x27;</span>);</span><br><span class="line">  expect(element.find(<span class="string">&#x27;input&#x27;</span>).length).toBe(<span class="number">3</span>);</span><br><span class="line">  expect(element.find(<span class="string">&#x27;input&#x27;</span>).get(<span class="number">0</span>).props.name).toBe(<span class="string">&#x27;username&#x27;</span>);</span><br><span class="line">  expect(element.find(<span class="string">&#x27;input&#x27;</span>).get(<span class="number">1</span>).props.name).toBe(<span class="string">&#x27;email&#x27;</span>);</span><br><span class="line">  expect(element.find(<span class="string">&#x27;input&#x27;</span>).get(<span class="number">2</span>).props.type).toBe(<span class="string">&#x27;submit&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>运行测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yarn test</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果测试的时候出现 <code>watch ENOSPC</code> 之类的错误，主要是因为 gulp 的 watch 需要监听很多文件的改动，但是 fedora、ubuntu 系统的文件句柄其实是有限制的。可以使用如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf &amp;&amp; sudo sysctl -p</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>现在测试是失败的，接着来添加组件：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> AddUser = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;field&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">name</span>=<span class="string">&quot;username&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">className</span>=<span class="string">&quot;input is-large&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">placeholder</span>=<span class="string">&quot;Enter a username&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">required</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">        /&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;field&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">name</span>=<span class="string">&quot;email&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">className</span>=<span class="string">&quot;input is-large&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">type</span>=<span class="string">&quot;email&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">placeholder</span>=<span class="string">&quot;Enter an email address&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">required</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">        /&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">        <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">        <span class="attr">className</span>=<span class="string">&quot;button is-primary is-large is-fullwidth&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">        <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">      /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> AddUser;</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>index.js</code> 中导入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import AddUser from &#x27;./components/AddUser&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>然后更新 <code>render</code> 方法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&quot;section&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;columns&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;column is-half&quot;</span>&gt;</span>  &#123;/* new */&#125;</span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">&quot;title is-1&quot;</span>&gt;</span>All Users<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">hr</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">AddUser</span>/&gt;</span>  &#123;/* new */&#125;</span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span>  &#123;/* new */&#125;</span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">UsersList</span> <span class="attr">users</span>=<span class="string">&#123;this.state.users&#125;/</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>确保<code>users</code> 服务已启动并正在运行且 <code>REACT_APP_USERS_SERVICE_URL</code> 已设置环境变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ export REACT_APP_USERS_SERVICE_URL=http://localhost</span><br><span class="line">$ docker-compose -f docker-compose-dev.yml up -d --build</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yarn start</span><br></pre></td></tr></table></figure>
+<p>如果一切顺利，您应该看到表单和用户。</p>
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/0923/008.png)
+</center>
+
+<p>确保测试过去：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PASS  src/components/__tests__/UsersList.test.jsx</span><br><span class="line">PASS  src/components/__tests__/AddUser.test.jsx</span><br><span class="line"></span><br><span class="line">Test Suites: 2 passed, 2 total</span><br><span class="line">Tests:       3 passed, 3 total</span><br><span class="line">Snapshots:   1 passed, 1 total</span><br><span class="line">Time:        0.593s, estimated 1s</span><br><span class="line">Ran all test suites related to changed files.</span><br></pre></td></tr></table></figure>
+<p>有了它，让我们为 <code>AddUser.test.jsx</code> 添加一个快照测试：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">test(<span class="string">&#x27;AddUser renders a snapshot properly&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> tree = renderer.create(<span class="xml"><span class="tag">&lt;<span class="name">AddUser</span>/&gt;</span></span>).toJSON();</span><br><span class="line">  expect(tree).toMatchSnapshot();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>现在，由于这是一个单页面应用程序，我们希望在提交表单时阻止正常的浏览器行为以避免页面刷新。</p>
+<p>步骤：</p>
+<ol>
+<li>处理表单提交事件</li>
+<li>获取用户输入</li>
+<li>发送AJAX请求</li>
+<li>更新页面</li>
+</ol>
+<h2 id="处理表单提交事件"><a href="#处理表单提交事件" class="headerlink" title="处理表单提交事件"></a>处理表单提交事件</h2><p>处理 submit 事件，只需要更新 <em>AddUser.jsx</em> 的 <code>form</code> 元素：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;form onSubmit=&#123;<span class="function">(<span class="params">event</span>) =&gt;</span> event.preventDefault()&#125;&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>输入虚拟用户名和电子邮件地址，然后尝试提交表单。什么都不应该发生，这正是我们想要的。</p>
+<p>接下来，将以下方法添加到 <code>App</code> 组件：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">addUser</span>(<span class="params">event</span>)</span> &#123;</span><br><span class="line">  event.preventDefault();</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;sanity check!&#x27;</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>由于 <code>AddUser</code> 是一个功能组件，我们需要通过 <code>props</code> 将此方法传递给它。像这样更新方法中的 <code>AddUser</code> 元素 <code>render</code> ：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;AddUser addUser=&#123;<span class="built_in">this</span>.addUser&#125;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后，再次更新构造器：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="built_in">super</span>();</span><br><span class="line">  <span class="built_in">this</span>.state = &#123;</span><br><span class="line">    <span class="attr">users</span>: []</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">this</span>.addUser = <span class="built_in">this</span>.addUser.bind(<span class="built_in">this</span>);  <span class="comment">// new</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们 <code>this</code> 通过以下方式绑定上下文 <code>bind()</code> ：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.addUser = <span class="built_in">this</span>.addUser.bind(<span class="built_in">this</span>);</span><br></pre></td></tr></table></figure>
+
+<p>没有它的话，<code>this</code> 内部的上下文是不正确的。想测试一下吗？只需添加 <code>console.log(this)</code> 到 <code>addUser()</code> 并提交。上下文是什么？移除 <code>bind</code> 再次测试，上下文又是什么？</p>
+<blockquote>
+<p>有关更多信息，请查看官方React文档中的<a target="_blank" rel="noopener" href="https://reactjs.org/docs/handling-events.html">处理事件</a>。</p>
+</blockquote>
+<p>在浏览器中测试它。您应该 <code>sanity check!</code> 在表单提交的 JavaScript 控制台中看到。</p>
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/0923/009.png)
+</center>
+
+
+<h2 id="获取用户输入"><a href="#获取用户输入" class="headerlink" title="获取用户输入"></a>获取用户输入</h2><p>我们将使用受控组件来获取用户提交的输入。首先向 <code>App</code> 组件中的状态对象添加两个新属性：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.state = &#123;</span><br><span class="line">  <span class="attr">users</span>: [],</span><br><span class="line">  <span class="attr">username</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  <span class="attr">email</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然后，将它们传递给组件：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;AddUser</span><br><span class="line">  username=&#123;<span class="built_in">this</span>.state.username&#125;</span><br><span class="line">  email=&#123;<span class="built_in">this</span>.state.email&#125;</span><br><span class="line">  addUser=&#123;<span class="built_in">this</span>.addUser&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>现在可以通过 <code>props</code> 对象访问它们，它可以用作输入的当前值，如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;div className=<span class="string">&quot;field&quot;</span>&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">name</span>=<span class="string">&quot;username&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">className</span>=<span class="string">&quot;input is-large&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">placeholder</span>=<span class="string">&quot;Enter a username&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">required</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">value</span>=<span class="string">&#123;props.username&#125;</span>  // <span class="attr">new</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  /&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;field&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">name</span>=<span class="string">&quot;email&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">className</span>=<span class="string">&quot;input is-large&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">type</span>=<span class="string">&quot;email&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">placeholder</span>=<span class="string">&quot;Enter an email address&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">required</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">value</span>=<span class="string">&#123;props.email&#125;</span>  // <span class="attr">new</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  /&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>因此，这定义了父组件的输入值。立即测试表格。如果您尝试添加用户名会怎样？您不应该看到任何类型的内容，因为该值是从父级“推”下来的 — 而且该值是 <code>&#39;&#39;</code> 。</p>
+<p>如果将这些值的初始状态设置为 <code>test</code> 字符串而不是空字符串，您认为会发生什么？尝试一下。</p>
+<p>我们如何更新父组件中的状态，以便在用户在输入框中输入文本时更新？</p>
+<p>首先，<code>handleChange</code> 向 <code>App</code> 组件添加一个方法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">handleChange</span>(<span class="params">event</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> obj = &#123;&#125;;</span><br><span class="line">  obj[event.target.name] = event.target.value;</span><br><span class="line">  <span class="built_in">this</span>.setState(obj);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>将绑定添加到构造函数：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.handleChange = <span class="built_in">this</span>.handleChange.bind(<span class="built_in">this</span>);</span><br></pre></td></tr></table></figure>
+<p>然后，将方法传递给组件：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;AddUser</span><br><span class="line">  username=&#123;<span class="built_in">this</span>.state.username&#125;</span><br><span class="line">  email=&#123;<span class="built_in">this</span>.state.email&#125;</span><br><span class="line">  addUser=&#123;<span class="built_in">this</span>.addUser&#125;</span><br><span class="line">  handleChange=&#123;<span class="built_in">this</span>.handleChange&#125;  <span class="comment">// new</span></span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+<p>将其添加到表单输入：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;div className=<span class="string">&quot;field&quot;</span>&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">name</span>=<span class="string">&quot;username&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">className</span>=<span class="string">&quot;input is-large&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">placeholder</span>=<span class="string">&quot;Enter a username&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">required</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">value</span>=<span class="string">&#123;props.username&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">onChange</span>=<span class="string">&#123;props.handleChange&#125;</span>  // <span class="attr">new</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  /&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;field&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">name</span>=<span class="string">&quot;email&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">className</span>=<span class="string">&quot;input is-large&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">type</span>=<span class="string">&quot;email&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">placeholder</span>=<span class="string">&quot;Enter an email address&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">required</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">value</span>=<span class="string">&#123;props.email&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">onChange</span>=<span class="string">&#123;props.handleChange&#125;</span>  // <span class="attr">new</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  /&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>现在测试表格。它应该工作。如果好奇，您可以通过在 <code>addUser</code> 方法中将其记录到控制台来查看状态的值：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">addUser</span>(<span class="params">event</span>)</span> &#123;</span><br><span class="line">  event.preventDefault();</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;sanity check!&#x27;</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.state);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/0923/010.png)
+</center>
+
+
+<p>现在我们有了这些值，让我们触发AJAX请求，将数据添加到数据库，然后更新DOM。</p>
+<h2 id="发送AJAX请求"><a href="#发送AJAX请求" class="headerlink" title="发送AJAX请求"></a>发送AJAX请求</h2><p>将注意力转回 <code>users</code> 服务。我们需要在 JSON 有效负载中发送什么来添加用户 — 用户名和电子邮件，是这样吧？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">db.session.add(User(username=username, email=email))</span><br></pre></td></tr></table></figure>
+
+<p>使用 Axios 发送 POST 请求：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">addUser</span>(<span class="params">event</span>)</span> &#123;</span><br><span class="line">  event.preventDefault();</span><br><span class="line">  <span class="comment">// new</span></span><br><span class="line">  <span class="keyword">const</span> data = &#123;</span><br><span class="line">    <span class="attr">username</span>: <span class="built_in">this</span>.state.username,</span><br><span class="line">    <span class="attr">email</span>: <span class="built_in">this</span>.state.email</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// new</span></span><br><span class="line">  axios.post(<span class="string">`<span class="subst">$&#123;process.env.REACT_APP_USERS_SERVICE_URL&#125;</span>/users`</span>, data)</span><br><span class="line">  .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(res); &#125;)</span><br><span class="line">  .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(err); &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>测试一下。请务必使用唯一的用户名和电子邮件。虽然现在这并不重要，但由于将在数据库表中添加唯一约束，因此将来会出现问题。</p>
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/0923/011.png)
+</center>
+
+
+<blockquote>
+<p>如果您遇到问题，请从 Chrome 开发者工具的“<a target="_blank" rel="noopener" href="https://developers.google.com/web/tools/chrome-devtools/#network">网络</a>”标签中分析响应对象。您还可以在 Docker 之外启动 <code>users</code> 服务并使用 Flask 调试器或 <code>print</code> 语句进行调试。</p>
+</blockquote>
+<h2 id="更新页面"><a href="#更新页面" class="headerlink" title="更新页面"></a>更新页面</h2><p>最后，让我们更新成功表单提交的用户列表，然后清除表单：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">addUser</span>(<span class="params">event</span>)</span> &#123;</span><br><span class="line">  event.preventDefault();</span><br><span class="line">  <span class="keyword">const</span> data = &#123;</span><br><span class="line">    <span class="attr">username</span>: <span class="built_in">this</span>.state.username,</span><br><span class="line">    <span class="attr">email</span>: <span class="built_in">this</span>.state.email</span><br><span class="line">  &#125;;</span><br><span class="line">  axios.post(<span class="string">`<span class="subst">$&#123;process.env.REACT_APP_USERS_SERVICE_URL&#125;</span>/users`</span>, data)</span><br><span class="line">  .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.getUsers();  <span class="comment">// new</span></span><br><span class="line">    <span class="built_in">this</span>.setState(&#123; <span class="attr">username</span>: <span class="string">&#x27;&#x27;</span>, <span class="attr">email</span>: <span class="string">&#x27;&#x27;</span> &#125;);  <span class="comment">// new</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(err); &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<p>就是这样。手动测试它。然后，运行测试套件。更新快照测试（按 <code>u</code> 键盘上的）。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> PASS  src/components/__tests__/AddUser.test.jsx</span><br><span class="line"> PASS  src/components/__tests__/UsersList.test.jsx</span><br><span class="line"></span><br><span class="line">Test Suites: 2 passed, 2 total</span><br><span class="line">Tests:       4 passed, 4 total</span><br><span class="line">Snapshots:   2 passed, 2 total</span><br><span class="line">Time:        0.16s, estimated 1s</span><br><span class="line">Ran all test suites related to changed files.</span><br></pre></td></tr></table></figure>
+<p>然后提交您的代码。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/testdriven/" rel="tag"># testdriven</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/25/python-flask-react-docker-testdriven-2-6/" rel="prev" title="Flask React Docker in Testdriven - Part II - 6">
+      <i class="fa fa-chevron-left"></i> Flask React Docker in Testdriven - Part II - 6
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/09/25/python-flask-react-docker-testdriven-2-8/" rel="next" title="Flask React Docker in Testdriven - Part II - 8">
+      Flask React Docker in Testdriven - Part II - 8 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React-Forms"><span class="nav-number">1.</span> <span class="nav-text">React Forms</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E8%A1%A8%E5%8D%95%E6%8F%90%E4%BA%A4%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">处理表单提交事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5"><span class="nav-number">1.2.</span> <span class="nav-text">获取用户输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E9%80%81AJAX%E8%AF%B7%E6%B1%82"><span class="nav-number">1.3.</span> <span class="nav-text">发送AJAX请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E9%A1%B5%E9%9D%A2"><span class="nav-number">1.4.</span> <span class="nav-text">更新页面</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

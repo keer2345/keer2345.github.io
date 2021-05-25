@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="![](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;keer2345&#x2F;storehouse&#x2F;master&#x2F;hexo&#x2F;images&#x2F;2018&#x2F;10&#x2F;07.jpg)   本文我们将创建一个基础的 Vue.js，从而学会构建 Todo App 以有助于践学 Vue JS 。 学习框架的有效方式就是践行。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue for Beginners to Building a Todo App">
+<meta property="og:url" content="http://yoursite.com/2018/10/20/js-vue-for-beginners-to-building-a-todo-app/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="![](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;keer2345&#x2F;storehouse&#x2F;master&#x2F;hexo&#x2F;images&#x2F;2018&#x2F;10&#x2F;07.jpg)   本文我们将创建一个基础的 Vue.js，从而学会构建 Todo App 以有助于践学 Vue JS 。 学习框架的有效方式就是践行。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-20T14:47:00.000Z">
+<meta property="article:modified_time" content="2020-06-24T15:30:43.653Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/10/20/js-vue-for-beginners-to-building-a-todo-app/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Vue for Beginners to Building a Todo App | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/20/js-vue-for-beginners-to-building-a-todo-app/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue for Beginners to Building a Todo App
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-20 22:47:00" itemprop="dateCreated datePublished" datetime="2018-10-20T22:47:00+08:00">2018-10-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/10/07.jpg)
+</center>
+
+<p>本文我们将创建一个基础的 Vue.js，从而学会构建 Todo App 以有助于践学 Vue JS 。</p>
+<p>学习框架的有效方式就是践行。</p>
+<span id="more"></span>
+
+<h1 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h1><p>我们从简单的 html 和 css 开始，并且不涉及 JavaScript ，将学习如何使用 Vue JS 添加 JavaScript 功能。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir vue-beginner-todo &amp;&amp; cd vue-beginner-todo</span><br><span class="line"></span><br><span class="line">yarn init -y</span><br><span class="line"></span><br><span class="line">yarn add vue</span><br><span class="line">yarn add vue-router</span><br><span class="line">yarn add todomvc-app-css</span><br><span class="line"></span><br><span class="line">yarn add live-server --dev</span><br></pre></td></tr></table></figure>
+
+<p>我们安装了 Vue 和 Vue-router 依赖。我们为项目提供了良好的 CSS 库并添加 <code>live-serve</code> 以使得当代码改变提供来服务和重载页面。这就是我们本文案例所需要的库了。</p>
+<h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;vue-beginner-todo&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;index.html&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;serve&quot;: &quot;npx live-server --entry-file=index.html&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;npm run serve&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;license&quot;: &quot;MIT&quot;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;todomvc-app-css&quot;: &quot;^2.1.2&quot;,</span><br><span class="line">    &quot;vue&quot;: &quot;^2.5.17&quot;,</span><br><span class="line">    &quot;vue-router&quot;: &quot;^3.0.1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;live-server&quot;: &quot;^1.2.0&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="index-html"><a href="#index-html" class="headerlink" title="index.html"></a>index.html</h2><p>编写 <code>index.html</code> 文件，主要包括：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;ie=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Vue Beginner Todo App<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;node_modules/todomvc-app-css/index.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;node_modules/vue/dist/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;node_modules/vue-router/dist/vue-router.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;app.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>运行命令，用浏览器打开页面试试：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm start</span><br><span class="line"># or</span><br><span class="line">yarn start</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ yarn start</span><br><span class="line">yarn run v1.9.4</span><br><span class="line">$ npm run serve</span><br><span class="line"></span><br><span class="line">&gt; vue-beginner-todo@1.0.0 serve /home/qinjh/workspace/vuejs/vue-beginner-todo</span><br><span class="line">&gt; npx live-server --entry-file=index.html</span><br><span class="line"></span><br><span class="line">Serving &quot;/home/qinjh/workspace/vuejs/vue-beginner-todo&quot; at http://127.0.0.1:8080</span><br><span class="line">Ready for changes</span><br></pre></td></tr></table></figure>
+
+<h1 id="Vue-起步"><a href="#Vue-起步" class="headerlink" title="Vue 起步"></a>Vue 起步</h1><h2 id="Vue-Data-amp-v-text"><a href="#Vue-Data-amp-v-text" class="headerlink" title="Vue Data &amp; v-text"></a>Vue Data &amp; v-text</h2><p><code>./app.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> todoApp = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&quot;#app&quot;</span>,</span><br><span class="line">  <span class="attr">data</span>: &#123;</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&quot;Vue Todo App&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><code>./index.html</code>:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;title&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">&quot;new-todo&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;What needs to be done?&quot;</span> <span class="attr">autofocus</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--  ...  --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">v-text</span>=<span class="string">&quot;title&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="读取列表-v-for"><a href="#读取列表-v-for" class="headerlink" title="读取列表 v-for"></a>读取列表 v-for</h2><p>添加更多有用的数据来丰富我们的 Todo 列表：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> todoApp = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&#x27;.todoapp&#x27;</span>,</span><br><span class="line">  <span class="attr">data</span>: &#123;</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&#x27;Todos&#x27;</span>,</span><br><span class="line">    <span class="attr">todos</span>: [</span><br><span class="line">      &#123; <span class="attr">text</span>: <span class="string">&#x27;Learn JavaScript ES6+ goodies&#x27;</span>, <span class="attr">isDone</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">text</span>: <span class="string">&#x27;Learn Vue&#x27;</span>, <span class="attr">isDone</span>: <span class="literal">false</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">text</span>: <span class="string">&#x27;Build something awesome&#x27;</span>, <span class="attr">isDone</span>: <span class="literal">false</span> &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>index.html</code>:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;title&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">&quot;new-todo&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;What needs to be done?&quot;</span> <span class="attr">autofocus</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;todo-list&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;todo,index in todos&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;view&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">class</span>=<span class="string">&quot;toggle&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">label</span>&gt;</span>&#123;&#123;todo.text&#125;&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;destroy&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">value</span>=<span class="string">&quot;Rule the web&quot;</span> <span class="attr">class</span>=<span class="string">&quot;edit&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;node_modules/vue/dist/vue.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;node_modules/vue-router/dist/vue-router.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;app.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="创建-Todo-以及-event-指令"><a href="#创建-Todo-以及-event-指令" class="headerlink" title="创建 Todo 以及 event 指令"></a>创建 Todo 以及 event 指令</h2><p>在 Vue 中，我们可以使用 <code>v-on:EVENT_NAME</code> 来监听事件，例如：</p>
+<ul>
+<li><code>v-on:click</code></li>
+<li><code>v-on:dbclick</code></li>
+<li><code>v-on:keyup</code></li>
+<li><code>v-on:keyup.enter</code></li>
+</ul>
+<blockquote>
+<p>通常，我们使用 <code>@</code> 来简写，<code>v-on:keyup.enter</code> = <code>@keyup.enter</code></p>
+</blockquote>
+<p>下面，我们敲击回车来添加一条 Todo</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">&quot;new-todo&quot;</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">&quot;What needs to be done?&quot;</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">autofocus</span> @<span class="attr">keyup.enter</span>=<span class="string">&quot;createTodo&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="attr">methods</span>: &#123;</span><br><span class="line">  <span class="function"><span class="title">createTodo</span>(<span class="params">event</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> textbox = event.target</span><br><span class="line">    <span class="built_in">this</span>.todos.push(&#123; <span class="attr">text</span>: textbox.value, <span class="attr">isDone</span>: <span class="literal">false</span> &#125;);</span><br><span class="line">    textbox.value = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/10/08.png)
+</center>
+
+<h2 id="绑定样式-v-bind"><a href="#绑定样式-v-bind" class="headerlink" title="绑定样式 v-bind"></a>绑定样式 v-bind</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;todo,index in todos&quot;</span> <span class="attr">:class</span>=<span class="string">&quot;&#123;completed:todo.isDone&#125;&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-v-model-保持-DOM-与数据的同步"><a href="#使用-v-model-保持-DOM-与数据的同步" class="headerlink" title="使用 v-model 保持 DOM 与数据的同步"></a>使用 v-model 保持 DOM 与数据的同步</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">class</span>=<span class="string">&quot;toggle&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;todo.isDone&quot;</span> &gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在浏览器的 <code>console</code> 输入如下指令就可以看到页面上的变化：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">todoApp.todos[2].isDone = true</span><br></pre></td></tr></table></figure>
+
+<h2 id="双击修改-Todo-列表"><a href="#双击修改-Todo-列表" class="headerlink" title="双击修改 Todo 列表"></a>双击修改 Todo 列表</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> @<span class="attr">dblclick</span>=<span class="string">&quot;startEditing(todo)&quot;</span>&gt;</span>&#123;&#123;todo.text&#125;&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> todoApp = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&quot;#app&quot;</span>,</span><br><span class="line">  <span class="attr">data</span>: &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="attr">editing</span>: <span class="string">&quot;&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="function"><span class="title">startEditing</span>(<span class="params">todo</span>)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.editing = todo;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>我们创建了一个新的变量 <code>editing</code>，当双击 Todo 文本时，我们将当前的 Todo 对象存放到该变量。</p>
+<p>接下来，我们使用该变量：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;todo,index in todos&quot;</span> <span class="attr">:class</span>=<span class="string">&quot;&#123;completed:todo.isDone,editing:todo===editing&#125;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;view&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">class</span>=<span class="string">&quot;toggle&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;todo.isDone&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> @<span class="attr">dblclick</span>=<span class="string">&quot;startEditing(todo)&quot;</span>&gt;</span>&#123;&#123;todo.text&#125;&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;destroy&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">&quot;edit&quot;</span> @<span class="attr">keyup.esc</span>=<span class="string">&quot;cancelEditing&quot;</span> @<span class="attr">keyup.enter</span>=<span class="string">&quot;finishEditing&quot;</span></span></span><br><span class="line"><span class="tag">        @<span class="attr">blur</span>=<span class="string">&quot;cancelEditing&quot;</span> <span class="attr">:value</span>=<span class="string">&quot;todo.text&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">finishEditing</span>(<span class="params">event</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">this</span>.editing) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> textbox = event.target;</span><br><span class="line">  <span class="built_in">this</span>.editing.text = textbox.value;</span><br><span class="line">  <span class="built_in">this</span>.editing= <span class="literal">null</span>;</span><br><span class="line">  textbox.value = <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="function"><span class="title">cancelEditing</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.editing = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/10/09.png)
+</center>
+
+<h2 id="删除列表"><a href="#删除列表" class="headerlink" title="删除列表"></a>删除列表</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;destroy&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;destroyTodo(todo)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">destroyTodo</span>(<span class="params">todo</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> index = <span class="built_in">this</span>.todos.indexOf(todo);</span><br><span class="line">  <span class="built_in">this</span>.todos.splice(index, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="加入-trim"><a href="#加入-trim" class="headerlink" title="加入 trim()"></a>加入 trim()</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">textbox.value.trim()</span><br></pre></td></tr></table></figure>
+
+<h2 id="计算属性-computed"><a href="#计算属性-computed" class="headerlink" title="计算属性 computed"></a>计算属性 computed</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;todo-count&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">strong</span>&gt;</span>&#123;&#123;activeTodos.length&#125;&#125;<span class="tag">&lt;/<span class="name">strong</span>&gt;</span> item(s) left</span><br><span class="line">    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  <span class="function"><span class="title">activeTodos</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.todos.filter(<span class="function"><span class="params">t</span> =&gt;</span> !t.isDone);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/10/10.gif)
+</center>
+
+<h2 id="清除已完成的任务-v-show"><a href="#清除已完成的任务-v-show" class="headerlink" title="清除已完成的任务 v-show"></a>清除已完成的任务 v-show</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;clear-completed&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;clearCompleted&quot;</span> <span class="attr">v-show</span>=<span class="string">&quot;completedTodos.length&quot;</span>&gt;</span>Clear completed<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>添加方法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">clearCompleted</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.todos = <span class="built_in">this</span>.activeTodos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>添加计算属性：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">completedTodos</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.todos.filter(<span class="function"><span class="params">t</span> =&gt;</span> t.isDone);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="v-show-与-v-if"><a href="#v-show-与-v-if" class="headerlink" title="v-show 与 v-if"></a>v-show 与 v-if</h1><p><code>v-show</code> 和 <code>v-if</code> 看起来很相似，但确实不同的。<code>v-if</code> 从 DOM 移除元素并且事件不可见，<code>v-show</code> 是通过 CSS 样式 <code>display: none</code> 来隐藏。因此 <code>v-if</code> 比 <code>v-show</code> 消耗更高一些。</p>
+<blockquote>
+<p>如果我们预先知道某些元素可以触发为不可见状态，通常使用 <code>v-show</code>，反之使用 <code>v-if</code> 。</p>
+</blockquote>
+<p>如果没有 Todo 列表时，我们可以隐藏着两个部分：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;main&quot;</span> <span class="attr">v-if</span>=<span class="string">&quot;todos.length&quot;</span>&gt;</span>... <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span> <span class="attr">v-if</span>=<span class="string">&quot;todos.length&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h1><p>当我们刷新时，列表又被重置了。在开发环境下这样是很有用的，但是并不是我们想要的。让我们来持久化 Todo 列表吧。</p>
+<p><code>localStorage</code> 的工作方式很简单，它是全局变量且只有 4 个方法：</p>
+<ul>
+<li><code>localStorage.setItem(key, value)</code>：<em>key/value</em> 存储，<em>key</em> 和 <em>value</em> 被强制转换成字符串。</li>
+<li><code>localStorage.getItem(key)</code>：通过 <em>key</em> 获取项目。</li>
+<li><code>localStorage.removeItem(key)</code>：删除项目。</li>
+<li><code>localStorage.clear()</code>：从当前主机上清除所有项目。</li>
+</ul>
+<p>首先，我们定义一个存储键：<br><code>app.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> LOCAL_STORAGE_KEY = <span class="string">&#x27;todo-app-vue&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>然后从本地存储替换 <code>data.todos</code>，如果存在的话：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&#x27;Todos&#x27;</span>,</span><br><span class="line">  <span class="attr">todos</span>: <span class="built_in">JSON</span>.parse(<span class="built_in">localStorage</span>.getItem(LOCAL_STORAGE_KEY)) || [</span><br><span class="line">    &#123; <span class="attr">text</span>: <span class="string">&#x27;Learn JavaScript ES6+ goodies&#x27;</span>, <span class="attr">isDone</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">text</span>: <span class="string">&#x27;Learn Vue&#x27;</span>, <span class="attr">isDone</span>: <span class="literal">false</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">text</span>: <span class="string">&#x27;Build something awesome&#x27;</span>, <span class="attr">isDone</span>: <span class="literal">false</span> &#125;,</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">editing</span>: <span class="literal">null</span>,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>我们使用 <code>JSON.parse</code> ，因为需要将获取到的字符串转换成对象。</p>
+<h1 id="Vue-Watchers"><a href="#Vue-Watchers" class="headerlink" title="Vue Watchers"></a>Vue Watchers</h1><p>为了保存数据，我们将使用 Vue Watchers 。</p>
+<blockquote>
+<p>Vue Watchers 与 Computed 属性。计算属性通常用于“计算”和缓存两个或者更多的值。Watchers 比 Couputed 属性更底层，Watchers 允许我们“观察（watch）” 属性的改编。对于一些消耗大的操作时，比如 DB、API 调用等是很有用的。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="attr">watch</span>: &#123;</span><br><span class="line">  <span class="attr">todos</span>: &#123;</span><br><span class="line">    <span class="attr">deep</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="function"><span class="title">handle</span>(<span class="params">newValue</span>)</span> &#123;</span><br><span class="line">      <span class="built_in">localStorage</span>.setItem(LOCAL_STORAGE_KEY, <span class="built_in">JSON</span>.stringify(newValue));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的表达式用于观察数据的改变。<code>deep</code> 意思是递归观察数组和对象的值的改变，如果有变化了，我们就将它们保存到本地存储 <code>localStorage</code> 。</p>
+<p>一旦 todos 列表改变了，可以通过浏览器的开发工具看到它们被存储在本地。</p>
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/10/11.jpg)
+</center>
+
+
+
+
+<h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><p>这样，一个基本的 Todo 列表就制作好了。以后的文章里，我们再来讲述组件、路由和本地存储。</p>
+<blockquote>
+<p>获取<a target="_blank" rel="noopener" href="https://adrianmejia.com/categories/programming/web-development/">这里</a>更多</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/19/js-vue-cli-3-introduction/" rel="prev" title="Vue Cli 3 Introduction">
+      <i class="fa fa-chevron-left"></i> Vue Cli 3 Introduction
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/18/js-vue-articles/" rel="next" title="Vue Articles">
+      Vue Articles <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#package-json"><span class="nav-number">1.1.</span> <span class="nav-text">package.json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#index-html"><span class="nav-number">1.2.</span> <span class="nav-text">index.html</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue-%E8%B5%B7%E6%AD%A5"><span class="nav-number">2.</span> <span class="nav-text">Vue 起步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-Data-amp-v-text"><span class="nav-number">2.1.</span> <span class="nav-text">Vue Data &amp; v-text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%88%97%E8%A1%A8-v-for"><span class="nav-number">2.2.</span> <span class="nav-text">读取列表 v-for</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-Todo-%E4%BB%A5%E5%8F%8A-event-%E6%8C%87%E4%BB%A4"><span class="nav-number">2.3.</span> <span class="nav-text">创建 Todo 以及 event 指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E6%A0%B7%E5%BC%8F-v-bind"><span class="nav-number">2.4.</span> <span class="nav-text">绑定样式 v-bind</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-v-model-%E4%BF%9D%E6%8C%81-DOM-%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%8C%E6%AD%A5"><span class="nav-number">2.5.</span> <span class="nav-text">使用 v-model 保持 DOM 与数据的同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E5%87%BB%E4%BF%AE%E6%94%B9-Todo-%E5%88%97%E8%A1%A8"><span class="nav-number">2.6.</span> <span class="nav-text">双击修改 Todo 列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%88%97%E8%A1%A8"><span class="nav-number">2.7.</span> <span class="nav-text">删除列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5-trim"><span class="nav-number">2.8.</span> <span class="nav-text">加入 trim()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7-computed"><span class="nav-number">2.9.</span> <span class="nav-text">计算属性 computed</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E5%B7%B2%E5%AE%8C%E6%88%90%E7%9A%84%E4%BB%BB%E5%8A%A1-v-show"><span class="nav-number">2.10.</span> <span class="nav-text">清除已完成的任务 v-show</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v-show-%E4%B8%8E-v-if"><span class="nav-number">3.</span> <span class="nav-text">v-show 与 v-if</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8"><span class="nav-number">4.</span> <span class="nav-text">本地存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue-Watchers"><span class="nav-number">5.</span> <span class="nav-text">Vue Watchers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A9%E5%B1%95"><span class="nav-number">6.</span> <span class="nav-text">扩展</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

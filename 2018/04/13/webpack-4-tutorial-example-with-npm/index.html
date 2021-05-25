@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文介绍通过npm来演示webpack入门的示例。 webpack为JavaScript应用提供了静态绑定，当webpack处理我们的应用时，其递归地处理应用中每一个模块的依赖，然后打包这些模块到一个或者多个bundles，我尽可能地时本篇教程易于理解。 Webpack4 的改进之处 性能改进和更快的构建时间 零配置小应用程序（我们也可以看看ParcelJS教程） 针对纯模块更好的tree sha">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack 4  Tutorial Example with NPM">
+<meta property="og:url" content="http://yoursite.com/2018/04/13/webpack-4-tutorial-example-with-npm/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="本文介绍通过npm来演示webpack入门的示例。 webpack为JavaScript应用提供了静态绑定，当webpack处理我们的应用时，其递归地处理应用中每一个模块的依赖，然后打包这些模块到一个或者多个bundles，我尽可能地时本篇教程易于理解。 Webpack4 的改进之处 性能改进和更快的构建时间 零配置小应用程序（我们也可以看看ParcelJS教程） 针对纯模块更好的tree sha">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-04-13T13:53:33.000Z">
+<meta property="article:modified_time" content="2020-06-24T15:30:43.677Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="webpack">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/04/13/webpack-4-tutorial-example-with-npm/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Webpack 4  Tutorial Example with NPM | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/13/webpack-4-tutorial-example-with-npm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Webpack 4  Tutorial Example with NPM
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-04-13 21:53:33" itemprop="dateCreated datePublished" datetime="2018-04-13T21:53:33+08:00">2018-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/" itemprop="url" rel="index"><span itemprop="name">webpack</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文介绍通过<code>npm</code>来演示<code>webpack</code>入门的示例。</p>
+<p><em>webpack</em>为JavaScript应用提供了静态绑定，当<em>webpack</em>处理我们的应用时，其递归地处理应用中每一个模块的依赖，然后打包这些模块到一个或者多个<em>bundles</em>，我尽可能地时本篇教程易于理解。</p>
+<h1 id="Webpack4-的改进之处"><a href="#Webpack4-的改进之处" class="headerlink" title="Webpack4 的改进之处"></a>Webpack4 的改进之处</h1><ul>
+<li>性能改进和更快的构建时间</li>
+<li>零配置小应用程序（我们也可以看看<em>ParcelJS</em>教程）</li>
+<li>针对纯模块更好的<em>tree shaking</em>，没有副作用</li>
+<li><code>&lt;script async&gt;</code>支持</li>
+<li>默认的，我们可以导出导入网页集合（Rust, C++, C, etc）</li>
+<li>介绍可以在<strong>developement</strong>或<strong>production</strong>下选择的**<em>mode**</em>属性，默认为<strong>production</strong>。</li>
+</ul>
+<h1 id="Webpack4-的开始"><a href="#Webpack4-的开始" class="headerlink" title="Webpack4 的开始"></a>Webpack4 的开始</h1><p>刚开始，我们只需要理解以下四个<strong>核心概念</strong>：</p>
+<ul>
+<li>Entry</li>
+<li>Output</li>
+<li>Loaders</li>
+<li>Plugins</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="Entry"><a href="#Entry" class="headerlink" title="Entry"></a>Entry</h2><p><strong>Entry</strong>表明哪一个模块是webpack构建的最开始的依赖图，即入口。</p>
+<p>下面是最简单的<code>entry</code>配置：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&#x27;./path/to/my/entry/file.js&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p><strong>Output</strong>告知webpack的出口，例如下面配置：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&#x27;./path/to/my/entry/file.js&#x27;</span>,</span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: path.resolve(__dirname, <span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;my-first-webpack.bundle.js&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Loaders"><a href="#Loaders" class="headerlink" title="Loaders"></a>Loaders</h2><p><strong>Loaders</strong>是webpack用来处理非JavaScript的文件。例如<strong>vue-loader</strong>,<strong>babel-loader</strong>,<strong>css-loader</strong>, etc</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> config = &#123;</span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&#x27;./path/to/my/entry/file.js&#x27;</span>,</span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: path.resolve(__dirname, <span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;my-first-webpack.bundle.js&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.txt$/</span>, use: <span class="string">&#x27;raw-loader&#x27;</span> &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = config;</span><br></pre></td></tr></table></figure>
+<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><p>Loaders用于制定特定的模块，<strong>Plugins</strong>能够执行更广泛的任务，插件从包优化以及小到定义环境变量。比如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>); <span class="comment">//installed via npm</span></span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">&#x27;webpack&#x27;</span>); <span class="comment">//to access built-in plugins</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> config = &#123;</span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&#x27;./path/to/my/entry/file.js&#x27;</span>,</span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: path.resolve(__dirname, <span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;my-first-webpack.bundle.js&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.txt$/</span>, use: <span class="string">&#x27;raw-loader&#x27;</span> &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(),</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;<span class="attr">template</span>: <span class="string">&#x27;./src/index.html&#x27;</span>&#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = config;</span><br></pre></td></tr></table></figure>
+
+<h1 id="开始webpack项目"><a href="#开始webpack项目" class="headerlink" title="开始webpack项目"></a>开始webpack项目</h1><p>好了，让我们来开始一个具体的示例。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir demo</span><br><span class="line">cd demo</span><br><span class="line"></span><br><span class="line">npm init -y</span><br><span class="line">npm add webpack webpack-cli -D</span><br></pre></td></tr></table></figure>
+<h2 id="零配置的-webpack-4"><a href="#零配置的-webpack-4" class="headerlink" title="零配置的 webpack 4"></a>零配置的 webpack 4</h2><p>如果我们使用过以前的webpack版本，那么得创建<em>webpack.config.js</em>文件。 webpack4这一版本默认不用创建配置文件，我们只需要创建文件夹<em>src</em>，并在其中创建<em>index.js</em>文件。当然，更详细的配置的话，还是需要创建配置文件的。</p>
+<ol>
+<li>创建文件<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir src</span><br><span class="line">touch src/index.js</span><br></pre></td></tr></table></figure></li>
+<li>编辑<em>src/index.js</em>:<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;webpack 4 is running without configuration file&#x27;</span>);</span><br></pre></td></tr></table></figure></li>
+<li>运行命令<code>webpack</code>进行打包，顺利的话会出现一下结果:<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Hash: 024a0c82b3c29457486d</span><br><span class="line">Version: webpack 4.5.0</span><br><span class="line">Time: 281ms</span><br><span class="line">Built at: 2018-4-13 23:01:10</span><br><span class="line">  Asset       Size  Chunks             Chunk Names</span><br><span class="line">main.js  607 bytes       0  [emitted]  main</span><br><span class="line">Entrypoint main = main.js</span><br><span class="line">   [0] ./src/index.js 65 bytes &#123;0&#125; [built]</span><br><span class="line">WARNING in configuration</span><br><span class="line">The &#x27;mode&#x27; option has not been set, webpack will fallback to &#x27;production&#x27; for this value.</span><br><span class="line">Set &#x27;mode&#x27; option to &#x27;development&#x27; or &#x27;production&#x27; to enable defaults for each environment.</span><br><span class="line">You can also set it to &#x27;none&#x27; to disable any default behavior.</span><br><span class="line">Learn more: https://webpack.js.org/concepts/mode/</span><br></pre></td></tr></table></figure>
+并会生成<strong>dist</strong>文件夹和其下的<strong>main.js</strong>文件。注意，默认构建<em>production</em>。<br>如果出现异常，可能要全局安装<code>webpack</code>,<code>webpack-cli</code>:<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install webpack webpack-cli -g</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<p>默认是<strong>production mode</strong>。但是我们也可以生成开发模式，在<em>package.json</em>的<em>scripts</em>下配置如下两行：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;dev&quot;</span>: <span class="string">&quot;webpack --mode development&quot;</span>,</span><br><span class="line">    <span class="string">&quot;prod&quot;</span>: <span class="string">&quot;webpack --mode production&quot;</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>这样，就可以用以下命令来打包开发模式和生产模式了：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm run dev</span><br><span class="line">npm run prod</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用Babel转换JavaScript-ES6"><a href="#使用Babel转换JavaScript-ES6" class="headerlink" title="使用Babel转换JavaScript ES6"></a>使用Babel转换JavaScript ES6</h1><p>现在很多JavaScript都是用ES6编写，但是一些浏览器并不支持ES6，所以我们需要转换成ES5。</p>
+<blockquote>
+<p>相关阅读：<a target="_blank" rel="noopener" href="https://appdividend.com/2017/03/28/beginners-guide-to-setup-es6-development-environment/">Beginner’s Guide To Setup  ES6 Development Environment</a></p>
+</blockquote>
+<p>webpack并不知道如何转换，我们需要加载器（Loaders）来做这项工作。<strong>babel-loader</strong>是webpack用来转到ES6到ES5的加载器，让我们来安装它吧：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install babel-core babel-loader -D</span><br></pre></td></tr></table></figure>
+<p>好了，现在我们需要配置<strong>babel-loader</strong>。首先，在根目录创建文件<em>webpack.config.js</em>。其它的配置都是默认的，我们只需要定义<strong>label-loader</strong>配置：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">   <span class="attr">module</span>: &#123;</span><br><span class="line">      <span class="attr">rules</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,</span><br><span class="line">          exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">          use: &#123;</span><br><span class="line">            <span class="attr">loader</span>: <span class="string">&quot;babel-loader&quot;</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们需要为开发模式安装更多的依赖，那就是<strong>webpack-dev-server</strong>:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install webpack-dev-server -D</span><br></pre></td></tr></table></figure>
+<p>它为我们提供了开发环境下本地应用的开发服务器，我们需要编辑<em>package.json</em>里面的<em>scripts</em>内容：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;dev&quot;</span>: <span class="string">&quot;webpack-dev-server --mode development&quot;</span>,</span><br><span class="line">    <span class="string">&quot;prod&quot;</span>: <span class="string">&quot;webpack --mode production&quot;</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>现在，我们在<em>src/index.js</em>编写ES6的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert(app(<span class="number">4</span>,<span class="number">5</span>));</span><br></pre></td></tr></table></figure>
+<p>我们使用了<strong>ES6</strong>特性中的箭头函数。</p>
+<p>现在，我们在根目录创建文件<em>index.html</em>:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;ie=edge&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">title</span>&gt;</span>Webpack 4 Tutorial<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;main.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>用下面的命令启动服务：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+<p>打开 <a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080</a> ， 我们可以看到效果。</p>
+<h1 id="在webpack4中配置React-js"><a href="#在webpack4中配置React-js" class="headerlink" title="在webpack4中配置React.js"></a>在webpack4中配置React.js</h1><p>现在，我们来配置<strong>React.js</strong>，需要添加以下依赖：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install babel-preset-react babel-preset-stage-0 -D</span><br></pre></td></tr></table></figure>
+<p>在根目录建立文件<code>.babelrc</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   &quot;presets&quot;: [&quot;react&quot;, &quot;stage-0&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装React-js"><a href="#安装React-js" class="headerlink" title="安装React.js"></a>安装React.js</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install react react-dom --save</span><br></pre></td></tr></table></figure>
+
+<p>在<em>src</em>文件夹中创建文件<em>AppComponent.js</em>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// AppComponent.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">AppComponent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">         <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">            App Component is Rendered!!</span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">      )</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>好了，<strong>React</strong>组件已经创建了。接下来，在<em>index.js</em>中引入<em>AppComponent.js</em>：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; render &#125; <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> AppComponent <span class="keyword">from</span> <span class="string">&#x27;./AppComponent&#x27;</span>;</span><br><span class="line"></span><br><span class="line">render(<span class="xml"><span class="tag">&lt;<span class="name">AppComponent</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&#x27;app&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>现在，运行如下命令可以在浏览器中看到效果了：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/webpack/" rel="tag"># webpack</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/04/10/web-webpack-awesome/" rel="prev" title="Webpack Awesome">
+      <i class="fa fa-chevron-left"></i> Webpack Awesome
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/04/15/js-vue-with-allgator-01/" rel="next" title="Vue with Allgator 01">
+      Vue with Allgator 01 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Webpack4-%E7%9A%84%E6%94%B9%E8%BF%9B%E4%B9%8B%E5%A4%84"><span class="nav-number">1.</span> <span class="nav-text">Webpack4 的改进之处</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Webpack4-%E7%9A%84%E5%BC%80%E5%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">Webpack4 的开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Entry"><span class="nav-number">2.1.</span> <span class="nav-text">Entry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output"><span class="nav-number">2.2.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loaders"><span class="nav-number">2.3.</span> <span class="nav-text">Loaders</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Plugins"><span class="nav-number">2.4.</span> <span class="nav-text">Plugins</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bwebpack%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.</span> <span class="nav-text">开始webpack项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">3.1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%B6%E9%85%8D%E7%BD%AE%E7%9A%84-webpack-4"><span class="nav-number">3.2.</span> <span class="nav-text">零配置的 webpack 4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Babel%E8%BD%AC%E6%8D%A2JavaScript-ES6"><span class="nav-number">4.</span> <span class="nav-text">使用Babel转换JavaScript ES6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8webpack4%E4%B8%AD%E9%85%8D%E7%BD%AEReact-js"><span class="nav-number">5.</span> <span class="nav-text">在webpack4中配置React.js</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85React-js"><span class="nav-number">5.1.</span> <span class="nav-text">安装React.js</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

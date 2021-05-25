@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;github.com&#x2F;norvig&#x2F;paip-lisp&#x2F;blob&#x2F;master&#x2F;docs&#x2F;chapter2.md  Chapter 02 A Simple Lisp Program Certum quod factum. (One is certain of only what one builds.) -Giovanni Battista Vico (1668-1744) It">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paradigms of Artificial Intelligence Programming 02">
+<meta property="og:url" content="http://yoursite.com/2018/08/31/lisp-Paradigms-of-Artificial-Intelligence-Programming-02/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="https:&#x2F;&#x2F;github.com&#x2F;norvig&#x2F;paip-lisp&#x2F;blob&#x2F;master&#x2F;docs&#x2F;chapter2.md  Chapter 02 A Simple Lisp Program Certum quod factum. (One is certain of only what one builds.) -Giovanni Battista Vico (1668-1744) It">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-08-31T13:26:58.000Z">
+<meta property="article:modified_time" content="2020-06-24T15:30:43.658Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="lisp">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/08/31/lisp-Paradigms-of-Artificial-Intelligence-Programming-02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Paradigms of Artificial Intelligence Programming 02 | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/31/lisp-Paradigms-of-Artificial-Intelligence-Programming-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Paradigms of Artificial Intelligence Programming 02
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-31 21:26:58" itemprop="dateCreated datePublished" datetime="2018-08-31T21:26:58+08:00">2018-08-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/norvig/paip-lisp/blob/master/docs/chapter2.md">https://github.com/norvig/paip-lisp/blob/master/docs/chapter2.md</a></p>
+</blockquote>
+<h1 id="Chapter-02-A-Simple-Lisp-Program"><a href="#Chapter-02-A-Simple-Lisp-Program" class="headerlink" title="Chapter 02 A Simple Lisp Program"></a>Chapter 02 A Simple Lisp Program</h1><blockquote>
+<p>Certum quod factum.</p>
+<p>(One is certain of only what one builds.)</p>
+<p>-Giovanni Battista Vico (1668-1744)</p>
+<p>Italian royal historiographer</p>
+</blockquote>
+<h2 id="A-Grammar-for-a-Subset-of-English"><a href="#A-Grammar-for-a-Subset-of-English" class="headerlink" title="A Grammar for a Subset of English"></a>A Grammar for a Subset of English</h2><p>The program we will develop in this chapter generates random English sentences. Here is a simple grammar for a tiny portion of English:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">Sentence =&gt; Noun-Phrase + Verb-Phrase</span><br><span class="line">Noun-Phrase =&gt; Article + Noun</span><br><span class="line">Verb-Phrase =&gt; Verb + Noun-Phrase</span><br><span class="line">Article =&gt; the, a,...</span><br><span class="line">Noun =&gt; man, ball, woman, table...</span><br><span class="line">Verb =&gt; hit, took, saw, liked...</span><br></pre></td></tr></table></figure>
+
+<h2 id="A-Straightforward-Solution"><a href="#A-Straightforward-Solution" class="headerlink" title="A Straightforward Solution"></a>A Straightforward Solution</h2><p>We will develop a program that generates random sentences from a phrase-structure grammar. The most straightforward approach is to represent each grammar rule by a separate Lisp function:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> sentence ()    (<span class="name">append</span> (<span class="name">noun-phrase</span>) (<span class="name">verb-phrase</span>)))</span><br><span class="line">(<span class="name">defun</span> noun-phrase () (<span class="name">append</span> (<span class="name">Article</span>) (<span class="name">Noun</span>)))</span><br><span class="line">(<span class="name">defun</span> verb-phrase () (<span class="name">append</span> (<span class="name">Verb</span>) (<span class="name">noun-phrase</span>)))</span><br><span class="line">(<span class="name">defun</span> Article ()     (<span class="name">one-of</span> &#x27;(the a)))</span><br><span class="line">(<span class="name">defun</span> Noun ()        (<span class="name">one-of</span> &#x27;(man ball woman table)))</span><br><span class="line">(<span class="name">defun</span> Verb ()        (<span class="name">one-of</span> &#x27;(hit took saw liked)))</span><br><span class="line"></span><br><span class="line">(<span class="name">defun</span> one-of (<span class="name">set</span>)</span><br><span class="line">  <span class="string">&quot;Pick one element of set, and make a list of it.&quot;</span></span><br><span class="line">  (<span class="name">list</span> (<span class="name">random-elt</span> set)))</span><br><span class="line"></span><br><span class="line">(<span class="name">defun</span> random-elt (<span class="name">choices</span>)</span><br><span class="line">  <span class="string">&quot;Choose an element from a list at random.&quot;</span></span><br><span class="line">  (<span class="name">elt</span> choices (<span class="name">random</span> (<span class="name">length</span> choices))))</span><br></pre></td></tr></table></figure>
+<p>Now we can test the program by generating a few random sentences, along with a noun phrase and a verb phrase:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&gt; (<span class="name">sentence</span>) =&gt; (<span class="name">THE</span> WOMAN HIT THE BALL)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">sentence</span>) =&gt; (<span class="name">THE</span> WOMAN HIT THE MAN)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">sentence</span>) =&gt;(<span class="name">THE</span> BALL SAW THE WOMAN)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">sentence</span>) =&gt; (<span class="name">THE</span> BALL SAW THE TABLE)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">noun-phrase</span>) =&gt; (<span class="name">THE</span> MAN)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">verb-phrase</span>) =&gt; (<span class="name">LIKED</span> THE WOMAN)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">trace</span> sentence noun-phrase verb-phrase article noun verb) =&gt;</span><br><span class="line">(<span class="name">SENTENCE</span> NOUN-PHRASE VERB-PHRASE ARTICLE NOUN VERB)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">sentence</span>) =&gt;</span><br><span class="line">(<span class="number">1</span> ENTER SENTENCE)</span><br><span class="line">  (<span class="number">1</span> ENTER NOUN-PHRASE)</span><br><span class="line">    (<span class="number">1</span> ENTER ARTICLE)</span><br><span class="line">    (<span class="number">1</span> EXIT ARTICLE: (<span class="name">THE</span>))</span><br><span class="line">    (<span class="number">1</span> ENTER NOUN)</span><br><span class="line">    (<span class="number">1</span> EXIT NOUN: (<span class="name">MAN</span>))</span><br><span class="line">  (<span class="number">1</span> EXIT NOUN-PHRASE: (<span class="name">THE</span> MAN))</span><br><span class="line">  (<span class="number">1</span> ENTER VERB-PHRASE)</span><br><span class="line">    (<span class="number">1</span> ENTER VERB)</span><br><span class="line">    (<span class="number">1</span> EXIT VERB: (<span class="name">HIT</span>))</span><br><span class="line">    (<span class="number">1</span> ENTER NOUN-PHRASE)</span><br><span class="line">      (<span class="number">1</span> ENTER ARTICLE)</span><br><span class="line">      (<span class="number">1</span> EXIT ARTICLE: (<span class="name">THE</span>))</span><br><span class="line">      (<span class="number">1</span> ENTER NOUN)</span><br><span class="line">      (<span class="number">1</span> EXIT NOUN: (<span class="name">BALL</span>))</span><br><span class="line">    (<span class="number">1</span> EXIT NOUN-PHRASE: (<span class="name">THE</span> BALL))</span><br><span class="line">  (<span class="number">1</span> EXIT VERB-PHRASE: (<span class="name">HIT</span> THE BALL))</span><br><span class="line">(<span class="number">1</span> EXIT SENTENCE: (<span class="name">THE</span> MAN HIT THE BALL))</span><br><span class="line">(<span class="name">THE</span> MAN HIT THE BALL)</span><br></pre></td></tr></table></figure>
+
+<p>The program works fine, and the trace looks just like the sample derivation above, but the Lisp definitions are a bit harder to read than the original grammar rules. This problem will be compounded as we consider more complex rules. Suppose we wanted to allow noun phrases to be modified by an indefinite number of adjectives and an indefinite number of prepositional phrases. In grammatical notation, we might have the following rules:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">Noun-Phrase =&gt; Article + Adj* + Noun + PP*</span><br><span class="line">Adj* =&gt; <span class="number">0</span≯, Adj + Adj*</span><br><span class="line">PP* =&gt; <span class="number">0</span≯, PP + PP*</span><br><span class="line">PP =&gt; Prep + Noun-Phrase</span><br><span class="line">Adj =&gt; big, little, blue, green, ...</span><br><span class="line">Prep =&gt; to, in, by, with, ...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> Adj* ()</span><br><span class="line">  (<span class="name">if</span> (<span class="name">=</span> (<span class="name">random</span> <span class="number">2</span>) <span class="number">0</span>)</span><br><span class="line">  <span class="literal">nil</span></span><br><span class="line">  (<span class="name">append</span> (<span class="name">Adj</span>) (<span class="name">Adj*</span>))))</span><br><span class="line">(<span class="name">defun</span> PP* ()</span><br><span class="line">  (<span class="name">if</span> (<span class="name">random-elt</span> &#x27;(t nil))</span><br><span class="line">  (<span class="name">append</span> (<span class="name">PP</span>) (<span class="name">PP*</span>))</span><br><span class="line">  <span class="literal">nil</span>))</span><br><span class="line">(<span class="name">defun</span> noun-phrase () (<span class="name">append</span> (<span class="name">Article</span>) (<span class="name">Adj*</span>) (<span class="name">Noun</span>) (<span class="name">PP*</span>)))</span><br><span class="line">(<span class="name">defun</span> PP () (<span class="name">append</span> (<span class="name">Prep</span>) (<span class="name">noun-phrase</span>)))</span><br><span class="line">(<span class="name">defun</span> Adj () (<span class="name">one-of</span> &#x27;(big little blue green adiabatic)))</span><br><span class="line">(<span class="name">defun</span> Prep () (<span class="name">one-of</span> &#x27;(to in by with on)))</span><br></pre></td></tr></table></figure>
+
+<p>I’ve chosen two different implementations for Adj* and PP*; either approach would work in either function. We have to be careful, though; here are two approaches that would not work:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> Adj* ()</span><br><span class="line">  <span class="string">&quot;Warning - incorrect definition of Adjectives.&quot;</span></span><br><span class="line">  (<span class="name">one-of</span> &#x27;(nil (append (Adj) (Adj*)))))</span><br><span class="line">(<span class="name">defun</span> Adj* ()</span><br><span class="line">  <span class="string">&quot;Warning - incorrect definition of Adjectives.&quot;</span></span><br><span class="line">  (<span class="name">one-of</span> (<span class="name">list</span> <span class="literal">nil</span> (<span class="name">append</span> (<span class="name">Adj</span>) (<span class="name">Adj*</span>)))))</span><br></pre></td></tr></table></figure>
+
+<h2 id="Rule-Based-Solution"><a href="#Rule-Based-Solution" class="headerlink" title="Rule-Based Solution"></a>Rule-Based Solution</h2><p>An alternative implementation of this program would concentrate on making it easy to write grammar rules and would worry later about how they will be processed. Let’s look again at the original grammar rules:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Sentence =&gt; Noun-Phrase + Verb-Phrase</span><br><span class="line">Noun-Phrase =&gt; Article + Noun</span><br><span class="line">Verb-Phrase =&gt; Verb + Noun-Phrase</span><br><span class="line">Article =&gt; the, a, ...</span><br><span class="line">Noun =&gt; man, ball, woman, table...</span><br><span class="line">Verb =&gt; hit, took, saw, liked...</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Two-Paths-to-Follow"><a href="#Two-Paths-to-Follow" class="headerlink" title="Two Paths to Follow"></a>Two Paths to Follow</h2><h2 id="Changing-the-Grammar-without-Changing-the-Program"><a href="#Changing-the-Grammar-without-Changing-the-Program" class="headerlink" title="Changing the Grammar without Changing the Program"></a>Changing the Grammar without Changing the Program</h2><h2 id="Using-the-Same-Data-for-Several-Programs"><a href="#Using-the-Same-Data-for-Several-Programs" class="headerlink" title="Using the Same Data for Several Programs"></a>Using the Same Data for Several Programs</h2><p><a href="../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming">☝ Back to Catalog</a></p>
+<p><a href="../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-01/">☜ Introduction to Lisp</a></p>
+<p><a href="../../../2018/09/01/lisp-Paradigms-of-Artificial-Intelligence-Programming-03/">☞ Overview of Lisp</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/lisp/" rel="tag"># lisp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-01/" rel="prev" title="Paradigms of Artificial Intelligence Programming 01">
+      <i class="fa fa-chevron-left"></i> Paradigms of Artificial Intelligence Programming 01
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/09/01/lisp-Paradigms-of-Artificial-Intelligence-Programming-03/" rel="next" title="Paradigms of Artificial Intelligence Programming 03">
+      Paradigms of Artificial Intelligence Programming 03 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Chapter-02-A-Simple-Lisp-Program"><span class="nav-number">1.</span> <span class="nav-text">Chapter 02 A Simple Lisp Program</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-Grammar-for-a-Subset-of-English"><span class="nav-number">1.1.</span> <span class="nav-text">A Grammar for a Subset of English</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-Straightforward-Solution"><span class="nav-number">1.2.</span> <span class="nav-text">A Straightforward Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rule-Based-Solution"><span class="nav-number">1.3.</span> <span class="nav-text">Rule-Based Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Two-Paths-to-Follow"><span class="nav-number">1.4.</span> <span class="nav-text">Two Paths to Follow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Changing-the-Grammar-without-Changing-the-Program"><span class="nav-number">1.5.</span> <span class="nav-text">Changing the Grammar without Changing the Program</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-the-Same-Data-for-Several-Programs"><span class="nav-number">1.6.</span> <span class="nav-text">Using the Same Data for Several Programs</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

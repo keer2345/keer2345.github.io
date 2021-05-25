@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;www.kirupa.com&#x2F;react&#x2F;  Introducing React History Old way for Multi-Page Design Now, new way for Single-Page Design (SPD mode)  Meet React Automatic UI State Management  Lightning-fast DOM Man">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Learn React with Kirupa.com">
+<meta property="og:url" content="http://yoursite.com/2018/04/20/js-react-learn-with-kirupa/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.kirupa.com&#x2F;react&#x2F;  Introducing React History Old way for Multi-Page Design Now, new way for Single-Page Design (SPD mode)  Meet React Automatic UI State Management  Lightning-fast DOM Man">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.kirupa.com/react/images/single_page_model_144.png">
+<meta property="og:image" content="https://www.kirupa.com/react/images/code_editor_web_app_144.png">
+<meta property="og:image" content="https://www.kirupa.com/react/images/c_app_144.png">
+<meta property="og:image" content="https://www.kirupa.com/react/images/colorful_vowels.png">
+<meta property="og:image" content="https://www.kirupa.com/react/images/individual_components_part2_144.png">
+<meta property="og:image" content="https://www.kirupa.com/react/images/two_properties_144.png">
+<meta property="article:published_time" content="2018-04-20T03:50:03.000Z">
+<meta property="article:modified_time" content="2020-06-24T15:30:43.650Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.kirupa.com/react/images/single_page_model_144.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/04/20/js-react-learn-with-kirupa/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Learn React with Kirupa.com | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/js-react-learn-with-kirupa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Learn React with Kirupa.com
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-04-20 11:50:03" itemprop="dateCreated datePublished" datetime="2018-04-20T11:50:03+08:00">2018-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.kirupa.com/react/">https://www.kirupa.com/react/</a></p>
+</blockquote>
+<h1 id="Introducing-React"><a href="#Introducing-React" class="headerlink" title="Introducing React"></a><a target="_blank" rel="noopener" href="https://www.kirupa.com/react/introducing_react.htm">Introducing React</a></h1><p><img src="https://www.kirupa.com/react/images/single_page_model_144.png"></p>
+<h2 id="History"><a href="#History" class="headerlink" title="History"></a>History</h2><ol>
+<li>Old way for Multi-Page Design</li>
+<li>Now, new way for Single-Page Design (SPD mode)</li>
+</ol>
+<h2 id="Meet-React"><a href="#Meet-React" class="headerlink" title="Meet React"></a>Meet React</h2><ul>
+<li><p>Automatic UI State Management</p>
+</li>
+<li><p>Lightning-fast DOM Manipulation</p>
+</li>
+<li><p>APIs to Create Truly Composable UIs</p>
+</li>
+<li><p>Visuals Defined Entirely in JavaScript</p>
+  <span id="more"></span>
+
+</li>
+</ul>
+<h1 id="Building-your-first-React-App"><a href="#Building-your-first-React-App" class="headerlink" title="Building your first React App"></a><a target="_blank" rel="noopener" href="https://www.kirupa.com/react/building_your_first_react_app.htm">Building your first React App</a></h1><p><img src="https://www.kirupa.com/react/images/code_editor_web_app_144.png"></p>
+<h2 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h2><p>Basic framework:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>react react<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h2><p>Add script: </p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@16/umd/react.development.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@16/umd/react-dom.development.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/babel-standalone@6.15.0/babel.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Step-3"><a href="#Step-3" class="headerlink" title="Step 3"></a>Step 3</h2><p>Add core content int <em>body</em> element:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/babel&quot;</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">        ReactDOM.render(</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello react<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>, </span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="built_in">document</span>.getElementById(<span class="string">&quot;container&quot;</span>)</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        );</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Step-4"><a href="#Step-4" class="headerlink" title="Step 4"></a>Step 4</h2><p>Add CSS style:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        <span class="selector-id">#container</span> &#123;</span><br><span class="line">            <span class="attribute">padding</span>: <span class="number">50px</span>;</span><br><span class="line">            <span class="attribute">background-color</span>: <span class="number">#eee</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="selector-id">#container</span> <span class="selector-tag">h1</span> &#123;</span><br><span class="line">            <span class="attribute">font-size</span>: <span class="number">60px</span>;</span><br><span class="line">            <span class="attribute">font-family</span>: sans-serif;</span><br><span class="line">            <span class="attribute">color</span>: <span class="number">#0080a8</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Components-in-React"><a href="#Components-in-React" class="headerlink" title="Components in React"></a><a target="_blank" rel="noopener" href="https://www.kirupa.com/react/components.htm">Components in React</a></h1><p><img src="https://www.kirupa.com/react/images/c_app_144.png"></p>
+<h2 id="Common-Component"><a href="#Common-Component" class="headerlink" title="Common Component"></a>Common Component</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, componentized world!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">HelloWorld</span>/&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">HelloWorld</span>/&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">HelloWorld</span>/&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">&quot;#container&quot;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Specifying-Properties"><a href="#Specifying-Properties" class="headerlink" title="Specifying Properties"></a>Specifying Properties</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, &#123;this.props.greetTarget&#125;!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">HelloWorld</span> <span class="attr">greetTarget</span>=<span class="string">&quot;Batman&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">HelloWorld</span> <span class="attr">greetTarget</span>=<span class="string">&quot;Iron Man&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">HelloWorld</span> <span class="attr">greetTarget</span>=<span class="string">&quot;Nicolas Cage&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">HelloWorld</span> <span class="attr">greetTarget</span>=<span class="string">&quot;Mega Man&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">HelloWorld</span> <span class="attr">greetTarget</span>=<span class="string">&quot;Bono&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">HelloWorld</span> <span class="attr">greetTarget</span>=<span class="string">&quot;Catwoman&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">&quot;#container&quot;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Dealing-with-Children"><a href="#Dealing-with-Children" class="headerlink" title="Dealing with Children"></a>Dealing with Children</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Buttonify</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">      <span class="keyword">return</span>(</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&#123;this.props.behavior&#125;</span>&gt;</span>&#123;this.props.children&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">      );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Buttonify</span> <span class="attr">behavior</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>SEND DATA<span class="tag">&lt;/<span class="name">Buttonify</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">&quot;#container&quot;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h1 id="Styling-in-React"><a href="#Styling-in-React" class="headerlink" title="Styling in React"></a><a target="_blank" rel="noopener" href="https://www.kirupa.com/react/styling_in_react.htm">Styling in React</a></h1><p><img src="https://www.kirupa.com/react/images/colorful_vowels.png"></p>
+<h2 id="Just-Style-It-Already"><a href="#Just-Style-It-Already" class="headerlink" title="Just Style It Already!"></a>Just Style It Already!</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Letter</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;letter&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        &#123;this.props.children&#125;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.letter</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#ffde00</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">font-family</span>: monospace;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">32px</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Styling-Content-the-React-Way"><a href="#Styling-Content-the-React-Way" class="headerlink" title="Styling Content the React Way"></a>Styling Content the React Way</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Letter</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> letterStyle = &#123;</span><br><span class="line">            <span class="attr">padding</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">margin</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">backgroundColor</span>: <span class="string">&quot;#ffde00&quot;</span>,</span><br><span class="line">            <span class="attr">color</span>: <span class="string">&quot;#333&quot;</span>,</span><br><span class="line">            <span class="attr">display</span>: <span class="string">&quot;inline-block&quot;</span>,</span><br><span class="line">            <span class="attr">fontFamily</span>: <span class="string">&quot;monospace&quot;</span>,</span><br><span class="line">            <span class="attr">fontSize</span>: <span class="number">32</span>,</span><br><span class="line">            <span class="attr">textAlign</span>: <span class="string">&quot;center&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span>(</span><br><span class="line">            <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;letterStyle&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">                &#123;this.props.children&#125;</span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Letter</span> <span class="attr">bgcolor</span>=<span class="string">&quot;#58B3FF&quot;</span>&gt;</span>A<span class="tag">&lt;/<span class="name">Letter</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Letter</span> <span class="attr">bgcolor</span>=<span class="string">&quot;#FF605F&quot;</span>&gt;</span>E<span class="tag">&lt;/<span class="name">Letter</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Letter</span> <span class="attr">bgcolor</span>=<span class="string">&quot;#FFD52E&quot;</span>&gt;</span>I<span class="tag">&lt;/<span class="name">Letter</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Letter</span> <span class="attr">bgcolor</span>=<span class="string">&quot;#49DD8E&quot;</span>&gt;</span>O<span class="tag">&lt;/<span class="name">Letter</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Letter</span> <span class="attr">bgcolor</span>=<span class="string">&quot;#AE99FF&quot;</span>&gt;</span>U<span class="tag">&lt;/<span class="name">Letter</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>,</span><br><span class="line">    destination</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Making-the-Background-Color-Customizable"><a href="#Making-the-Background-Color-Customizable" class="headerlink" title="Making the Background Color Customizable"></a>Making the Background Color Customizable</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ReactDOM.render(</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Letter</span> <span class="attr">bgcolor</span>=<span class="string">&quot;#58B3FF&quot;</span>&gt;</span>A<span class="tag">&lt;/<span class="name">Letter</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Letter</span> <span class="attr">bgcolor</span>=<span class="string">&quot;#FF605F&quot;</span>&gt;</span>E<span class="tag">&lt;/<span class="name">Letter</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Letter</span> <span class="attr">bgcolor</span>=<span class="string">&quot;#FFD52E&quot;</span>&gt;</span>I<span class="tag">&lt;/<span class="name">Letter</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Letter</span> <span class="attr">bgcolor</span>=<span class="string">&quot;#49DD8E&quot;</span>&gt;</span>O<span class="tag">&lt;/<span class="name">Letter</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Letter</span> <span class="attr">bgcolor</span>=<span class="string">&quot;#AE99FF&quot;</span>&gt;</span>U<span class="tag">&lt;/<span class="name">Letter</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>,</span><br><span class="line">    destination</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> letterStyle = &#123;</span><br><span class="line">  <span class="attr">padding</span>: <span class="number">10</span>,</span><br><span class="line">  <span class="attr">margin</span>: <span class="number">10</span>,</span><br><span class="line">  <span class="attr">backgroundColor</span>: <span class="built_in">this</span>.props.bgcolor,</span><br><span class="line">  <span class="attr">color</span>: <span class="string">&quot;#333&quot;</span>,</span><br><span class="line">  <span class="attr">display</span>: <span class="string">&quot;inline-block&quot;</span>,</span><br><span class="line">  <span class="attr">fontFamily</span>: <span class="string">&quot;monospace&quot;</span>,</span><br><span class="line">  <span class="attr">fontSize</span>: <span class="number">32</span>,</span><br><span class="line">  <span class="attr">textAlign</span>: <span class="string">&quot;center&quot;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Creating-Complex-Components"><a href="#Creating-Complex-Components" class="headerlink" title="Creating Complex Components"></a><a target="_blank" rel="noopener" href="https://www.kirupa.com/react/creating_complex_components.htm">Creating Complex Components</a></h1><p>React allow for <strong>composability</strong>. You can combine components to create more complex components.</p>
+<p>In this tutorial, we will look at what all of this means.    More specifically, we will look at two things:</p>
+<ol>
+<li>The boring technical stuff that you need to know.</li>
+<li>The boring stuff you need to know about how to identify components when you look at a bunch of visual elements.</li>
+</ol>
+<p><img src="https://www.kirupa.com/react/images/individual_components_part2_144.png"></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> squareStyle = &#123;</span><br><span class="line">      <span class="attr">height</span>: <span class="number">150</span>,</span><br><span class="line">      <span class="attr">backgroundColor</span>: <span class="built_in">this</span>.props.color</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;squareStyle&#125;</span> /&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Label</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> labelStyle = &#123;</span><br><span class="line">      <span class="attr">fontFamily</span>: <span class="string">&quot;sans-serif&quot;</span>,</span><br><span class="line">      <span class="attr">fontWeight</span>: <span class="string">&quot;bold&quot;</span>,</span><br><span class="line">      <span class="attr">padding</span>:<span class="number">13</span>,</span><br><span class="line">      <span class="attr">margin</span>:<span class="number">0</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;labelStyle&#125;</span>&gt;</span>&#123;this.props.color&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Card</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> cardStyle = &#123;</span><br><span class="line">      <span class="attr">height</span>: <span class="number">200</span>,</span><br><span class="line">      <span class="attr">width</span>: <span class="number">150</span>,</span><br><span class="line">      <span class="attr">padding</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="attr">backgroundColor</span>: <span class="string">&quot;#fff&quot;</span>,</span><br><span class="line">      <span class="attr">WebkitFilter</span>: <span class="string">&quot;drop-shadow(0px 0px 5px #666)&quot;</span>,</span><br><span class="line">      <span class="attr">filter</span>: <span class="string">&quot;drop-shadow(0px 0px 5px #666)&quot;</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;cardStyle&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Square</span> <span class="attr">color</span>=<span class="string">&#123;this.props.color&#125;/</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Label</span> <span class="attr">color</span>=<span class="string">&#123;this.props.color&#125;/</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Card</span> <span class="attr">color</span>=<span class="string">&quot;#FF6663&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Card</span> <span class="attr">color</span>=<span class="string">&quot;#FFf666&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Card</span> <span class="attr">color</span>=<span class="string">&quot;#FF9999&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Card</span> <span class="attr">color</span>=<span class="string">&quot;#ddeeff&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&quot;container&quot;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h1 id="Transferring-Properties"><a href="#Transferring-Properties" class="headerlink" title="Transferring Properties"></a><a target="_blank" rel="noopener" href="https://www.kirupa.com/react/transferring_properties.htm">Transferring Properties</a></h1><p><img src="https://www.kirupa.com/react/images/two_properties_144.png"></p>
+<h1 id="Meet-JSX…Again-https-www-kirupa-com-react-meet-jsx-again-htm"><a href="#Meet-JSX…Again-https-www-kirupa-com-react-meet-jsx-again-htm" class="headerlink" title="[Meet JSX…Again!(https://www.kirupa.com/react/meet_jsx_again.htm)"></a>[Meet JSX…Again!(<a target="_blank" rel="noopener" href="https://www.kirupa.com/react/meet_jsx_again.htm">https://www.kirupa.com/react/meet_jsx_again.htm</a>)</h1><h2 id="What-Happens-with-JSX"><a href="#What-Happens-with-JSX" class="headerlink" title="What Happens with JSX?"></a>What Happens with JSX?</h2><h2 id="JSX-Quirks-to-Remember"><a href="#JSX-Quirks-to-Remember" class="headerlink" title="JSX Quirks to Remember"></a>JSX Quirks to Remember</h2><h3 id="Evaluating-Expressions"><a href="#Evaluating-Expressions" class="headerlink" title="Evaluating Expressions"></a>Evaluating Expressions</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stuff</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Boring static content!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stuff</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Boring &#123;Math.random() * 100&#125; content!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Returning-Multiple-Elements"><a href="#Returning-Multiple-Elements" class="headerlink" title="Returning Multiple Elements"></a>Returning Multiple Elements</h3><p>In a lot of our examples, we’ve always returned one top-level element (often a <code>div</code>) that then had many other elements under it. You aren’t technically limited to following that pattern. You can actually return multiple elements. There are two ways you can do that.</p>
+<p>One way is by using an array-like syntax:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stuff</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      [</span><br><span class="line">        <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>I am<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>,</span><br><span class="line">        <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>returning a list<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>,</span><br><span class="line">        <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>of things!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">      ]</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stuff</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      [</span><br><span class="line">        <span class="xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">key</span>=<span class="string">&quot;1&quot;</span>&gt;</span>I am<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>,</span><br><span class="line">        <span class="xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">key</span>=<span class="string">&quot;2&quot;</span>&gt;</span>returning a list<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>,</span><br><span class="line">        <span class="xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">key</span>=<span class="string">&quot;3&quot;</span>&gt;</span>of things!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">      ]</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>How will you know whether you need to add the <code>key</code> attribute or not? React will tell you! You will see a message similar to to following printed to your Dev Tools Console:</p>
+<blockquote>
+<p><strong>Warning: Each child in an array or iterator should have a unique “key” prop</strong>.</p>
+</blockquote>
+<p>Besides the array-like approach, you have another (arguably better!) way of returning multiple elements. This involves something known as fragments. The way you use it looks as follows:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stuff</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">React.Fragment</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>I am<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>returning a list<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>of things!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">React.Fragment</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="You-Can’t-Specify-CSS-Inline"><a href="#You-Can’t-Specify-CSS-Inline" class="headerlink" title="You Can’t Specify CSS Inline"></a>You Can’t Specify CSS Inline</h3><p><code>style</code> in HTML:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;font-family:Arial;font-size:24px&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Blah!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>style</code> in <strong>JSX</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Letter</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> letterStyle = &#123;</span><br><span class="line">      <span class="attr">padding</span>: <span class="number">10</span>,</span><br><span class="line">      <span class="attr">margin</span>: <span class="number">10</span>,</span><br><span class="line">      <span class="attr">backgroundColor</span>: <span class="built_in">this</span>.props.bgcolor,</span><br><span class="line">      <span class="attr">color</span>: <span class="string">&quot;#333&quot;</span>,</span><br><span class="line">      <span class="attr">display</span>: <span class="string">&quot;inline-block&quot;</span>,</span><br><span class="line">      <span class="attr">fontFamily</span>: <span class="string">&quot;monospace&quot;</span>,</span><br><span class="line">      <span class="attr">fontSize</span>: <span class="string">&quot;32&quot;</span>,</span><br><span class="line">      <span class="attr">textAlign</span>: <span class="string">&quot;center&quot;</span></span><br><span class="line">    &#125;;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;letterStyle&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        &#123;this.props.children&#125;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Comments"><a href="#Comments" class="headerlink" title="Comments"></a>Comments</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;slideIn&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">className</span>=<span class="string">&quot;emphasis&quot;</span>&gt;</span>Gabagool!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">    &#123;/* I am a child comment */&#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Label</span>/&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">&quot;#container&quot;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;slideIn&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">className</span>=<span class="string">&quot;emphasis&quot;</span>&gt;</span>Gabagool!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Label</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">      /* <span class="attr">This</span> <span class="attr">comment</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">         <span class="attr">goes</span> <span class="attr">across</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">         <span class="attr">multiple</span> <span class="attr">lines</span> */</span></span></span><br><span class="line"><span class="tag"><span class="xml">         <span class="attr">className</span>=<span class="string">&quot;colorCard&quot;</span> // <span class="attr">end</span> <span class="attr">of</span> <span class="attr">line</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    /&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">&quot;#container&quot;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="Capitalization-HTML-Elements-and-Components"><a href="#Capitalization-HTML-Elements-and-Components" class="headerlink" title="Capitalization, HTML Elements, and Components"></a>Capitalization, HTML Elements, and Components</h3><h2 id="Your-JSX-Can-Be-Anywhere"><a href="#Your-JSX-Can-Be-Anywhere" class="headerlink" title="Your JSX Can Be Anywhere"></a>Your JSX Can Be Anywhere</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> swatchComponent = <span class="xml"><span class="tag">&lt;<span class="name">Swatch</span> <span class="attr">color</span>=<span class="string">&quot;#2F004F&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">Swatch</span>&gt;</span></span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    &#123;swatchComponent&#125;</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">&quot;#container&quot;</span>)</span><br><span class="line">);  </span><br></pre></td></tr></table></figure>
+
+<h1 id="Dealing-With-State-in-React"><a href="#Dealing-With-State-in-React" class="headerlink" title="Dealing With State in React"></a><a target="_blank" rel="noopener" href="https://www.kirupa.com/react/dealing_with_state.htm">Dealing With State in React</a></h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/babel&quot;</span>&gt;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">LightningCounter</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">      <span class="function"><span class="title">constructor</span>(<span class="params">props,context</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(props,context);</span><br><span class="line">        <span class="built_in">this</span>.state=&#123;</span><br><span class="line">          <span class="attr">stricks</span>:<span class="number">0</span></span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">this</span>.timerTick = <span class="built_in">this</span>.timerTick.bind(<span class="built_in">this</span>)</span><br><span class="line">      </span><br><span class="line">      &#125;</span><br><span class="line">        <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">          <span class="built_in">setInterval</span>(<span class="built_in">this</span>.timerTick,<span class="number">1000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="title">timerTick</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">          <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">            <span class="attr">stricks</span>: <span class="built_in">this</span>.state.stricks + <span class="number">1</span>         </span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">      </span><br><span class="line">      <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> strickStyle = &#123;</span><br><span class="line">          <span class="attr">color</span>:<span class="string">&quot;#66ffff&quot;</span>,</span><br><span class="line">          <span class="attr">fontSize</span>:<span class="number">50</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">          <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&#123;strickStyle&#125;</span>&gt;</span>&#123;this.state.stricks&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">LightningCounterDisplay</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">      <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> divStyle = &#123;</span><br><span class="line">          <span class="attr">width</span>: <span class="number">250</span>,</span><br><span class="line">          <span class="attr">textAlign</span>: <span class="string">&quot;center&quot;</span>,</span><br><span class="line">          <span class="attr">backgroundColor</span>: <span class="string">&quot;black&quot;</span>,</span><br><span class="line">          <span class="attr">padding</span>: <span class="number">40</span>,</span><br><span class="line">          <span class="attr">fontFamily</span>: <span class="string">&quot;sans-serif&quot;</span>,</span><br><span class="line">          <span class="attr">color</span>: <span class="string">&quot;#999&quot;</span>,</span><br><span class="line">          <span class="attr">borderRadius</span>: <span class="number">10</span></span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">          <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;divStyle&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">LightningCounter</span>/&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    ReactDOM.render(</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">LightningCounterDisplay</span>/&gt;</span></span>,</span><br><span class="line">      <span class="built_in">document</span>.querySelector(<span class="string">&quot;#container&quot;</span>)</span><br><span class="line">    );</span><br><span class="line">  &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/04/20/js-react-awesome/" rel="prev" title="React Awesome">
+      <i class="fa fa-chevron-left"></i> React Awesome
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/04/29/js-es6-awesome/" rel="next" title="Es6 Awesome">
+      Es6 Awesome <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introducing-React"><span class="nav-number">1.</span> <span class="nav-text">Introducing React</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#History"><span class="nav-number">1.1.</span> <span class="nav-text">History</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Meet-React"><span class="nav-number">1.2.</span> <span class="nav-text">Meet React</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Building-your-first-React-App"><span class="nav-number">2.</span> <span class="nav-text">Building your first React App</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-1"><span class="nav-number">2.1.</span> <span class="nav-text">Step 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-2"><span class="nav-number">2.2.</span> <span class="nav-text">Step 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-3"><span class="nav-number">2.3.</span> <span class="nav-text">Step 3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-4"><span class="nav-number">2.4.</span> <span class="nav-text">Step 4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Components-in-React"><span class="nav-number">3.</span> <span class="nav-text">Components in React</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Common-Component"><span class="nav-number">3.1.</span> <span class="nav-text">Common Component</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Specifying-Properties"><span class="nav-number">3.2.</span> <span class="nav-text">Specifying Properties</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dealing-with-Children"><span class="nav-number">3.3.</span> <span class="nav-text">Dealing with Children</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Styling-in-React"><span class="nav-number">4.</span> <span class="nav-text">Styling in React</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Just-Style-It-Already"><span class="nav-number">4.1.</span> <span class="nav-text">Just Style It Already!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Styling-Content-the-React-Way"><span class="nav-number">4.2.</span> <span class="nav-text">Styling Content the React Way</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Making-the-Background-Color-Customizable"><span class="nav-number">4.3.</span> <span class="nav-text">Making the Background Color Customizable</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Creating-Complex-Components"><span class="nav-number">5.</span> <span class="nav-text">Creating Complex Components</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transferring-Properties"><span class="nav-number">6.</span> <span class="nav-text">Transferring Properties</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Meet-JSX%E2%80%A6Again-https-www-kirupa-com-react-meet-jsx-again-htm"><span class="nav-number">7.</span> <span class="nav-text">[Meet JSX…Again!(https:&#x2F;&#x2F;www.kirupa.com&#x2F;react&#x2F;meet_jsx_again.htm)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-Happens-with-JSX"><span class="nav-number">7.1.</span> <span class="nav-text">What Happens with JSX?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSX-Quirks-to-Remember"><span class="nav-number">7.2.</span> <span class="nav-text">JSX Quirks to Remember</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Evaluating-Expressions"><span class="nav-number">7.2.1.</span> <span class="nav-text">Evaluating Expressions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Returning-Multiple-Elements"><span class="nav-number">7.2.2.</span> <span class="nav-text">Returning Multiple Elements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#You-Can%E2%80%99t-Specify-CSS-Inline"><span class="nav-number">7.2.3.</span> <span class="nav-text">You Can’t Specify CSS Inline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Comments"><span class="nav-number">7.2.4.</span> <span class="nav-text">Comments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Capitalization-HTML-Elements-and-Components"><span class="nav-number">7.2.5.</span> <span class="nav-text">Capitalization, HTML Elements, and Components</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Your-JSX-Can-Be-Anywhere"><span class="nav-number">7.3.</span> <span class="nav-text">Your JSX Can Be Anywhere</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dealing-With-State-in-React"><span class="nav-number">8.</span> <span class="nav-text">Dealing With State in React</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

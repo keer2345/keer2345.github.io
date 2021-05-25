@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="React Setup让我们将注意力转向客户端并添加 React 。 React 是基于组件的 JavaScript 库，用于构建用户界面。 如果您是一个 React 新手，请了解 tutorial 和 Why did we build React?。您也可能一步步通过 Intro to React 教程来学习 Babel 和 Webpack 。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask React Docker in Testdriven - Part II - 5">
+<meta property="og:url" content="http://yoursite.com/2018/09/25/python-flask-react-docker-testdriven-2-5/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="React Setup让我们将注意力转向客户端并添加 React 。 React 是基于组件的 JavaScript 库，用于构建用户界面。 如果您是一个 React 新手，请了解 tutorial 和 Why did we build React?。您也可能一步步通过 Intro to React 教程来学习 Babel 和 Webpack 。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-09-25T12:49:28.000Z">
+<meta property="article:modified_time" content="2020-06-24T15:30:43.671Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="testdriven">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/09/25/python-flask-react-docker-testdriven-2-5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Flask React Docker in Testdriven - Part II - 5 | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/25/python-flask-react-docker-testdriven-2-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask React Docker in Testdriven - Part II - 5
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-25 20:49:28" itemprop="dateCreated datePublished" datetime="2018-09-25T20:49:28+08:00">2018-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="React-Setup"><a href="#React-Setup" class="headerlink" title="React Setup"></a>React Setup</h1><p>让我们将注意力转向客户端并添加 <a target="_blank" rel="noopener" href="https://reactjs.org/">React</a> 。</p>
+<p>React 是基于组件的 JavaScript 库，用于构建用户界面。</p>
+<p>如果您是一个 React 新手，请了解 <a target="_blank" rel="noopener" href="https://reactjs.org/tutorial/tutorial.html">tutorial</a> 和 <a target="_blank" rel="noopener" href="https://reactjs.org/blog/2013/06/05/why-react.html">Why did we build React?</a>。您也可能一步步通过 <a target="_blank" rel="noopener" href="https://github.com/mjhea0/react-intro">Intro to React</a> 教程来学习 <a target="_blank" rel="noopener" href="https://babeljs.io/">Babel</a> 和 <a target="_blank" rel="noopener" href="https://webpack.github.io/">Webpack</a> 。</p>
+<span id="more"></span>
+
+<p>确保安装了 Node 和 NPM ，我是通过 <a target="_blank" rel="noopener" href="https://github.com/creationix/nvm">NVM</a> 来安装的：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">v10.4.1</span><br><span class="line"></span><br><span class="line">$ npm -v</span><br><span class="line">6.1.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="项目设置"><a href="#项目设置" class="headerlink" title="项目设置"></a>项目设置</h2><p>我们使用强大的 <a target="_blank" rel="noopener" href="https://github.com/facebookincubator/create-react-app">Create React App</a> 来生成所有设置都准备好的样板。</p>
+<p>创建模板：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cd services</span><br><span class="line"></span><br><span class="line">$ npx create-react-app client</span><br><span class="line"></span><br><span class="line">$ cd client</span><br><span class="line"></span><br><span class="line">$ yarn start</span><br></pre></td></tr></table></figure>
+
+<p>确保 <a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000</a> 能够访问成功，然后关闭服务。</p>
+<p>接下来是简单的部署过程，移除 <code>package-lock.json</code> ，并且在以后的模块安装中不再生成改文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo &#x27;package-lock=false&#x27; &gt;&gt; .npmrc</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>更多的配置可以参考<a target="_blank" rel="noopener" href="https://docs.npmjs.com/files/npmrc">NPM文档</a> 。</p>
+</blockquote>
+<p>现在我们来构建第一个组件。</p>
+<h2 id="第一个组件"><a href="#第一个组件" class="headerlink" title="第一个组件"></a>第一个组件</h2><p>为了简单化，从 <em>src</em> 目录删除 <code>App.css</code>, <code>App.js</code>, <code>App.test.js</code>, <code>index.css</code>，并更新 <code>index.js</code> ：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&quot;section&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;columns&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;column is-one-third&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">&quot;title is-1 is-1&quot;</span>&gt;</span>All Users<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">hr</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>发生了什么？</p>
+<ol>
+<li>导入 <code>React</code> , <code>ReactDOM</code> 后，我们创建了功能组件 <code>App</code>，并返回 <a target="_blank" rel="noopener" href="https://reactjs.org/docs/introducing-jsx.html">JSX</a> 。</li>
+<li>在 <code>ReactDOM</code> 中使用 <code>render</code> 方法来加载应用到 HTML 元素的根节点 <code>root</code> 。</li>
+</ol>
+<blockquote>
+<p>注意，<em>public/index.html</em> 里面的 <code>&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</code> 。</p>
+</blockquote>
+<p>添加 <a target="_blank" rel="noopener" href="https://bulma.io/">Bulma</a> 样式到 <em>public/index.html</em> 的 <code>head</code> 元素内：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span></span></span><br><span class="line"><span class="tag">  <span class="attr">href</span>=<span class="string">&quot;//cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br></pre></td></tr></table></figure>
+<p>再次启动服务来看看效果：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yarn start</span><br></pre></td></tr></table></figure>
+
+<h2 id="基类组件"><a href="#基类组件" class="headerlink" title="基类组件"></a>基类组件</h2><p>修改 <code>index.js</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;  <span class="comment">// new</span></span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// new</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&quot;section&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;columns&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;column is-one-third&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">&quot;title is-1&quot;</span>&gt;</span>All Users<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">hr</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>发生了什么？</p>
+<ol>
+<li>我们创建了一个基类组件，当实例被创建的时候自动运行。</li>
+<li>运行时，<code>super()</code> 调用 <code>App</code> 扩展组件的构造器。</li>
+</ol>
+<p>您可能已经注意到，尽管使用了基类组件，但是浏览器输出的内容和之前是相同的，接下来我们就会看到不同之处了。</p>
+<h2 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h2><p>为了连接客户端和服务端，添加 <code>getUsers()</code> 方法到 <code>App</code> 类，使用 <a target="_blank" rel="noopener" href="https://github.com/mzabriskie/axios">Axios</a> 来管理 AJAX 调用：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">getUsers</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  axios.get(<span class="string">`<span class="subst">$&#123;process.env.REACT_APP_USERS_SERVICE_URL&#125;</span>/users`</span>)</span><br><span class="line">  .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(res); &#125;)</span><br><span class="line">  .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(err); &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>安装 Axios ：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yarn add axios</span><br></pre></td></tr></table></figure>
+
+<p>添加导入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import axios from &#x27;axios&#x27;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;  <span class="comment">// new</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// new</span></span><br><span class="line">  <span class="function"><span class="title">getUsers</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    axios.get(<span class="string">`<span class="subst">$&#123;process.env.REACT_APP_USERS_SERVICE_URL&#125;</span>/users`</span>)</span><br><span class="line">    .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(res); &#125;)</span><br><span class="line">    .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(err); &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&quot;section&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;columns&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;column is-one-third&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">&quot;title is-1&quot;</span>&gt;</span>All Users<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">hr</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>为了连接 <code>users</code> 服务，打开另一个终端窗口，回到项目的根目录，并更新容器和测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ docker-compose -f docker-compose-dev.yml up -d</span><br><span class="line"></span><br><span class="line">$ docker-compose -f docker-compose-dev.yml run users python manage.py test</span><br></pre></td></tr></table></figure>
+
+<p>现在，回到 React ，我们需要添加<a target="_blank" rel="noopener" href="https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-custom-environment-variables">环境变量</a> <code>process.env.REACT_APP_USERS_SERVICE_URL</code> 。终止当前的 React 应用，并执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ export REACT_APP_USERS_SERVICE_URL=http://localhost</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>所有自定义的环境变量必须以 <code>REACT_APP_</code> 开头。更多的请参考<a target="_blank" rel="noopener" href="https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-custom-environment-variables">文档</a> 。</p>
+</blockquote>
+<p>我们需要调用 <code>getUsers()</code> 方法，放置到构造函数 <code>constructor</code> 中：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="built_in">super</span>();</span><br><span class="line">  <span class="built_in">this</span>.getUsers();  <span class="comment">// new</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器的日志中可以看到如下错误的输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Failed to load http://localhost/users:</span><br><span class="line">No &#x27;Access-Control-Allow-Origin&#x27; header is present on the requested resource.</span><br><span class="line">Origin &#x27;http://localhost:3000&#x27; is therefore not allowed access.</span><br></pre></td></tr></table></figure>
+
+<p>简而言之，我们需要跨域（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">cross-origin</a>）的 AJAX 请求（从 <code>http://127.0.0.1:3000</code> 到 <code>http://localhost</code>），这违背了浏览器的“同源策略（same origin policy）”。幸运的是，我们使用 <a target="_blank" rel="noopener" href="https://flask-cors.readthedocs.io/en/latest/">Flask-CORS</a> 来处理它。</p>
+<p>回到项目根目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install flask-cors</span><br><span class="line"></span><br><span class="line">pip freeze &gt; services/users/requirements.txt</span><br></pre></td></tr></table></figure>
+
+
+<p>为了保持简单，让我们的所有路由在任何域都允许跨域请求。<br><code>services/users/project/__init__.py</code>:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask_cors <span class="keyword">import</span> CORS</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_app</span>(<span class="params">script_info=<span class="literal">None</span></span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># instantiate the app</span></span><br><span class="line">    app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># enable CORS</span></span><br><span class="line">    CORS(app)  <span class="comment"># new</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># set config</span></span><br><span class="line">    app_settings = os.getenv(<span class="string">&#x27;APP_SETTINGS&#x27;</span>)</span><br><span class="line">    app.config.from_object(app_settings)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># set up extensions</span></span><br><span class="line">    db.init_app(app)</span><br><span class="line">    toolbar.init_app(app)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># register blueprints</span></span><br><span class="line">    <span class="keyword">from</span> project.api.users <span class="keyword">import</span> users_blueprint</span><br><span class="line">    app.register_blueprint(users_blueprint)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># shell context for flask cli</span></span><br><span class="line"><span class="meta">    @app.shell_context_processor</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ctx</span>():</span></span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&#x27;app&#x27;</span>: app, <span class="string">&#x27;db&#x27;</span>: db&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app</span><br></pre></td></tr></table></figure>
+
+<p>更新容器并生产种子数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ docker-compose -f docker-compose-dev.yml up -d --build</span><br><span class="line"></span><br><span class="line">$ docker-compose -f docker-compose-dev.yml run users python manage.py recreate_db</span><br><span class="line"></span><br><span class="line">$ docker-compose -f docker-compose-dev.yml run users python manage.py seed_db</span><br></pre></td></tr></table></figure>
+
+<p>再次刷新浏览器，应该可以看到正确的日志输出了：</p>
+<center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/0923/006.png)
+</center>
+
+
+<p>让我们解析 JSON 对象：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">getUsers</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  axios.get(<span class="string">`<span class="subst">$&#123;process.env.REACT_APP_USERS_SERVICE_URL&#125;</span>/users`</span>)</span><br><span class="line">  .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(res.data.data); &#125;)  <span class="comment">// new</span></span><br><span class="line">  .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(err); &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>现在可以看到日志输出了包含两个对象的数组：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;active&quot;: true,</span><br><span class="line">    &quot;email&quot;: &quot;hermanmu@gmail.com&quot;,</span><br><span class="line">    &quot;id&quot;: 1,</span><br><span class="line">    &quot;username&quot;: &quot;michael&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;active&quot;: true,</span><br><span class="line">    &quot;email&quot;: &quot;michael@mherman.org&quot;,</span><br><span class="line">    &quot;id&quot;: 2,</span><br><span class="line">    &quot;username&quot;: &quot;michaelherman&quot;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>在继续之前，我们需要快速重构。记住我们在构造函数 <code>constructor</code> 中调用的 <code>getUsers()</code> 方法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="built_in">super</span>();</span><br><span class="line">  <span class="built_in">this</span>.getUsers();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>好的，在组件加载到 DOM 之前，<code>constructor</code> 的火力十足。如果 AJAX 请求花费的时间比预期的长，并且请求完成之前组件已经加载了会发生什么？这就要引入竞争条件（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Race_condition">race condition</a>） 。幸运的是，React 的生命周期方法很容易实现。</p>
+<h2 id="组件生命周期方法"><a href="#组件生命周期方法" class="headerlink" title="组件生命周期方法"></a>组件生命周期方法</h2><center>
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/2018/0923/007.jpg)
+</center>
+
+
+<p>AJAX 在 <code>componentDidMount()</code> 方法中被调用：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.getUsers();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>更新组件：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// new</span></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// new</span></span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.getUsers();</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="function"><span class="title">getUsers</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    axios.get(<span class="string">`<span class="subst">$&#123;process.env.REACT_APP_USERS_SERVICE_URL&#125;</span>/users`</span>)</span><br><span class="line">    .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(res.data.data); &#125;)</span><br><span class="line">    .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(err); &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&quot;section&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;columns&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;column is-one-third&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">&quot;title is-1&quot;</span>&gt;</span>All Users<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">hr</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>确保应用仍然像之前一样工作。</p>
+<h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><p>添加状态（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/State_(computer_science)">state</a>，例如用户（users），组件需要使用 <code>setState()</code>, 这是一个更新状态的异步函数。</p>
+<p>更新 <code>getUsers()</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">getUsers</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  axios.get(<span class="string">`<span class="subst">$&#123;process.env.REACT_APP_USERS_SERVICE_URL&#125;</span>/users`</span>)  <span class="comment">// new</span></span><br><span class="line">  .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123; <span class="built_in">this</span>.setState(&#123; <span class="attr">users</span>: res.data.data.users &#125;); &#125;)</span><br><span class="line">  .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(err); &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>添加状态到构造器 <code>constructor</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="built_in">super</span>();</span><br><span class="line">  <span class="comment">// new</span></span><br><span class="line">  <span class="built_in">this</span>.state = &#123;</span><br><span class="line">    <span class="attr">users</span>: []</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>因此，<code>this.state</code> 添加状态 <code>property</code> 到类并将 <code>users</code> 放置到一个空数组。</p>
+<blockquote>
+<p>详细可以查看 <a target="_blank" rel="noopener" href="https://reactjs.org/docs/state-and-lifecycle.html#using-state-correctly">Using State Correctly</a> 。</p>
+</blockquote>
+<p>最后，更新 <code>render()</code> 方法来展示数据：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&quot;section&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;columns&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;column is-one-third&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">&quot;title is-1&quot;</span>&gt;</span>All Users<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">hr</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            &#123;/* new */&#125;</span></span><br><span class="line"><span class="xml">            &#123;</span></span><br><span class="line"><span class="xml">              this.state.users.map((user) =&gt; &#123;</span></span><br><span class="line"><span class="xml">                return (</span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;<span class="name">h4</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">                    <span class="attr">key</span>=<span class="string">&#123;user.id&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">                    <span class="attr">className</span>=<span class="string">&quot;box title is-4&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">                  &gt;</span>&#123; user.username &#125;</span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span></span><br><span class="line"><span class="xml">                )</span></span><br><span class="line"><span class="xml">              &#125;)</span></span><br><span class="line"><span class="xml">            &#125;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发生了什么？</p>
+<ol>
+<li>迭代来自 AJAX 请求的用户，并创建了 <code>h4</code> 元素。这就是为什么我们需要设置空数组的初始化状态——防止 <code>map</code> 异常。</li>
+<li><code>key</code> 用于 React 跟踪每一个元素，参考<a target="_blank" rel="noopener" href="https://facebook.github.io/react/docs/lists-and-keys.html#keys">文档</a>。</li>
+</ol>
+<h2 id="功能组件"><a href="#功能组件" class="headerlink" title="功能组件"></a>功能组件</h2><p>我们为用户列表创建一个功能组件。</p>
+<p><code>services/client/src/components/UsersList.jsx</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> UsersList = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      &#123;</span></span><br><span class="line"><span class="xml">        props.users.map((user) =&gt; &#123;</span></span><br><span class="line"><span class="xml">          return (</span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">h4</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">              <span class="attr">key</span>=<span class="string">&#123;user.id&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">              <span class="attr">className</span>=<span class="string">&quot;box title is-4&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">            &gt;</span>&#123; user.username &#125;</span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span></span><br><span class="line"><span class="xml">          )</span></span><br><span class="line"><span class="xml">        &#125;)</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> UsersList;</span><br></pre></td></tr></table></figure>
+
+<p>为什么我们使用更能组件而不是基类组件呢？</p>
+<p>注意我们在组件中是如何使用 <code>props</code> 取代 <code>state</code> 的。本质上，我们可以通过 <code>props</code> 或者 <code>state</code> 到达组件：</p>
+<ol>
+<li><code>props</code> —— 数据流下至 <code>props</code> （从 <code>state</code> 到 <code>props</code>），只读。</li>
+<li><code>state</code> —— 数据绑定到组件，读取和写入。</li>
+</ol>
+<blockquote>
+<p>更多的请查看 <a target="_blank" rel="noopener" href="http://lucybain.com/blog/2016/react-state-vs-pros/">ReactJS: Props vs. State</a></p>
+</blockquote>
+<p>限制基于类的（有状态的）组件的数量是一种很好的做法，因为它们可以操纵状态，因此不太可预测。如果您只需要渲染数据（如上例所示），则使用功能（无状态）组件。</p>
+<p>现在我们需要将状态从父组件传递给子组件 <em>props</em> 。首先，将导入添加到 <em>index.js</em> ：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> UsersList <span class="keyword">from</span> <span class="string">&#x27;./components/UsersList&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&quot;section&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;columns&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;column is-one-third&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">&quot;title is-1&quot;</span>&gt;</span>All Users<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">hr</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">UsersList</span> <span class="attr">users</span>=<span class="string">&#123;this.state.users&#125;/</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>查看每个组件中的代码，并根据需要添加注释。提交你的代码。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/testdriven/" rel="tag"># testdriven</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/25/python-flask-react-docker-testdriven-2-4/" rel="prev" title="Flask React Docker in Testdriven - Part II - 4">
+      <i class="fa fa-chevron-left"></i> Flask React Docker in Testdriven - Part II - 4
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/09/25/python-flask-react-docker-testdriven-2-6/" rel="next" title="Flask React Docker in Testdriven - Part II - 6">
+      Flask React Docker in Testdriven - Part II - 6 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React-Setup"><span class="nav-number">1.</span> <span class="nav-text">React Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">项目设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BB%84%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">第一个组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%B1%BB%E7%BB%84%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">基类组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AJAX"><span class="nav-number">1.4.</span> <span class="nav-text">AJAX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">组件生命周期方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81"><span class="nav-number">1.6.</span> <span class="nav-text">状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E7%BB%84%E4%BB%B6"><span class="nav-number">1.7.</span> <span class="nav-text">功能组件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;medium.com&#x2F;javascript-scene&#x2F;master-the-javascript-interview-what-is-a-promise-27fc71e77261  什么是Promisetypeof new Promise((resolve, reject) &#x3D;&gt; &amp;#123;&amp;#125;) &#x3D;&#x3D;&#x3D; &amp;#x27;object&amp;#x27; &#x2F;&#x2F; true">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js promise learn">
+<meta property="og:url" content="http://yoursite.com/2018/05/12/js-promise-learn/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="https:&#x2F;&#x2F;medium.com&#x2F;javascript-scene&#x2F;master-the-javascript-interview-what-is-a-promise-27fc71e77261  什么是Promisetypeof new Promise((resolve, reject) &#x3D;&gt; &amp;#123;&amp;#125;) &#x3D;&#x3D;&#x3D; &amp;#x27;object&amp;#x27; &#x2F;&#x2F; true">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-05-12T01:28:09.000Z">
+<meta property="article:modified_time" content="2020-06-24T15:30:43.649Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="es6">
+<meta property="article:tag" content="promise">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/05/12/js-promise-learn/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>js promise learn | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/12/js-promise-learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          js promise learn
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-05-12 09:28:09" itemprop="dateCreated datePublished" datetime="2018-05-12T09:28:09+08:00">2018-05-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261">https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261</a></p>
+</blockquote>
+<h1 id="什么是Promise"><a href="#什么是Promise" class="headerlink" title="什么是Promise"></a>什么是Promise</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;&#125;) === <span class="string">&#x27;object&#x27;</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p><em>Promise</em>是一个Object，其可能在未来某个时间产生一个值：既可能是已解决（<code>resolved</code>）的值，也可能是未解决的（例如，出现了网络错误）。</p>
+<p><em>Promise</em>有三种状态：</p>
+<ul>
+<li><em>fulfilled</em></li>
+<li><em>rejected</em></li>
+<li><em>pending</em></li>
+</ul>
+<p>确保用户可以捕捉回调处理已完成的值（<code>fulfilled</code>）或者被拒绝的原因（<code>rejection</code>）。</p>
+<p>一旦<em>promise</em>构造函数被调用，Promise忠诚的处理任何任务。如果您需要懒惰式的话，可以了解以下<a target="_blank" rel="noopener" href="https://github.com/Reactive-Extensions/RxJS">observables</a>或<a target="_blank" rel="noopener" href="https://github.com/rpominov/fun-task">tasks</a>。</p>
+<span id="more"></span>
+
+<h1 id="一份不完整的Promise历史"><a href="#一份不完整的Promise历史" class="headerlink" title="一份不完整的Promise历史"></a>一份不完整的Promise历史</h1><p>早起的Promise实现以及特性（或者类似想法）起始于诸如早在1980现代的<em>MultiLisp</em>和<em>Concurrent Prolog</em>语言。<em>promise</em>一词于1988年被Barbara Liskov 和 Liuba Shrira引用。</p>
+<p>第一次听说promise时，是全新的<em>Node</em>社区在讨论一种最好的方式来实现异步行为。社区尝试使用promise，但是最终选定<em>Node</em>标准的<em>error-first</em>回调。</p>
+<p>大约在同一时间，<em>Dojo</em>在其延时API中添加了promise。日益增长的兴趣和活动最终有了新的<em>Promises/A</em>规范设计以实现各种promise的彼此协作。</p>
+<p><em>jQuery</em>的异步行为围绕Promise重构，它对promise的支持与<em>Dojo</em>延时很相似，并迅速变成了一度最普遍的promise实现。然而，它不支持两个通道（fulfilled / rejected）的链接行为和异常管理，这是我们期望在promise上构建的工具。</p>
+<p>尽管有这些弱点，<em>jQuery</em>官方让promise成为主流，并有更好的独立于promise的库，类似 <em>Q</em>，而且 <em>Bluebird</em> 变得很受欢迎。<em>jQuery</em>的实现与promise规范的一些重要分类不兼容，后者重写了*<a target="_blank" rel="noopener" href="https://promisesaplus.com/">Promises/A+</a>*规范。</p>
+<p>ES6让这一规范顺从Promise，并且一些重要的APIs建立在新标准的Promise支持：尤其是<a target="_blank" rel="noopener" href="https://fetch.spec.whatwg.org/">WHATWG Fetch</a>规范和<a target="_blank" rel="noopener" href="https://tc39.github.io/ecmascript-asyncawait/"> Async Functions</a>标准。</p>
+<p>这里描述的Promise是兼容于*Promises/A+*规范，并关注于ES6标准的Promise实现。</p>
+<h1 id="Promises如何工作"><a href="#Promises如何工作" class="headerlink" title="Promises如何工作"></a>Promises如何工作</h1><p>Promise是一个对象，可以从异步函数中返回同步结果，重申一遍，其有3种状态：</p>
+<ul>
+<li><strong>Fulfilled:</strong> <code>onFulfilled()</code>将被调用（例如<code>resolve()</code>被调用）。</li>
+<li><strong>Rejected:</strong> <code>onRejected()</code>将被调用（例如<code>reject()</code>被调用）。</li>
+<li><strong>Pending:</strong> 还未履行或者被拒绝。</li>
+</ul>
+<p>如果一个promise不是在等待中的话，其被固化下来（状态要么是<em>履行</em>或<em>拒绝</em>）。有时我们使用<em>resolved</em>和<em>settled</em>表示同样的意思：<em>非等待</em>。</p>
+<p>Promise一旦固化，将不能再重新固化，再次调用<code>resolve()</code>或<code>rejecte()</code>将毫无影响，已固化的Promise的不可变是其很重要的一个特性。</p>
+<p>传统的JavaScript Promise没有暴露promise状态。反而，我们期望把promise当做黑盒子，只有函数负责创建promise并熟知promise状态，或访问解决，或拒绝。</p>
+<p>这是一个返回promise的函数，其将在特定延时后解决（resolve）：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> wait = <span class="function"><span class="params">time</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, time));</span><br><span class="line"></span><br><span class="line">wait(<span class="number">3000</span>).then(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;Hello Promise!&#x27;</span>)); <span class="comment">// &#x27;Hello Promise!&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>上面的代码等价于：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> wait = <span class="function"><span class="keyword">function</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(resolve, time);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">wait(<span class="number">3000</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Hello Promise!&#x27;</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>这段代码将等待3秒钟，然后打印<code>Hello Promise!</code>。所有的Promise规范定义了<code>.then()</code>方法，我们可以用以处理resolved或者rejected的值。</p>
+<p>ES6 Promise的构造函数接受一个函数，其带有两个参数：<code>resolve()</code>和<code>reject()</code>。在上面的例子中，我们只是用了<code>resolve()</code>，因此我们在参数列表中避开了<code>reject()</code>。接着我们调用<code>setTimeout()</code>来创建延迟，并在延迟结束时调用<code>resolve()</code>。</p>
+<p>我们可以选择<code>resolve()</code>或<code>reject()</code>使用值，这些值将传递给附带的回调函数<code>.then()</code>。</p>
+<p>当<code>reject()</code>有值时，我们总是传递<code>Error</code>对象，一般来说，我们需要两种可能的解析状态：正常愉快的途径，或者异常——阻止正常愉快途径发生的任何事情。传递<code>Error</code>对象来明确的表明。</p>
+<h1 id="重要的Promise规则"><a href="#重要的Promise规则" class="headerlink" title="重要的Promise规则"></a>重要的Promise规则</h1><p>标准的Promise遵循<a target="_blank" rel="noopener" href="https://promisesaplus.com/implementations">Promises/A+ specification</a>规范。基于此标准有许多promise实现，包括JavaScript标准的ECMAScript promises。</p>
+<p>Promise必须遵循一组特定的规则：</p>
+<ul>
+<li>promise或者是thenable是一个提供了标准的<code>then()</code>方法的对象。</li>
+<li>Pending Promise能转换成已履行或者被拒绝的状态。</li>
+<li>fulfilled或者rejected promise一旦固化，将不能转换成任何其他状态。</li>
+<li>一旦promise被固化，它必须有值（也可能是<code>undefined</code>），该值不能再做改变。</li>
+</ul>
+<p>在上下文中的改变是指一致性比较（<code>===</code>），一个对象可能被用于已履行的值，并且对象属性可能变异。</p>
+<p>每一个promise必须提供一个具有以下样式的<code>.then()</code>方法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">promise.then(</span><br><span class="line">  onFulfilled?: <span class="built_in">Function</span>,</span><br><span class="line">  onRejected?: <span class="built_in">Function</span></span><br><span class="line">) =&gt; <span class="built_in">Promise</span></span><br></pre></td></tr></table></figure>
+
+<p><code>.then()</code>必须遵循这些规则：</p>
+<ul>
+<li><code>onFulfilled()</code>和<code>onRejected()</code>是可选的</li>
+<li>如果提供的参数不是函数，则必须忽略它们</li>
+<li><code>onFulfilled()</code>将在promise履行后调用，promise的值作为第一个参数</li>
+<li><code>onRejected()</code>将在promise被拒绝后调用，并以拒绝的原因作为第一个实参（argument）。该原因可能是任何有效的JavaScript值，但拒绝本质上与异常是同义的，所以我推荐使用<em>Error</em>对象</li>
+<li>可能不止一次的调用既没有<code>onFulfilled()</code>也没用<code>onRejected()</code>的情景</li>
+<li><code>.then()</code>可能在同一个promise里调用多次。换句话说，promise可以用于回调集合</li>
+<li><code>.then()</code>必须返回一个新的promise，<code>promise2</code></li>
+<li>如果<code>onFulfilled()</code>或<code>onRejected()</code>返回一个值<code>x</code>，并且<code>x</code>是一个promise，那么<code>promise2</code>将锁定<code>x</code>（假设状态和值相同），否则<code>promise2</code>将履行值<code>x</code></li>
+<li>如果<code>onFulfilled()</code>或<code>onRejected()</code>抛出异常<code>e</code>，<code>promise2</code>必须被拒绝并以<code>e</code>作为原因</li>
+<li>如果<code>onFulfilled()</code>不是函数并且<code>promise1</code>已履行，<code>promise2</code>必须以与<code>promise1</code>同样的值被履行</li>
+<li>如果<code>onRejected()</code>不是函数并且<code>promise1</code>被拒绝，<code>promise2</code>必须以与<code>promise1</code>同样的原因被拒绝行</li>
+</ul>
+<h1 id="Promise链接"><a href="#Promise链接" class="headerlink" title="Promise链接"></a>Promise链接</h1><p>因为<code>.then()</code>总是返回一个新的promise，所以可以将promises的精确控制和错误位置链接起来处理。Promises允许我们模仿同步代码的<code>try / catch</code>行为。</p>
+<p>类似同步代码，链接将导致一个串行允许的序列。换句话说，我们可以这样做：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">fetch(url)</span><br><span class="line">    .then(process)</span><br><span class="line">    .then(save)</span><br><span class="line">    .catch(handleErrors)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+<p>假设每个函数<code>fetch()</code>, <code>process()</code>, <code>save()</code>返回promises，<code>process()</code>将等待<code>fetch()</code>到开始前完成，<code>save()</code>将等待<code>fetch()</code>到开始前完成。<code>handleErrors()</code>将仅在之前的任何promises被拒绝时运行。</p>
+<p>这是一个带有多重<em>拒绝</em>的复制的promise链接的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> wait = <span class="function"><span class="params">time</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(</span><br><span class="line">  <span class="function"><span class="params">res</span> =&gt;</span> <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> res(), time)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">wait(<span class="number">200</span>)</span><br><span class="line">  <span class="comment">// onFulfilled() can return a new promise, `x`</span></span><br><span class="line">  .then(<span class="function">() =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">res</span> =&gt;</span> res(<span class="string">&#x27;foo&#x27;</span>)))</span><br><span class="line">  <span class="comment">// the next promise will assume the state of `x`</span></span><br><span class="line">  .then(<span class="function"><span class="params">a</span> =&gt;</span> a)</span><br><span class="line">  <span class="comment">// Above we returned the unwrapped value of `x`</span></span><br><span class="line">  <span class="comment">// so `.then()` above returns a fulfilled promise</span></span><br><span class="line">  <span class="comment">// with that value:</span></span><br><span class="line">  .then(<span class="function"><span class="params">b</span> =&gt;</span> <span class="built_in">console</span>.log(b)) <span class="comment">// &#x27;foo&#x27;</span></span><br><span class="line">  <span class="comment">// Note that `null` is a valid promise value:</span></span><br><span class="line">  .then(<span class="function">() =&gt;</span> <span class="literal">null</span>)</span><br><span class="line">  .then(<span class="function"><span class="params">c</span> =&gt;</span> <span class="built_in">console</span>.log(c)) <span class="comment">// null</span></span><br><span class="line">  <span class="comment">// The following error is not reported yet:</span></span><br><span class="line">  .then(<span class="function">() =&gt;</span> &#123;<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;foo&#x27;</span>);&#125;)</span><br><span class="line">  <span class="comment">// Instead, the returned promise is rejected</span></span><br><span class="line">  <span class="comment">// with the error as the reason:</span></span><br><span class="line">  .then(</span><br><span class="line">    <span class="comment">// Nothing is logged here due to the error above:</span></span><br><span class="line">    <span class="function"><span class="params">d</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">`d: <span class="subst">$&#123; d &#125;</span>`</span>),</span><br><span class="line">    <span class="comment">// Now we handle the error (rejection reason)</span></span><br><span class="line">    <span class="function"><span class="params">e</span> =&gt;</span> <span class="built_in">console</span>.log(e)) <span class="comment">// [Error: foo]</span></span><br><span class="line">  <span class="comment">// With the previous exception handled, we can continue:</span></span><br><span class="line">  .then(<span class="function"><span class="params">f</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">`f: <span class="subst">$&#123; f &#125;</span>`</span>)) <span class="comment">// f: undefined</span></span><br><span class="line">  <span class="comment">// The following doesn&#x27;t log. e was already handled,</span></span><br><span class="line">  <span class="comment">// so this handler doesn&#x27;t get called:</span></span><br><span class="line">  .catch(<span class="function"><span class="params">e</span> =&gt;</span> <span class="built_in">console</span>.log(e))</span><br><span class="line">  .then(<span class="function">() =&gt;</span> &#123; <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;bar&#x27;</span>); &#125;)</span><br><span class="line">  <span class="comment">// When a promise is rejected, success handlers get skipped.</span></span><br><span class="line">  <span class="comment">// Nothing logs here because of the &#x27;bar&#x27; exception:</span></span><br><span class="line">  .then(<span class="function"><span class="params">g</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">`g: <span class="subst">$&#123; g &#125;</span>`</span>))</span><br><span class="line">  .catch(<span class="function"><span class="params">h</span> =&gt;</span> <span class="built_in">console</span>.log(h)) <span class="comment">// [Error: bar]</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Error处理"><a href="#Error处理" class="headerlink" title="Error处理"></a>Error处理</h1>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/es6/" rel="tag"># es6</a>
+              <a href="/tags/promise/" rel="tag"># promise</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/05/08/js-awesome/" rel="prev" title="JavaScript Awesome">
+      <i class="fa fa-chevron-left"></i> JavaScript Awesome
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/05/13/wechat-awesome/" rel="next" title="Wechat Awesome">
+      Wechat Awesome <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFPromise"><span class="nav-number">1.</span> <span class="nav-text">什么是Promise</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%BB%BD%E4%B8%8D%E5%AE%8C%E6%95%B4%E7%9A%84Promise%E5%8E%86%E5%8F%B2"><span class="nav-number">2.</span> <span class="nav-text">一份不完整的Promise历史</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promises%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">Promises如何工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E7%9A%84Promise%E8%A7%84%E5%88%99"><span class="nav-number">4.</span> <span class="nav-text">重要的Promise规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">Promise链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Error%E5%A4%84%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">Error处理</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

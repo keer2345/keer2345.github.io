@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Microservices https:&#x2F;&#x2F;testdriven.io  微服务架构使得大型应用分解成一些小型服务并相互通信。每个服务都是独立的，可部署、升级、扩展以及替换，与整体分开。服务之间的通信通常通过HTTP调用（请求&#x2F;响应）在网络连接上进行。Web套接字，消息队列和远程过程调用（RPC）也可用于连接独立组件。 每个独立的服务专注于单一任务，分离业务单元，并由 Restful 来沟通管理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask React Docker in Testdriven - Part I - 02">
+<meta property="og:url" content="http://yoursite.com/2018/09/23/python-flask-react-docker-testdriven-1-02/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="Microservices https:&#x2F;&#x2F;testdriven.io  微服务架构使得大型应用分解成一些小型服务并相互通信。每个服务都是独立的，可部署、升级、扩展以及替换，与整体分开。服务之间的通信通常通过HTTP调用（请求&#x2F;响应）在网络连接上进行。Web套接字，消息队列和远程过程调用（RPC）也可用于连接独立组件。 每个独立的服务专注于单一任务，分离业务单元，并由 Restful 来沟通管理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-09-23T12:47:14.000Z">
+<meta property="article:modified_time" content="2020-06-24T15:30:43.666Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="testdriven">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/09/23/python-flask-react-docker-testdriven-1-02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Flask React Docker in Testdriven - Part I - 02 | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/23/python-flask-react-docker-testdriven-1-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask React Docker in Testdriven - Part I - 02
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-23 20:47:14" itemprop="dateCreated datePublished" datetime="2018-09-23T20:47:14+08:00">2018-09-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Microservices"><a href="#Microservices" class="headerlink" title="Microservices"></a>Microservices</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://testdriven.io/">https://testdriven.io</a></p>
+</blockquote>
+<p>微服务架构使得大型应用分解成一些小型服务并相互通信。每个服务都是独立的，可部署、升级、扩展以及替换，与整体分开。服务之间的通信通常通过HTTP调用（请求/响应）在网络连接上进行。<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/WebSocket">Web套接字</a>，<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Remote_procedure_call">消息队列和远程过程调用</a>（RPC）也可用于连接独立组件。</p>
+<p>每个独立的服务专注于单一任务，分离业务单元，并由 Restful 来沟通管理。</p>
+<p>本课程的目标是用微服务来开发应用。很少深究原因，而是专注于如何实现。微服务并不容易，伴随着一系列挑战和难以解决的问题。在开始之前请牢记这一点。</p>
+<span id="more"></span>
+
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><h3 id="分离"><a href="#分离" class="headerlink" title="分离"></a>分离</h3><p>通过明确的分离，开发者可以专注于自己的专业领域，如语言、框架、依赖、工具和构建。</p>
+<p>例如，前端 JavaScript 工程师开发面向客户端的视图，无需了解后端 API 的底层代码。可以自由选择语言和框架，只需要通过 AJAX 访问 Restful API 来与后端通讯。换句话说，开发人员可以将服务视为黑盒子，因为服务通过API进行通信。隐藏了实际的实现和复杂性。</p>
+<p>也就是说，创建一些组织范围的标准是一个好主意，以帮助确保每个团队可以一起工作和运作 - 例如代码质量和样式检查，代码审查，API设计。</p>
+<p>明确地分离意味着错误主要局限于开发者正在处理的服务。因此可以将不太重要的服务分配给初级开发者，如果他使其服务瘫痪了，也不会影响到其他服务。</p>
+<p>轻耦合也使得应用易于扩展，因为每个服务可以单独部署。也有助于团队间相互等待来完成工作的依赖性。</p>
+<h3 id="较小的代码库"><a href="#较小的代码库" class="headerlink" title="较小的代码库"></a>较小的代码库</h3><p>较小的代码库往往更容易理解，因为您不必掌握整个系统。这与实体 API 设计的必要性一起意味着微服务堆栈中的应用程序通常更快开发并且更容易测试，重构和扩展。请记住，在所有服务中保持一致的编码标准非常重要，这样开发人员就可以更轻松地从一种服务转移到另一种服务。</p>
+<h3 id="加速反馈循环"><a href="#加速反馈循环" class="headerlink" title="加速反馈循环"></a>加速反馈循环</h3><p>通过微服务，开发人员通常拥有应用程序的整个生命周期，从开始到交付。而不是将团队与特定的一组技术（如客户端UI，服务器端等）对齐 - 团队更注重产品，负责将应用程序交付给客户自己。因此，他们可以更清楚地了解应用程序在现实世界中的使用方式。这加快了反馈循环，使修复错误和迭代更容易。</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><h3 id="设计复杂性"><a href="#设计复杂性" class="headerlink" title="设计复杂性"></a>设计复杂性</h3><p>决定将一部分应用程序拆分为微服务并非易事。通常更容易将其重构为整体整体内的单独模块而不是将其拆分。</p>
+<p>一旦你拆分服务就没有回头路了。</p>
+<h3 id="网络复杂性"><a href="#网络复杂性" class="headerlink" title="网络复杂性"></a>网络复杂性</h3><p>使用单一应用时，通常一切都在一个进程中进行，因此您不必对其他服务进行非常多的调用。当您将应用程序的各个部分分解为微服务时，您会发现在调用函数之前，您必须先进行网络调用。</p>
+<p>这可能会导致问题，尤其是在多个服务需要相互通信的情况下，从而在网络请求方面产生类似乒乓效应。您还必须考虑完全关闭的服务。</p>
+<h3 id="基础设施"><a href="#基础设施" class="headerlink" title="基础设施"></a>基础设施</h3><p>通过多种服务，复杂性从代码库转移到平台和基础架构。这可能是昂贵的。此外，您必须拥有适当的工具和人力资源来管理它。</p>
+<h3 id="数据持久化"><a href="#数据持久化" class="headerlink" title="数据持久化"></a>数据持久化</h3><p>大多数应用程序都有某种状态层，如数据库或任务队列。微服务堆栈还需要跟踪部署服务的位置和已部署实例的总数，以便在特定服务的新实例启起来时，可以适当地重新路由流量。这通常被称为<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Service_discovery">服务发现</a>。</p>
+<p>由于我们将处理容器，因此我们需要特别注意我们如何处理有状态容器，因为它们不应该崩溃。</p>
+<p>隔离特定服务的状态以使其不被共享或重复是非常困难的。你经常需要处理各种事实来源，这些事实必须经常和解。同样，这归结为设计。</p>
+<h3 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h3><p>通常，在使用微服务架构开发应用程序时，在部署到临时或生产服务器之前，无法完全测试所有服务。这需要很长时间才能获得反馈。幸运的是，Docker 通过在本地更轻松地将小型独立服务链接在一起，有助于加快此过程。</p>
+<p>日志，监视和调试也更加困难。</p>
+<blockquote>
+<p>有关测试微服务的更多信息，请查看<a target="_blank" rel="noopener" href="https://martinfowler.com/articles/microservice-testing/">微服务架构中的测试策略指南</a>。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/testdriven/" rel="tag"># testdriven</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/23/python-flask-react-docker-testdriven-1-01/" rel="prev" title="Flask React Docker in Testdriven - Part I - 01">
+      <i class="fa fa-chevron-left"></i> Flask React Docker in Testdriven - Part I - 01
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/09/23/python-flask-react-docker-testdriven-1-03/" rel="next" title="Flask React Docker in Testdriven - Part I - 03">
+      Flask React Docker in Testdriven - Part I - 03 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Microservices"><span class="nav-number">1.</span> <span class="nav-text">Microservices</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">优点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%A6%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%83%E5%B0%8F%E7%9A%84%E4%BB%A3%E7%A0%81%E5%BA%93"><span class="nav-number">1.1.2.</span> <span class="nav-text">较小的代码库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E9%80%9F%E5%8F%8D%E9%A6%88%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.1.3.</span> <span class="nav-text">加速反馈循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%A4%8D%E6%9D%82%E6%80%A7"><span class="nav-number">1.2.1.</span> <span class="nav-text">设计复杂性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%A4%8D%E6%9D%82%E6%80%A7"><span class="nav-number">1.2.2.</span> <span class="nav-text">网络复杂性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD"><span class="nav-number">1.2.3.</span> <span class="nav-text">基础设施</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">1.2.4.</span> <span class="nav-text">数据持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.5.</span> <span class="nav-text">集成测试</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Introduction Hello World Project Structure Data Layer Data Source Service Layer Web Layer GET Single Bank">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot with Kotlin and JUnit5">
+<meta property="og:url" content="http://yoursite.com/2021/03/31/Spring-Boot-with-Kotlin-and-JUnit5/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="Introduction Hello World Project Structure Data Layer Data Source Service Layer Web Layer GET Single Bank">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-31T15:15:21.000Z">
+<meta property="article:modified_time" content="2021-04-02T14:12:19.008Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="kotlin">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2021/03/31/Spring-Boot-with-Kotlin-and-JUnit5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Spring Boot with Kotlin and JUnit5 | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/31/Spring-Boot-with-Kotlin-and-JUnit5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring Boot with Kotlin and JUnit5
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-31 23:15:21" itemprop="dateCreated datePublished" datetime="2021-03-31T23:15:21+08:00">2021-03-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-02 22:12:19" itemprop="dateModified" datetime="2021-04-02T22:12:19+08:00">2021-04-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ol>
+<li>Introduction</li>
+<li>Hello World</li>
+<li>Project Structure</li>
+<li>Data Layer</li>
+<li>Data Source</li>
+<li>Service Layer</li>
+<li>Web Layer</li>
+<li>GET Single Bank</li>
+</ol>
+<span id="more"></span>
+
+<ul>
+<li><a href="#tutorial-01-introduction">Tutorial 01 Introduction</a><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#create-project">Create Project</a></li>
+</ul>
+</li>
+<li><a href="#tutorial-02-hello-world">Tutorial 02 Hello World</a><ul>
+<li><a href="#hello-world">Hello World</a></li>
+<li><a href="#create-a-rest-controller">Create a REST Controller</a></li>
+</ul>
+</li>
+<li><a href="#tutorial-3-project-structure">Tutorial 3 Project Structure</a></li>
+<li><a href="#tutorial-4-data-layer">Tutorial 4 Data Layer</a></li>
+<li><a href="#tutorial-5-data-source">Tutorial 5 Data Source</a></li>
+<li><a href="#tutorial-6-service-layer">Tutorial 6 Service Layer</a></li>
+<li><a href="#tutorial-7-web-layer">Tutorial 7 Web Layer</a></li>
+<li><a href="#tutorial-8-get-single-bank">Tutorial 8 GET Single Bank</a></li>
+</ul>
+<h1 id="Tutorial-01-Introduction"><a href="#Tutorial-01-Introduction" class="headerlink" title="Tutorial 01 Introduction"></a>Tutorial 01 Introduction</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Video: <a target="_blank" rel="noopener" href="https://youtu.be/TJcshrJOnsE?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr">https://youtu.be/TJcshrJOnsE?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://spring.io/projects">Spring Project</a></li>
+</ul>
+<h2 id="Create-Project"><a href="#Create-Project" class="headerlink" title="Create Project"></a>Create Project</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://start.spring.io/">https://start.spring.io/</a></li>
+</ul>
+<p>Spring Initializr:</p>
+<ul>
+<li>Project: <code>Gradle</code></li>
+<li>Language: <code>Kotlin</code></li>
+<li>Spring Boot: <code>2.5.0 (SNAPSHOT)</code></li>
+<li>Project Metadata<ul>
+<li>Group <code>tv.codealong.tutorials.springboot</code></li>
+<li>Artifact <code>thenewboston</code></li>
+<li>Name <code>thenewboston</code></li>
+<li>Description <code>Spring Boot Tutorial Series for TNB</code></li>
+<li>Package name <code>tv.codealong.tutorials.springboot.thenewboston</code></li>
+<li>Packaging: <code>Jar</code></li>
+<li>Java <code>11</code></li>
+</ul>
+</li>
+<li>Dependences:<ul>
+<li>Spring Web</li>
+</ul>
+</li>
+</ul>
+<h1 id="Tutorial-02-Hello-World"><a href="#Tutorial-02-Hello-World" class="headerlink" title="Tutorial 02 Hello World"></a>Tutorial 02 Hello World</h1><p>Video: <a target="_blank" rel="noopener" href="https://youtu.be/PqNgTV9enbE?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr">https://youtu.be/PqNgTV9enbE?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr</a></p>
+<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">touch src/main/resources/static/index.html</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello Spring Boot<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>Run</code> this project in IntelliJ IDEA, and access <a target="_blank" rel="noopener" href="http://127.0.0.1:8080/">http://127.0.0.1:8080</a> in Browers.</p>
+<h2 id="Create-a-REST-Controller"><a href="#Create-a-REST-Controller" class="headerlink" title="Create a REST Controller"></a>Create a REST Controller</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">touch src/main/kotlin/tv/codealong/tutorials/springboot/thenewboston/HelloWorldController.kt</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> tv.codealong.tutorials.springboot.thenewboston</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.<span class="keyword">annotation</span>.GetMapping</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.<span class="keyword">annotation</span>.RequestMapping</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.<span class="keyword">annotation</span>.RestController</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(<span class="meta-string">&quot;api/hello&quot;</span>)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorldController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">helloWorld</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello, this is a REST endpoint!&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Access: <a target="_blank" rel="noopener" href="http://127.0.0.1:8080/api/hello">http://127.0.0.1:8080/api/hello</a></p>
+<h1 id="Tutorial-3-Project-Structure"><a href="#Tutorial-3-Project-Structure" class="headerlink" title="Tutorial 3 Project Structure"></a>Tutorial 3 Project Structure</h1><p>Video: <a target="_blank" rel="noopener" href="https://youtu.be/j5G4QZy0kZk?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr">https://youtu.be/j5G4QZy0kZk?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr</a></p>
+<p>Three files:</p>
+<ul>
+<li><em>build.gradle.kts</em></li>
+<li><em>settings.gradle.kts</em></li>
+<li><em>gradle/wrapper/gradle-wrapper.properties</em></li>
+</ul>
+<p><strong>gradle-wrapper.properties</strong></p>
+<p>Gradle Version in: <em>gradle/wrapper/gradle-wrapper.properties</em></p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">distributionBase</span>=<span class="string">GRADLE_USER_HOME</span></span><br><span class="line"><span class="attr">distributionPath</span>=<span class="string">wrapper/dists</span></span><br><span class="line"><span class="attr">distributionUrl</span>=<span class="string">https\://services.gradle.org/distributions/gradle-6.8.3-bin.zip</span></span><br><span class="line"><span class="attr">zipStoreBase</span>=<span class="string">GRADLE_USER_HOME</span></span><br><span class="line"><span class="attr">zipStorePath</span>=<span class="string">wrapper/dists</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>./gradlew -v</code></li>
+<li><code>./gradlew clean</code></li>
+<li><code>./gradlew build</code></li>
+</ul>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">spring-boot-thenewboston &gt; ./gradlew -v</span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Gradle <span class="number">6.8</span>.<span class="number">3</span></span><br><span class="line">------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">Build time:   <span class="number">2021</span>-<span class="number">02</span>-<span class="number">22</span> <span class="number">16</span>:<span class="number">13</span>:<span class="number">28</span> UTC</span><br><span class="line">Revision:     <span class="number">9</span>e26b4a9ebb910eaa1b8da8ff8575e514bc61c78</span><br><span class="line"></span><br><span class="line">Kotlin:       <span class="number">1.4</span>.<span class="number">20</span></span><br><span class="line">Groovy:       <span class="number">2.5</span>.<span class="number">12</span></span><br><span class="line"><span class="keyword">Ant</span>:          Apache <span class="keyword">Ant</span>(TM) version <span class="number">1.10</span>.<span class="number">9</span> compiled on September <span class="number">27</span> <span class="number">2020</span></span><br><span class="line">JVM:          <span class="number">11.0</span>.<span class="number">7</span> (Oracle Corporation <span class="number">11.0</span>.<span class="number">7</span>+<span class="number">8</span>-LTS)</span><br><span class="line">OS:           Mac OS X <span class="number">10.15</span>.<span class="number">7</span> x86_64</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">spring-boot-thenewboston &gt; ./gradlew clean</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL in <span class="number">1</span>s</span><br><span class="line"><span class="number">1</span> actionable <span class="keyword">task</span>: <span class="number">1</span> executed</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">spring-boot-thenewboston &gt; ./gradlew build</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL in <span class="number">16</span>s</span><br><span class="line"><span class="number">8</span> actionable tasks: <span class="number">8</span> executed</span><br></pre></td></tr></table></figure>
+
+<h1 id="Tutorial-4-Data-Layer"><a href="#Tutorial-4-Data-Layer" class="headerlink" title="Tutorial 4 Data Layer"></a>Tutorial 4 Data Layer</h1><p>Video: <a target="_blank" rel="noopener" href="https://youtu.be/1D1iL824ssk?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr">https://youtu.be/1D1iL824ssk?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr</a></p>
+<p>Api: <a target="_blank" rel="noopener" href="https://thenewboston.com/bank-api/banks">https://thenewboston.com/bank-api/banks</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">touch src/main/kotlin/tv/codealong/tutorials/springboot/thenewboston/model/Bank.kt</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> tv.codealong.tutorials.springboot.thenewboston.model</span><br><span class="line"></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Bank</span></span>(</span><br><span class="line">    <span class="keyword">val</span> accountNumber: String,</span><br><span class="line">    <span class="keyword">val</span> trust: <span class="built_in">Double</span>,</span><br><span class="line">    <span class="keyword">val</span> transactionFee: <span class="built_in">Int</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Tutorial-5-Data-Source"><a href="#Tutorial-5-Data-Source" class="headerlink" title="Tutorial 5 Data Source"></a>Tutorial 5 Data Source</h1><p>Video: <a target="_blank" rel="noopener" href="https://youtu.be/VVrKvpqAmw8?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr">https://youtu.be/VVrKvpqAmw8?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">touch src/main/kotlin/tv/codealong/tutorials/springboot/thenewboston/datasource/BankDataSource.kt</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> tv.codealong.tutorials.springboot.thenewboston.datasource</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tv.codealong.tutorials.springboot.thenewboston.model.Bank</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">BankDataSource</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">retrieveBanks</span><span class="params">()</span></span>: Collection&lt;Bank&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">touch src/main/kotlin/tv/codealong/tutorials/springboot/thenewboston/datasource/mock/MockBankDataSource.kt</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> tv.codealong.tutorials.springboot.thenewboston.datasource.mock</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository</span><br><span class="line"><span class="keyword">import</span> tv.codealong.tutorials.springboot.thenewboston.datasource.BankDataSource</span><br><span class="line"><span class="keyword">import</span> tv.codealong.tutorials.springboot.thenewboston.model.Bank</span><br><span class="line"></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockBankDataSource</span> : <span class="type">BankDataSource &#123;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> banks = listOf(</span><br><span class="line">        Bank(<span class="string">&quot;aaa&quot;</span>, <span class="number">2.0</span>, <span class="number">1</span>),</span><br><span class="line">        Bank(<span class="string">&quot;bbb&quot;</span>, <span class="number">3.0</span>, <span class="number">2</span>),</span><br><span class="line">        Bank(<span class="string">&quot;ccc&quot;</span>, <span class="number">4.0</span>, <span class="number">3</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">retrieveBanks</span><span class="params">()</span></span>: Collection&lt;Bank&gt; = banks</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">touch src/test/kotlin/tv/codealong/tutorials/springboot/thenewboston/datasource/mock/MockBankDataSourceTest.kt</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> tv.codealong.tutorials.springboot.thenewboston.datasource.mock</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.assertj.core.api.Assertions.assertThat</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test</span><br><span class="line"></span><br><span class="line"><span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">MockBankDataSourceTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mockDataSource: MockBankDataSource = MockBankDataSource()</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> `should provide a collection of banks`<span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// when</span></span><br><span class="line">        <span class="keyword">val</span> banks = mockDataSource.retrieveBanks()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// then</span></span><br><span class="line">        assertThat(banks).isNotEmpty</span><br><span class="line">        assertThat(banks.size).isGreaterThanOrEqualTo(<span class="number">3</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> `should provide some mock <span class="keyword">data</span>`<span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// when</span></span><br><span class="line">        <span class="keyword">val</span> banks = mockDataSource.retrieveBanks()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// then</span></span><br><span class="line">        assertThat(banks).allSatisfy &#123; it.accountNumber.isNotBlank() &#125;</span><br><span class="line">        assertThat(banks).allMatch &#123; it.accountNumber.isNotBlank() &#125;</span><br><span class="line">        assertThat(banks).anyMatch &#123; it.trust != <span class="number">0.0</span> &#125;</span><br><span class="line">        assertThat(banks).anyMatch &#123; it.transactionFee != <span class="number">0</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Tutorial-6-Service-Layer"><a href="#Tutorial-6-Service-Layer" class="headerlink" title="Tutorial 6 Service Layer"></a>Tutorial 6 Service Layer</h1><p>Video: <a target="_blank" rel="noopener" href="https://youtu.be/Icnb3zvya-w?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr">https://youtu.be/Icnb3zvya-w?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr</a></p>
+<ul>
+<li><em>build.gradle.kts</em></li>
+</ul>
+<p>Add <code>testImplementation(&quot;io.mockk:mockk:1.10.4&quot;)</code>:</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    # ...</span><br><span class="line">    testImplementation(<span class="string">&quot;io.mockk:mockk:1.10.4&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><em>src/main/kotlin/tv/codealong/tutorials/springboot/thenewboston/service/BankService.kt</em></li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> tv.codealong.tutorials.springboot.thenewboston.service</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.mockk.mockk</span><br><span class="line"><span class="keyword">import</span> io.mockk.verify</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test</span><br><span class="line"><span class="keyword">import</span> tv.codealong.tutorials.springboot.thenewboston.datasource.BankDataSource</span><br><span class="line"></span><br><span class="line"><span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">BankServiceTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> dataSource: BankDataSource = mockk(relaxed = <span class="literal">true</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> bankService: BankService = BankService(dataSource)</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> `should call its <span class="keyword">data</span> source to retrieve banks`<span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// given</span></span><br><span class="line">        <span class="comment">// every &#123; dataSource.retrieveBanks() &#125; returns emptyList()</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// when</span></span><br><span class="line">        <span class="keyword">val</span> banks = bankService.getBanks()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// then</span></span><br><span class="line">        verify(exactly = <span class="number">1</span>) &#123; dataSource.retrieveBanks() &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><em>src/test/kotlin/tv/codealong/tutorials/springboot/thenewboston/service/BankServiceTest.kt</em></li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> tv.codealong.tutorials.springboot.thenewboston.datasource.mock</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.assertj.core.api.Assertions.assertThat</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test</span><br><span class="line"></span><br><span class="line"><span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">MockBankDataSourceTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mockDataSource: MockBankDataSource = MockBankDataSource()</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> `should provide a collection of banks`<span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// when</span></span><br><span class="line">        <span class="keyword">val</span> banks = mockDataSource.retrieveBanks()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// then</span></span><br><span class="line">        assertThat(banks).isNotEmpty</span><br><span class="line">        assertThat(banks.size).isGreaterThanOrEqualTo(<span class="number">3</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> `should provide some mock <span class="keyword">data</span>`<span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// when</span></span><br><span class="line">        <span class="keyword">val</span> banks = mockDataSource.retrieveBanks()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// then</span></span><br><span class="line">        assertThat(banks).allSatisfy &#123; it.accountNumber.isNotBlank() &#125;</span><br><span class="line">        assertThat(banks).allMatch &#123; it.accountNumber.isNotBlank() &#125;</span><br><span class="line">        assertThat(banks).anyMatch &#123; it.trust != <span class="number">0.0</span> &#125;</span><br><span class="line">        assertThat(banks).anyMatch &#123; it.transactionFee != <span class="number">0</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Tutorial-7-Web-Layer"><a href="#Tutorial-7-Web-Layer" class="headerlink" title="Tutorial 7 Web Layer"></a>Tutorial 7 Web Layer</h1><p>Video: <a target="_blank" rel="noopener" href="https://youtu.be/2e72RHO8ORk?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr">https://youtu.be/2e72RHO8ORk?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr</a></p>
+<ul>
+<li><p><em>src/main/kotlin/tv/codealong/tutorials/springboot/thenewboston/controller/BankController.kt</em></p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> tv.codealong.tutorials.springboot.thenewboston.controller</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.<span class="keyword">annotation</span>.GetMapping</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.<span class="keyword">annotation</span>.RequestMapping</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.<span class="keyword">annotation</span>.RestController</span><br><span class="line"><span class="keyword">import</span> tv.codealong.tutorials.springboot.thenewboston.model.Bank</span><br><span class="line"><span class="keyword">import</span> tv.codealong.tutorials.springboot.thenewboston.service.BankService</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(<span class="meta-string">&quot;/api/banks&quot;</span>)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BankController</span></span>(<span class="keyword">private</span> <span class="keyword">val</span> service: BankService) &#123;</span><br><span class="line">    <span class="meta">@GetMapping</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getBanks</span><span class="params">()</span></span>: Collection&lt;Bank&gt; = service.getBanks()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><em>src/test/kotlin/tv/codealong/tutorials/springboot/thenewboston/controller/BankControllerTest.kt</em></p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> tv.codealong.tutorials.springboot.thenewboston.controller</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.<span class="keyword">annotation</span>.Autowired</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.MediaType</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.MockMvc</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.<span class="keyword">get</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="meta">@AutoConfigureMockMvc</span></span><br><span class="line"><span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">BankControllerTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">lateinit</span> <span class="keyword">var</span> mockMvc: MockMvc</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> `should return all banks`<span class="params">()</span></span> &#123;</span><br><span class="line">        mockMvc.<span class="keyword">get</span>(<span class="string">&quot;/api/banks&quot;</span>)</span><br><span class="line">            .andDo &#123; print() &#125;</span><br><span class="line">            .andExpect &#123;</span><br><span class="line">                status &#123; isOk() &#125;</span><br><span class="line">                content &#123; contentType(MediaType.APPLICATION_JSON) &#125;</span><br><span class="line">                jsonPath(<span class="string">&quot;$[0].accountNumber&quot;</span>) &#123; value(<span class="string">&quot;aaa&quot;</span>) &#125;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>Access to  <a target="_blank" rel="noopener" href="http://127.0.0.1:8080/api/banks">http://127.0.0.1:8080/api/banks</a></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">&#123;</span><br><span class="line"><span class="attr">&quot;accountNumber&quot;</span>: <span class="string">&quot;aaa&quot;</span>,</span><br><span class="line"><span class="attr">&quot;trust&quot;</span>: <span class="number">2</span>,</span><br><span class="line"><span class="attr">&quot;transactionFee&quot;</span>: <span class="number">1</span></span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line"><span class="attr">&quot;accountNumber&quot;</span>: <span class="string">&quot;bbb&quot;</span>,</span><br><span class="line"><span class="attr">&quot;trust&quot;</span>: <span class="number">3</span>,</span><br><span class="line"><span class="attr">&quot;transactionFee&quot;</span>: <span class="number">2</span></span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line"><span class="attr">&quot;accountNumber&quot;</span>: <span class="string">&quot;ccc&quot;</span>,</span><br><span class="line"><span class="attr">&quot;trust&quot;</span>: <span class="number">4</span>,</span><br><span class="line"><span class="attr">&quot;transactionFee&quot;</span>: <span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h1 id="Tutorial-8-GET-Single-Bank"><a href="#Tutorial-8-GET-Single-Bank" class="headerlink" title="Tutorial 8 GET Single Bank"></a>Tutorial 8 GET Single Bank</h1><p>Video: <a target="_blank" rel="noopener" href="https://youtu.be/jiv37i503v4?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr">https://youtu.be/jiv37i503v4?list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/spring/" rel="tag"># spring</a>
+              <a href="/tags/kotlin/" rel="tag"># kotlin</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/31/Going-Reactive-With-Spring-WebFlux-Kotlin-Coroutines-and-RSocket/" rel="prev" title="Going Reactive With Spring WebFlux, Kotlin Coroutines, and RSocket">
+      <i class="fa fa-chevron-left"></i> Going Reactive With Spring WebFlux, Kotlin Coroutines, and RSocket
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/25/Async-Javascript-Tutorial-For-Beginners/" rel="next" title="Async Javascript Tutorial For Beginners">
+      Async Javascript Tutorial For Beginners <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial-01-Introduction"><span class="nav-number">1.</span> <span class="nav-text">Tutorial 01 Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-Project"><span class="nav-number">1.2.</span> <span class="nav-text">Create Project</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial-02-Hello-World"><span class="nav-number">2.</span> <span class="nav-text">Tutorial 02 Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">2.1.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-a-REST-Controller"><span class="nav-number">2.2.</span> <span class="nav-text">Create a REST Controller</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial-3-Project-Structure"><span class="nav-number">3.</span> <span class="nav-text">Tutorial 3 Project Structure</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial-4-Data-Layer"><span class="nav-number">4.</span> <span class="nav-text">Tutorial 4 Data Layer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial-5-Data-Source"><span class="nav-number">5.</span> <span class="nav-text">Tutorial 5 Data Source</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial-6-Service-Layer"><span class="nav-number">6.</span> <span class="nav-text">Tutorial 6 Service Layer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial-7-Web-Layer"><span class="nav-number">7.</span> <span class="nav-text">Tutorial 7 Web Layer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tutorial-8-GET-Single-Bank"><span class="nav-number">8.</span> <span class="nav-text">Tutorial 8 GET Single Bank</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

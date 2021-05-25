@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;github.com&#x2F;norvig&#x2F;paip-lisp&#x2F;blob&#x2F;master&#x2F;docs&#x2F;chapter1.md  Chapter 01 Introduction to Lisp You think you know when you learn, are more sure when you can write, even more when you can teach, bu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paradigms of Artificial Intelligence Programming 01">
+<meta property="og:url" content="http://yoursite.com/2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-01/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:description" content="https:&#x2F;&#x2F;github.com&#x2F;norvig&#x2F;paip-lisp&#x2F;blob&#x2F;master&#x2F;docs&#x2F;chapter1.md  Chapter 01 Introduction to Lisp You think you know when you learn, are more sure when you can write, even more when you can teach, bu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-08-28T14:38:25.000Z">
+<meta property="article:modified_time" content="2020-06-24T15:30:43.658Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="lisp">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-01/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Paradigms of Artificial Intelligence Programming 01 | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Paradigms of Artificial Intelligence Programming 01
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-28 22:38:25" itemprop="dateCreated datePublished" datetime="2018-08-28T22:38:25+08:00">2018-08-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/norvig/paip-lisp/blob/master/docs/chapter1.md">https://github.com/norvig/paip-lisp/blob/master/docs/chapter1.md</a></p>
+</blockquote>
+<h1 id="Chapter-01-Introduction-to-Lisp"><a href="#Chapter-01-Introduction-to-Lisp" class="headerlink" title="Chapter 01 Introduction to Lisp"></a>Chapter 01 Introduction to Lisp</h1><blockquote>
+<p>You think you know when you learn, are more sure when you can write, even more when you can teach, but certain when you can program.</p>
+</blockquote>
+<blockquote>
+<p>-Alan Perlis<br>Yale University computer scientist</p>
+</blockquote>
+<span id="more"></span>
+
+<p>This book covers a number of typical AI problems, showing how each problem can be broken down into manageable pieces, and also how each piece can be described in the programming language Common Lisp. Ideally, readers will learn enough through studying these examples to attack new AI problems with style, grace, and success.</p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install clisp</span><br></pre></td></tr></table></figure>
+
+<h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h2><p>Lisp types <code>&gt;</code> to indicate it is ready to accept the next computation. So we are faced with a screen that looks like this:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; (+ 2 2)</span><br><span class="line">4</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Symbolic-Computation"><a href="#Symbolic-Computation" class="headerlink" title="Symbolic Computation"></a>Symbolic Computation</h2><p>Here’s an example of a computation on lists:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; (<span class="name">append</span> &#x27;(Pat Kim) &#x27;(Robin Sandy)) =&gt; (<span class="name">PAT</span> KIM ROBIN SANDY)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; &#x27;John =&gt; JOHN</span><br><span class="line"></span><br><span class="line">&gt; &#x27;(John Q Public) =&gt; (<span class="name">JOHN</span> Q PUBLIC)</span><br><span class="line"></span><br><span class="line">&gt; &#x27;<span class="number">2</span> =&gt; <span class="number">2</span></span><br><span class="line"></span><br><span class="line">&gt; <span class="number">2</span> =&gt; <span class="number">2</span></span><br><span class="line"></span><br><span class="line">&gt; &#x27;(+  <span class="number">2</span> <span class="number">2</span>) =&gt; (<span class="name">+</span>  <span class="number">2</span> <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">+</span>  <span class="number">2</span> <span class="number">2</span>) <span class="number">4</span></span><br><span class="line"></span><br><span class="line">&gt; John =&gt; *Error: JOHN is not a bound variable*</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">John</span> Q Public) =&gt; *Error: JOHN is not a function*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; (<span class="name">append</span> &#x27;(Pat Kim) (<span class="name">list</span> &#x27;(John Q Public) &#x27;Sandy))</span><br><span class="line">(<span class="name">PAT</span> KIM (<span class="name">JOHN</span> Q PUBLIC) SANDY)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">length</span> (<span class="name">append</span> &#x27;(Pat Kim) (<span class="name">list</span> &#x27;(John Q Public) &#x27;Sandy)))</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>Above, there are four important points to make about symbols:</p>
+<ol>
+<li>Lisp does not attach any external significance to the objects it manipulates.</li>
+<li>Common Lisp provides over 700 built-in functions, like <code>append</code>, <code>length</code>, <code>+</code> …</li>
+<li>Common Lisp are not case sensitive. </li>
+<li>A wide variety of characters are allowed in symbols: numbers, letters, and other punctuation marks like <code>+</code> or <code>!</code></li>
+</ol>
+<h2 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h2><p>One way to give a value to a variable is with <code>setf</code>:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; (<span class="name">setf</span> p &#x27;(John Q Public)) =&gt; (<span class="name">JOHN</span> Q PUBLIC)</span><br><span class="line">&gt; p =&gt; (<span class="name">JOHN</span> Q PUBLIC)</span><br><span class="line">&gt; (<span class="name">setf</span> x <span class="number">10</span>) =&gt; <span class="number">10</span></span><br><span class="line">&gt; (<span class="name">+</span> x x) =&gt; <span class="number">20</span></span><br><span class="line">&gt; (<span class="name">+</span> x (<span class="name">length</span> p)) =&gt; <span class="number">13</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Special-Forms"><a href="#Special-Forms" class="headerlink" title="Special Forms"></a>Special Forms</h2><p><code>setf</code> is called a special form because it does something special: if it did not exist, it would be impossible to write a function that assigns a value to a variable. The philosophy of Lisp is to provide a small number of special forms to do the things that could not otherwise be done, and then to expect the user to write everthing else as functions.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>defun</td>
+<td>define function</td>
+</tr>
+<tr>
+<td>defparameter</td>
+<td>define special variable</td>
+</tr>
+<tr>
+<td>setf</td>
+<td>set variable or field to new value</td>
+</tr>
+<tr>
+<td>let</td>
+<td>bind local variable(s)</td>
+</tr>
+<tr>
+<td>case</td>
+<td>choose one of several alternatives</td>
+</tr>
+<tr>
+<td>if</td>
+<td>do one thing or another, depending on a test</td>
+</tr>
+<tr>
+<td>function (#’)</td>
+<td>refer to a function</td>
+</tr>
+<tr>
+<td>quote (‘)</td>
+<td>introduce constant data</td>
+</tr>
+</tbody></table>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; p =&gt; (<span class="name">JOHN</span> Q PUBLIC)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first</span> p) JOHN</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">rest</span> p) =&gt; (<span class="name">Q</span> PUBLIC)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">second</span> p) =&gt; Q</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">third</span> p) =&gt; PUBLIC</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">fourth</span> p) =&gt; NIL</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">length</span> p) =&gt; <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; (<span class="name">setf</span> x &#x27;((<span class="number">1</span>st element) <span class="number">2</span> (element <span class="number">3</span>) ((<span class="number">4</span>)) <span class="number">5</span>))</span><br><span class="line">((<span class="number">1</span>ST ELEMENT) <span class="number">2</span> (<span class="name">ELEMENT</span> <span class="number">3</span>) ((<span class="number">4</span>)) <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">length</span> x) =&gt; <span class="number">5</span></span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first</span> x) =&gt; (<span class="number">1</span>ST ELEMENT)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">second</span> x) =&gt; <span class="number">2</span></span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">third</span> x) =&gt; (<span class="name">ELEMENT</span> <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">fourth</span> x) =&gt; ((<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first</span> (<span class="name">fourth</span> x)) =&gt; (<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first</span> (<span class="name">first</span> (<span class="name">fourth</span> x))) =&gt; <span class="number">4</span></span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">fifth</span> x) =&gt; <span class="number">5</span></span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first</span> x) =&gt; (<span class="number">1</span>ST ELEMENT)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">second</span> (<span class="name">first</span> x)) =&gt; ELEMENT</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">last</span> p) =&gt; (<span class="name">PUBLIC</span>)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first</span> (<span class="name">last</span> p)) =&gt; PUBLIC</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; p =&gt; (<span class="name">JOHN</span> Q PUBLIC)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">cons</span> &#x27;Mr p) =&gt; (<span class="name">MR</span> JOHN Q PUBLIC)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">cons</span> (<span class="name">first</span> p) (<span class="name">rest</span> p)) =&gt; (<span class="name">JOHN</span> Q PUBLIC)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">setf</span> town (<span class="name">list</span> &#x27;Anytown &#x27;USA)) =&gt; (<span class="name">ANYTOWN</span> USA)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">list</span> p &#x27;of town &#x27;may &#x27;have &#x27;already &#x27;won!) =&gt;</span><br><span class="line">((<span class="name">JOHN</span> Q PUBLIC) OF (<span class="name">ANYTOWN</span> USA) MAY HAVE ALREADY WON!)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">append</span> p &#x27;(of) town &#x27;(may have already won!)) =&gt;</span><br><span class="line">(<span class="name">JOHN</span> Q PUBLIC OF ANYTOWN USA MAY HAVE ALREADY WON!)</span><br><span class="line"></span><br><span class="line">&gt; p =&gt; (<span class="name">JOHN</span> Q PUBLIC)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Defining-New-Functions"><a href="#Defining-New-Functions" class="headerlink" title="Defining New Functions"></a>Defining New Functions</h2><p>In general, a function definition takes the following form (where the documentation string is optional, and all other parts are required):</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> *function-name* (<span class="name">*parameter</span>...*)</span><br><span class="line">      &quot;*documentation string*<span class="string">&quot;</span></span><br><span class="line"><span class="string">      *function-body...*)</span></span><br></pre></td></tr></table></figure>
+<p>The special form <code>defun</code> stands for <em>define function.</em> It is used here to define a new function called <code>last-name</code>:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> last-name (<span class="name">name</span>)</span><br><span class="line">  <span class="string">&quot;Select the last name from a name represented as a list.&quot;</span></span><br><span class="line">  (<span class="name">first</span> (<span class="name">last</span> name)))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; (<span class="name">last-name</span> p) =&gt; PUBLIC</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">last-name</span> &#x27;(Rear Admiral Grace Murray Hopper)) =&gt; HOPPER</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">last-name</span> &#x27;(Rex Morgan MD)) =&gt; MD</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">last-name</span> &#x27;(Spot)) =&gt; SPOT</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">last-name</span> &#x27;(Aristotle)) =&gt; ARISTOTLE``</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> first-name (<span class="name">name</span>)</span><br><span class="line">  <span class="string">&quot;Select the first name from a name represented as a list.&quot;</span></span><br><span class="line">  (<span class="name">first</span> name))</span><br><span class="line"></span><br><span class="line">&gt; p =&gt; (<span class="name">JOHN</span> Q PUBLIC)`</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first-name</span> p) =&gt; JOHN`</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first-name</span> &#x27;(Wilma Flintstone)) =&gt; WILMA`</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">setf</span> names &#x27;((John Q Public) (Malcolm X)</span><br><span class="line">              (Admiral Grace Murray Hopper) (Spot) </span><br><span class="line">              (Aristotle) (A A Milne) (Z Z Top)</span><br><span class="line">              (Sir Larry Olivier) (Miss Scarlet))) =&gt; </span><br><span class="line"></span><br><span class="line">((<span class="name">JOHN</span> Q PUBLIC) (<span class="name">MALCOLM</span> X) (<span class="name">ADMIRAL</span> GRACE MURRAY HOPPER)</span><br><span class="line"> (<span class="name">SPOT</span>) (<span class="name">ARISTOTLE</span>) (<span class="name">A</span> A MILNE) (<span class="name">Z</span> Z TOP) (<span class="name">SIR</span> LARRY OLIVIER)</span><br><span class="line"> (<span class="name">MISS</span> SCARLET))</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first-name</span> (<span class="name">first</span> names)) =&gt; JOHN</span><br></pre></td></tr></table></figure>
+
+<h2 id="Using-Functions"><a href="#Using-Functions" class="headerlink" title="Using Functions"></a>Using Functions</h2><p><strong>mapcar</strong> :</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; (<span class="name">mapcar</span> #&#x27;last-name names)</span><br><span class="line">(<span class="name">PUBLIC</span> X HOPPER SPOT ARISTOTLE MILNE TOP OLIVIER SCARLET)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">mapcar</span> #&#x27;first-name names)</span><br><span class="line">(<span class="name">JOHN</span> MALCOLM ADMIRAL SPOT ARISTOTLE A Z SIR MISS)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">mapcar</span> #&#x27;- &#x27;(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>)) =&gt; (<span class="name">-1</span> <span class="number">-2</span> <span class="number">-3</span> <span class="number">-4</span>)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">mapcar</span> #&#x27;+ &#x27;(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>) &#x27;(<span class="number">10</span> <span class="number">20</span> <span class="number">30</span> <span class="number">40</span>)) =&gt; (<span class="number">11</span> <span class="number">22</span> <span class="number">33</span> <span class="number">44</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>member</strong> :</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defparameter</span> *titles*</span><br><span class="line">  &#x27;(Mr Mrs Miss Ms Sir Madam Dr Admiral Major General)</span><br><span class="line">  <span class="string">&quot;A list of titles that can appear at the start of a name.&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(<span class="name">defun</span> first-name (<span class="name">name</span>)</span><br><span class="line">  <span class="string">&quot;Select the first name from a name represented as a list.&quot;</span></span><br><span class="line">  (<span class="name">if</span> (<span class="name">member</span> (<span class="name">first</span> name) *titles*)</span><br><span class="line">  (<span class="name">first-name</span> (<span class="name">rest</span> name))</span><br><span class="line">  (<span class="name">first</span> name)))</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">mapcar</span> #&#x27;first-name names)</span><br><span class="line">(<span class="name">JOHN</span> MALCOLM GRACE SPOT ARISTOTLE A Z LARRY SCARLET)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first-name</span> &#x27;(Madam Major General Paula Jones))</span><br><span class="line">PAULA</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>We can see how this works by <em>tracing</em> the execution of <code>first-name</code>, and seeing the values passed to and returned from the function. The special forms <code>trace</code> and <code>untrace</code> are used for this purpose.</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; (<span class="name">trace</span> first-name)</span><br><span class="line">(<span class="name">FIRST-NAME</span>)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first-name</span> &#x27;(John Q Public))</span><br><span class="line">(<span class="number">1</span> ENTER FIRST-NAME: (<span class="name">JOHN</span> Q PUBLIC))</span><br><span class="line">(<span class="number">1</span> EXIT FIRST-NAME: JOHN)</span><br><span class="line">JOHN</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first-name</span> &#x27;(Madam Major General Paula Jones)) =&gt;</span><br><span class="line">(<span class="number">1</span> ENTER FIRST-NAME: (<span class="name">MADAM</span> MAJOR GENERAL PAULA JONES))</span><br><span class="line">  (<span class="number">2</span> ENTER FIRST-NAME: (<span class="name">MAJOR</span> GENERAL PAULA JONES))</span><br><span class="line">    (<span class="number">3</span> ENTER FIRST-NAME: (<span class="name">GENERAL</span> PAULA JONES))</span><br><span class="line">      (<span class="number">4</span> ENTER FIRST-NAME: (<span class="name">PAULA</span> JONES))</span><br><span class="line">      (<span class="number">4</span> EXIT FIRST-NAME: PAULA)</span><br><span class="line">    (<span class="number">3</span> EXIT FIRST-NAME: PAULA)</span><br><span class="line">  (<span class="number">2</span> EXIT FIRST-NAME: PAULA)</span><br><span class="line">(<span class="number">1</span> EXIT FIRST-NAME: PAULA)</span><br><span class="line">PAULA</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">untrace</span> first-name) =&gt; (<span class="name">FIRST-NAME</span>)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">first-name</span> &#x27;(Mr Blue Jeans)) =&gt; BLUE</span><br></pre></td></tr></table></figure>
+
+<h2 id="Higher-Order-Functions"><a href="#Higher-Order-Functions" class="headerlink" title="Higher-Order Functions"></a>Higher-Order Functions</h2><p>A function that takes another function as an argument is called a higher-order function. <code>mapcar</code> is an example.</p>
+<p>We will define a new function called mappend:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> mappend (<span class="name">fn</span> the-list)</span><br><span class="line">  <span class="string">&quot;Apply fn to each element of list and append the results.&quot;</span></span><br><span class="line">  (<span class="name">apply</span> #&#x27;append (<span class="name">mapcar</span> fn the-list)))</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">apply</span> #&#x27;+ &#x27;(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>)) =&gt; <span class="number">10</span></span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">apply</span> #&#x27;append &#x27;((<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>) (a b c))) =&gt; (<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> A B C)</span><br></pre></td></tr></table></figure>
+
+
+<p>Now we define a new function, self-and-double, and apply it to a variety of arguments:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; (<span class="name">defun</span> self-and-double (<span class="name">x</span>) (<span class="name">list</span> x (<span class="name">+</span> x x)))</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">self-and-double</span> <span class="number">3</span>) =&gt; (<span class="number">3</span> <span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">apply</span> #&#x27;self-and-double &#x27;(<span class="number">3</span>)) =&gt; (<span class="number">3</span> <span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">mapcar</span> #&#x27;self-and-double &#x27;(<span class="number">1</span> <span class="number">10</span> <span class="number">300</span>)) =&gt; ((<span class="number">1</span> <span class="number">2</span>) (<span class="number">10</span> <span class="number">20</span>) (<span class="number">300</span> <span class="number">600</span>))</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">mappend</span> #&#x27;self-and-double &#x27;(<span class="number">1</span> <span class="number">10</span> <span class="number">300</span>)) =&gt; (<span class="number">1</span> <span class="number">2</span> <span class="number">10</span> <span class="number">20</span> <span class="number">300</span> <span class="number">600</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> numbers-and-negations (<span class="name">input</span>)</span><br><span class="line">  <span class="string">&quot;Given a list, return only the numbers and their negations.&quot;</span></span><br><span class="line">  (<span class="name">mappend</span> #&#x27; number-and-negation input))</span><br><span class="line"></span><br><span class="line">(<span class="name">defun</span> number-and-negation (<span class="name">x</span>)</span><br><span class="line">  <span class="string">&quot;If x is a number, return a list of x and -x.&quot;</span></span><br><span class="line">  (<span class="name">if</span> (<span class="name">numberp</span> x)</span><br><span class="line">      (<span class="name">list</span> x (<span class="name">-</span> x))</span><br><span class="line">      <span class="literal">nil</span>))</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">numbers-and-negations</span> &#x27;(testing <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> test)) =&gt; (<span class="number">1</span> <span class="number">-1</span> <span class="number">2</span> <span class="number">-2</span> <span class="number">3</span> <span class="number">-3</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>funcall</code> is similar to <code>apply</code>; it too takes a function as its first argument and applies the function to a list of arguments, but in the case of <code>funcall</code>, the arguments are listed separately:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> mappend (<span class="name">fn</span> the-list)</span><br><span class="line">  <span class="string">&quot;Apply fn to each element of list and append the results.&quot;</span></span><br><span class="line">  (<span class="name">if</span> (<span class="name">null</span> the-list)</span><br><span class="line">      <span class="literal">nil</span></span><br><span class="line">      (<span class="name">append</span> (<span class="name">funcall</span> fn (<span class="name">first</span> the-list))</span><br><span class="line">              (<span class="name">mappend</span> fn (<span class="name">rest</span> the-list)))))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">funcall</span> #&#x27;+ <span class="number">2</span> <span class="number">3</span>) =&gt; <span class="number">5</span></span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">apply</span> #&#x27; + &#x27;(<span class="number">2</span> <span class="number">3</span>)) =&gt; <span class="number">5</span></span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">funcall</span> #&#x27; + &#x27;(<span class="number">2</span> <span class="number">3</span>)) =&gt; *Error: (<span class="number">2</span> <span class="number">3</span>) is not a number.*</span><br></pre></td></tr></table></figure>
+
+<p><strong>lambda</strong> :</p>
+<p>In general, the form of a <em>lambda</em> expression is:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(lambda (*parameters...*) *body...*)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; ((<span class="name">lambda</span> (<span class="name">x</span>) (<span class="name">+</span> x <span class="number">2</span>)) <span class="number">4</span>) =&gt; <span class="number">6</span></span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">funcall</span> #&#x27;(lambda (x) (+ x <span class="number">2</span>)) <span class="number">4</span>) =&gt; <span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; append =&gt; *Error: APPEND is not a bound variable*</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">lambda</span> (<span class="name">x</span>) (<span class="name">+</span> x <span class="number">2</span>)) =&gt; *Error: LAMBDA is not a function*</span><br><span class="line"></span><br><span class="line">&gt;(<span class="name">mapcar</span> #&#x27;(lambda (x) (+ x x))</span><br><span class="line">         &#x27;(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span>)) =&gt;</span><br><span class="line">(<span class="number">2</span> <span class="number">4</span> <span class="number">6</span> <span class="number">8</span> <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">mappend</span> #&#x27;(lambda (l) (list l (reverse l)))</span><br><span class="line">           ((<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>) (<span class="name">a</span> b c))) =&gt;</span><br><span class="line">((<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>) (<span class="number">3</span> <span class="number">2</span> <span class="number">1</span>) (<span class="name">A</span> B C) (<span class="name">C</span> B A))</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Other-Data-Types"><a href="#Other-Data-Types" class="headerlink" title="Other Data Types"></a>Other Data Types</h2><p>So far we have seen just four kinds of Lisp objects: numbers, symbols, lists, and functions. Lisp actually defines about 25 different types of objects: vectors, arrays, structures, characters, streams, hash tables, and others. At this point we will introduce one more, the string. As you can see in the following, strings, like numbers, evaluate to themselves. Strings are used mainly for printing out messages, while symbols are used for their relationships to other objects, and to name variables. The printed representation of a string has a double quote mark <code>&quot;&quot;</code> at each end.</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">&gt; <span class="string">&quot;a string&quot;</span> =&gt; <span class="string">&quot;a string&quot;</span></span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">length</span> <span class="string">&quot;a string&quot;</span>) =&gt; <span class="number">8</span></span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">length</span> <span class="string">&quot;&quot;</span>) =&gt; <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Summary-The-Lisp-Evaluation-Rule"><a href="#Summary-The-Lisp-Evaluation-Rule" class="headerlink" title="Summary: The Lisp Evaluation Rule"></a>Summary: The Lisp Evaluation Rule</h2><p>We can now summarize the evaluation rule for Lisp.</p>
+<ul>
+<li>Every expression is either a list or an atom.</li>
+<li>Every list to be evaluated is either a special form expression or a function application.</li>
+<li>A special form expression is defined to be a list whose first element is a special form operator. </li>
+<li>A function application is evaluated by first evaluating the arguments (the rest of the list) and then finding the function named by the first element of the list and applying it to the list of evaluated arguments.</li>
+<li>Every atom is either a symbol or a nonsymbol.</li>
+<li>A symbol evaluates to the most recent value that has been assigned to the variable named by that symbol. </li>
+<li>A nonsymbol atom evaluates to itself.</li>
+</ul>
+<h2 id="What-Makes-Lisp-Different"><a href="#What-Makes-Lisp-Different" class="headerlink" title="What Makes Lisp Different?"></a>What Makes Lisp Different?</h2><p>What is it that sets Lisp apart from other languages? Why is it a good language for AI applications? There are at least eight important factors:</p>
+<ul>
+<li>Built-in Support for Lists</li>
+<li>Automatic Storage Management</li>
+<li>Dynamic Typing</li>
+<li>First-Class Functions</li>
+<li>Uniform Syntax</li>
+<li>Interactive Environment</li>
+<li>Extensibility</li>
+<li>History</li>
+</ul>
+<p><a href="../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming">☝ Back to Catalog</a></p>
+<p><a href="../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-00/">☜ Preface</a></p>
+<p><a href="../../../2018/08/31/lisp-Paradigms-of-Artificial-Intelligence-Programming-02/">☞ A Simple Lisp Program</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/lisp/" rel="tag"># lisp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-00/" rel="prev" title="Paradigms of Artificial Intelligence Programming - 00">
+      <i class="fa fa-chevron-left"></i> Paradigms of Artificial Intelligence Programming - 00
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/08/31/lisp-Paradigms-of-Artificial-Intelligence-Programming-02/" rel="next" title="Paradigms of Artificial Intelligence Programming 02">
+      Paradigms of Artificial Intelligence Programming 02 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Chapter-01-Introduction-to-Lisp"><span class="nav-number">1.</span> <span class="nav-text">Chapter 01 Introduction to Lisp</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Install"><span class="nav-number">1.1.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic"><span class="nav-number">1.2.</span> <span class="nav-text">Basic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbolic-Computation"><span class="nav-number">1.3.</span> <span class="nav-text">Symbolic Computation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Variable"><span class="nav-number">1.4.</span> <span class="nav-text">Variable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Special-Forms"><span class="nav-number">1.5.</span> <span class="nav-text">Special Forms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List"><span class="nav-number">1.6.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Defining-New-Functions"><span class="nav-number">1.7.</span> <span class="nav-text">Defining New Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Functions"><span class="nav-number">1.8.</span> <span class="nav-text">Using Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Higher-Order-Functions"><span class="nav-number">1.9.</span> <span class="nav-text">Higher-Order Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Other-Data-Types"><span class="nav-number">1.10.</span> <span class="nav-text">Other Data Types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-The-Lisp-Evaluation-Rule"><span class="nav-number">1.11.</span> <span class="nav-text">Summary: The Lisp Evaluation Rule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-Makes-Lisp-Different"><span class="nav-number">1.12.</span> <span class="nav-text">What Makes Lisp Different?</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
