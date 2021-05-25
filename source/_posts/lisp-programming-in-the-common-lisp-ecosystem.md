@@ -5,6 +5,8 @@ tags: lisp
 ---
 I've really enjoyed working with a few projects and tools. I'll probably write more about these individually in the near future, but in brief:
 
+<!--more-->
+
 - [chanl](https://github.com/zkat/chanl) provides. As a current/recovering Go programmer, this library is very familiar and great to have. In some ways, the API provides a bit more introspection, and flexibility that I've always wanted in Go.
 - [lake](https://github.com/takagi/lake) is a buildsystem tool, in the tradition of make, but with a few additional great features, like target namespacing, a clear definition between "file targets" and "task targets," as well as support for SSH operations, which makes it a reasonable replacement for things like fabric, and other basic deployment tools.
 - [cl-docutils](https://github.com/willijar/cl-docutils) provides the basis for a document processing system. I'm particularly partial because I've been using the python (reference) implementation for years, but the implementation is really quite good and quite easy to extend.
