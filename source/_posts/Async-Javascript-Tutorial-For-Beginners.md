@@ -264,3 +264,114 @@ promise
 ```
 
 ## To improve sample of last section
+
+```javascript
+console.log('Start')
+
+function loginUser(email, password) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log('Now we have the data at 5 seconds: ')
+      resolve({ userEmail: email, userPassword: password })
+    }, 5000)
+  })
+}
+
+function getUserVideos(email) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log('Now we have the data at 2 seconds:')
+      resolve(['video1', 'video2', 'video3'])
+    }, 2000)
+  })
+}
+
+function videoDetails(video) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log('Now we have the data at 1 seconds:')
+      resolve('title of the video')
+    }, 1000)
+  })
+}
+
+loginUser('sample@gmail.com', 123456)
+  .then((user) => getUserVideos(user.email))
+  .then((videos) => videoDetails(videos[0]))
+  .then((detail) => console.log(detail))
+
+console.log('End')
+```
+
+Run and Result:
+
+```shell
+"Start"
+
+"End"
+
+"Now we have the data at 5 seconds: "
+
+"Now we have the data at 2 seconds:"
+
+"Now we have the data at 1 seconds:"
+
+"title of the video"
+```
+
+# Async Await
+
+Change to _async ... await ..._ :
+
+```javascript
+console.log('Start')
+
+function loginUser(email, password) {
+  // ...
+}
+
+function getUserVideos(email) {
+  // ...
+}
+
+function videoDetails(video) {
+  // ...
+}
+
+// loginUser("sample@gmail.com", 123456)
+//   .then((user) => getUserVideos(user.email))
+//   .then((videos) => videoDetails(videos[0]))
+//   .then((detail) => console.log(detail));
+
+// ASYNC
+async function displayUser() {
+  try {
+    const user = await loginUser('sample@gmail.com', 12345)
+    const videos = await getUserVideos(user.email)
+    const detail = await videoDetails(videos[0])
+    console.log(detail)
+  } catch (err) {
+    console.log('We could not get the videos')
+  }
+}
+
+displayUser()
+
+console.log('End')
+```
+
+Run and Result:
+
+```shell
+"Start"
+
+"End"
+
+"Now we have the data at 5 seconds: "
+
+"Now we have the data at 2 seconds:"
+
+"Now we have the data at 1 seconds:"
+
+"title of the video"
+```
