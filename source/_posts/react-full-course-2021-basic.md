@@ -4,27 +4,15 @@ date: 2021-06-02 22:50:14
 tags: [react]
 ---
 
-- [Introduce](#introduce)
-  - [Goals of the course](#goals-of-the-course)
-  - [Structure](#structure)
-  - [Requirement](#requirement)
-  - [Dev Environment](#dev-environment)
-- [Create new project](#create-new-project)
-- [Getting start](#getting-start)
-  - [First Component](#first-component)
-  - [First Component in detail](#first-component-in-detail)
-  - [Mini BookList Project](#mini-booklist-project)
-  - [JSX and Props](#jsx-and-props)
-  - [Props List](#props-list)
-  - [Key prop And Spread Operator](#key-prop-and-spread-operator)
-  - [Event basic](#event-basic)
-  - [Import and Export Statements](#import-and-export-statements)
-  - [Free Hosting](#free-hosting)
-- [Advanced Introduce](#advanced-introduce)
+<div align="center">
+
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/2021/0604-01.png)
+
+</div>
 
 # Introduce
 
-[My Source Code](https://github.com/keer2345/react-full-course-2021)
+> [My Source Code](https://github.com/keer2345/react-full-course-2021)
 
 **Alternative JavaScript Framework:**
 
@@ -536,20 +524,14 @@ const Book = ({ img, title, author }) => {
 export default Book
 ```
 
-## Free Hosting
+# Deploy on Free Hosting
 
 Our server with `yarn start` default port is `3000`. Now, we build and deploy project on https://www.netlify.com/ .
 
 For example, my online project is https://react-full-course-2021.netlify.app/ .
 
-# Advanced Introduce
+<div align="center">
 
-- useState
-- useEffect
-- Conditional Rendering
-- Forms
-- useRef
-- useRenducer
-- Prop Drilling
-- Context API / useContext
-- ...
+![](https://raw.githubusercontent.com/keer2345/storehouse/master/2021/0604-02.png)
+
+</div>
