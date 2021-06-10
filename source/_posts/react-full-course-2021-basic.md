@@ -10,9 +10,11 @@ tags: [react]
 
 </div>
 
+<!-- more -->
+
 # Introduce
 
-> [My Source Code](https://github.com/keer2345/react-full-course-2021)
+> [My Source Code](https://github.com/keer2345/react-full-course-2021-basic)
 
 **Alternative JavaScript Framework:**
 
@@ -56,13 +58,13 @@ v16.1.0
 **Create with [create-react-app](https://github.com/facebook/create-react-app):**
 
 ```shell
-npx create-react-app react-full-course-2021
+npx create-react-app react-full-course-2021-basic
 ```
 
 **Project structure:**
 
 ```shell
-react-full-course-2021
+react-full-course-2021-basic
 ├── README.md
 ├── node_modules
 ├── package.json
@@ -526,9 +528,10 @@ export default Book
 
 # Deploy on Free Hosting
 
-Our server with `yarn start` default port is `3000`. Now, we build and deploy project on https://www.netlify.com/ .
+Our server with `yarn start` default port is `3000`. Now, we build and deploy project from ourself Github to  https://www.netlify.com/ .
 
-For example, my online project is https://react-full-course-2021.netlify.app/ .
+
+For example, my online project is https://react-full-course-2021-basic.netlify.app/ .
 
 <div align="center">
 
