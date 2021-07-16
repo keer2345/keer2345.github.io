@@ -5,6 +5,7 @@ tags: latex
 ---
 
 <div align="center">
+
 ![](https://raw.githubusercontent.com/keer2345/storehouse/master/2021/0705.png)
 </div>
 
