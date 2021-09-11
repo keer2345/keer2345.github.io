@@ -155,6 +155,627 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/23/python-flask-react-docker-testdriven-1-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/23/python-flask-react-docker-testdriven-1-01/" class="post-title-link" itemprop="url">Flask React Docker in Testdriven - Part I - 01</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-23 20:47:13" itemprop="dateCreated datePublished" datetime="2018-09-23T20:47:13+08:00">2018-09-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://testdriven.io/">https://testdriven.io</a></p>
+</blockquote>
+<p>本章，我们学习如何使用 Docker 构建可复用的开发环境，以创建 Flask-restful, Postgres 网页应用，并部署到云服务器。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/09/23/python-flask-react-docker-testdriven-1-01/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/18/python-flask-restplus/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/18/python-flask-restplus/" class="post-title-link" itemprop="url">Flask Restplus</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-18 21:45:35" itemprop="dateCreated datePublished" datetime="2018-09-18T21:45:35+08:00">2018-09-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Get-Start"><a href="#Get-Start" class="headerlink" title="Get Start"></a>Get Start</h1><h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install flask-restplus</span><br></pre></td></tr></table></figure>
+
+<h2 id="Quickstart"><a href="#Quickstart" class="headerlink" title="Quickstart"></a>Quickstart</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask_restplus <span class="keyword">import</span> Api, Resource</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">api = Api(app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@api.route(<span class="params"><span class="string">&#x27;/hello&#x27;</span></span>)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span>(<span class="params">Resource</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&#x27;Hello&#x27;</span>: <span class="string">&#x27;world&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ python demo01.py </span><br><span class="line"> * Serving Flask app &quot;demo01&quot; (lazy loading)</span><br><span class="line"> * Environment: production</span><br><span class="line">   WARNING: Do not use the development server in a production environment.</span><br><span class="line">   Use a production WSGI server instead.</span><br><span class="line"> * Debug mode: on</span><br><span class="line"> * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)</span><br><span class="line"> * Restarting with stat</span><br><span class="line"> * Debugger is active!</span><br><span class="line"> * Debugger PIN: 328-673-670</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ http :5000/hello</span><br><span class="line">HTTP/1.0 200 OK</span><br><span class="line">Content-Length: 25</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Date: Tue, 18 Sep 2018 13:52:20 GMT</span><br><span class="line">Server: Werkzeug/0.14.1 Python/3.6.6</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;Hello&quot;: &quot;world&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/14/php-Installing-Xampp-and-Laravel-on-Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/14/php-Installing-Xampp-and-Laravel-on-Linux/" class="post-title-link" itemprop="url">Installing Xampp and Laravel on Linux</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-14 21:20:17" itemprop="dateCreated datePublished" datetime="2018-09-14T21:20:17+08:00">2018-09-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Installing-Xampp-and-Laravel-on-Linux-Ubuntu-mint-OpenSuse-…"><a href="#Installing-Xampp-and-Laravel-on-Linux-Ubuntu-mint-OpenSuse-…" class="headerlink" title="Installing Xampp and Laravel on Linux (Ubuntu , mint , OpenSuse …)"></a>Installing Xampp and Laravel on Linux (Ubuntu , mint , OpenSuse …)</h1><p>This tutorial show you how to Install Xampp ,Laravel and Lumen on Linux (Ubuntu , mint , OpenSuse …).If you are involved in building web apps using PHP, MySQL / MariaDB and Apache the Xampp is the ultimate choice for Development .</p>
+<p>XAMPP is a completely free, easy to install Apache distribution containing MySQL / MariaDB, PHP, and Perl. The XAMPP open source package has been set up to be incredibly easy to install and to use. Best part is Xampp is cross-platform tool available for Windows , Mac and Linux.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/09/14/php-Installing-Xampp-and-Laravel-on-Linux/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/11/php-Laravel-Awesome/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/11/php-Laravel-Awesome/" class="post-title-link" itemprop="url">Php Laravel Awesome</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-11 23:08:02" itemprop="dateCreated datePublished" datetime="2018-09-11T23:08:02+08:00">2018-09-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Article"><a href="#Article" class="headerlink" title="Article"></a>Article</h1><ul>
+<li>最适合入门的Laravel初级教程 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32684814">一</a>、<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32789159">二</a>、<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32789222">三</a>、<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32789427">四</a>、<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32902200">五</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/web-Lets-Encrypt-Learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/01/web-Lets-Encrypt-Learning/" class="post-title-link" itemprop="url">Let's Encrypt Learning</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-01 22:59:54" itemprop="dateCreated datePublished" datetime="2018-09-01T22:59:54+08:00">2018-09-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.123456.cloud/2017/12/20/%E4%BD%BF%E7%94%A8Let's%20Encrypt%E5%8A%A0%E5%AF%86%E4%BD%A0%E7%9A%84%E5%B0%8F%E7%AB%99/">使用Let’s Encrypt加密你的小站</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/kimicsdn/article/details/78948429">从letsencrypt申请https证书踩坑记</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/teamblog/p/6219204.html">免费SSL证书 之Let’s Encrypt申请与部署</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ee5c589950d1">使用LetsEncrypt配置网站https</a></li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:certbot/certbot</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install python nginx certbot</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo service nginx stop</span><br><span class="line">sudo certbot certonly --standalone --email your@email.com -d yourdomain.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p><code>vim /etc/nginx/sites-available/ssl.conf</code> :</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line"></span><br><span class="line">   # SSL configuration</span><br><span class="line">   #</span><br><span class="line">   listen 443 ssl;</span><br><span class="line">   listen [::]:443 ssl;</span><br><span class="line"></span><br><span class="line">   ssl on;</span><br><span class="line"></span><br><span class="line">   ssl_certificate /etc/letsencrypt/live/harrypotterfans.top/fullchain.pem;</span><br><span class="line">   ssl_certificate_key /etc/letsencrypt/live/harrypotterfans.top/privkey.pem;</span><br><span class="line">   ssl_session_timeout 5m;</span><br><span class="line">   ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">   ssl_prefer_server_ciphers on;</span><br><span class="line"></span><br><span class="line">   root /var/www/html;</span><br><span class="line"></span><br><span class="line">   # Add index.php to the list if you are using PHP</span><br><span class="line">   index index.html index.htm index.nginx-debian.html;</span><br><span class="line"></span><br><span class="line">   location / &#123;</span><br><span class="line">      # First attempt to serve request as file, then</span><br><span class="line">      # as directory, then fall back to displaying a 404.</span><br><span class="line">      proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">              proxy_set_header Host $http_host;</span><br><span class="line">      try_files $uri $uri/ =404;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line"></span><br><span class="line">  listen 80 default_server;</span><br><span class="line">  listen [::]:80 default_server;</span><br><span class="line"></span><br><span class="line">  server_name harrypotterfans.top; # www.harrypottefans.top;</span><br><span class="line">  rewrite ^(.*) https://$server_name$1 permanent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo ln -s /etc/nginx/sites-available/ssl.conf /etc/nginx/sites-enabled/ssl.conf</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/lisp-Paradigms-of-Artificial-Intelligence-Programming-03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/01/lisp-Paradigms-of-Artificial-Intelligence-Programming-03/" class="post-title-link" itemprop="url">Paradigms of Artificial Intelligence Programming 03</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-01 09:59:09" itemprop="dateCreated datePublished" datetime="2018-09-01T09:59:09+08:00">2018-09-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/norvig/paip-lisp/blob/master/docs/chapter3.md">https://github.com/norvig/paip-lisp/blob/master/docs/chapter3.md</a></p>
+</blockquote>
+<h1 id="Chapter-03-Overview-of-Lisp"><a href="#Chapter-03-Overview-of-Lisp" class="headerlink" title="Chapter 03 Overview of Lisp"></a>Chapter 03 Overview of Lisp</h1><blockquote>
+<p>No doubt about it. Common Lisp is a big language.</p>
+<p>-Guy L. Steele, Jr.</p>
+<p>Foreword to Koschman 1990</p>
+</blockquote>
+<h2 id="A-Guide-to-Lisp-Style"><a href="#A-Guide-to-Lisp-Style" class="headerlink" title="A Guide to Lisp Style"></a>A Guide to Lisp Style</h2><p>In general, there are six maxims that every programmer should follow:</p>
+<ol>
+<li>Be specific.</li>
+<li>Use abstractions.</li>
+<li>Be concise.</li>
+<li>Use the provided tools.</li>
+<li>Don’t be obscure.</li>
+<li>Be consistent.</li>
+</ol>
+<h2 id="Special-Forms"><a href="#Special-Forms" class="headerlink" title="Special Forms"></a>Special Forms</h2><table>
+<thead>
+<tr>
+<th>definitions</th>
+<th>conditional</th>
+<th>variables</th>
+<th>iteration</th>
+<th>other</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>defun</td>
+<td>and</td>
+<td>let</td>
+<td>do</td>
+<td>declare</td>
+</tr>
+<tr>
+<td>defstruct</td>
+<td>case</td>
+<td>let*</td>
+<td>do*</td>
+<td>function</td>
+</tr>
+<tr>
+<td>defvar</td>
+<td>cond</td>
+<td>pop</td>
+<td>dolist</td>
+<td>progn</td>
+</tr>
+<tr>
+<td>defparameter</td>
+<td>if</td>
+<td>push</td>
+<td>dotimes</td>
+<td>quote</td>
+</tr>
+<tr>
+<td>defconstant</td>
+<td>or</td>
+<td>setf</td>
+<td>loop</td>
+<td>return</td>
+</tr>
+<tr>
+<td>defmacro</td>
+<td>unless</td>
+<td>incf</td>
+<td></td>
+<td>trace</td>
+</tr>
+<tr>
+<td>labels</td>
+<td>when</td>
+<td>decf</td>
+<td></td>
+<td>untrace</td>
+</tr>
+</tbody></table>
+<p>To be precise, only <code>declare, function, if, labels, let, let*, progn</code> and <code>quote</code> are true special forms. The others are actually defined as macros that expand into calls to more primitive special forms and functions. There is no real difference to the programmer, and Common Lisp implementations are free to implement macros as special forms and vice versa, so for simplicity we will continue to use “special form” as a blanket term for both true special forms and built-in macros.</p>
+<h3 id="Special-Forms-for-Definitions"><a href="#Special-Forms-for-Definitions" class="headerlink" title="Special Forms for Definitions"></a>Special Forms for Definitions</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(defun function-name (parameter...) &quot;optional documentation&quot; body...)</span><br><span class="line">(defmacro macro-name (parameter...) &quot;optional documentation&quot; body...)</span><br><span class="line"></span><br><span class="line">(defvar variable-name initial-value &quot;optional documentation&quot; )</span><br><span class="line">(defparameter variable-name value &quot;optional documentation&quot;)</span><br><span class="line">(defconstant variable-name value &quot;optional documentation&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Special-Forms-for-Conditionals"><a href="#Special-Forms-for-Conditionals" class="headerlink" title="Special Forms for Conditionals"></a>Special Forms for Conditionals</h3><h3 id="Special-Forms-for-Dealing-with-Variables-and-Places"><a href="#Special-Forms-for-Dealing-with-Variables-and-Places" class="headerlink" title="Special Forms for Dealing with Variables and Places"></a>Special Forms for Dealing with Variables and Places</h3><h3 id="Functions-and-Special-Forms-for-Repetition"><a href="#Functions-and-Special-Forms-for-Repetition" class="headerlink" title="Functions and Special Forms for Repetition"></a>Functions and Special Forms for Repetition</h3><h3 id="Repetition-through-Recursion"><a href="#Repetition-through-Recursion" class="headerlink" title="Repetition through Recursion"></a>Repetition through Recursion</h3><h3 id="Other-Special-Forms"><a href="#Other-Special-Forms" class="headerlink" title="Other Special Forms"></a>Other Special Forms</h3><h3 id="Macros"><a href="#Macros" class="headerlink" title="Macros"></a>Macros</h3><h3 id="Backquote-Notation"><a href="#Backquote-Notation" class="headerlink" title="Backquote Notation"></a>Backquote Notation</h3><h2 id="Functions-on-Lists"><a href="#Functions-on-Lists" class="headerlink" title="Functions on Lists"></a>Functions on Lists</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/31/lisp-Paradigms-of-Artificial-Intelligence-Programming-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/31/lisp-Paradigms-of-Artificial-Intelligence-Programming-02/" class="post-title-link" itemprop="url">Paradigms of Artificial Intelligence Programming 02</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-31 21:26:58" itemprop="dateCreated datePublished" datetime="2018-08-31T21:26:58+08:00">2018-08-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/norvig/paip-lisp/blob/master/docs/chapter2.md">https://github.com/norvig/paip-lisp/blob/master/docs/chapter2.md</a></p>
+</blockquote>
+<h1 id="Chapter-02-A-Simple-Lisp-Program"><a href="#Chapter-02-A-Simple-Lisp-Program" class="headerlink" title="Chapter 02 A Simple Lisp Program"></a>Chapter 02 A Simple Lisp Program</h1><blockquote>
+<p>Certum quod factum.</p>
+<p>(One is certain of only what one builds.)</p>
+<p>-Giovanni Battista Vico (1668-1744)</p>
+<p>Italian royal historiographer</p>
+</blockquote>
+<h2 id="A-Grammar-for-a-Subset-of-English"><a href="#A-Grammar-for-a-Subset-of-English" class="headerlink" title="A Grammar for a Subset of English"></a>A Grammar for a Subset of English</h2><p>The program we will develop in this chapter generates random English sentences. Here is a simple grammar for a tiny portion of English:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">Sentence =&gt; Noun-Phrase + Verb-Phrase</span><br><span class="line">Noun-Phrase =&gt; Article + Noun</span><br><span class="line">Verb-Phrase =&gt; Verb + Noun-Phrase</span><br><span class="line">Article =&gt; the, a,...</span><br><span class="line">Noun =&gt; man, ball, woman, table...</span><br><span class="line">Verb =&gt; hit, took, saw, liked...</span><br></pre></td></tr></table></figure>
+
+<h2 id="A-Straightforward-Solution"><a href="#A-Straightforward-Solution" class="headerlink" title="A Straightforward Solution"></a>A Straightforward Solution</h2><p>We will develop a program that generates random sentences from a phrase-structure grammar. The most straightforward approach is to represent each grammar rule by a separate Lisp function:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> sentence ()    (<span class="name">append</span> (<span class="name">noun-phrase</span>) (<span class="name">verb-phrase</span>)))</span><br><span class="line">(<span class="name">defun</span> noun-phrase () (<span class="name">append</span> (<span class="name">Article</span>) (<span class="name">Noun</span>)))</span><br><span class="line">(<span class="name">defun</span> verb-phrase () (<span class="name">append</span> (<span class="name">Verb</span>) (<span class="name">noun-phrase</span>)))</span><br><span class="line">(<span class="name">defun</span> Article ()     (<span class="name">one-of</span> &#x27;(the a)))</span><br><span class="line">(<span class="name">defun</span> Noun ()        (<span class="name">one-of</span> &#x27;(man ball woman table)))</span><br><span class="line">(<span class="name">defun</span> Verb ()        (<span class="name">one-of</span> &#x27;(hit took saw liked)))</span><br><span class="line"></span><br><span class="line">(<span class="name">defun</span> one-of (<span class="name">set</span>)</span><br><span class="line">  <span class="string">&quot;Pick one element of set, and make a list of it.&quot;</span></span><br><span class="line">  (<span class="name">list</span> (<span class="name">random-elt</span> set)))</span><br><span class="line"></span><br><span class="line">(<span class="name">defun</span> random-elt (<span class="name">choices</span>)</span><br><span class="line">  <span class="string">&quot;Choose an element from a list at random.&quot;</span></span><br><span class="line">  (<span class="name">elt</span> choices (<span class="name">random</span> (<span class="name">length</span> choices))))</span><br></pre></td></tr></table></figure>
+<p>Now we can test the program by generating a few random sentences, along with a noun phrase and a verb phrase:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&gt; (<span class="name">sentence</span>) =&gt; (<span class="name">THE</span> WOMAN HIT THE BALL)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">sentence</span>) =&gt; (<span class="name">THE</span> WOMAN HIT THE MAN)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">sentence</span>) =&gt;(<span class="name">THE</span> BALL SAW THE WOMAN)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">sentence</span>) =&gt; (<span class="name">THE</span> BALL SAW THE TABLE)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">noun-phrase</span>) =&gt; (<span class="name">THE</span> MAN)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">verb-phrase</span>) =&gt; (<span class="name">LIKED</span> THE WOMAN)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">trace</span> sentence noun-phrase verb-phrase article noun verb) =&gt;</span><br><span class="line">(<span class="name">SENTENCE</span> NOUN-PHRASE VERB-PHRASE ARTICLE NOUN VERB)</span><br><span class="line"></span><br><span class="line">&gt; (<span class="name">sentence</span>) =&gt;</span><br><span class="line">(<span class="number">1</span> ENTER SENTENCE)</span><br><span class="line">  (<span class="number">1</span> ENTER NOUN-PHRASE)</span><br><span class="line">    (<span class="number">1</span> ENTER ARTICLE)</span><br><span class="line">    (<span class="number">1</span> EXIT ARTICLE: (<span class="name">THE</span>))</span><br><span class="line">    (<span class="number">1</span> ENTER NOUN)</span><br><span class="line">    (<span class="number">1</span> EXIT NOUN: (<span class="name">MAN</span>))</span><br><span class="line">  (<span class="number">1</span> EXIT NOUN-PHRASE: (<span class="name">THE</span> MAN))</span><br><span class="line">  (<span class="number">1</span> ENTER VERB-PHRASE)</span><br><span class="line">    (<span class="number">1</span> ENTER VERB)</span><br><span class="line">    (<span class="number">1</span> EXIT VERB: (<span class="name">HIT</span>))</span><br><span class="line">    (<span class="number">1</span> ENTER NOUN-PHRASE)</span><br><span class="line">      (<span class="number">1</span> ENTER ARTICLE)</span><br><span class="line">      (<span class="number">1</span> EXIT ARTICLE: (<span class="name">THE</span>))</span><br><span class="line">      (<span class="number">1</span> ENTER NOUN)</span><br><span class="line">      (<span class="number">1</span> EXIT NOUN: (<span class="name">BALL</span>))</span><br><span class="line">    (<span class="number">1</span> EXIT NOUN-PHRASE: (<span class="name">THE</span> BALL))</span><br><span class="line">  (<span class="number">1</span> EXIT VERB-PHRASE: (<span class="name">HIT</span> THE BALL))</span><br><span class="line">(<span class="number">1</span> EXIT SENTENCE: (<span class="name">THE</span> MAN HIT THE BALL))</span><br><span class="line">(<span class="name">THE</span> MAN HIT THE BALL)</span><br></pre></td></tr></table></figure>
+
+<p>The program works fine, and the trace looks just like the sample derivation above, but the Lisp definitions are a bit harder to read than the original grammar rules. This problem will be compounded as we consider more complex rules. Suppose we wanted to allow noun phrases to be modified by an indefinite number of adjectives and an indefinite number of prepositional phrases. In grammatical notation, we might have the following rules:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">Noun-Phrase =&gt; Article + Adj* + Noun + PP*</span><br><span class="line">Adj* =&gt; <span class="number">0</span≯, Adj + Adj*</span><br><span class="line">PP* =&gt; <span class="number">0</span≯, PP + PP*</span><br><span class="line">PP =&gt; Prep + Noun-Phrase</span><br><span class="line">Adj =&gt; big, little, blue, green, ...</span><br><span class="line">Prep =&gt; to, in, by, with, ...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> Adj* ()</span><br><span class="line">  (<span class="name">if</span> (<span class="name">=</span> (<span class="name">random</span> <span class="number">2</span>) <span class="number">0</span>)</span><br><span class="line">  <span class="literal">nil</span></span><br><span class="line">  (<span class="name">append</span> (<span class="name">Adj</span>) (<span class="name">Adj*</span>))))</span><br><span class="line">(<span class="name">defun</span> PP* ()</span><br><span class="line">  (<span class="name">if</span> (<span class="name">random-elt</span> &#x27;(t nil))</span><br><span class="line">  (<span class="name">append</span> (<span class="name">PP</span>) (<span class="name">PP*</span>))</span><br><span class="line">  <span class="literal">nil</span>))</span><br><span class="line">(<span class="name">defun</span> noun-phrase () (<span class="name">append</span> (<span class="name">Article</span>) (<span class="name">Adj*</span>) (<span class="name">Noun</span>) (<span class="name">PP*</span>)))</span><br><span class="line">(<span class="name">defun</span> PP () (<span class="name">append</span> (<span class="name">Prep</span>) (<span class="name">noun-phrase</span>)))</span><br><span class="line">(<span class="name">defun</span> Adj () (<span class="name">one-of</span> &#x27;(big little blue green adiabatic)))</span><br><span class="line">(<span class="name">defun</span> Prep () (<span class="name">one-of</span> &#x27;(to in by with on)))</span><br></pre></td></tr></table></figure>
+
+<p>I’ve chosen two different implementations for Adj* and PP*; either approach would work in either function. We have to be careful, though; here are two approaches that would not work:</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">(<span class="name">defun</span> Adj* ()</span><br><span class="line">  <span class="string">&quot;Warning - incorrect definition of Adjectives.&quot;</span></span><br><span class="line">  (<span class="name">one-of</span> &#x27;(nil (append (Adj) (Adj*)))))</span><br><span class="line">(<span class="name">defun</span> Adj* ()</span><br><span class="line">  <span class="string">&quot;Warning - incorrect definition of Adjectives.&quot;</span></span><br><span class="line">  (<span class="name">one-of</span> (<span class="name">list</span> <span class="literal">nil</span> (<span class="name">append</span> (<span class="name">Adj</span>) (<span class="name">Adj*</span>)))))</span><br></pre></td></tr></table></figure>
+
+<h2 id="Rule-Based-Solution"><a href="#Rule-Based-Solution" class="headerlink" title="Rule-Based Solution"></a>Rule-Based Solution</h2><p>An alternative implementation of this program would concentrate on making it easy to write grammar rules and would worry later about how they will be processed. Let’s look again at the original grammar rules:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Sentence =&gt; Noun-Phrase + Verb-Phrase</span><br><span class="line">Noun-Phrase =&gt; Article + Noun</span><br><span class="line">Verb-Phrase =&gt; Verb + Noun-Phrase</span><br><span class="line">Article =&gt; the, a, ...</span><br><span class="line">Noun =&gt; man, ball, woman, table...</span><br><span class="line">Verb =&gt; hit, took, saw, liked...</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Two-Paths-to-Follow"><a href="#Two-Paths-to-Follow" class="headerlink" title="Two Paths to Follow"></a>Two Paths to Follow</h2><h2 id="Changing-the-Grammar-without-Changing-the-Program"><a href="#Changing-the-Grammar-without-Changing-the-Program" class="headerlink" title="Changing the Grammar without Changing the Program"></a>Changing the Grammar without Changing the Program</h2><h2 id="Using-the-Same-Data-for-Several-Programs"><a href="#Using-the-Same-Data-for-Several-Programs" class="headerlink" title="Using the Same Data for Several Programs"></a>Using the Same Data for Several Programs</h2><p><a href="../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming">☝ Back to Catalog</a></p>
+<p><a href="../../../2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-01/">☜ Introduction to Lisp</a></p>
+<p><a href="../../../2018/09/01/lisp-Paradigms-of-Artificial-Intelligence-Programming-03/">☞ Overview of Lisp</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/28/lisp-Paradigms-of-Artificial-Intelligence-Programming-01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -403,550 +1024,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/19/docker-devibox-introduction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/19/docker-devibox-introduction/" class="post-title-link" itemprop="url">Devibox Introduction</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-08-19 21:14:33" itemprop="dateCreated datePublished" datetime="2018-08-19T21:14:33+08:00">2018-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://github.com/cytopia/devilbox">Github</a><br><a target="_blank" rel="noopener" href="http://devilbox.org/">devibox.org</a></p>
-<p>A modern Docker LAMP stack and MEAN stack for local development <a target="_blank" rel="noopener" href="http://devilbox.org/">http://devilbox.org</a></p>
-<p>Devibox 是现代的，可以高度自定义的 dockerized PHP stack ，支持 LAMP 以及 MEAN，可以运行在主要平台上。主要目标是轻松切换和组合本地开发所需的任何版本。它支持<strong>无限数量的项目</strong>，可自动创建<strong>vhost，SSL证书</strong>和<strong>DNS记录</strong>。电子邮件全能和流行的开发工具也将为您服务。所有内容都已预先设置，因此无需进行配置。</p>
-<p>准备：</p>
-<ul>
-<li>Docker 1.12.0+</li>
-<li>Docker Compose 1.9.0+</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/26/docker-create-sftp-with-docker/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/26/docker-create-sftp-with-docker/" class="post-title-link" itemprop="url">Create SFTP with Docker</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-26 23:19:06" itemprop="dateCreated datePublished" datetime="2018-07-26T23:19:06+08:00">2018-07-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>详细文档参见 <a target="_blank" rel="noopener" href="https://store.docker.com/community/images/atmoz/sftp">atmoz/sftp</a></p>
-<h1 id="最简单的例子"><a href="#最简单的例子" class="headerlink" title="最简单的例子"></a>最简单的例子</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -p 22:22 -d atmoz/sftp foo:pass:::upload</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/26/docker-create-sftp-with-docker/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/23/docker-Docker-for-Data-Science/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/23/docker-Docker-for-Data-Science/" class="post-title-link" itemprop="url">Docker for Data Science</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-23 20:19:29" itemprop="dateCreated datePublished" datetime="2018-07-23T20:19:29+08:00">2018-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <center>
-![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/docker/2018072301.png)
-</center>
-
-<p>如果我们关注软件发展趋势，会感到 Docker 就是上帝送给我们的礼物。它的基本理念就是如果能在我的机器上工作，那么在您的机器上也能同样地工作。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/23/docker-Docker-for-Data-Science/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/22/docker-How-Docker-Can-Help-You-Become-A-More-Effective-Data-Scientist/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/22/docker-How-Docker-Can-Help-You-Become-A-More-Effective-Data-Scientist/" class="post-title-link" itemprop="url">How Docker Can Help You Become A More Effective Data Scientist</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-22 23:12:45" itemprop="dateCreated datePublished" datetime="2018-07-22T23:12:45+08:00">2018-07-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <center>
-![](https://raw.githubusercontent.com/keer2345/storehouse/master/hexo/images/docker/2018072203.png)
-</center>
-
-<p>过去 5 年，我听说了很多的 Docker 容器。好像很多的软件工程的朋友都是用它来开发应用，我想要弄清楚它是如何使我们更富有效率，但是我发现一些在线教程要么说明不会用于数据科学，要么没有给我足够的信息来帮助我理解如何有效快速使用 Docker 。</p>
-<p>我写了这本快速入门书，因此您无需解析所有信息，而是可以学习快速入门所需的知识。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/22/docker-How-Docker-Can-Help-You-Become-A-More-Effective-Data-Scientist/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/22/python-flask-Debugging-a-Python-Flask-Application-in-a-Container-with-Docker-Compose/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/22/python-flask-Debugging-a-Python-Flask-Application-in-a-Container-with-Docker-Compose/" class="post-title-link" itemprop="url">Debugging a Python Flask Application in a Container with Docker Compose</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-22 20:45:58" itemprop="dateCreated datePublished" datetime="2018-07-22T20:45:58+08:00">2018-07-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>自己编写和调试 Python 应用本身并非难事，只需要启动 <a target="_blank" rel="noopener" href="https://github.com/trstringer/cli-debugging-cheatsheets/blob/master/python.md#python-command-line-debugging-cheatsheet">pdb</a><br> 并处于<a target="_blank" rel="noopener" href="https://github.com/trstringer/cli-debugging-cheatsheets/blob/master/python.md#python-command-line-debugging-cheatsheet">调试状态</a>。</p>
-<p>但是当你开始在它上面添加层，比如 Flask、Gunicorn、Docker容器某种形式的容器编排时，调试不再是一项微不足道的任务。</p>
-<h1 id="容器编排"><a href="#容器编排" class="headerlink" title="容器编排"></a>容器编排</h1><p>上面提到的“最外层”组件需要一点解释。是的，有时您的Web API和应用程序是独立的，不需要其他外部组件。但通常需要您的Web应用程序与其他服务进行通信（在RDBMS中保留数据，进行其他服务调用，使用缓存层等）。</p>
-<p>这个实例应用就是这样做的：这是一个依赖于 Redis 缓存并与之通信的 Flask 项目。</p>
-<center>
-![example](https://upload-images.jianshu.io/upload_images/1702157-cffa91ae20104204.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-</center>
-
-<p>任何在多个容器中工作了很长时间的人都知道这不是一件容易的事情，更不用说调试了。</p>
-<p>值得注意的是，即使我非常喜欢 <em>Kubernetes</em> ，我觉得Docker Compose仍然是本地主机上用于容器编排的最佳工具，用于我的内部循环开发（开发，运行，调试……全部在本地）。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/22/python-flask-Debugging-a-Python-Flask-Application-in-a-Container-with-Docker-Compose/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/21/docker-A-crash-course-on-Docker/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/21/docker-A-crash-course-on-Docker/" class="post-title-link" itemprop="url">A crash course on Docker</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-21 21:00:21" itemprop="dateCreated datePublished" datetime="2018-07-21T21:00:21+08:00">2018-07-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>如果您在过去一年中关注软件趋势，Docker 一定是你每隔一段时间就听到厌倦术语。大量开发者谈论容器，隔离虚拟机，你可能会感到不知所措。今天为您打破这一切，最终理解为什么需要容器 (<em>Container</em>) 来作为我们的服务 (<em>Service</em>) 。</p>
-<ol>
-<li>为什么需要Docker<ul>
-<li>关键术语概述</li>
-<li>为什么需要 Caas 和 Docker</li>
-</ul>
-</li>
-<li>快速上手<ul>
-<li>安装Docker</li>
-<li>创建容器</li>
-</ul>
-</li>
-<li>真实场景<ul>
-<li>创建 Nginx 容器来托管静态站点</li>
-<li>学习使用构建工具来自动化Docker命令</li>
-</ul>
-</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/21/docker-A-crash-course-on-Docker/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/09/js-react-axios-demo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/09/js-react-axios-demo/" class="post-title-link" itemprop="url">React Axios Demo</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-09 21:02:20" itemprop="dateCreated datePublished" datetime="2018-07-09T21:02:20+08:00">2018-07-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yarn add axios</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/09/js-react-axios-demo/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1012,7 +1093,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1024,7 +1105,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">57</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="React full course 2021 - Basic">
+<meta property="og:url" content="http://yoursite.com/2021/06/02/react-full-course-2021-basic/index.html">
+<meta property="og:site_name" content="keer&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/keer2345/storehouse/master/2021/0604-01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/keer2345/storehouse/master/2021/0604-02.png">
+<meta property="article:published_time" content="2021-06-02T14:50:14.000Z">
+<meta property="article:modified_time" content="2021-07-18T14:06:55.272Z">
+<meta property="article:author" content="keer">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/keer2345/storehouse/master/2021/0604-01.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/06/02/react-full-course-2021-basic/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>React full course 2021 - Basic | keer's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">keer's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/02/react-full-course-2021-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React full course 2021 - Basic
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-06-02 22:50:14" itemprop="dateCreated datePublished" datetime="2021-06-02T22:50:14+08:00">2021-06-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-18 22:06:55" itemprop="dateModified" datetime="2021-07-18T22:06:55+08:00">2021-07-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div align="center">
+
+<p><img src="https://raw.githubusercontent.com/keer2345/storehouse/master/2021/0604-01.png"></p>
+</div>
+
+<span id="more"></span>
+
+<h1 id="Introduce"><a href="#Introduce" class="headerlink" title="Introduce"></a>Introduce</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/keer2345/react-full-course-2021-basic">My Source Code</a></p>
+</blockquote>
+<p><strong>Alternative JavaScript Framework:</strong></p>
+<ul>
+<li>Angular, Vue, Svelte</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/socketio/socket.io">socket.io</a>, <a target="_blank" rel="noopener" href="https://github.com/emberjs/ember.js">ember.js</a>, <a target="_blank" rel="noopener" href="https://github.com/MithrilJS/mithril.js">mithril.js</a>, <a target="_blank" rel="noopener" href="https://github.com/visionmedia/move.js">move.js</a>, <a target="_blank" rel="noopener" href="https://github.com/keystonejs/keystone-classic">keystone-classic</a> …</li>
+</ul>
+<h2 id="Goals-of-the-course"><a href="#Goals-of-the-course" class="headerlink" title="Goals of the course"></a>Goals of the course</h2><ul>
+<li>Comfortable</li>
+<li>Apply Theory</li>
+<li>Build your own project</li>
+</ul>
+<h2 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h2><ul>
+<li>Dev Environment</li>
+<li>Tutorial</li>
+<li>Projects</li>
+<li>Redux</li>
+</ul>
+<h2 id="Requirement"><a href="#Requirement" class="headerlink" title="Requirement"></a>Requirement</h2><p>Html, CSS, JavaScript (ES6), <a target="_blank" rel="noopener" href="https://www.youtube.com/c/codingaddict">Coding Addict -JavaScript Nuggets</a></p>
+<h2 id="Dev-Environment"><a href="#Dev-Environment" class="headerlink" title="Dev Environment"></a>Dev Environment</h2><ul>
+<li>Node (–version, minimum 5.2.0 with <em>npx</em>), Visual Studio Code, Chrome, React Developer Tools</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; npm -v</span><br><span class="line">7.14.0</span><br><span class="line">&gt; node -v</span><br><span class="line">v16.1.0</span><br><span class="line">&gt; code -v</span><br><span class="line">1.56.2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Visual Studio Code <a target="_blank" rel="noopener" href="https://github.com/john-smilga/VS-CODE-SETUP">settings.json</a></li>
+</ul>
+<h1 id="Create-new-project"><a href="#Create-new-project" class="headerlink" title="Create new project"></a>Create new project</h1><p><strong>Create with <a target="_blank" rel="noopener" href="https://github.com/facebook/create-react-app">create-react-app</a>:</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npx create-react-app react-full-course-2021-basic</span><br></pre></td></tr></table></figure>
+
+<p><strong>Project structure:</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">react-full-course-2021-basic</span><br><span class="line">├── README.md</span><br><span class="line">├── node_modules</span><br><span class="line">├── package.json</span><br><span class="line">├── .gitignore</span><br><span class="line">├── public</span><br><span class="line">│   ├── favicon.ico</span><br><span class="line">│   ├── index.html</span><br><span class="line">│   ├── logo192.png</span><br><span class="line">│   ├── logo512.png</span><br><span class="line">│   ├── manifest.json</span><br><span class="line">│   └── robots.txt</span><br><span class="line">├── src</span><br><span class="line">│   ├── App.css</span><br><span class="line">│   ├── App.js</span><br><span class="line">│   ├── App.test.js</span><br><span class="line">│   ├── index.css</span><br><span class="line">│   ├── index.js</span><br><span class="line">│   ├── logo.svg</span><br><span class="line">│   ├── reportWebVitals.js</span><br><span class="line">│   └── setupTests.js</span><br><span class="line">└── yarn.lock</span><br></pre></td></tr></table></figure>
+
+<p><strong>Clean boilerplate:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd src</span><br><span class="line">rm -rf App.css App.js App.test.js index.css index.js logo.svg reportWebVitals.js setupTests.js</span><br></pre></td></tr></table></figure>
+
+<h1 id="Getting-start"><a href="#Getting-start" class="headerlink" title="Getting start"></a>Getting start</h1><h2 id="First-Component"><a href="#First-Component" class="headerlink" title="First Component"></a>First Component</h2><p><code>src/index.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> ReactDom <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Greeting</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">h4</span>&gt;</span>Hello React<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDom.render(<span class="xml"><span class="tag">&lt;<span class="name">Greeting</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<h2 id="First-Component-in-detail"><a href="#First-Component-in-detail" class="headerlink" title="First Component in detail"></a>First Component in detail</h2><p><code>src/index.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> ReactDom <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Greeting = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> React.createElement(</span><br><span class="line">    <span class="string">&#x27;div&#x27;</span>,</span><br><span class="line">    &#123;&#125;,</span><br><span class="line">    React.createElement(<span class="string">&#x27;h4&#x27;</span>, &#123;&#125;, <span class="string">&#x27;Hello React&#x27;</span>)</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDom.render(<span class="xml"><span class="tag">&lt;<span class="name">Greeting</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>Or, short is:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> ReactDom <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Greeting = <span class="function">() =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">h4</span>&gt;</span>Hello React<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">ReactDom.render(<span class="xml"><span class="tag">&lt;<span class="name">Greeting</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mini-BookList-Project"><a href="#Mini-BookList-Project" class="headerlink" title="Mini BookList Project"></a>Mini BookList Project</h2><p><code>index.js</code> and <code>index.css</code>:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> ReactDom <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// CSS</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./index.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BookList = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&#x27;booklist&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Book</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Book</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Book</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Book</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Book</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Book</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Book</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Book</span> /&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Book = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">article</span> <span class="attr">className</span>=<span class="string">&#x27;book&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Image</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Title</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Author</span> /&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">article</span>&gt;</span></span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Image = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">img</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">src</span>=<span class="string">&#x27;https://images-na.ssl-images-amazon.com/images/I/81eB%2B7%2BCkUL._AC_UL200_SR200,200_.jpg&#x27;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    <span class="attr">alt</span>=<span class="string">&#x27;&#x27;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  /&gt;</span></span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Title = <span class="function">() =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>I Love You to the Moon and Back<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> Author = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">h4</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">color:</span> &#x27;#<span class="attr">617d98</span>&#x27;, <span class="attr">fontSize:</span> &#x27;<span class="attr">0.75rem</span>&#x27;, <span class="attr">marginTop:</span> &#x27;<span class="attr">0.25rem</span>&#x27; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="xml">    Amelia Hepworth</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">ReactDom.render(<span class="xml"><span class="tag">&lt;<span class="name">BookList</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: -apple-system, BlinkMacSystemFont, <span class="string">&#x27;Segoe UI&#x27;</span>, Roboto, Oxygen,</span><br><span class="line">    Ubuntu, Cantarell, <span class="string">&#x27;Open Sans&#x27;</span>, <span class="string">&#x27;Helvetica Neue&#x27;</span>, sans-serif;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#f1f5f8</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#222</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.booklist</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">90vw</span>;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">1170px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">5rem</span> auto;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  gap: <span class="number">2rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">768px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.booklist</span> &#123;</span><br><span class="line">    grid-template-<span class="attribute">columns</span>: <span class="built_in">repeat</span>(<span class="number">3</span>, <span class="number">1</span>fr);</span><br><span class="line">    <span class="comment">/* align-items: start; */</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.book</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">1rem</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">1rem</span> <span class="number">2rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.book</span> <span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">0.5rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.book</span> <span class="selector-tag">h4</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#f17d98</span>;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: <span class="number">3px</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">0.75rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.book</span> <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">0.5rem</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JSX-and-Props"><a href="#JSX-and-Props" class="headerlink" title="JSX and Props"></a>JSX and Props</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> ReactDom <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// CSS</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./index.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> firstBook = &#123;</span><br><span class="line">  <span class="attr">img</span>: <span class="string">&#x27;https://images-na.ssl-images-amazon.com/images/I/81eB%2B7%2BCkUL._AC_UL200_SR200,200_.jpg&#x27;</span>,</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&#x27;I Love You to the Moon and Back&#x27;</span>,</span><br><span class="line">  <span class="attr">author</span>: <span class="string">&#x27;Amelia Hepworth&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> secondBook = &#123;</span><br><span class="line">  <span class="attr">img</span>: <span class="string">&#x27;https://images-na.ssl-images-amazon.com/images/I/71aLultW5EL._AC_UL200_SR200,200_.jpg&#x27;</span>,</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&#x27;Our Class is a Family&#x27;</span>,</span><br><span class="line">  <span class="attr">author</span>: <span class="string">&#x27;Shannon Olsen&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BookList = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&#x27;booklist&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Book</span> <span class="attr">img</span>=<span class="string">&#123;firstBook.img&#125;</span> <span class="attr">title</span>=<span class="string">&#123;firstBook.title&#125;</span> <span class="attr">author</span>=<span class="string">&#123;firstBook.author&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quos</span></span><br><span class="line"><span class="xml">        adipisci minus.</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">Book</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Book</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">      <span class="attr">img</span>=<span class="string">&#123;secondBook.img&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">      <span class="attr">title</span>=<span class="string">&#123;secondBook.title&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">      <span class="attr">author</span>=<span class="string">&#123;secondBook.author&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">    /&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Book = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; img, title, author, children &#125; = props</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">article</span> <span class="attr">className</span>=<span class="string">&#x27;book&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;img&#125;</span> <span class="attr">alt</span>=<span class="string">&#x27;&#x27;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;title&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">h4</span>&gt;</span>&#123;author.toUpperCase()&#125;<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span></span><br><span class="line"><span class="xml">      &#123;children&#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">article</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDom.render(<span class="xml"><span class="tag">&lt;<span class="name">BookList</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<h2 id="Props-List"><a href="#Props-List" class="headerlink" title="Props List"></a>Props List</h2><p><code>src/index.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> ReactDom <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// CSS</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./index.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> books = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">img</span>: <span class="string">&#x27;https://images-na.ssl-images-amazon.com/images/I/81eB%2B7%2BCkUL._AC_UL200_SR200,200_.jpg&#x27;</span>,</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&#x27;I Love You to the Moon and Back&#x27;</span>,</span><br><span class="line">    <span class="attr">author</span>: <span class="string">&#x27;Amelia Hepworth&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">img</span>: <span class="string">&#x27;https://images-na.ssl-images-amazon.com/images/I/71aLultW5EL._AC_UL200_SR200,200_.jpg&#x27;</span>,</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&#x27;Our Class is a Family&#x27;</span>,</span><br><span class="line">    <span class="attr">author</span>: <span class="string">&#x27;Shannon Olsen&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">img</span>: <span class="string">&#x27;https://images-na.ssl-images-amazon.com/images/I/71e5m7xQd0L._AC_UL200_SR200,200_.jpg&#x27;</span>,</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&#x27;The Vanishing Half: A Novel&#x27;</span>,</span><br><span class="line">    <span class="attr">author</span>: <span class="string">&#x27;Brit Bennett&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BookList = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&#x27;booklist&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    &#123;books.map((book) =&gt; &#123;</span></span><br><span class="line"><span class="xml">      return <span class="tag">&lt;<span class="name">Book</span> <span class="attr">book</span>=<span class="string">&#123;book&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    &#125;)&#125;</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Book = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; img, title, author &#125; = props.book</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">article</span> <span class="attr">className</span>=<span class="string">&#x27;book&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;img&#125;</span> <span class="attr">alt</span>=<span class="string">&#x27;&#x27;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;title&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">h4</span>&gt;</span>&#123;author&#125;<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">article</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDom.render(<span class="xml"><span class="tag">&lt;<span class="name">BookList</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<h2 id="Key-prop-And-Spread-Operator"><a href="#Key-prop-And-Spread-Operator" class="headerlink" title="Key prop And Spread Operator"></a>Key prop And Spread Operator</h2><p><strong>Key prop</strong></p>
+<p>Now, we can see a <em>Warnning</em> in Console of browser:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Warning: Each child <span class="keyword">in</span> a list should have a unique <span class="string">&quot;key&quot;</span> prop.</span><br><span class="line"></span><br><span class="line">Check the render method <span class="keyword">of</span> <span class="string">`BookList`</span>. See https:<span class="comment">//reactjs.org/link/warning-keys for more information.</span></span><br><span class="line">Book@http:<span class="comment">//localhost:3000/static/js/main.chunk.js:181:7</span></span><br><span class="line">BookList</span><br></pre></td></tr></table></figure>
+
+<p>Append <code>id</code> prop in list <code>books</code>, and append <code>key=&#123;book.id&#125;</code> in <em>books.map</em> :</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> books = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="number">1</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="number">2</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="number">3</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BookList = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&#x27;booklist&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    &#123;books.map((book) =&gt; &#123;</span></span><br><span class="line"><span class="xml">      return <span class="tag">&lt;<span class="name">Book</span> <span class="attr">key</span>=<span class="string">&#123;book.id&#125;</span> <span class="attr">book</span>=<span class="string">&#123;book&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    &#125;)&#125;</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<p>Or, replace with <code>index</code>:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> BookList = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&#x27;booklist&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    &#123;books.map((book, index) =&gt; &#123;</span></span><br><span class="line"><span class="xml">      return <span class="tag">&lt;<span class="name">Book</span> <span class="attr">key</span>=<span class="string">&#123;index&#125;</span> <span class="attr">book</span>=<span class="string">&#123;book&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    &#125;)&#125;</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Spread Operator</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BookList = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&#x27;booklist&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    &#123;books.map((book) =&gt; &#123;</span></span><br><span class="line"><span class="xml">      return <span class="tag">&lt;<span class="name">Book</span> <span class="attr">key</span>=<span class="string">&#123;book.id&#125;</span> &#123;<span class="attr">...book</span>&#125; /&gt;</span></span></span><br><span class="line"><span class="xml">    &#125;)&#125;</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Book = <span class="function">(<span class="params">&#123; img, title, author &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">article</span> <span class="attr">className</span>=<span class="string">&#x27;book&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;img&#125;</span> <span class="attr">alt</span>=<span class="string">&#x27;&#x27;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;title&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">h4</span>&gt;</span>&#123;author&#125;<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">article</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Event-basic"><a href="#Event-basic" class="headerlink" title="Event basic"></a>Event basic</h2><p><strong>onClick</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Book = <span class="function">(<span class="params">&#123; img, title, author &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> clickHandler = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e)</span><br><span class="line">    <span class="built_in">console</span>.log(e.target)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Example&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> clickContent = <span class="function">(<span class="params">content</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(content)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">article</span> <span class="attr">className</span>=<span class="string">&#x27;book&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;img&#125;</span> <span class="attr">alt</span>=<span class="string">&#x27;&#x27;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;title&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">h4</span>&gt;</span>&#123;author&#125;<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&#x27;button&#x27;</span> <span class="attr">onClick</span>=<span class="string">&#123;clickHandler&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        Button1</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&#x27;button&#x27;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> clickContent(title)&#125;&gt;</span></span><br><span class="line"><span class="xml">        Button2</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&#x27;button&#x27;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> clickContent(author)&#125;&gt;</span></span><br><span class="line"><span class="xml">        Button3</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">article</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>onMouseOver</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Book = <span class="function">(<span class="params">&#123; img, title, author &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">article</span> <span class="attr">className</span>=<span class="string">&#x27;book&#x27;</span> <span class="attr">onMouseOver</span>=<span class="string">&#123;()</span> =&gt;</span> console.log(title)&#125;&gt;</span></span><br><span class="line"><span class="xml">      // ...</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">article</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Import-and-Export-Statements"><a href="#Import-and-Export-Statements" class="headerlink" title="Import and Export Statements"></a>Import and Export Statements</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">touch src/books.js src/Book.js</span><br></pre></td></tr></table></figure>
+
+<p><code>src/index.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> ReactDom <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// CSS</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./index.css&#x27;</span></span><br><span class="line"><span class="comment">// books</span></span><br><span class="line"><span class="keyword">import</span> &#123; data &#125; <span class="keyword">from</span> <span class="string">&#x27;./books&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Book <span class="keyword">from</span> <span class="string">&#x27;./Book&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BookList = <span class="function">() =&gt;</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&#x27;booklist&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    &#123;data.map((book) =&gt; &#123;</span></span><br><span class="line"><span class="xml">      return <span class="tag">&lt;<span class="name">Book</span> <span class="attr">key</span>=<span class="string">&#123;book.id&#125;</span> &#123;<span class="attr">...book</span>&#125; /&gt;</span></span></span><br><span class="line"><span class="xml">    &#125;)&#125;</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">ReactDom.render(<span class="xml"><span class="tag">&lt;<span class="name">BookList</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p><code>src/books.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> data = [</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><code>src/Book.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Book = <span class="function">(<span class="params">&#123; img, title, author &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//  ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Book</span><br></pre></td></tr></table></figure>
+
+<h1 id="Deploy-on-Free-Hosting"><a href="#Deploy-on-Free-Hosting" class="headerlink" title="Deploy on Free Hosting"></a>Deploy on Free Hosting</h1><p>Our server with <code>yarn start</code> default port is <code>3000</code>. Now, we build and deploy project from ourself Github to  <a target="_blank" rel="noopener" href="https://www.netlify.com/">https://www.netlify.com/</a> .</p>
+<p>For example, my online project is <a target="_blank" rel="noopener" href="https://react-full-course-2021-basic.netlify.app/">https://react-full-course-2021-basic.netlify.app/</a> .</p>
+<div align="center">
+
+<p><img src="https://raw.githubusercontent.com/keer2345/storehouse/master/2021/0604-02.png"></p>
+</div>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/25/Async-Javascript-Tutorial-For-Beginners/" rel="prev" title="Async Javascript Tutorial For Beginners">
+      <i class="fa fa-chevron-left"></i> Async Javascript Tutorial For Beginners
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/04/react-full-course-2021-advance/" rel="next" title="React full course 2021 - Advance">
+      React full course 2021 - Advance <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduce"><span class="nav-number">1.</span> <span class="nav-text">Introduce</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Goals-of-the-course"><span class="nav-number">1.1.</span> <span class="nav-text">Goals of the course</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Structure"><span class="nav-number">1.2.</span> <span class="nav-text">Structure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Requirement"><span class="nav-number">1.3.</span> <span class="nav-text">Requirement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dev-Environment"><span class="nav-number">1.4.</span> <span class="nav-text">Dev Environment</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Create-new-project"><span class="nav-number">2.</span> <span class="nav-text">Create new project</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Getting-start"><span class="nav-number">3.</span> <span class="nav-text">Getting start</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#First-Component"><span class="nav-number">3.1.</span> <span class="nav-text">First Component</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#First-Component-in-detail"><span class="nav-number">3.2.</span> <span class="nav-text">First Component in detail</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mini-BookList-Project"><span class="nav-number">3.3.</span> <span class="nav-text">Mini BookList Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSX-and-Props"><span class="nav-number">3.4.</span> <span class="nav-text">JSX and Props</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Props-List"><span class="nav-number">3.5.</span> <span class="nav-text">Props List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Key-prop-And-Spread-Operator"><span class="nav-number">3.6.</span> <span class="nav-text">Key prop And Spread Operator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event-basic"><span class="nav-number">3.7.</span> <span class="nav-text">Event basic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Import-and-Export-Statements"><span class="nav-number">3.8.</span> <span class="nav-text">Import and Export Statements</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deploy-on-Free-Hosting"><span class="nav-number">4.</span> <span class="nav-text">Deploy on Free Hosting</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">keer</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keer</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

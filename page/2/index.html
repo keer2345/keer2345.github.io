@@ -155,6 +155,531 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/13/lisp-programming-in-the-common-lisp-ecosystem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/13/lisp-programming-in-the-common-lisp-ecosystem/" class="post-title-link" itemprop="url">Programming in the Common Lisp Ecosystem</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-13 20:24:38" itemprop="dateCreated datePublished" datetime="2021-03-13T20:24:38+08:00">2021-03-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-26 00:25:19" itemprop="dateModified" datetime="2021-05-26T00:25:19+08:00">2021-05-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>I’ve really enjoyed working with a few projects and tools. I’ll probably write more about these individually in the near future, but in brief:</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/03/13/lisp-programming-in-the-common-lisp-ecosystem/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/27/lisp-of-slime-and-quicklisp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/27/lisp-of-slime-and-quicklisp/" class="post-title-link" itemprop="url">Lisp of Slime and Quicklisp</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-27 21:00:14" itemprop="dateCreated datePublished" datetime="2021-02-27T21:00:14+08:00">2021-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-07 22:09:28" itemprop="dateModified" datetime="2021-03-07T22:09:28+08:00">2021-03-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h1><p><strong><a target="_blank" rel="noopener" href="http://www.sbcl.org/">SBCL</a></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install sbcl</span><br></pre></td></tr></table></figure>
+
+<p><strong><a target="_blank" rel="noopener" href="https://www.quicklisp.org/beta/">Quicklisp</a></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -O https://beta.quicklisp.org/quicklisp.lisp</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sbcl --no-sysinit --no-userinit --load ~/quicklisp.lisp \</span><br><span class="line">       --eval &#x27;(quicklisp-quickstart:install :path &quot;~/.quicklisp&quot;)&#x27; \</span><br><span class="line">       --eval &#x27;(ql:add-to-init-file)&#x27; \</span><br><span class="line">       --quit</span><br></pre></td></tr></table></figure>
+
+<p><strong>Quicklisp Libraries</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://common-lisp.net/libraries">https://common-lisp.net/libraries</a></li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://common-lisp.net/project/slime/">Slime</a></strong></p>
+<p>Install <em>slime</em> package in Emacs：<em>M-x package-install RET slime RET</em>，then add configuration：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(setq inferior-lisp-program &quot;sbcl&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>Enjoy your Lisp trip!!!</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/02/27/lisp-of-slime-and-quicklisp/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/24/kotlin-web-frameworks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/24/kotlin-web-frameworks/" class="post-title-link" itemprop="url">Kotlin web frameworks of Kweb-core</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-24 21:25:35" itemprop="dateCreated datePublished" datetime="2021-02-24T21:25:35+08:00">2021-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-25 13:59:49" itemprop="dateModified" datetime="2021-02-25T13:59:49+08:00">2021-02-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Kotlin web frameworks:</p>
+<ul>
+<li>Spring Boot</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ktorio/ktor">Ktor</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jooby-project/jooby">jooby</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kwebio/kweb-core">kweb-core</a></li>
+</ul>
+<p>We will introduce <strong>Kweb-core</strong> in this article.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/02/24/kotlin-web-frameworks/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/20/Gradle-Configuration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/20/Gradle-Configuration/" class="post-title-link" itemprop="url">Gradle Configuration</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-20 21:23:02" itemprop="dateCreated datePublished" datetime="2021-02-20T21:23:02+08:00">2021-02-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-23 23:02:11" itemprop="dateModified" datetime="2021-02-23T23:02:11+08:00">2021-02-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="解决gradle下载慢的问题"><a href="#解决gradle下载慢的问题" class="headerlink" title="解决gradle下载慢的问题"></a>解决gradle下载慢的问题</h1><h2 id="新建项目下载gradle慢的问题"><a href="#新建项目下载gradle慢的问题" class="headerlink" title="新建项目下载gradle慢的问题"></a>新建项目下载gradle慢的问题</h2><ol>
+<li>打开用户主目录:</li>
+</ol>
+<ul>
+<li>linux平台 <code>/Home/用户名/.gradle</code></li>
+<li>windows平台 <code>c:\Users\用户名\.gradle</code></li>
+<li>macos平台 <code>/Users/用户名/.gradle</code></li>
+</ul>
+<p>找到 <code>./gradle/wrapper/dist/gradle-版本号-bin目录</code></p>
+<ol start="2">
+<li>（可选）官方网站下载这个版本号对应的安装包 <a target="_blank" rel="noopener" href="http://services.gradle.org/distributions/">http://services.gradle.org/distributions/</a> 把下载下来的文件存放到这个目录下面的子目录 (目录名由字母和数字组成) 下面, 大功告成了。</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/02/20/Gradle-Configuration/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/17/elixir-get-start-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/17/elixir-get-start-02/" class="post-title-link" itemprop="url">Elixir Get Start 02</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-17 16:11:52 / 修改时间：17:54:50" itemprop="dateCreated datePublished" datetime="2020-08-17T16:11:52+08:00">2020-08-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/16/elixir-get-start-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/16/elixir-get-start-01/" class="post-title-link" itemprop="url">Elixir Get Start 01</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-16 23:26:49" itemprop="dateCreated datePublished" datetime="2020-08-16T23:26:49+08:00">2020-08-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-17 16:34:38" itemprop="dateModified" datetime="2020-08-17T16:34:38+08:00">2020-08-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>elixir -v</span><br><span class="line">Erlang/OTP <span class="number">23</span> [erts<span class="number">-11.0</span>.<span class="number">3</span>] [source] [<span class="number">64</span>-bit] [<span class="symbol">smp:</span><span class="number">4</span><span class="symbol">:</span><span class="number">4</span>] [<span class="symbol">ds:</span><span class="number">4</span><span class="symbol">:</span><span class="number">4</span><span class="symbol">:</span><span class="number">10</span>] [async-<span class="symbol">threads:</span><span class="number">1</span>] [hipe] [dtrace]</span><br><span class="line"></span><br><span class="line">Elixir <span class="number">1.10</span>.<span class="number">4</span> (compiled <span class="keyword">with</span> Erlang/OTP <span class="number">23</span>)</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/16/elixir-get-start-01/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/regular-expressions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="keer">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keer's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/29/regular-expressions/" class="post-title-link" itemprop="url">Regular Expressions</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-29 11:48:18" itemprop="dateCreated datePublished" datetime="2020-02-29T11:48:18+08:00">2020-02-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><a target="_blank" rel="noopener" href="https://emacs-china.org/t/topic/11860">大家是如何学习正则表达式的？或者有什么学习的建议？</a><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ziishaned/learn-regex/blob/master/translations/README-cn.md">ziishaned/learn-regex</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.regular-expressions.info/">使用手册</a></li>
+<li><a target="_blank" rel="noopener" href="https://regexper.com/">可视化正则表达式</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitlab.com/javallone/regexper-static">source code</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/kingoverthecloud/article/details/41621557?utm_source=distribute.wap_relevant.none-task">csdn.net</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/Clojure-in-Emacs-Configuration/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -385,560 +910,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/11/scala-play-framework-introduction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/11/scala-play-framework-introduction/" class="post-title-link" itemprop="url">Scala Play Framework Introduction</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-11 14:55:42" itemprop="dateCreated datePublished" datetime="2020-01-11T14:55:42+08:00">2020-01-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>This is just a quick introduction to the play framework using the Scala programming language.</p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=t620S8-cwWg&amp;list=PLBeQxJQNprbhb6kOJS477I_laHQTGgjg8&amp;index=1">https://www.youtube.com/watch?v=t620S8-cwWg&amp;list=PLBeQxJQNprbhb6kOJS477I_laHQTGgjg8&amp;index=1</a></p>
-</blockquote>
-<h2 id="Create-Project"><a href="#Create-Project" class="headerlink" title="Create Project"></a>Create Project</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sbt new playframework/play-scala-seed.g8</span><br></pre></td></tr></table></figure>
-<p>Enter projdet name <code>scala-example</code>.</p>
-<h2 id="HomeController-scala"><a href="#HomeController-scala" class="headerlink" title="HomeController.scala"></a>HomeController.scala</h2><p><code>app/controllers/HomeController.scala</code>:</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> controllers</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.inject._</span><br><span class="line"><span class="keyword">import</span> play.api._</span><br><span class="line"><span class="keyword">import</span> play.api.mvc._</span><br><span class="line"><span class="keyword">import</span> play.api.libs.json._</span><br><span class="line"></span><br><span class="line"><span class="meta">@Singleton</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> <span class="title">@Inject</span>(<span class="params"></span>)(<span class="params">val controllerComponents: <span class="type">ControllerComponents</span></span>)</span></span><br><span class="line">    <span class="keyword">extends</span> <span class="type">BaseController</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">index</span></span>() = <span class="type">Action</span> &#123; <span class="keyword">implicit</span> request: <span class="type">Request</span>[<span class="type">AnyContent</span>] =&gt;</span><br><span class="line">    <span class="type">Ok</span>(views.html.index())</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">ping</span> </span>= <span class="type">Action</span> &#123; <span class="keyword">implicit</span> request =&gt;</span><br><span class="line">    <span class="type">Ok</span>(<span class="string">&quot;String works.&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">anotherOne</span> </span>= <span class="type">Action</span> &#123; _ =&gt;</span><br><span class="line">    <span class="type">Ok</span>(<span class="type">Json</span>.obj(<span class="string">&quot;Yes&quot;</span> -&gt; <span class="literal">true</span>))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">nameParam</span></span>(name: <span class="type">String</span> = <span class="string">&quot;world&quot;</span>) = <span class="type">Action</span> &#123; _ =&gt;</span><br><span class="line">    <span class="type">Ok</span>(<span class="type">Json</span>.obj(<span class="string">&quot;hi&quot;</span> -&gt; name))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">posted</span> </span>= <span class="type">Action</span>(parse.json) &#123; <span class="keyword">implicit</span> request =&gt;</span><br><span class="line">    <span class="type">Ok</span>(<span class="type">Json</span>.obj(<span class="string">&quot;received&quot;</span> -&gt; <span class="type">Json</span>.toJson(request.body)))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>conf/routes</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># An example controller showing a sample home page</span><br><span class="line">GET     /               controllers.HomeController.index</span><br><span class="line">GET     /ping           controllers.HomeController.ping</span><br><span class="line">GET     /json           controllers.HomeController.anotherOne</span><br><span class="line">GET     /hello/:name    controllers.HomeController.nameParam(name:String)</span><br><span class="line">POST    /post           controllers.HomeController.posted</span><br><span class="line"></span><br><span class="line"># Map static resources from the /public folder to the /assets URL path</span><br><span class="line">GET     /assets/*file               controllers.Assets.versioned(path=&quot;/public&quot;, file: Asset)</span><br></pre></td></tr></table></figure>
-
-<p><strong>Run</strong>:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sbt run</span><br></pre></td></tr></table></figure>
-
-<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>Test with <strong><a target="_blank" rel="noopener" href="https://github.com/jakubroztocil/httpie">httpie</a></strong> :</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http 127.0.0.1:9000</span><br><span class="line">http 127.0.0.1:9000/ping</span><br><span class="line">http 127.0.0.1:9000/json</span><br><span class="line">http 127.0.0.1:9000/hello/vovo</span><br><span class="line">http POST 127.0.0.1:9000/post phone=&quot;vovo&quot;</span><br><span class="line">http POST 127.0.0.1:9000/post &lt; test.json</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="Data-Model"><a href="#Data-Model" class="headerlink" title="Data Model"></a>Data Model</h1><h2 id="Rebuild"><a href="#Rebuild" class="headerlink" title="Rebuild"></a>Rebuild</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=XD_X3BMsRhg&amp;list=PLBeQxJQNprbhb6kOJS477I_laHQTGgjg8&amp;index=4">https://www.youtube.com/watch?v=XD_X3BMsRhg&amp;list=PLBeQxJQNprbhb6kOJS477I_laHQTGgjg8&amp;index=4</a></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scala-example&gt; rm -rf app/views</span><br><span class="line">scala-example&gt; mv app/controllers/HomeController.scala app/controllers/AppController.scala</span><br></pre></td></tr></table></figure>
-<p><code>app/controllers/AppController.scala</code></p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> controllers</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.inject._</span><br><span class="line"><span class="keyword">import</span> play.api._</span><br><span class="line"><span class="keyword">import</span> play.api.mvc._</span><br><span class="line"><span class="keyword">import</span> play.api.libs.json._</span><br><span class="line"></span><br><span class="line"><span class="meta">@Singleton</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppController</span> <span class="title">@Inject</span>(<span class="params"></span>)(<span class="params">val controllerComponents: <span class="type">ControllerComponents</span></span>)</span></span><br><span class="line">    <span class="keyword">extends</span> <span class="type">BaseController</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">index</span></span>() = <span class="type">Action</span> &#123; <span class="keyword">implicit</span> request: <span class="type">Request</span>[<span class="type">AnyContent</span>] =&gt;</span><br><span class="line">    <span class="type">Ok</span>(<span class="string">&quot;App works!&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>route</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET /   controllers.AppController.index</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scala-example&gt; http 127.0.0.1:9000</span><br></pre></td></tr></table></figure>
-<p>Result:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Length: 10</span><br><span class="line">Content-Type: text/plain; charset=UTF-8</span><br><span class="line">Date: Sat, 11 Jan 2020 07:36:47 GMT</span><br><span class="line">Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin</span><br><span class="line">X-Content-Type-Options: nosniff</span><br><span class="line">X-Frame-Options: DENY</span><br><span class="line">X-Permitted-Cross-Domain-Policies: master-only</span><br><span class="line">X-XSS-Protection: 1; mode=block</span><br><span class="line"></span><br><span class="line">App works!</span><br></pre></td></tr></table></figure>
-
-<h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><p>Search keyword <code>mongo</code> and <code>reactivemongo</code>:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://index.scala-lang.org/">https://index.scala-lang.org/</a></li>
-<li><a target="_blank" rel="noopener" href="https://index.scala-lang.org/reactivemongo/play-reactivemongo">https://index.scala-lang.org/reactivemongo/play-reactivemongo</a></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">libraryDependencies += &quot;org.reactivemongo&quot; %% &quot;play2-reactivemongo&quot; % &quot;0.20.1-play27&quot;</span><br><span class="line"></span><br><span class="line">play.sbt.routes.RoutesKeys.routesImport += &quot;play.modules.reactivemongo.PathBindables._&quot;</span><br></pre></td></tr></table></figure>
-<p><code>application.conf</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">play.modules.enabled += &quot;play.modules.reactivemongo.ReactiveMongoModule&quot;</span><br><span class="line">mongodb.uri = &quot;mongodb://localhost:27017/scalarest&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir app/models</span><br><span class="line">touch app/models/Post.scala</span><br></pre></td></tr></table></figure>
-
-<h1 id="Service-Layer"><a href="#Service-Layer" class="headerlink" title="Service Layer"></a>Service Layer</h1><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_C5IlQgJbTo&amp;list=PLBeQxJQNprbhb6kOJS477I_laHQTGgjg8&amp;index=2">https://www.youtube.com/watch?v=_C5IlQgJbTo&amp;list=PLBeQxJQNprbhb6kOJS477I_laHQTGgjg8&amp;index=2</a></p>
-</blockquote>
-<h2 id="Create-two-files"><a href="#Create-two-files" class="headerlink" title="Create two files"></a>Create two files</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scala-example&gt; mkdir app/models</span><br><span class="line">scala-example&gt; touch app/models/Post.scala</span><br><span class="line">scala-example&gt; mkdir app/repositories</span><br><span class="line">scala-example&gt; touch app/repositories/PostRepository.scala</span><br></pre></td></tr></table></figure>
-
-<h1 id="API-Controller"><a href="#API-Controller" class="headerlink" title="API Controller"></a>API Controller</h1><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=G6But_7ug9Q&amp;list=PLBeQxJQNprbhb6kOJS477I_laHQTGgjg8&amp;index=3">https://www.youtube.com/watch?v=G6But_7ug9Q&amp;list=PLBeQxJQNprbhb6kOJS477I_laHQTGgjg8&amp;index=3</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/08/java-intellij-IDEA-usage/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/08/java-intellij-IDEA-usage/" class="post-title-link" itemprop="url">Jntellij IDEA Usage</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-08 23:07:07" itemprop="dateCreated datePublished" datetime="2020-01-08T23:07:07+08:00">2020-01-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="获取神器码"><a href="#获取神器码" class="headerlink" title="获取神器码"></a>获取神器码</h1><ul>
-<li><a target="_blank" rel="noopener" href="http://idea.medeming.com/">http://idea.medeming.com/</a></li>
-</ul>
-<h1 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h1><h2 id="IdeaVIM-插件的使用"><a href="#IdeaVIM-插件的使用" class="headerlink" title="IdeaVIM 插件的使用"></a>IdeaVIM 插件的使用</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/JetBrains/ideavim">JetBrains/ideavim</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/fd82bbed2c25">IdeaVim键盘流</a></li>
-</ul>
-<p><code>./.ideavimrc</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">inoremap jk &lt;ESC&gt;</span><br><span class="line"></span><br><span class="line">&quot; leader: ,</span><br><span class="line">let mapleader = &quot;,&quot;</span><br><span class="line"></span><br><span class="line">&quot; 映射idea常用快捷键</span><br><span class="line">&quot; 重命名</span><br><span class="line">nnoremap &lt;leader&gt;r :action RenameElement&lt;CR&gt;</span><br><span class="line">&quot; 格式化当前文件</span><br><span class="line">nnoremap &lt;leader&gt;f :action ReformatCode&lt;CR&gt;&lt;esc&gt;</span><br><span class="line">nnoremap &lt;leader&gt;q :action Close&lt;CR&gt;&lt;esc&gt;</span><br><span class="line">nnoremap &lt;leader&gt;i :action Generate&lt;CR&gt;&lt;esc&gt;</span><br><span class="line"></span><br><span class="line">&quot; 插件模拟</span><br><span class="line">&quot; surround</span><br><span class="line">set surround</span><br><span class="line">&quot; multiple-cursors</span><br><span class="line">set multiple-cursors</span><br><span class="line">&quot; easyMotion 模拟，额外依赖插件：AceJump,IdeaVim-EasyMotion</span><br><span class="line">set easymotion</span><br><span class="line">&quot; 注释插件模拟</span><br><span class="line">set commentary</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/06/emacs-java-maven-environment/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/06/emacs-java-maven-environment/" class="post-title-link" itemprop="url">Emacs + Java + Maven Environment Develop</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-06 21:45:03" itemprop="dateCreated datePublished" datetime="2020-01-06T21:45:03+08:00">2020-01-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h1><h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><p>参考：<a target="_blank" rel="noopener" href="https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html">https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mvn -B archetype:generate -DgroupId=firstJava -DartifactId=firstJava -DarchetypeArtifactId=maven-archetype-quickstart</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/06/emacs-java-maven-environment/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/30/open-our-vision/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/30/open-our-vision/" class="post-title-link" itemprop="url">Open our vision</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-30 20:42:27" itemprop="dateCreated datePublished" datetime="2019-06-30T20:42:27+08:00">2019-06-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="首先确保时间同步"><a href="#首先确保时间同步" class="headerlink" title="首先确保时间同步"></a>首先确保时间同步</h1><p>配置科学上网折腾了我一天，windows和手机都很容易就连上了， 可是archlinux老是连接补上，配置改了又改，还是不行。最后发现本机时间和服务器时间有40秒钟的误差， 就抱着希望最后尝试一次，同步archlinux的时间， 结果奇迹发生了，可以连上了。</p>
-<p>如果觉得配置麻烦，在这里生成配置：<br><a target="_blank" rel="noopener" href="https://intmainreturn0.com/v2ray-config-gen/">https://intmainreturn0.com/v2ray-config-gen/</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/06/30/open-our-vision/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/19/js-angular-awesome/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/19/js-angular-awesome/" class="post-title-link" itemprop="url">Angular Awesome</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-19 21:25:14" itemprop="dateCreated datePublished" datetime="2019-05-19T21:25:14+08:00">2019-05-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><a target="_blank" rel="noopener" href="https://angular-templates.io/tutorials/about/learn-angular-from-scratch-step-by-step">Angular Tutorial: Learn Angular from scratch step by step</a></li>
-<li><a target="_blank" rel="noopener" href="https://mdbootstrap.com/education/angular/">Angular 7 tutorial – creating an Angular Bootstrap app, step by step</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/java-multithreading-concurrency-at-a-glance/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/13/java-multithreading-concurrency-at-a-glance/" class="post-title-link" itemprop="url">Multithreading and Concurrency at a glance</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-13 09:44:50" itemprop="dateCreated datePublished" datetime="2019-04-13T09:44:50+08:00">2019-04-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>如果您看到这篇文章，我想您是对多线程（Multithreading ）和并发（Concurrency）是很感兴趣的了。您可能在其他平台上已经初步了解了线程，现在想知道在 Java 平台上如何实现。我也和您一样，在学习 Java 和多线程。</p>
-<p>这篇文章，将带您大致的了解多线程和并发。</p>
-<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>首先，要了解线程的基本原理，比如什么是进程（process），什么是线程（Threads），它们之间有什么区别。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/04/13/java-multithreading-concurrency-at-a-glance/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/lisp-learning-lisp-for-CMPT-03/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="keer">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="keer's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/27/lisp-learning-lisp-for-CMPT-03/" class="post-title-link" itemprop="url">Learning Lisp for CMPT 03-Data Abstraction</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-27 21:26:38" itemprop="dateCreated datePublished" datetime="2019-03-27T21:26:38+08:00">2019-03-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 23:30:43" itemprop="dateModified" datetime="2020-06-24T23:30:43+08:00">2020-06-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p><a target="_blank" rel="noopener" href="http://www2.cs.sfu.ca/CourseCentral/310/pwfong/Lisp/3/tutorial3.html">http://www2.cs.sfu.ca/CourseCentral/310/pwfong/Lisp/3/tutorial3.html</a></p>
-</blockquote>
-<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><p>假设我们想创建一种新的递归数据类型（<em>recursive data type</em>），即我们熟悉的二叉树。首先得定义数据类型的构造函数（<em>contructors</em>）、选择器（<em>selectors</em>）和识别器（<em>recognizers</em>）。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/03/27/lisp-learning-lisp-for-CMPT-03/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1004,7 +979,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1016,7 +991,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">57</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
